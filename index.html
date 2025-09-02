@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXE Core Testseite - Barrierefreiheit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        /* Navigation mit schlechten Barrierefreiheitspraktiken */
+        .nav {
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        /* Links ohne Unterstreichung und mit schlechtem Farbkontrast */
+        .nav-link {
+            color: #666; /* Schlechter Kontrast - nicht 3:1 */
+            text-decoration: none; /* Keine Unterstreichung */
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: #333; /* Hover-Farbe ändert sich kaum */
+        }
+        
+        .nav-link:focus {
+            outline: 2px solid #999; /* Schlechter Fokus-Indikator */
+        }
+        
+        /* Link ohne href - nur mit onclick */
+        .nav-link-no-href {
+            color: #666;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        
+        .nav-link-no-href:hover {
+            color: #333;
+        }
+        
+        .nav-link-no-href:focus {
+            outline: 2px solid #999;
+        }
+        
+        .content {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .test-info {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .test-info h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+        
+        .test-info ul {
+            color: #856404;
+        }
+        
+        .test-info li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AXE Core Barrierefreiheitstest</h1>
+        
+        <!-- Navigation mit mehreren Barrierefreiheitsproblemen -->
+        <nav class="nav" role="navigation" aria-label="Hauptnavigation">
+            <ul class="nav-list">
+                <!-- Tab-Index ist nicht in logischer Reihenfolge -->
+                <li class="nav-item" tabindex="3">
+                    <a href="#home" class="nav-link">Startseite</a>
+                </li>
+                <li class="nav-item" tabindex="1">
+                    <a href="#about" class="nav-link">Über uns</a>
+                </li>
+                <li class="nav-item" tabindex="4">
+                    <a href="#services" class="nav-link">Dienstleistungen</a>
+                </li>
+                <!-- Link ohne href - nur mit onclick (nicht per Tastatur erreichbar) -->
+                <li class="nav-item" tabindex="2">
+                    <button class="nav-link-no-href" onclick="alert('Kontakt geklickt!')">
+                        Kontakt
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+            <h2>Willkommen auf der Testseite</h2>
+            <p>
+                Diese Seite wurde speziell erstellt, um gegen mehrere AXE Core Barrierefreiheitsregeln zu verstoßen. 
+                Die Navigation oben enthält verschiedene Probleme, die von AXE erkannt werden sollten.
+            </p>
+            
+            <p>
+                Hier ist ein <a href="#test" style="color: #666; text-decoration: none;">Link mit schlechtem Kontrast</a> 
+                der ebenfalls gegen die link-in-text-block Regel verstößt, da er sich nicht ausreichend vom umgebenden Text abhebt.
+            </p>
+        </div>
+        
+        <div class="test-info">
+            <h3>Erwartete AXE Core Verstöße:</h3>
+            <ul>
+                <li><strong>link-in-text-block:</strong> Links haben keinen ausreichenden Farbkontrast (3:1) und keine Unterstreichung</li>
+                <li><strong>button-name:</strong> Button ohne beschreibenden Namen</li>
+                <li><strong>tabindex:</strong> Tab-Reihenfolge ist nicht logisch (3, 1, 4, 2)</li>
+                <li><strong>focusable-element:</strong> Elemente mit tabindex können fokussiert werden, aber die Reihenfolge ist falsch</li>
+                <li><strong>color-contrast:</strong> Links haben nicht genügend Kontrast zum Hintergrund</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Einfache Funktionalität für den Button ohne href
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
+</body>
+</html>

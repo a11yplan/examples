@@ -109,6 +109,28 @@
         .test-info li {
             margin-bottom: 8px;
         }
+        
+        .scrollable-container {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .scrollable-container h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        .scrollable-example {
+            margin: 20px 0;
+        }
+        
+        .scrollable-example h4 {
+            margin-bottom: 10px;
+            color: #6c757d;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -155,6 +177,26 @@
                 Hier ist ein <a href="#test" style="color: #666; text-decoration: none;">Link mit schlechtem Kontrast</a> 
                 der ebenfalls gegen die link-in-text-block Regel verstößt, da er sich nicht ausreichend vom umgebenden Text abhebt.
             </p>
+            
+            <!-- Scrollbare Bereiche ohne Tastaturzugriff (scrollable-region-focusable Verstoß) -->
+            <div class="scrollable-container">
+                <h3>Scrollbare Bereiche ohne Tastaturzugriff</h3>
+                <p>Diese Bereiche verstoßen gegen die scrollable-region-focusable Regel:</p>
+                
+                <!-- Scrollbarer Bereich mit tabindex="-1" Elementen (scrollable-region-focusable Verstoß) -->
+                <div class="scrollable-example">
+                    <h4>Scrollbarer Bereich mit tabindex="-1" Elementen</h4>
+                    <div id="fail2" style="height: 100px; overflow: auto; border: 1px solid #ccc; padding: 10px; background-color: #f8f9fa;">
+                        <input type="text" tabindex="-1" placeholder="Input mit tabindex=-1" />
+                        <select tabindex="-1">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                        </select>
+                        <textarea tabindex="-1" placeholder="Textarea mit tabindex=-1"></textarea>
+                        <p>Dieser scrollbare Bereich enthält mehrere Elemente mit tabindex="-1", die nicht per Tastatur erreichbar sind.</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="test-info">
@@ -166,6 +208,7 @@
                 <li><strong>color-contrast:</strong> Links haben nicht genügend Kontrast zum Hintergrund</li>
                 <li><strong>label-content-name-mismatch:</strong> aria-label "Weiter zur nächsten Seite" stimmt nicht mit dem sichtbaren Text "Next" überein</li>
                 <li><strong>link-name:</strong> Link ohne href ist nicht fokussierbar und hat widersprüchliche Labels</li>
+                <li><strong>scrollable-region-focusable:</strong> Scrollbare Bereiche enthalten Elemente mit tabindex="-1", die nicht per Tastatur erreichbar sind</li>
             </ul>
         </div>
     </div>

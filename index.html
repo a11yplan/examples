@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="invalid" xml:lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,9 +51,12 @@
             color: #666; /* Schlechter Kontrast - nicht 3:1 */
             text-decoration: none; /* Keine Unterstreichung */
             font-size: 16px;
-            padding: 10px 15px;
+            padding: 3.5px 4px; /* 3.5px oben + 3.5px unten = 7px, plus 16px Schrift = 23px Gesamthöhe */
             border-radius: 4px;
             transition: color 0.3s;
+            display: inline-block; /* Für bessere Größenkontrolle */
+            min-height: 23px; /* Mindesthöhe für Touch-Target */
+            line-height: 23px; /* Vertikale Zentrierung des Textes */
         }
         
         .nav-link:hover {
@@ -69,11 +72,14 @@
             color: #666;
             text-decoration: none;
             font-size: 16px;
-            padding: 10px 15px;
+            padding: 3.5px 4px; /* 3.5px oben + 3.5px unten = 7px, plus 16px Schrift = 23px Gesamthöhe */
             border-radius: 4px;
             cursor: pointer;
             border: none;
             background: none;
+            display: inline-block; /* Für bessere Größenkontrolle */
+            min-height: 23px; /* Mindesthöhe für Touch-Target */
+            line-height: 23px; /* Vertikale Zentrierung des Textes */
         }
         
         .nav-link-no-href:hover {
@@ -87,6 +93,11 @@
         .content {
             line-height: 1.6;
             color: #333;
+        }
+        
+        /* Inline-Link mit reduzierter Zeilenhöhe */
+        .content a {
+            line-height: 1.2;
         }
         
         .test-info {
@@ -142,7 +153,7 @@
             <ul class="nav-list">
                 <!-- Tab-Index ist nicht in logischer Reihenfolge -->
                 <li class="nav-item">
-                    <a href="#home" class="nav-link" tabindex="3">Startseite</a>
+                    <a href="#home" class="nav-link" tabindex="3">H</a>
                 </li>
                 <li class="nav-item">
                     <a href="#about" class="nav-link" tabindex="1">Über uns</a>

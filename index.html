@@ -119,20 +119,27 @@
         <nav class="nav" role="navigation" aria-label="Hauptnavigation">
             <ul class="nav-list">
                 <!-- Tab-Index ist nicht in logischer Reihenfolge -->
-                <li class="nav-item" tabindex="3">
-                    <a href="#home" class="nav-link">Startseite</a>
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" tabindex="3">Startseite</a>
                 </li>
-                <li class="nav-item" tabindex="1">
-                    <a href="#about" class="nav-link">Über uns</a>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" tabindex="1">Über uns</a>
                 </li>
-                <li class="nav-item" tabindex="4">
-                    <a href="#services" class="nav-link">Dienstleistungen</a>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link" tabindex="4">Dienstleistungen</a>
                 </li>
                 <!-- Link ohne href - nur mit onclick (nicht per Tastatur erreichbar) -->
-                <li class="nav-item" tabindex="2">
-                    <button class="nav-link-no-href" onclick="alert('Kontakt geklickt!')">
+                <li class="nav-item">
+                    <button class="nav-link-no-href" onclick="alert('Kontakt geklickt!')" tabindex="2">
                         Kontakt
                     </button>
+                </li>
+                
+                <!-- Link ohne href mit aria-label Mismatch (label-content-name-mismatch) -->
+                <li class="nav-item">
+                    <a class="nav-link-no-href" aria-label="Weiter zur nächsten Seite" onclick="alert('Weiter geklickt!')">
+                        Next
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -155,9 +162,10 @@
             <ul>
                 <li><strong>link-in-text-block:</strong> Links haben keinen ausreichenden Farbkontrast (3:1) und keine Unterstreichung</li>
                 <li><strong>button-name:</strong> Button ohne beschreibenden Namen</li>
-                <li><strong>tabindex:</strong> Tab-Reihenfolge ist nicht logisch (3, 1, 4, 2)</li>
-                <li><strong>focusable-element:</strong> Elemente mit tabindex können fokussiert werden, aber die Reihenfolge ist falsch</li>
+                <li><strong>tabindex:</strong> Tab-Reihenfolge ist nicht logisch (3, 1, 4, 2, 5)</li>
                 <li><strong>color-contrast:</strong> Links haben nicht genügend Kontrast zum Hintergrund</li>
+                <li><strong>label-content-name-mismatch:</strong> aria-label "Weiter zur nächsten Seite" stimmt nicht mit dem sichtbaren Text "Next" überein</li>
+                <li><strong>link-name:</strong> Link ohne href ist nicht fokussierbar und hat widersprüchliche Labels</li>
             </ul>
         </div>
     </div>

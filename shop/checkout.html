@@ -50,15 +50,33 @@ a[href="confirmation.html"]:focus {
 }
 body, body * {
   font-size: 14px !important;
+  line-height: 21px !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0 !important;
 }
 h1 {
   font-size: 18px !important;
+  line-height: 27px !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0 !important;
+}
+p {
+  margin-bottom: 0 !important;
 }
 h2 {
   font-size: 18px !important;
 }
 h3 {
   font-size: 18px !important;
+}
+.aapb {
+  color: oklch(0.59 0.13 273.18) !important;
+}
+.aaph {
+  outline-color: oklch(0.9 0 0) !important;
+}
+.aapz {
+  outline-color: oklch(0.9 0 0) !important;
 }
 .aaor {
   font-size: 30px !important;
@@ -109,7 +127,7 @@ h3 {
     
             <ul role="list" class="aant aanu aaou aaox">
               <li class="aamo aanj aanr aaon">
-                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/checkout-page-07-product-01.jpg" alt="Front of zip tote bag with white canvas, white handles, and black drawstring top." class="aamt aand aanx aaoj">
+                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/checkout-page-07-product-01.jpg" alt="IMG35728_1.jpg" class="aamt aand aanx aaoj">
                 <div class="aanc aann">
                   <div class="aapc">High Wall Tote</div>
                   <p>White and black</p>
@@ -118,7 +136,7 @@ h3 {
                 <p class="aand aaos aaox aapc">$210.00</p>
               </li>
               <li class="aamo aanj aanr aaon">
-                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/checkout-page-07-product-02.jpg" alt="Front of satchel with light brown canvas body, flap top, and matching straps and handle." class="aamt aand aanx aaoj">
+                <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/checkout-page-07-product-02.jpg" alt="IMG35728_2.jpg" class="aamt aand aanx aaoj">
                 <div class="aanc aann">
                   <div class="aapc">Flap Stuff Satchel</div>
                   <p>Sand</p>
@@ -161,9 +179,8 @@ h3 {
                 <div id="contact-info-heading" class="aaot aaox aapa">Contact information</div>
     
                 <div class="aaml">
-                  <label for="email-address" class="aamn aaov aaox aaoz">Email address</label>
                   <div class="aamk">
-                    <input id="email-address" type="email" name="email-address" autocomplete="email" tabindex="1" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                    <input id="email-address" type="text" name="email-address" autocomplete="email" tabindex="1" aria-label="Email address" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                   </div>
                 </div>
               </div>
@@ -173,28 +190,28 @@ h3 {
 
                 <div class="aaml aamp aang aanp aans aaqi">
                   <div class="aaqg">
-                    <label for="address" class="aamn aaov aaox aaoz">Address</label>
+                    <div class="aamn aaov aaox aaoz">Address</div>
                     <div class="aamk">
                       <input id="address" type="text" name="address" autocomplete="street-address" tabindex="3" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                     </div>
                   </div>
 
                   <div>
-                    <label for="city" class="aamn aaov aaox aaoz">City</label>
+                    <div class="aamn aaov aaox aaoz">City</div>
                     <div class="aamk">
                       <input id="city" type="text" name="city" autocomplete="address-level2" tabindex="4" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                     </div>
                   </div>
 
                   <div>
-                    <label for="region" class="aamn aaov aaox aaoz">State / Province</label>
+                    <div class="aamn aaov aaox aaoz">State / Province</div>
                     <div class="aamk">
                       <input id="region" type="text" name="region" autocomplete="address-level1" tabindex="5" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                     </div>
                   </div>
 
                   <div>
-                    <label for="postal-code" class="aamn aaov aaox aaoz">Postal code</label>
+                    <div class="aamn aaov aaox aaoz">Postal code</div>
                     <div class="aamk">
                       <input id="postal-code" type="text" name="postal-code" autocomplete="postal-code" tabindex="6" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                     </div>

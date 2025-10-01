@@ -39,7 +39,12 @@
     
             loadNext([], 3)
         }))
-    </script><style>body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;  }</style></head><body><div class="bail">
+    </script><style>body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;  }
+header a:focus,
+header button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}</style></head><body><div class="bail">
       <!-- Mobile menu -->
       <el-dialog>
         <dialog id="mobile-menu" class="balx baox" style="right: var(--el-top-layer-scrollbar-offset, 0px);">
@@ -752,30 +757,14 @@
               </a>
               <nav aria-label="Widgets">
               <div class="bafn bagn baha bahe">
-                <a href="#" class="bafq bakc bamk baov bapc">
+                <a href="#" class="bafq bakc bamk baov bapc" style="order: 1;">
                   <img src="https://tailwindcss.com/plus-assets/img/flags/flag-canada.svg" alt="" class="bafl bagf bagh bago">
                   <span class="bafi bafl bajq baju">CAD</span>
                   <span class="baef">, change currency</span>
                 </a>
-    
-                <!-- Search -->
-                <a href="#" class="bafk bafq baiq bajz bami baou">
-                  <span class="baef">Search</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="bafw">
-                    <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
-                </a>
-    
-                <!-- Account -->
-                <a href="#" class="baiq bajz bami baos">
-                  <span class="baef">Account</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="bafw">
-                    <path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
-                </a>
-    
+
                 <!-- Cart -->
-                <div class="bafj bafo baot">
+                <div class="bafj bafo baot" style="order: 5;">
                   <a href="#" class="balm baeu bafn baha baiq">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="bafw bago bajz ball">
                       <path d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -784,6 +773,22 @@
                     <span class="baef">items in cart, view bag</span>
                   </a>
                 </div>
+
+                <!-- Account -->
+                <a href="#" class="baiq bajz bami baos" style="order: 4;">
+                  <span class="baef">Account</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="bafw">
+                    <path d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </a>
+
+                <!-- Search -->
+                <a href="#" class="bafk bafq baiq bajz bami baou" style="order: 3;">
+                  <span class="baef">Search</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="bafw">
+                    <path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </a>
               </div>
               </nav>
             </div>
@@ -849,7 +854,7 @@
     
             <!-- Product info -->
             <div class="bafd baiu bann banw baor">
-              <h1 class="bajn bajt bajw bakd">Zip Tote Basket</h1>
+              <div class="bajn bajt bajw bakd">Zip Tote Basket</div>
     
               <div class="baez">
                 <h2 class="bajr baju bakc">Price</h2>
@@ -986,7 +991,7 @@
         </div>
       </main>
     
-      <footer class="bail">
+      <div class="bail">
         <div class="baev bagl baiu banx bapg">
           <div class="bahz baid bajc">
             <div class="bafp bagt baog baoh baoi baoj baok">
@@ -1000,73 +1005,73 @@
                 <div class="bafp bagt bahp banl banr banu">
                   <div>
                     <h3 class="bajq baju bakd">Products</h3>
-                    <ul role="list" class="bafb bahj">
-                      <li class="bajq">
+                    <div class="bafb bahj">
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Bags</a>
-                      </li>
-                      <li class="bajq">
+                      </div>
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Tees</a>
-                      </li>
-                      <li class="bajq">
+                      </div>
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Objects</a>
-                      </li>
-                      <li class="bajq">
+                      </div>
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Home Goods</a>
-                      </li>
-                      <li class="bajq">
+                      </div>
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Accessories</a>
-                      </li>
-                    </ul>
+                      </div>
+                    </div>
                   </div>
                   <div>
                     <h3 class="bajq baju bakd">Company</h3>
-                    <ul role="list" class="bafb bahj">
-                      <li class="bajq">
+                    <div class="bafb bahj">
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Who we are</a>
-                      </li>
-                      <li class="bajq">
+                      </div>
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Sustainability</a>
-                      </li>
-                      <li class="bajq">
+                      </div>
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Press</a>
-                      </li>
-                      <li class="bajq">
+                      </div>
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Careers</a>
-                      </li>
-                      <li class="bajq">
+                      </div>
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Terms &amp; Conditions</a>
-                      </li>
-                      <li class="bajq">
+                      </div>
+                      <div class="bajq">
                         <a href="#" class="baka bamj">Privacy</a>
-                      </li>
-                    </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div>
                   <h3 class="bajq baju bakd">Customer Service</h3>
-                  <ul role="list" class="bafb bahj">
-                    <li class="bajq">
+                  <div class="bafb bahj">
+                    <div class="bajq">
                       <a href="#" class="baka bamj">Contact</a>
-                    </li>
-                    <li class="bajq">
+                    </div>
+                    <div class="bajq">
                       <a href="#" class="baka bamj">Shipping</a>
-                    </li>
-                    <li class="bajq">
+                    </div>
+                    <div class="bajq">
                       <a href="#" class="baka bamj">Returns</a>
-                    </li>
-                    <li class="bajq">
+                    </div>
+                    <div class="bajq">
                       <a href="#" class="baka bamj">Warranty</a>
-                    </li>
-                    <li class="bajq">
+                    </div>
+                    <div class="bajq">
                       <a href="#" class="baka bamj">Secure Payments</a>
-                    </li>
-                    <li class="bajq">
+                    </div>
+                    <div class="bajq">
                       <a href="#" class="baka bamj">FAQ</a>
-                    </li>
-                    <li class="bajq">
+                    </div>
+                    <div class="bajq">
                       <a href="#" class="baka bamj">Find a store</a>
-                    </li>
-                  </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
     
@@ -1088,7 +1093,7 @@
             <p class="bajq baka">© 2021 Your Company, Inc. All rights reserved.</p>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
     
     <script></script>

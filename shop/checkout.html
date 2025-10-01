@@ -42,6 +42,44 @@
     </script><style>body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;  }
 @media (min-width: 64rem) {
   .checkout-heading { color: oklch(21% .034 264.665) !important; }
+}
+a[href="confirmation.html"]:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  ring: none !important;
+}
+body, body * {
+  font-size: 14px !important;
+}
+h1 {
+  font-size: 18px !important;
+}
+h2 {
+  font-size: 18px !important;
+}
+h3 {
+  font-size: 18px !important;
+}
+.aaor {
+  font-size: 30px !important;
+}
+.aaou {
+  font-size: 14px !important;
+}
+.aaov {
+  font-size: 14px !important;
+}
+@media (max-width: 47.999rem) {
+  main {
+    overflow-x: auto !important;
+  }
+  main > section {
+    min-width: 500px !important;
+    flex-shrink: 0 !important;
+  }
+  main > section > div {
+    min-width: 500px !important;
+  }
 }</style></head><body><div class="aaoh">
       <!-- Background color split screen for large screens -->
       <div aria-hidden="true" class="aalz aamb aamd aamq aamw aamx aaoh aaqq"></div>
@@ -58,7 +96,7 @@
         </div>
       </header>
 
-      <main class="aama aami aamp aanb aang aanq aaqw aara">
+      <div class="aama aami aamp aanb aang aanq aaqw aara">
     
         <section aria-labelledby="summary-heading" class="aaog aaop aaoq aapb aaql aaqn aaqo aaqp aaqt aaqu aaqy aaqz aarb aare">
           <div class="aami aana aaol aaqv aaqz">
@@ -73,7 +111,7 @@
               <li class="aamo aanj aanr aaon">
                 <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/checkout-page-07-product-01.jpg" alt="Front of zip tote bag with white canvas, white handles, and black drawstring top." class="aamt aand aanx aaoj">
                 <div class="aanc aann">
-                  <h3 class="aapc">High Wall Tote</h3>
+                  <div class="aapc">High Wall Tote</div>
                   <p>White and black</p>
                   <p>15L</p>
                 </div>
@@ -82,7 +120,7 @@
               <li class="aamo aanj aanr aaon">
                 <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/checkout-page-07-product-02.jpg" alt="Front of satchel with light brown canvas body, flap top, and matching straps and handle." class="aamt aand aanx aaoj">
                 <div class="aanc aann">
-                  <h3 class="aapc">Flap Stuff Satchel</h3>
+                  <div class="aapc">Flap Stuff Satchel</div>
                   <p>Sand</p>
                   <p>11L</p>
                 </div>
@@ -120,57 +158,57 @@
           <form>
             <div class="aami aana aaol aaqv aaqz">
               <div class="aaml">
-                <h3 id="contact-info-heading" class="aaot aaox aapa">Contact information</h3>
+                <div id="contact-info-heading" class="aaot aaox aapa">Contact information</div>
     
                 <div class="aaml">
                   <label for="email-address" class="aamn aaov aaox aaoz">Email address</label>
                   <div class="aamk">
-                    <input id="email-address" type="email" name="email-address" autocomplete="email" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                    <input id="email-address" type="email" name="email-address" autocomplete="email" tabindex="1" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                   </div>
                 </div>
               </div>
-    
+
               <div class="aamm">
-                <h3 id="shipping-heading" class="aaot aaox aapa">Shipping address</h3>
-    
+                <div id="shipping-heading" class="aaot aaox aapa">Shipping address</div>
+
                 <div class="aaml aamp aang aanp aans aaqi">
                   <div class="aaqg">
                     <label for="address" class="aamn aaov aaox aaoz">Address</label>
                     <div class="aamk">
-                      <input id="address" type="text" name="address" autocomplete="street-address" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                      <input id="address" type="text" name="address" autocomplete="street-address" tabindex="3" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                     </div>
                   </div>
-    
+
                   <div>
                     <label for="city" class="aamn aaov aaox aaoz">City</label>
                     <div class="aamk">
-                      <input id="city" type="text" name="city" autocomplete="address-level2" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                      <input id="city" type="text" name="city" autocomplete="address-level2" tabindex="4" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                     </div>
                   </div>
-    
+
                   <div>
                     <label for="region" class="aamn aaov aaox aaoz">State / Province</label>
                     <div class="aamk">
-                      <input id="region" type="text" name="region" autocomplete="address-level1" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                      <input id="region" type="text" name="region" autocomplete="address-level1" tabindex="5" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                     </div>
                   </div>
-    
+
                   <div>
                     <label for="postal-code" class="aamn aaov aaox aaoz">Postal code</label>
                     <div class="aamk">
-                      <input id="postal-code" type="text" name="postal-code" autocomplete="postal-code" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                      <input id="postal-code" type="text" name="postal-code" autocomplete="postal-code" tabindex="6" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
                     </div>
                   </div>
                 </div>
               </div>
-    
+
               <div class="aamm">
-                <h3 class="aaot aaox aapa">Billing information</h3>
-    
+                <div class="aaot aaox aapa">Billing information</div>
+
                 <div class="aaml aamo aanm">
                   <div class="aamo aamu aane aani">
                     <div class="aapj aamp aams aang">
-                      <input id="same-as-shipping" type="checkbox" name="same-as-shipping" checked="" class="aamg aamh aanf aany aanz aaoc aaoh aapn aapo aapp aapq aaqa aaqb aaqc aaqd aaqe aaqf aarf">
+                      <input id="same-as-shipping" type="checkbox" name="same-as-shipping" checked="" tabindex="2" class="aamg aamh aanf aany aanz aaoc aaoh aapn aapo aapp aapq aaqa aaqb aaqc aaqd aaqe aaqf aarf">
                       <svg viewBox="0 0 14 14" fill="none" class="aalx aamg aamh aamr aanv aanw aaoi aapl">
                         <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="aapd aapi"></path>
                         <path d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="aapd aapk"></path>
@@ -187,7 +225,7 @@
             </div>
           </form>
         </section>
-      </main>
+      </div>
     </div>
     
     <script></script>

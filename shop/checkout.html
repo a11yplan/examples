@@ -171,6 +171,15 @@ h3 {
         </section>
     
         <section aria-labelledby="payment-and-shipping-heading" class="aaoo aaqm aaqo aaqp aaqt aaqu aarb aare">
+          <div style="background-color: #fef2f2; border-left: 4px solid #dc2626; padding: 12px 16px; margin-bottom: 24px; border-radius: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg style="width: 20px; height: 20px; flex-shrink: 0; color: #dc2626;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span style="font-size: 14px; color: #991b1b; font-weight: 500;">Your session will expire in <span id="countdown-timer">5:00</span></span>
+            </div>
+          </div>
           <h2 id="payment-and-shipping-heading" class="aaot aaox aapa aaol aaqz">Payment and shipping details</h2>
 
           <form>
@@ -237,7 +246,7 @@ h3 {
               </div>
     
               <div class="aamm aamo aanl aaoa aaob aaop">
-                <a href="confirmation.html" class="aanx aanz aaod aaof aaol aaom aaou aaox aapc aape aapr aaps aapt aapu aapv aapw">Pay now</a>
+                <a href="confirmation.html" class="aanx aanz aaod aaof aaol aaom aaou aaox aapc aape aapr aaps aapt aapu aapv aapw">Go</a>
               </div>
             </div>
           </form>
@@ -245,5 +254,24 @@ h3 {
       </div>
     </div>
     
-    <script></script>
+    <script>
+    // 5-minute countdown timer (WCAG 2.2.1 violation - no pause/stop/extend)
+    let timeLeft = 300; // 5 minutes in seconds
+    const timerElement = document.getElementById('countdown-timer');
+
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      if (timeLeft > 0) {
+        timeLeft--;
+      } else {
+        timerElement.textContent = '0:00';
+      }
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+    </script>
     </body></html>

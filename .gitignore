@@ -1,2 +1,8 @@
+# Dependencies
 node_modules/
+
+# Reports
 axe-linter-report.json
+
+# macOS
+.DS_Store

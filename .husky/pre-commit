@@ -10,6 +10,16 @@
 
 echo "axe DevTools Linter Starting $(date)"
 
+# Load environment variables from shell config if not already set
+if [[ -z "${AXE_LINTER_API_KEY}" ]]; then
+   if [ -f ~/.zshrc ]; then
+      source ~/.zshrc 2>/dev/null || true
+   fi
+   if [ -f ~/.bash_profile ]; then
+      source ~/.bash_profile 2>/dev/null || true
+   fi
+fi
+
 # Setup variables for axe DevTools Linter
 export AXE_LINTER_SERVER_URL=https://axe-linter.deque.com/
 StatusCode=0

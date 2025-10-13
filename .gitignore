@@ -4,5 +4,8 @@ node_modules/
 # Reports
 axe-linter-report.json
 
+# axe DevTools Linter Binary (download manually from Deque Agora)
+.husky/_/axe-linter-connector-*
+
 # macOS
 .DS_Store

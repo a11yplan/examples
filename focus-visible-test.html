@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 2.4.7 Focus Visible Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .test-section {
+            margin: 40px 0;
+            padding: 30px;
+            border-radius: 5px;
+        }
+
+        .fail-section {
+            background-color: #ffe6e6;
+            border: 2px solid #e74c3c;
+        }
+
+        .pass-section {
+            background-color: #e6f7e6;
+            border: 2px solid #27ae60;
+        }
+
+        .section-title {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .fail-section .section-title {
+            color: #c0392b;
+        }
+
+        .pass-section .section-title {
+            color: #27ae60;
+        }
+
+        .description {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .example-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* FAILING EXAMPLE - Focus indicator removed with no alternative */
+        .btn-no-focus {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-no-focus:hover {
+            background-color: #2980b9;
+        }
+
+        /* WCAG 2.4.7 FAILURE: Focus outline removed with no alternative */
+        .btn-no-focus:focus {
+            outline: none; /* This violates WCAG 2.4.7 */
+        }
+
+        .link-no-focus {
+            color: #3498db;
+            text-decoration: underline;
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        /* WCAG 2.4.7 FAILURE: Focus outline removed with no alternative */
+        .link-no-focus:focus {
+            outline: none; /* This violates WCAG 2.4.7 */
+            text-decoration: none; /* Making it even worse */
+        }
+
+        /* PASSING EXAMPLE - Clear visible focus indicator */
+        .btn-visible-focus {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-visible-focus:hover {
+            background-color: #229954;
+        }
+
+        /* WCAG 2.4.7 SUCCESS: Clear, high-contrast focus indicator */
+        .btn-visible-focus:focus {
+            outline: 3px solid #f39c12;
+            outline-offset: 3px;
+            box-shadow: 0 0 0 5px rgba(243, 156, 18, 0.3);
+        }
+
+        .link-visible-focus {
+            color: #27ae60;
+            text-decoration: underline;
+            font-size: 16px;
+            padding: 8px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* WCAG 2.4.7 SUCCESS: Clear, high-contrast focus indicator */
+        .link-visible-focus:focus {
+            outline: 3px solid #e67e22;
+            outline-offset: 2px;
+            background-color: #fff3e0;
+        }
+
+        .input-no-focus {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        /* WCAG 2.4.7 FAILURE: Focus outline removed with no alternative */
+        .input-no-focus:focus {
+            outline: none;
+            border-color: #bdc3c7; /* Border doesn't change, no visible indicator */
+        }
+
+        .input-visible-focus {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+        /* WCAG 2.4.7 SUCCESS: Clear, high-contrast focus indicator */
+        .input-visible-focus:focus {
+            outline: 3px solid #3498db;
+            outline-offset: 2px;
+            border-color: #2980b9;
+        }
+
+        .code-block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .info-box h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+
+        .info-box ul {
+            color: #856404;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WCAG 2.4.7 Focus Visible - Test Examples</h1>
+
+        <p style="font-size: 18px; color: #555;">
+            This page demonstrates both <strong>failing</strong> and <strong>passing</strong> examples of
+            WCAG 2.4.7 Focus Visible. Use keyboard navigation (Tab key) to see the differences.
+        </p>
+
+        <!-- FAILING EXAMPLES -->
+        <section class="test-section fail-section">
+            <h2 class="section-title">❌ FAILING Examples (WCAG 2.4.7 Violation)</h2>
+
+            <div class="description">
+                <strong>Problem:</strong> These elements have their focus indicators removed with
+                <code>outline: none</code> and provide no alternative visible indicator.
+                Keyboard users cannot see which element has focus.
+            </div>
+
+            <div class="example-container">
+                <button class="btn-no-focus">Button without Focus Indicator</button>
+                <a href="#" class="link-no-focus">Link without Focus Indicator</a>
+                <input type="text" class="input-no-focus" placeholder="Input without focus indicator">
+            </div>
+
+            <div class="code-block">
+/* WCAG 2.4.7 FAILURE */
+.btn-no-focus:focus {
+    outline: none; /* Removes focus indicator */
+}
+
+.link-no-focus:focus {
+    outline: none; /* No visible focus */
+    text-decoration: none; /* Removes underline too */
+}
+
+.input-no-focus:focus {
+    outline: none; /* No alternative provided */
+}</div>
+        </section>
+
+        <!-- PASSING EXAMPLES -->
+        <section class="test-section pass-section">
+            <h2 class="section-title">✅ PASSING Examples (WCAG 2.4.7 Compliant)</h2>
+
+            <div class="description">
+                <strong>Solution:</strong> These elements provide clear, high-contrast visible focus indicators.
+                Keyboard users can easily see which element currently has focus.
+            </div>
+
+            <div class="example-container">
+                <button class="btn-visible-focus">Button with Clear Focus</button>
+                <a href="#" class="link-visible-focus">Link with Clear Focus</a>
+                <input type="text" class="input-visible-focus" placeholder="Input with clear focus">
+            </div>
+
+            <div class="code-block">
+/* WCAG 2.4.7 SUCCESS */
+.btn-visible-focus:focus {
+    outline: 3px solid #f39c12;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(243, 156, 18, 0.3);
+}
+
+.link-visible-focus:focus {
+    outline: 3px solid #e67e22;
+    outline-offset: 2px;
+    background-color: #fff3e0;
+}
+
+.input-visible-focus:focus {
+    outline: 3px solid #3498db;
+    outline-offset: 2px;
+    border-color: #2980b9;
+}</div>
+        </section>
+
+        <!-- INFORMATION BOX -->
+        <div class="info-box">
+            <h3>Testing Instructions:</h3>
+            <ul>
+                <li><strong>Keyboard Test:</strong> Press Tab to navigate through all interactive elements</li>
+                <li><strong>Expected Behavior:</strong>
+                    <ul>
+                        <li>Failing examples (red section): No visible indication of focus</li>
+                        <li>Passing examples (green section): Clear orange/blue outline when focused</li>
+                    </ul>
+                </li>
+                <li><strong>WCAG 2.4.7 Requirement:</strong> Any keyboard operable user interface must have a mode of operation where the keyboard focus indicator is visible</li>
+                <li><strong>Common Failures:</strong>
+                    <ul>
+                        <li>Using <code>outline: none</code> without providing an alternative</li>
+                        <li>Focus indicator has insufficient contrast with background</li>
+                        <li>Focus indicator is too small or subtle to notice</li>
+                    </ul>
+                </li>
+                <li><strong>Expected Scanner Results:</strong> Your accessibility scanner should flag the elements in the red section as WCAG 2.4.7 violations</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Log focus events for debugging
+        document.addEventListener('focus', function(e) {
+            console.log('Focus on:', e.target.className || e.target.tagName);
+        }, true);
+    </script>
+</body>
+</html>

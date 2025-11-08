@@ -82,22 +82,40 @@
             </div>
         </div>
 
-        <h2>📝 Test Case 2: Heading Structure</h2>
+        <h2>📝 Test Case 2: Document Heading Hierarchy</h2>
         <div class="test-grid">
             <!-- FAIL -->
             <div class="test-card fail" data-test-id="TC1.2" data-expected-result="violation" data-wcag-criterion="1.3.1">
-                <h3>❌ FAIL: Visual Heading (No Semantic Markup)</h3>
-                <div class="fake-heading">This Looks Like a Heading</div>
-                <p>This div is styled to look like a heading but lacks semantic markup - screen readers won't identify it</p>
-                <code>&lt;div class="fake-heading"&gt;This Looks Like a Heading&lt;/div&gt;</code>
+                <h3>❌ FAIL: Styled Divs Instead of Headings</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #212529;">Our Services</div>
+                    <p style="margin: 10px 0; color: #666;">We offer comprehensive solutions</p>
+
+                    <div style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #495057;">Web Development</div>
+                    <p style="margin: 5px 0; color: #666;">Custom websites and applications</p>
+
+                    <div style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #495057;">Mobile Apps</div>
+                    <p style="margin: 5px 0; color: #666;">iOS and Android development</p>
+                </div>
+                <p>Common pattern: styled divs create visual hierarchy but no semantic structure - AI can recognize this should be h2/h3</p>
+                <code>&lt;div style="font-size: 24px; font-weight: bold"&gt;Our Services&lt;/div&gt;&lt;div style="font-size: 18px; font-weight: bold"&gt;Web Development&lt;/div&gt;</code>
             </div>
 
             <!-- PASS -->
             <div class="test-card pass" data-test-id="TC2.2" data-expected-result="pass" data-wcag-criterion="1.3.1">
-                <h3>✅ PASS: Semantic Heading</h3>
-                <h4 style="font-size: 18px; margin: 10px 0; color: #0d6efd;">This is a Real Heading</h4>
-                <p>Uses &lt;h4&gt; element - programmatically identifiable, allows navigation by heading</p>
-                <code>&lt;h4&gt;This is a Real Heading&lt;/h4&gt;</code>
+                <h3>✅ PASS: Proper Heading Hierarchy</h3>
+                <div style="background: #e7f1ff; padding: 15px; border-radius: 4px;">
+                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #0d6efd;">Our Services</h2>
+                    <p style="margin: 10px 0; color: #0d6efd;">We offer comprehensive solutions</p>
+
+                    <h3 style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #0d6efd;">Web Development</h3>
+                    <p style="margin: 5px 0; color: #0d6efd;">Custom websites and applications</p>
+
+                    <h3 style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #0d6efd;">Mobile Apps</h3>
+                    <p style="margin: 5px 0; color: #0d6efd;">iOS and Android development</p>
+                </div>
+                <p>Proper h2/h3 hierarchy - screen readers can navigate by heading level, understand document structure</p>
+                <code>&lt;h2&gt;Our Services&lt;/h2&gt;&lt;h3&gt;Web Development&lt;/h3&gt;&lt;h3&gt;Mobile Apps&lt;/h3&gt;</code>
             </div>
         </div>
 
@@ -192,16 +210,23 @@
             <h4>Screen Reader Impact:</h4>
             <ul>
                 <li><strong>Tables:</strong> Cannot navigate by cell, row, or column without semantic markup</li>
-                <li><strong>Headings:</strong> Cannot use heading navigation (critical for long documents)</li>
+                <li><strong>Heading Hierarchy:</strong> Cannot navigate by heading level, cannot understand document structure/outline - critical for long documents</li>
                 <li><strong>Link Lists:</strong> Cannot know how many links, cannot skip the group - especially problematic in footers with many links</li>
                 <li><strong>Form Groups:</strong> Context (legend) not announced with each control</li>
             </ul>
             <h4>AI Testing Capabilities:</h4>
             <ul>
                 <li>Can recognize visual table patterns (rows, columns, headers) even without semantic markup</li>
-                <li>Can identify heading-like styling (bold, larger text, positioning)</li>
+                <li>Can identify heading hierarchies by analyzing font sizes, weights, and spacing patterns</li>
                 <li>Can detect groups of related links (footer navigation) that should be lists</li>
                 <li>Can identify form control groupings that need fieldset/legend</li>
+            </ul>
+            <h4>Real-World Examples:</h4>
+            <ul>
+                <li><strong>Div Tables:</strong> Often seen in legacy code or CSS-heavy frameworks</li>
+                <li><strong>Styled Div Headings:</strong> Common when designers use exact font sizes instead of semantic levels</li>
+                <li><strong>Footer Links in Divs:</strong> Extremely common - developers often forget lists can have list-style:none</li>
+                <li><strong>Ungrouped Radios:</strong> Frequent in forms built without accessibility in mind</li>
             </ul>
         </div>
     </div>

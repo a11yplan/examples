@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="invalid" xml:lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXE Core Testseite - Barrierefreiheit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        /* Navigation mit schlechten Barrierefreiheitspraktiken */
+        .nav {
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        /* Links ohne Unterstreichung und mit schlechtem Farbkontrast */
+        .nav-link {
+            color: #666; /* Schlechter Kontrast - nicht 3:1 */
+            text-decoration: none; /* Keine Unterstreichung */
+            font-size: 16px;
+            padding: 3.5px 4px; /* 3.5px oben + 3.5px unten = 7px, plus 16px Schrift = 23px Gesamthöhe */
+            border-radius: 4px;
+            transition: color 0.3s;
+            display: inline-block; /* Für bessere Größenkontrolle */
+            min-height: 23px; /* Mindesthöhe für Touch-Target */
+            line-height: 23px; /* Vertikale Zentrierung des Textes */
+        }
+        
+        .nav-link:hover {
+            color: #333; /* Hover-Farbe ändert sich kaum */
+        }
+        
+        .nav-link:focus {
+            outline: 2px solid #999; /* Schlechter Fokus-Indikator */
+        }
+        
+        /* Link ohne href - nur mit onclick */
+        .nav-link-no-href {
+            color: #666;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 3.5px 4px; /* 3.5px oben + 3.5px unten = 7px, plus 16px Schrift = 23px Gesamthöhe */
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            display: inline-block; /* Für bessere Größenkontrolle */
+            min-height: 23px; /* Mindesthöhe für Touch-Target */
+            line-height: 23px; /* Vertikale Zentrierung des Textes */
+        }
+        
+        .nav-link-no-href:hover {
+            color: #333;
+        }
+        
+        .nav-link-no-href:focus {
+            outline: 2px solid #999;
+        }
+        
+        .content {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* Inline-Link mit reduzierter Zeilenhöhe */
+        .content a {
+            line-height: 1.2;
+        }
+        
+        .test-info {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .test-info h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+        
+        .test-info ul {
+            color: #856404;
+        }
+        
+        .test-info li {
+            margin-bottom: 8px;
+        }
+        
+        .scrollable-container {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .scrollable-container h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        .scrollable-example {
+            margin: 20px 0;
+        }
+        
+        .scrollable-example h4 {
+            margin-bottom: 10px;
+            color: #6c757d;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AXE Core Barrierefreiheitstest</h1>
+        
+        <!-- Navigation mit mehreren Barrierefreiheitsproblemen -->
+        <nav class="nav" role="navigation" aria-label="Hauptnavigation">
+            <ul class="nav-list">
+                <!-- Tab-Index ist nicht in logischer Reihenfolge -->
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" tabindex="3">H</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" tabindex="1">Über uns</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link" tabindex="4">Dienstleistungen</a>
+                </li>
+                <!-- Link ohne href - nur mit onclick (nicht per Tastatur erreichbar) -->
+                <li class="nav-item">
+                    <button class="nav-link-no-href" onclick="alert('Kontakt geklickt!')" tabindex="2">
+                        Kontakt
+                    </button>
+                </li>
+                
+                <!-- Link ohne href mit aria-label Mismatch (label-content-name-mismatch) -->
+                <li class="nav-item">
+                    <a class="nav-link-no-href" aria-label="Weiter zur nächsten Seite" onclick="alert('Weiter geklickt!')">
+                        Next
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+            <h2>Willkommen auf der Testseite</h2>
+            <p>
+                Diese Seite wurde speziell erstellt, um gegen mehrere AXE Core Barrierefreiheitsregeln zu verstoßen. 
+                Die Navigation oben enthält verschiedene Probleme, die von AXE erkannt werden sollten.
+            </p>
+            
+            <p>
+                Hier ist ein <a href="#test" style="color: #666; text-decoration: none;">Link mit schlechtem Kontrast</a> 
+                der ebenfalls gegen die link-in-text-block Regel verstößt, da er sich nicht ausreichend vom umgebenden Text abhebt.
+            </p>
+            
+            <!-- Scrollbare Bereiche ohne Tastaturzugriff (scrollable-region-focusable Verstoß) -->
+            <div class="scrollable-container">
+                <h3>Scrollbare Bereiche ohne Tastaturzugriff</h3>
+                <p>Diese Bereiche verstoßen gegen die scrollable-region-focusable Regel:</p>
+                
+                <!-- Scrollbarer Bereich mit tabindex="-1" Elementen (scrollable-region-focusable Verstoß) -->
+                <div class="scrollable-example">
+                    <h4>Scrollbarer Bereich mit tabindex="-1" Elementen</h4>
+                    <div id="fail2" style="height: 100px; overflow: auto; border: 1px solid #ccc; padding: 10px; background-color: #f8f9fa;">
+                        <input type="text" tabindex="-1" placeholder="Input mit tabindex=-1" />
+                        <select tabindex="-1">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                        </select>
+                        <textarea tabindex="-1" placeholder="Textarea mit tabindex=-1"></textarea>
+                        <p>Dieser scrollbare Bereich enthält mehrere Elemente mit tabindex="-1", die nicht per Tastatur erreichbar sind.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-info">
+            <h3>Erwartete AXE Core Verstöße:</h3>
+            <ul>
+                <li><strong>link-in-text-block:</strong> Links haben keinen ausreichenden Farbkontrast (3:1) und keine Unterstreichung</li>
+                <li><strong>button-name:</strong> Button ohne beschreibenden Namen</li>
+                <li><strong>tabindex:</strong> Tab-Reihenfolge ist nicht logisch (3, 1, 4, 2, 5)</li>
+                <li><strong>color-contrast:</strong> Links haben nicht genügend Kontrast zum Hintergrund</li>
+                <li><strong>label-content-name-mismatch:</strong> aria-label "Weiter zur nächsten Seite" stimmt nicht mit dem sichtbaren Text "Next" überein</li>
+                <li><strong>link-name:</strong> Link ohne href ist nicht fokussierbar und hat widersprüchliche Labels</li>
+                <li><strong>scrollable-region-focusable:</strong> Scrollbare Bereiche enthalten Elemente mit tabindex="-1", die nicht per Tastatur erreichbar sind</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Einfache Funktionalität für den Button ohne href
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
+</body>
+</html>

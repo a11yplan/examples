@@ -17,12 +17,19 @@ The primary goal of this repository is to enable **automated, script-driven acce
 
 ```
 examples/
-├── claude.md                                    # This file
+├── index.html                                   # Landing page with links to all tests
+├── claude.md                                    # This file - repository documentation
 ├── SAMPLE_CREATION_GUIDE.md                     # How to create new samples
-├── index.html                                   # Legacy multi-violation test
 ├── focus-visible-test.html                      # Basic WCAG 2.4.7 example
 ├── focus-visibility-detector-test.html          # Algorithm test suite
-└── [future samples]                             # Additional WCAG tests
+├── contrast-minimum-test.html                   # WCAG 1.4.3 test page
+├── non-text-contrast-test.html                  # WCAG 1.4.11 test page
+├── resize-text-test.html                        # WCAG 1.4.4 test page
+├── non-text-content-test.html                   # WCAG 1.1.1 test page
+├── info-relationships-test.html                 # WCAG 1.3.1 test page
+├── name-role-value-test.html                    # WCAG 4.1.2 test page
+├── comprehensive-accessibility-test.html        # Multi-criteria integration test
+└── legacy-axe-test.html                         # Legacy test (historical)
 ```
 
 ## Test Sample Categories
@@ -255,6 +262,62 @@ See **[SAMPLE_CREATION_GUIDE.md](./SAMPLE_CREATION_GUIDE.md)** for detailed inst
 4. Include expected results
 5. Document confidence scores (if applicable)
 6. Test with your scanner
+7. **Update index.html** - Add your new test page to the index (see below)
+
+### 📋 IMPORTANT: Maintaining index.html
+
+**REQUIREMENT:** Whenever you create a new test page, you MUST update `index.html` to include a link to it.
+
+The `index.html` file serves as the landing page and directory for all test pages. When adding a new test:
+
+1. **Locate the appropriate section** in index.html based on the WCAG criterion category
+2. **Add a new test card** with the following information:
+   - Badge indicating WCAG level (A, AA, AAA) or test type (Algorithm, Legacy)
+   - Page title and link
+   - WCAG criterion number and name
+   - Brief description (2-3 sentences)
+   - Metadata: test case count, violations/passes, categories
+
+**Example test card structure:**
+
+```html
+<div class="test-card">
+    <span class="badge badge-level-aa">Level AA</span>
+    <h3><a href="your-new-test.html">Your Test Page Title</a></h3>
+    <p class="criterion">WCAG X.X.X - Criterion Name</p>
+    <p class="description">
+        Brief description of what this test page validates. Include key
+        patterns tested and any special features.
+    </p>
+    <div class="meta">
+        <span class="meta-item"><strong>10</strong> test cases</span>
+        <span class="meta-item">5 violations</span>
+        <span class="meta-item">5 passes</span>
+    </div>
+</div>
+```
+
+**If creating a new WCAG category:**
+
+If your test doesn't fit existing sections, add a new section:
+
+```html
+<section class="section">
+    <h2>📋 Your Category Name</h2>
+    <div class="test-grid">
+        <!-- Add test cards here -->
+    </div>
+</section>
+```
+
+**Update statistics:**
+
+Update the stats section if needed:
+- Total test pages count
+- Total WCAG criteria covered
+- Approximate total test cases
+
+This ensures the index remains a complete, up-to-date directory of all available test resources.
 
 ## Validation Checklist
 

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WCAG 1.3.1 Info and Relationships Test Page</title>
     <meta name="test:wcag-criterion" content="1.3.1">
-    <meta name="test:total-cases" content="8">
-    <meta name="test:expected-violations" content="4">
+    <meta name="test:total-cases" content="12">
+    <meta name="test:expected-violations" content="6">
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; background: #f8f9fa; }
         .container { max-width: 1400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
@@ -178,13 +178,112 @@
                 <code>&lt;fieldset&gt;&lt;legend&gt;Contact Information&lt;/legend&gt;&lt;input type="radio"&gt;...&lt;/fieldset&gt;</code>
             </div>
         </div>
+
+        <h2>🔢 Test Case 5: Step-by-Step Instructions (Ordered List)</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail" data-test-id="TC1.5" data-expected-result="violation" data-wcag-criterion="1.3.1">
+                <h3>❌ FAIL: Steps in Divs with Icon Numbers</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                    <div style="font-weight: bold; margin-bottom: 10px; color: #495057;">Installation Guide</div>
+                    <div style="display: flex; align-items: start; margin: 10px 0;">
+                        <div style="width: 28px; height: 28px; background: #6c757d; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; font-weight: bold;">1</div>
+                        <div style="color: #666;">Download the installer from our website</div>
+                    </div>
+                    <div style="display: flex; align-items: start; margin: 10px 0;">
+                        <div style="width: 28px; height: 28px; background: #6c757d; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; font-weight: bold;">2</div>
+                        <div style="color: #666;">Run the installation file</div>
+                    </div>
+                    <div style="display: flex; align-items: start; margin: 10px 0;">
+                        <div style="width: 28px; height: 28px; background: #6c757d; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; font-weight: bold;">3</div>
+                        <div style="color: #666;">Follow the setup wizard</div>
+                    </div>
+                </div>
+                <p>Sequential steps with visual numbering but no &lt;ol&gt; - AI can detect this is ordered sequence</p>
+                <code>&lt;div&gt;&lt;div class="number-icon"&gt;1&lt;/div&gt;Download...&lt;/div&gt;</code>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass" data-test-id="TC2.5" data-expected-result="pass" data-wcag-criterion="1.3.1">
+                <h3>✅ PASS: Semantic Ordered List with Icons</h3>
+                <div style="background: #e7f1ff; padding: 15px; border-radius: 4px;">
+                    <div style="font-weight: bold; margin-bottom: 10px; color: #0d6efd;">Installation Guide</div>
+                    <ol style="list-style: none; padding: 0; margin: 0; counter-reset: step-counter;">
+                        <li style="display: flex; align-items: start; margin: 10px 0; counter-increment: step-counter;">
+                            <div style="width: 28px; height: 28px; background: #0d6efd; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; font-weight: bold;" aria-hidden="true">1</div>
+                            <div style="color: #0d6efd;">Download the installer from our website</div>
+                        </li>
+                        <li style="display: flex; align-items: start; margin: 10px 0; counter-increment: step-counter;">
+                            <div style="width: 28px; height: 28px; background: #0d6efd; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; font-weight: bold;" aria-hidden="true">2</div>
+                            <div style="color: #0d6efd;">Run the installation file</div>
+                        </li>
+                        <li style="display: flex; align-items: start; margin: 10px 0; counter-increment: step-counter;">
+                            <div style="width: 28px; height: 28px; background: #0d6efd; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; font-weight: bold;" aria-hidden="true">3</div>
+                            <div style="color: #0d6efd;">Follow the setup wizard</div>
+                        </li>
+                    </ol>
+                </div>
+                <p>Uses &lt;ol&gt; with custom styling - screen readers announce "list with 3 items" and item numbers</p>
+                <code>&lt;ol style="list-style: none"&gt;&lt;li&gt;&lt;div aria-hidden="true"&gt;1&lt;/div&gt;Download...&lt;/li&gt;&lt;/ol&gt;</code>
+            </div>
+        </div>
+
+        <h2>📖 Test Case 6: FAQ/Glossary Pattern (Definition List)</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail" data-test-id="TC1.6" data-expected-result="violation" data-wcag-criterion="1.3.1">
+                <h3>❌ FAIL: FAQ with Divs</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                    <div style="font-weight: bold; margin-bottom: 10px; color: #495057;">Frequently Asked Questions</div>
+                    <div style="margin: 10px 0;">
+                        <div style="font-weight: 600; color: #212529; margin-bottom: 5px; display: flex; align-items: center;">
+                            <span style="color: #6c757d; margin-right: 8px;">❓</span>
+                            What is WCAG?
+                        </div>
+                        <div style="color: #666; margin-left: 28px;">Web Content Accessibility Guidelines</div>
+                    </div>
+                    <div style="margin: 10px 0;">
+                        <div style="font-weight: 600; color: #212529; margin-bottom: 5px; display: flex; align-items: center;">
+                            <span style="color: #6c757d; margin-right: 8px;">❓</span>
+                            What is ARIA?
+                        </div>
+                        <div style="color: #666; margin-left: 28px;">Accessible Rich Internet Applications</div>
+                    </div>
+                </div>
+                <p>Question/answer pattern with divs - AI can recognize term/definition relationship</p>
+                <code>&lt;div class="question"&gt;What is WCAG?&lt;/div&gt;&lt;div class="answer"&gt;Web Content...&lt;/div&gt;</code>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass" data-test-id="TC2.6" data-expected-result="pass" data-wcag-criterion="1.3.1">
+                <h3>✅ PASS: FAQ with Definition List</h3>
+                <div style="background: #e7f1ff; padding: 15px; border-radius: 4px;">
+                    <div style="font-weight: bold; margin-bottom: 10px; color: #0d6efd;">Frequently Asked Questions</div>
+                    <dl style="margin: 0;">
+                        <dt style="font-weight: 600; color: #0d6efd; margin: 10px 0 5px; display: flex; align-items: center;">
+                            <span style="color: #0d6efd; margin-right: 8px;" aria-hidden="true">❓</span>
+                            What is WCAG?
+                        </dt>
+                        <dd style="color: #0d6efd; margin: 0 0 0 28px;">Web Content Accessibility Guidelines</dd>
+
+                        <dt style="font-weight: 600; color: #0d6efd; margin: 10px 0 5px; display: flex; align-items: center;">
+                            <span style="color: #0d6efd; margin-right: 8px;" aria-hidden="true">❓</span>
+                            What is ARIA?
+                        </dt>
+                        <dd style="color: #0d6efd; margin: 0 0 0 28px;">Accessible Rich Internet Applications</dd>
+                    </dl>
+                </div>
+                <p>Uses &lt;dl&gt;, &lt;dt&gt;, &lt;dd&gt; - screen readers announce relationship between terms and definitions</p>
+                <code>&lt;dl&gt;&lt;dt&gt;What is WCAG?&lt;/dt&gt;&lt;dd&gt;Web Content...&lt;/dd&gt;&lt;/dl&gt;</code>
+            </div>
+        </div>
         
         <div style="background: #fff3cd; padding: 20px; border-radius: 5px; margin-top: 30px;">
             <h3>📊 Expected Results</h3>
             <ul>
-                <li><strong>Total Test Cases:</strong> 8</li>
-                <li><strong>Expected Violations:</strong> 4 (TC1.1-1.4)</li>
-                <li><strong>Expected Passes:</strong> 4 (TC2.1-2.4)</li>
+                <li><strong>Total Test Cases:</strong> 12</li>
+                <li><strong>Expected Violations:</strong> 6 (TC1.1-1.6)</li>
+                <li><strong>Expected Passes:</strong> 6 (TC2.1-2.6)</li>
             </ul>
             <h4>WCAG 1.3.1 Requirements:</h4>
             <ul>
@@ -206,6 +305,8 @@
                 <li><strong>Styled Divs as Headings:</strong> Bold/large text without &lt;h1&gt;-&lt;h6&gt; elements</li>
                 <li><strong>Links in Divs (Footer Pattern):</strong> Navigation links without &lt;ul&gt;/&lt;ol&gt;/&lt;li&gt; elements - very common in footers</li>
                 <li><strong>Ungrouped Form Controls:</strong> Radio/checkbox groups without &lt;fieldset&gt;/&lt;legend&gt;</li>
+                <li><strong>Steps in Divs:</strong> Sequential instructions with visual numbering but no &lt;ol&gt;</li>
+                <li><strong>FAQ/Glossary in Divs:</strong> Term/definition pairs without &lt;dl&gt;/&lt;dt&gt;/&lt;dd&gt;</li>
             </ul>
             <h4>Screen Reader Impact:</h4>
             <ul>
@@ -213,6 +314,8 @@
                 <li><strong>Heading Hierarchy:</strong> Cannot navigate by heading level, cannot understand document structure/outline - critical for long documents</li>
                 <li><strong>Link Lists:</strong> Cannot know how many links, cannot skip the group - especially problematic in footers with many links</li>
                 <li><strong>Form Groups:</strong> Context (legend) not announced with each control</li>
+                <li><strong>Ordered Lists:</strong> Cannot know total steps, cannot track progress through sequence</li>
+                <li><strong>Definition Lists:</strong> Relationship between term and definition not announced</li>
             </ul>
             <h4>AI Testing Capabilities:</h4>
             <ul>
@@ -220,6 +323,8 @@
                 <li>Can identify heading hierarchies by analyzing font sizes, weights, and spacing patterns</li>
                 <li>Can detect groups of related links (footer navigation) that should be lists</li>
                 <li>Can identify form control groupings that need fieldset/legend</li>
+                <li>Can detect sequential numbered steps that should use &lt;ol&gt;</li>
+                <li>Can recognize question/answer or term/definition patterns that need &lt;dl&gt;</li>
             </ul>
             <h4>Real-World Examples:</h4>
             <ul>
@@ -227,6 +332,8 @@
                 <li><strong>Styled Div Headings:</strong> Common when designers use exact font sizes instead of semantic levels</li>
                 <li><strong>Footer Links in Divs:</strong> Extremely common - developers often forget lists can have list-style:none</li>
                 <li><strong>Ungrouped Radios:</strong> Frequent in forms built without accessibility in mind</li>
+                <li><strong>Custom Numbered Steps:</strong> Tutorials/guides often use styled divs with icon numbers instead of &lt;ol&gt;</li>
+                <li><strong>FAQ Divs:</strong> Very common - developers don't know &lt;dl&gt; exists or when to use it</li>
             </ul>
         </div>
     </div>
@@ -235,9 +342,9 @@
             wcagCriterion: '1.3.1',
             criterionName: 'Info and Relationships',
             level: 'A',
-            totalCases: 8,
-            expectedViolations: 4,
-            expectedPasses: 4,
+            totalCases: 12,
+            expectedViolations: 6,
+            expectedPasses: 6,
             testCases: []
         };
         document.querySelectorAll('[data-test-id]').forEach(tc => {

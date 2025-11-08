@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 4.1.2 Name, Role, Value Test Page</title>
+    <meta name="test:wcag-criterion" content="4.1.2">
+    <meta name="test:total-cases" content="10">
+    <meta name="test:expected-violations" content="5">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
+        h1 { color: #212529; border-bottom: 4px solid #0d6efd; padding-bottom: 15px; }
+        .test-card { background: white; border: 2px solid #dee2e6; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .badge-fail { background: #dc3545; color: white; padding: 4px 8px; border-radius: 10px; font-size: 11px; }
+        .badge-pass { background: #198754; color: white; padding: 4px 8px; border-radius: 10px; font-size: 11px; }
+        code { background: #2d2d2d; color: #d4d4d4; padding: 2px 6px; border-radius: 3px; font-size: 13px; display: block; margin-top: 10px; padding: 10px; }
+        
+        .custom-button { 
+            padding: 10px 20px; 
+            background: #0d6efd; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏷️ WCAG 4.1.2 Name, Role, Value - Test Page</h1>
+        <p><strong>Testing:</strong> UI components must have programmatically determinable name, role, and value. States and properties must be settable programmatically.</p>
+        
+        <!-- FAILURES -->
+        <div class="test-card" data-test-id="TC1.1" data-expected-result="violation" data-wcag-criterion="4.1.2">
+            <h3>TC1.1: Div Button Without Role <span class="badge-fail">FAIL</span></h3>
+            <div class="custom-button" onclick="alert('clicked')">Click Me</div>
+            <p>Div styled as button but no role, name, or keyboard accessibility.</p>
+            <code>&lt;div class="custom-button" onclick="alert('clicked')"&gt;Click Me&lt;/div&gt;
+Missing: role="button", tabindex="0", aria-label or text content</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC1.2" data-expected-result="violation" data-wcag-criterion="4.1.2">
+            <h3>TC1.2: Custom Checkbox Without ARIA <span class="badge-fail">FAIL</span></h3>
+            <div style="width: 20px; height: 20px; border: 2px solid #ccc; cursor: pointer;" onclick="this.classList.toggle('checked')"></div>
+            <p>Custom checkbox without role, aria-checked, or accessible name.</p>
+            <code>&lt;div onclick="..."&gt;&lt;/div&gt;
+Missing: role="checkbox", aria-checked, aria-label</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC1.3" data-expected-result="violation" data-wcag-criterion="4.1.2">
+            <h3>TC1.3: Icon Link No Accessible Name <span class="badge-fail">FAIL</span></h3>
+            <a href="#" style="font-size: 24px;">🔍</a>
+            <p>Link with only icon, no accessible name for screen readers.</p>
+            <code>&lt;a href="#"&gt;🔍&lt;/a&gt;
+Missing: aria-label="Search" or sr-only text</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC1.4" data-expected-result="violation" data-wcag-criterion="4.1.2">
+            <h3>TC1.4: Unlabeled Form Control <span class="badge-fail">FAIL</span></h3>
+            <input type="text" placeholder="Search..." style="padding: 8px; border: 1px solid #ccc;">
+            <p>Input without label or aria-label. Placeholder alone is insufficient.</p>
+            <code>&lt;input type="text" placeholder="Search..."&gt;
+Missing: &lt;label&gt; or aria-label</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC1.5" data-expected-result="violation" data-wcag-criterion="4.1.2">
+            <h3>TC1.5: Custom Toggle Without State <span class="badge-fail">FAIL</span></h3>
+            <button style="padding: 10px 20px; border: 2px solid #ccc; background: white; cursor: pointer;" onclick="this.textContent = this.textContent === 'ON' ? 'OFF' : 'ON'">OFF</button>
+            <p>Toggle button without aria-pressed to indicate state.</p>
+            <code>&lt;button onclick="..."&gt;OFF&lt;/button&gt;
+Missing: aria-pressed="false"</code>
+        </div>
+        
+        <!-- PASSES -->
+        <div class="test-card" data-test-id="TC2.1" data-expected-result="pass" data-wcag-criterion="4.1.2">
+            <h3>TC2.1: Proper Div Button <span class="badge-pass">PASS</span></h3>
+            <div class="custom-button" role="button" tabindex="0" aria-label="Submit form" onclick="alert('clicked')">Click Me</div>
+            <p>Div has role, tabindex, and accessible name.</p>
+            <code>&lt;div role="button" tabindex="0" aria-label="Submit form" onclick="..."&gt;Click Me&lt;/div&gt;</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC2.2" data-expected-result="pass" data-wcag-criterion="4.1.2">
+            <h3>TC2.2: Custom Checkbox with ARIA <span class="badge-pass">PASS</span></h3>
+            <div role="checkbox" aria-checked="false" aria-label="Accept terms" tabindex="0" style="width: 20px; height: 20px; border: 2px solid #0d6efd; cursor: pointer;" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked') === 'true' ? 'false' : 'true')"></div>
+            <p>Custom checkbox with role, aria-checked, aria-label, and tabindex.</p>
+            <code>&lt;div role="checkbox" aria-checked="false" aria-label="Accept terms" tabindex="0"&gt;&lt;/div&gt;</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC2.3" data-expected-result="pass" data-wcag-criterion="4.1.2">
+            <h3>TC2.3: Icon Link with Aria-Label <span class="badge-pass">PASS</span></h3>
+            <a href="#" aria-label="Search" style="font-size: 24px;">🔍</a>
+            <p>Icon link with aria-label providing accessible name.</p>
+            <code>&lt;a href="#" aria-label="Search"&gt;🔍&lt;/a&gt;</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC2.4" data-expected-result="pass" data-wcag-criterion="4.1.2">
+            <h3>TC2.4: Properly Labeled Input <span class="badge-pass">PASS</span></h3>
+            <label for="search-input" style="display: block; margin-bottom: 5px; font-weight: 600;">Search:</label>
+            <input type="text" id="search-input" placeholder="Enter search term..." style="padding: 8px; border: 1px solid #0d6efd;">
+            <p>Input with associated label element.</p>
+            <code>&lt;label for="search-input"&gt;Search:&lt;/label&gt;
+&lt;input id="search-input" type="text"&gt;</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC2.5" data-expected-result="pass" data-wcag-criterion="4.1.2">
+            <h3>TC2.5: Toggle with Aria-Pressed <span class="badge-pass">PASS</span></h3>
+            <button aria-pressed="false" style="padding: 10px 20px; border: 2px solid #0d6efd; background: white; cursor: pointer;" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); this.textContent = this.getAttribute('aria-pressed') === 'true' ? 'ON' : 'OFF'">OFF</button>
+            <p>Toggle button with aria-pressed indicating state.</p>
+            <code>&lt;button aria-pressed="false" onclick="..."&gt;OFF&lt;/button&gt;</code>
+        </div>
+        
+        <div style="background: #fff3cd; padding: 20px; border-radius: 5px; margin-top: 30px;">
+            <h3>📊 Expected Results</h3>
+            <ul>
+                <li><strong>Total Cases:</strong> 10</li>
+                <li><strong>Expected Violations:</strong> 5 (TC1.1-1.5)</li>
+                <li><strong>Expected Passes:</strong> 5 (TC2.1-2.5)</li>
+            </ul>
+            <h4>WCAG 4.1.2 Requirements:</h4>
+            <ul>
+                <li><strong>Name:</strong> Accessible name (aria-label, aria-labelledby, or associated label)</li>
+                <li><strong>Role:</strong> Component role (button, checkbox, link, etc.)</li>
+                <li><strong>Value:</strong> Current value/state (aria-checked, aria-pressed, value attribute)</li>
+                <li><strong>States/Properties:</strong> Must be programmatically settable</li>
+                <li>Use native HTML controls when possible</li>
+                <li>Custom controls need ARIA attributes</li>
+                <li>Level: A</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.testMetadata = {
+            wcagCriterion: '4.1.2',
+            criterionName: 'Name, Role, Value',
+            level: 'A',
+            totalCases: 10,
+            expectedViolations: 5,
+            expectedPasses: 5,
+            testCases: []
+        };
+        document.querySelectorAll('[data-test-id]').forEach(tc => {
+            window.testMetadata.testCases.push({
+                id: tc.dataset.testId,
+                expectedResult: tc.dataset.expectedResult,
+                criterion: tc.dataset.wcagCriterion
+            });
+        });
+        window.getTestMetadata = () => window.testMetadata;
+        console.log('✅ WCAG 4.1.2 test page loaded');
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 1.4.4 Resize Text Test Page</title>
+    <meta name="test:wcag-criterion" content="1.4.4">
+    <meta name="test:total-cases" content="6">
+    <meta name="test:expected-violations" content="3">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
+        h1 { color: #212529; border-bottom: 4px solid #0d6efd; padding-bottom: 15px; }
+        .test-card { background: white; border: 2px solid #dee2e6; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .badge-fail { background: #dc3545; color: white; padding: 4px 8px; border-radius: 10px; font-size: 11px; }
+        .badge-pass { background: #198754; color: white; padding: 4px 8px; border-radius: 10px; font-size: 11px; }
+        
+        /* TC1.1: Text with fixed pixel size - FAIL */
+        .tc1-fixed-pixels {
+            font-size: 14px !important;
+            /* Fixed pixel size prevents resizing */
+        }
+        
+        /* TC1.2: Text in container with fixed height and overflow:hidden - FAIL */
+        .tc1-fixed-container {
+            height: 100px;
+            overflow: hidden;
+            /* Content gets cut off when text is resized */
+        }
+        
+        /* TC1.3: Text with max-height preventing growth - FAIL */
+        .tc1-max-height {
+            max-height: 80px;
+            overflow: hidden;
+            /* Text truncated when resized */
+        }
+        
+        /* TC2.1: Text with relative size (em) - PASS */
+        .tc2-relative-em {
+            font-size: 1em;
+            /* Resizes with browser zoom/text size */
+        }
+        
+        /* TC2.2: Text with rem units - PASS */
+        .tc2-relative-rem {
+            font-size: 1rem;
+            line-height: 1.5;
+            /* Resizes properly */
+        }
+        
+        /* TC2.3: Text with percentage - PASS */
+        .tc2-percentage {
+            font-size: 100%;
+            /* Resizes with user preferences */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📏 WCAG 1.4.4 Resize Text - Test Page</h1>
+        <p><strong>Testing:</strong> Text must be resizable up to 200% without loss of content or functionality.</p>
+        <p><strong>Test Instructions:</strong> Use browser zoom (Ctrl/Cmd +) to resize text to 200%. Check if content remains visible and functional.</p>
+        
+        <div class="test-card" data-test-id="TC1.1" data-expected-result="violation" data-wcag-criterion="1.4.4">
+            <h3>TC1.1: Fixed Pixel Size <span class="badge-fail">FAIL</span></h3>
+            <p class="tc1-fixed-pixels">
+                This text uses font-size: 14px !important. It cannot be resized using browser text-size controls,
+                only browser zoom. This violates WCAG 1.4.4.
+            </p>
+            <code>font-size: 14px !important;</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC1.2" data-expected-result="violation" data-wcag-criterion="1.4.4">
+            <h3>TC1.2: Fixed Container Height <span class="badge-fail">FAIL</span></h3>
+            <div class="tc1-fixed-container" style="border: 1px solid #ccc; padding: 10px;">
+                This text is inside a container with fixed height (100px) and overflow:hidden.
+                When you resize the text to 200%, content gets cut off and becomes inaccessible.
+                This violates WCAG 1.4.4.
+            </div>
+            <code>height: 100px; overflow: hidden;</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC1.3" data-expected-result="violation" data-wcag-criterion="1.4.4">
+            <h3>TC1.3: Max-Height Truncation <span class="badge-fail">FAIL</span></h3>
+            <div class="tc1-max-height" style="border: 1px solid #ccc; padding: 10px;">
+                This container has max-height: 80px with overflow:hidden.
+                At 200% zoom, text is truncated and hidden. Users lose access to content.
+            </div>
+            <code>max-height: 80px; overflow: hidden;</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC2.1" data-expected-result="pass" data-wcag-criterion="1.4.4">
+            <h3>TC2.1: Relative Size (em) <span class="badge-pass">PASS</span></h3>
+            <p class="tc2-relative-em">
+                This text uses font-size: 1em. It properly resizes with browser zoom and text-size controls.
+                At 200% zoom, all content remains visible and functional. This passes WCAG 1.4.4.
+            </p>
+            <code>font-size: 1em;</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC2.2" data-expected-result="pass" data-wcag-criterion="1.4.4">
+            <h3>TC2.2: Root Relative (rem) <span class="badge-pass">PASS</span></h3>
+            <p class="tc2-relative-rem">
+                This text uses font-size: 1rem with line-height: 1.5. It scales properly with browser controls.
+                Content remains readable and accessible at 200% zoom.
+            </p>
+            <code>font-size: 1rem; line-height: 1.5;</code>
+        </div>
+        
+        <div class="test-card" data-test-id="TC2.3" data-expected-result="pass" data-wcag-criterion="1.4.4">
+            <h3>TC2.3: Percentage Size <span class="badge-pass">PASS</span></h3>
+            <p class="tc2-percentage">
+                This text uses font-size: 100%. It respects user preferences and resizes appropriately.
+                All content accessible at 200% zoom.
+            </p>
+            <code>font-size: 100%;</code>
+        </div>
+        
+        <div style="background: #fff3cd; padding: 20px; border-radius: 5px; margin-top: 30px;">
+            <h3>📊 Expected Results</h3>
+            <ul>
+                <li><strong>Total Cases:</strong> 6</li>
+                <li><strong>Expected Violations:</strong> 3 (TC1.1, TC1.2, TC1.3)</li>
+                <li><strong>Expected Passes:</strong> 3 (TC2.1, TC2.2, TC2.3)</li>
+            </ul>
+            <h4>WCAG 1.4.4 Requirements:</h4>
+            <ul>
+                <li>Text can be resized up to 200% without assistive technology</li>
+                <li>No loss of content or functionality when resized</li>
+                <li>Level: AA</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        window.testMetadata = {
+            wcagCriterion: '1.4.4',
+            criterionName: 'Resize Text',
+            level: 'AA',
+            totalCases: 6,
+            expectedViolations: 3,
+            expectedPasses: 3,
+            testCases: []
+        };
+        document.querySelectorAll('[data-test-id]').forEach(tc => {
+            window.testMetadata.testCases.push({
+                id: tc.dataset.testId,
+                expectedResult: tc.dataset.expectedResult,
+                criterion: tc.dataset.wcagCriterion
+            });
+        });
+        window.getTestMetadata = () => window.testMetadata;
+        console.log('✅ WCAG 1.4.4 test page loaded');
+    </script>
+</body>
+</html>

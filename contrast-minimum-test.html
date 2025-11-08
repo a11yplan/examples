@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 1.4.3 Contrast (Minimum) Test Page</title>
+
+    <!-- Machine-readable metadata -->
+    <meta name="test:wcag-criterion" content="1.4.3">
+    <meta name="test:total-cases" content="12">
+    <meta name="test:expected-violations" content="6">
+    <meta name="test:expected-passes" content="6">
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #212529;
+            border-bottom: 4px solid #0d6efd;
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+        }
+
+        .header-info {
+            background-color: #e7f3ff;
+            border-left: 4px solid #0d6efd;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 40px 0 20px 0;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 2px solid #dee2e6;
+        }
+
+        .test-card h3 {
+            margin-top: 0;
+            color: #495057;
+            font-size: 16px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge-fail { background-color: #dc3545; color: white; }
+        .badge-pass { background-color: #198754; color: white; }
+
+        .contrast-info {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .contrast-fail { background-color: #f8d7da; color: #842029; }
+        .contrast-pass { background-color: #d1e7dd; color: #0f5132; }
+
+        .test-description {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .test-sample {
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .css-code {
+            background-color: #2d2d2d;
+            color: #d4d4d4;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
+        .info-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* ============================================
+           TEST CASE 1: NORMAL TEXT FAILURES
+           ============================================ */
+
+        /* TC1.1: Very low contrast - 1.5:1 */
+        .tc1-very-low-contrast {
+            background-color: #ffffff;
+            color: #d4d4d4;
+            /* Contrast ratio: ~1.5:1 (needs 4.5:1) */
+        }
+
+        /* TC1.2: Low contrast - 2.8:1 */
+        .tc1-low-contrast {
+            background-color: #ffffff;
+            color: #999999;
+            /* Contrast ratio: ~2.8:1 (needs 4.5:1) */
+        }
+
+        /* TC1.3: Just below threshold - 4.2:1 */
+        .tc1-below-threshold {
+            background-color: #ffffff;
+            color: #767676;
+            /* Contrast ratio: ~4.2:1 (needs 4.5:1) */
+        }
+
+        /* ============================================
+           TEST CASE 2: NORMAL TEXT PASSES
+           ============================================ */
+
+        /* TC2.1: Just above threshold - 4.6:1 */
+        .tc2-above-threshold {
+            background-color: #ffffff;
+            color: #747474;
+            /* Contrast ratio: ~4.6:1 (passes 4.5:1) */
+        }
+
+        /* TC2.2: Good contrast - 7:1 */
+        .tc2-good-contrast {
+            background-color: #ffffff;
+            color: #595959;
+            /* Contrast ratio: ~7:1 */
+        }
+
+        /* TC2.3: High contrast - 12.6:1 */
+        .tc2-high-contrast {
+            background-color: #ffffff;
+            color: #333333;
+            /* Contrast ratio: ~12.6:1 */
+        }
+
+        /* ============================================
+           TEST CASE 3: LARGE TEXT FAILURES
+           ============================================ */
+
+        /* TC3.1: Large text low contrast - 2.2:1 */
+        .tc3-large-low {
+            background-color: #ffffff;
+            color: #b4b4b4;
+            font-size: 24px;
+            font-weight: normal;
+            /* Contrast ratio: ~2.2:1 (needs 3:1 for large text) */
+        }
+
+        /* TC3.2: Large bold text low contrast - 2.8:1 */
+        .tc3-large-bold-low {
+            background-color: #ffffff;
+            color: #999999;
+            font-size: 18px;
+            font-weight: bold;
+            /* Contrast ratio: ~2.8:1 (needs 3:1 for large bold) */
+        }
+
+        /* ============================================
+           TEST CASE 4: LARGE TEXT PASSES
+           ============================================ */
+
+        /* TC4.1: Large text minimal pass - 3.2:1 */
+        .tc4-large-pass {
+            background-color: #ffffff;
+            color: #8f8f8f;
+            font-size: 24px;
+            font-weight: normal;
+            /* Contrast ratio: ~3.2:1 (passes 3:1 for large text) */
+        }
+
+        /* TC4.2: Large bold text pass - 3.5:1 */
+        .tc4-large-bold-pass {
+            background-color: #ffffff;
+            color: #888888;
+            font-size: 18px;
+            font-weight: bold;
+            /* Contrast ratio: ~3.5:1 (passes 3:1 for large bold) */
+        }
+
+        /* ============================================
+           TEST CASE 5: COLORED BACKGROUNDS
+           ============================================ */
+
+        /* TC5.1: Dark background, insufficient light text - 3.8:1 */
+        .tc5-dark-bg-fail {
+            background-color: #333333;
+            color: #888888;
+            /* Contrast ratio: ~3.8:1 (needs 4.5:1) */
+        }
+
+        /* TC5.2: Dark background, sufficient light text - 5.2:1 */
+        .tc5-dark-bg-pass {
+            background-color: #333333;
+            color: #a8a8a8;
+            /* Contrast ratio: ~5.2:1 (passes 4.5:1) */
+        }
+
+        /* ============================================
+           TEST CASE 6: COLORED TEXT
+           ============================================ */
+
+        /* TC6.1: Blue on white - 2.9:1 */
+        .tc6-blue-fail {
+            background-color: #ffffff;
+            color: #6c9bd1;
+            /* Contrast ratio: ~2.9:1 (needs 4.5:1) */
+        }
+
+        /* TC6.2: Darker blue on white - 4.7:1 */
+        .tc6-blue-pass {
+            background-color: #ffffff;
+            color: #3d6fa8;
+            /* Contrast ratio: ~4.7:1 (passes 4.5:1) */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 WCAG 1.4.3 Contrast (Minimum) - Test Page</h1>
+
+        <div class="header-info"
+             data-wcag-criterion="1.4.3"
+             data-total-test-cases="12"
+             data-expected-violations="6">
+            <strong>Testing: WCAG 1.4.3 - Contrast (Minimum) (Level AA)</strong>
+            <p style="margin: 5px 0 0 0;">
+                This page tests color contrast requirements. Normal text requires 4.5:1 contrast ratio,
+                large text (18pt+ or 14pt+ bold) requires 3:1.
+            </p>
+        </div>
+
+        <!-- TEST CATEGORY 1: NORMAL TEXT FAILURES -->
+        <div class="section-header" id="section-normal-fail">
+            <h2>❌ Category 1: Normal Text Failures (Below 4.5:1)</h2>
+            <p>Text that doesn't meet the minimum 4.5:1 contrast ratio</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card"
+                 data-test-id="TC1.1"
+                 data-expected-result="violation"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="1.5"
+                 data-required-ratio="4.5"
+                 data-category="normal-text-failure">
+
+                <h3>TC1.1: Very Low Contrast <span class="badge badge-fail">FAIL</span></h3>
+
+                <span class="contrast-info contrast-fail">Contrast: 1.5:1 (needs 4.5:1)</span>
+
+                <div class="test-description">
+                    Very light gray text on white background. Extremely poor contrast.
+                </div>
+
+                <div class="test-sample tc1-very-low-contrast">
+                    This text has a contrast ratio of approximately 1.5:1 against the white background.
+                    This is far below the required 4.5:1 ratio.
+                </div>
+
+                <div class="css-code">.tc1-very-low-contrast {
+  background-color: #ffffff;
+  color: #d4d4d4;
+  /* Contrast ratio: ~1.5:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC1.2"
+                 data-expected-result="violation"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="2.8"
+                 data-required-ratio="4.5">
+
+                <h3>TC1.2: Low Contrast <span class="badge badge-fail">FAIL</span></h3>
+
+                <span class="contrast-info contrast-fail">Contrast: 2.8:1 (needs 4.5:1)</span>
+
+                <div class="test-description">
+                    Light gray text on white. Still insufficient for normal text.
+                </div>
+
+                <div class="test-sample tc1-low-contrast">
+                    This text has a contrast ratio of approximately 2.8:1. While better than TC1.1,
+                    it still fails to meet the 4.5:1 requirement.
+                </div>
+
+                <div class="css-code">.tc1-low-contrast {
+  background-color: #ffffff;
+  color: #999999;
+  /* Contrast ratio: ~2.8:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC1.3"
+                 data-expected-result="violation"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="4.2"
+                 data-required-ratio="4.5">
+
+                <h3>TC1.3: Just Below Threshold <span class="badge badge-fail">FAIL</span></h3>
+
+                <span class="contrast-info contrast-fail">Contrast: 4.2:1 (needs 4.5:1)</span>
+
+                <div class="test-description">
+                    Close to passing but still below the 4.5:1 threshold.
+                </div>
+
+                <div class="test-sample tc1-below-threshold">
+                    This text has a contrast ratio of approximately 4.2:1. It's close,
+                    but still fails the 4.5:1 requirement for normal text.
+                </div>
+
+                <div class="css-code">.tc1-below-threshold {
+  background-color: #ffffff;
+  color: #767676;
+  /* Contrast ratio: ~4.2:1 */
+}</div>
+            </div>
+        </div>
+
+        <!-- TEST CATEGORY 2: NORMAL TEXT PASSES -->
+        <div class="section-header" style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);">
+            <h2>✅ Category 2: Normal Text Passes (≥ 4.5:1)</h2>
+            <p>Text that meets or exceeds the minimum 4.5:1 contrast ratio</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card"
+                 data-test-id="TC2.1"
+                 data-expected-result="pass"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="4.6"
+                 data-required-ratio="4.5">
+
+                <h3>TC2.1: Just Above Threshold <span class="badge badge-pass">PASS</span></h3>
+
+                <span class="contrast-info contrast-pass">Contrast: 4.6:1 (passes 4.5:1)</span>
+
+                <div class="test-description">
+                    Minimal passing contrast for normal text.
+                </div>
+
+                <div class="test-sample tc2-above-threshold">
+                    This text has a contrast ratio of approximately 4.6:1. It just barely
+                    passes the 4.5:1 requirement.
+                </div>
+
+                <div class="css-code">.tc2-above-threshold {
+  background-color: #ffffff;
+  color: #747474;
+  /* Contrast ratio: ~4.6:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC2.2"
+                 data-expected-result="pass"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="7.0"
+                 data-required-ratio="4.5">
+
+                <h3>TC2.2: Good Contrast <span class="badge badge-pass">PASS</span></h3>
+
+                <span class="contrast-info contrast-pass">Contrast: 7.0:1 (passes 4.5:1)</span>
+
+                <div class="test-description">
+                    Comfortable reading experience with good contrast.
+                </div>
+
+                <div class="test-sample tc2-good-contrast">
+                    This text has a contrast ratio of approximately 7:1. This provides
+                    a comfortable reading experience for most users.
+                </div>
+
+                <div class="css-code">.tc2-good-contrast {
+  background-color: #ffffff;
+  color: #595959;
+  /* Contrast ratio: ~7:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC2.3"
+                 data-expected-result="pass"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="12.6"
+                 data-required-ratio="4.5">
+
+                <h3>TC2.3: High Contrast <span class="badge badge-pass">PASS</span></h3>
+
+                <span class="contrast-info contrast-pass">Contrast: 12.6:1 (passes 4.5:1)</span>
+
+                <div class="test-description">
+                    Excellent contrast for maximum readability.
+                </div>
+
+                <div class="test-sample tc2-high-contrast">
+                    This text has a contrast ratio of approximately 12.6:1. This provides
+                    excellent readability even in challenging conditions.
+                </div>
+
+                <div class="css-code">.tc2-high-contrast {
+  background-color: #ffffff;
+  color: #333333;
+  /* Contrast ratio: ~12.6:1 */
+}</div>
+            </div>
+        </div>
+
+        <!-- TEST CATEGORY 3: LARGE TEXT -->
+        <div class="section-header" style="background: linear-gradient(135deg, #f09819 0%, #edde5d 100%);">
+            <h2>📏 Category 3: Large Text (18pt+ or 14pt+ bold)</h2>
+            <p>Large text requires only 3:1 contrast ratio</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card"
+                 data-test-id="TC3.1"
+                 data-expected-result="violation"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="2.2"
+                 data-required-ratio="3.0"
+                 data-text-size="large">
+
+                <h3>TC3.1: Large Text - Low Contrast <span class="badge badge-fail">FAIL</span></h3>
+
+                <span class="contrast-info contrast-fail">Contrast: 2.2:1 (needs 3:1 for large text)</span>
+
+                <div class="test-description">
+                    24px text with insufficient contrast even for large text.
+                </div>
+
+                <div class="test-sample tc3-large-low">
+                    This large text (24px) has only 2.2:1 contrast. Even large text needs 3:1.
+                </div>
+
+                <div class="css-code">.tc3-large-low {
+  font-size: 24px;
+  color: #b4b4b4;
+  /* Contrast ratio: ~2.2:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC3.2"
+                 data-expected-result="violation"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="2.8"
+                 data-required-ratio="3.0"
+                 data-text-size="large-bold">
+
+                <h3>TC3.2: Large Bold - Low Contrast <span class="badge badge-fail">FAIL</span></h3>
+
+                <span class="contrast-info contrast-fail">Contrast: 2.8:1 (needs 3:1 for large bold)</span>
+
+                <div class="test-description">
+                    18px bold text with insufficient contrast.
+                </div>
+
+                <div class="test-sample tc3-large-bold-low">
+                    This large bold text (18px bold) has only 2.8:1 contrast. Needs 3:1.
+                </div>
+
+                <div class="css-code">.tc3-large-bold-low {
+  font-size: 18px;
+  font-weight: bold;
+  color: #999999;
+  /* Contrast ratio: ~2.8:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC4.1"
+                 data-expected-result="pass"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="3.2"
+                 data-required-ratio="3.0"
+                 data-text-size="large">
+
+                <h3>TC4.1: Large Text - Pass <span class="badge badge-pass">PASS</span></h3>
+
+                <span class="contrast-info contrast-pass">Contrast: 3.2:1 (passes 3:1 for large text)</span>
+
+                <div class="test-description">
+                    24px text with sufficient contrast for large text.
+                </div>
+
+                <div class="test-sample tc4-large-pass">
+                    This large text (24px) has 3.2:1 contrast, passing the 3:1 requirement.
+                </div>
+
+                <div class="css-code">.tc4-large-pass {
+  font-size: 24px;
+  color: #8f8f8f;
+  /* Contrast ratio: ~3.2:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC4.2"
+                 data-expected-result="pass"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="3.5"
+                 data-required-ratio="3.0"
+                 data-text-size="large-bold">
+
+                <h3>TC4.2: Large Bold - Pass <span class="badge badge-pass">PASS</span></h3>
+
+                <span class="contrast-info contrast-pass">Contrast: 3.5:1 (passes 3:1 for large bold)</span>
+
+                <div class="test-description">
+                    18px bold text with sufficient contrast.
+                </div>
+
+                <div class="test-sample tc4-large-bold-pass">
+                    This large bold text (18px bold) has 3.5:1 contrast, passing 3:1.
+                </div>
+
+                <div class="css-code">.tc4-large-bold-pass {
+  font-size: 18px;
+  font-weight: bold;
+  color: #888888;
+  /* Contrast ratio: ~3.5:1 */
+}</div>
+            </div>
+        </div>
+
+        <!-- TEST CATEGORY 4: VARIED BACKGROUNDS -->
+        <div class="section-header" style="background: linear-gradient(135deg, #0093E9 0%, #80D0C7 100%);">
+            <h2>🎨 Category 4: Colored Backgrounds & Text</h2>
+            <p>Testing contrast with various color combinations</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card"
+                 data-test-id="TC5.1"
+                 data-expected-result="violation"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="3.8"
+                 data-required-ratio="4.5">
+
+                <h3>TC5.1: Dark Background Fail <span class="badge badge-fail">FAIL</span></h3>
+
+                <span class="contrast-info contrast-fail">Contrast: 3.8:1 (needs 4.5:1)</span>
+
+                <div class="test-description">
+                    Light gray text on dark background with insufficient contrast.
+                </div>
+
+                <div class="test-sample tc5-dark-bg-fail">
+                    Light gray text on dark background. Contrast ratio ~3.8:1. Insufficient.
+                </div>
+
+                <div class="css-code">.tc5-dark-bg-fail {
+  background-color: #333333;
+  color: #888888;
+  /* Contrast ratio: ~3.8:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC5.2"
+                 data-expected-result="pass"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="5.2"
+                 data-required-ratio="4.5">
+
+                <h3>TC5.2: Dark Background Pass <span class="badge badge-pass">PASS</span></h3>
+
+                <span class="contrast-info contrast-pass">Contrast: 5.2:1 (passes 4.5:1)</span>
+
+                <div class="test-description">
+                    Lighter text on dark background with sufficient contrast.
+                </div>
+
+                <div class="test-sample tc5-dark-bg-pass">
+                    Lighter text on dark background. Contrast ratio ~5.2:1. Sufficient.
+                </div>
+
+                <div class="css-code">.tc5-dark-bg-pass {
+  background-color: #333333;
+  color: #a8a8a8;
+  /* Contrast ratio: ~5.2:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC6.1"
+                 data-expected-result="violation"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="2.9"
+                 data-required-ratio="4.5">
+
+                <h3>TC6.1: Blue Text Fail <span class="badge badge-fail">FAIL</span></h3>
+
+                <span class="contrast-info contrast-fail">Contrast: 2.9:1 (needs 4.5:1)</span>
+
+                <div class="test-description">
+                    Light blue text on white - common but insufficient contrast.
+                </div>
+
+                <div class="test-sample tc6-blue-fail">
+                    Light blue text is common for links but often has poor contrast. This has ~2.9:1.
+                </div>
+
+                <div class="css-code">.tc6-blue-fail {
+  background-color: #ffffff;
+  color: #6c9bd1;
+  /* Contrast ratio: ~2.9:1 */
+}</div>
+            </div>
+
+            <div class="test-card"
+                 data-test-id="TC6.2"
+                 data-expected-result="pass"
+                 data-wcag-criterion="1.4.3"
+                 data-contrast-ratio="4.7"
+                 data-required-ratio="4.5">
+
+                <h3>TC6.2: Blue Text Pass <span class="badge badge-pass">PASS</span></h3>
+
+                <span class="contrast-info contrast-pass">Contrast: 4.7:1 (passes 4.5:1)</span>
+
+                <div class="test-description">
+                    Darker blue with sufficient contrast.
+                </div>
+
+                <div class="test-sample tc6-blue-pass">
+                    Darker blue text provides sufficient contrast at ~4.7:1. Good for links.
+                </div>
+
+                <div class="css-code">.tc6-blue-pass {
+  background-color: #ffffff;
+  color: #3d6fa8;
+  /* Contrast ratio: ~4.7:1 */
+}</div>
+            </div>
+        </div>
+
+        <!-- EXPECTED RESULTS -->
+        <div class="info-box">
+            <h3>📊 Expected Test Results</h3>
+            <div class="expected-results-section"
+                 data-total-elements="12"
+                 data-expected-violations="6"
+                 data-expected-passes="6">
+                <ul>
+                    <li><strong>Total Test Cases:</strong> 12</li>
+                    <li><strong>Expected Violations:</strong> 6
+                        <ul>
+                            <li>TC1.1 - Very low contrast (1.5:1)</li>
+                            <li>TC1.2 - Low contrast (2.8:1)</li>
+                            <li>TC1.3 - Just below threshold (4.2:1)</li>
+                            <li>TC3.1 - Large text low contrast (2.2:1)</li>
+                            <li>TC3.2 - Large bold low contrast (2.8:1)</li>
+                            <li>TC5.1 - Dark background insufficient (3.8:1)</li>
+                            <li>TC6.1 - Blue text insufficient (2.9:1)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Expected Passes:</strong> 6</li>
+                </ul>
+
+                <h4>WCAG 1.4.3 Requirements:</h4>
+                <ul>
+                    <li><strong>Normal Text:</strong> Minimum 4.5:1 contrast ratio</li>
+                    <li><strong>Large Text:</strong> Minimum 3:1 contrast ratio
+                        <ul>
+                            <li>Large text = 18pt (24px) or larger</li>
+                            <li>Large text = 14pt (18.66px) bold or larger</li>
+                        </ul>
+                    </li>
+                    <li><strong>Level:</strong> AA</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Machine-readable test metadata
+        window.testMetadata = {
+            wcagCriterion: '1.4.3',
+            criterionName: 'Contrast (Minimum)',
+            level: 'AA',
+            totalCases: 12,
+            expectedViolations: 6,
+            expectedPasses: 6,
+            testCases: []
+        };
+
+        // Parse all test cases
+        document.querySelectorAll('[data-test-id]').forEach(testCard => {
+            const testCase = {
+                id: testCard.dataset.testId,
+                expectedResult: testCard.dataset.expectedResult,
+                criterion: testCard.dataset.wcagCriterion,
+                contrastRatio: parseFloat(testCard.dataset.contrastRatio),
+                requiredRatio: parseFloat(testCard.dataset.requiredRatio),
+                category: testCard.dataset.category,
+                textSize: testCard.dataset.textSize || 'normal'
+            };
+            window.testMetadata.testCases.push(testCase);
+        });
+
+        window.getTestMetadata = function() {
+            return window.testMetadata;
+        };
+
+        console.log('✅ WCAG 1.4.3 Contrast (Minimum) test page loaded');
+        console.log('📊 Test metadata:', window.testMetadata);
+        console.log('🔍 Use window.getTestMetadata() to access test data');
+    </script>
+</body>
+</html>

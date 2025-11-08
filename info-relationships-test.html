@@ -41,44 +41,70 @@
         <h1>🔗 WCAG 1.3.1 Info and Relationships - Test Page</h1>
         <p><strong>Testing:</strong> Information, structure, and relationships conveyed through presentation must be programmatically determinable.</p>
 
-        <h2>📊 Test Case 1: Table Structure</h2>
+        <h2>📊 Test Case 1: Data Table with Styling</h2>
         <div class="test-grid">
             <!-- FAIL -->
             <div class="test-card fail" data-test-id="TC1.1" data-expected-result="violation" data-wcag-criterion="1.3.1">
                 <h3>❌ FAIL: Div Table (No Semantic Markup)</h3>
-                <div class="fake-table">
-                    <div class="fake-row">
-                        <div class="fake-cell"><strong>Name</strong></div>
-                        <div class="fake-cell"><strong>Age</strong></div>
-                    </div>
-                    <div class="fake-row">
-                        <div class="fake-cell">John</div>
-                        <div class="fake-cell">30</div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                    <div class="fake-table" style="border: 1px solid #ccc;">
+                        <div class="fake-row" style="background: #e9ecef;">
+                            <div class="fake-cell" style="font-weight: bold; color: #495057;">Employee</div>
+                            <div class="fake-cell" style="font-weight: bold; color: #495057;">Department</div>
+                            <div class="fake-cell" style="font-weight: bold; color: #495057;">Status</div>
+                        </div>
+                        <div class="fake-row">
+                            <div class="fake-cell" style="color: #666;">Sarah Chen</div>
+                            <div class="fake-cell" style="color: #666;">Engineering</div>
+                            <div class="fake-cell" style="color: #666;">
+                                <span style="background: #d1e7dd; color: #0f5132; padding: 2px 8px; border-radius: 3px; font-size: 12px;">Active</span>
+                            </div>
+                        </div>
+                        <div class="fake-row">
+                            <div class="fake-cell" style="color: #666;">Marcus Liu</div>
+                            <div class="fake-cell" style="color: #666;">Design</div>
+                            <div class="fake-cell" style="color: #666;">
+                                <span style="background: #d1e7dd; color: #0f5132; padding: 2px 8px; border-radius: 3px; font-size: 12px;">Active</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <p>Table created with divs and CSS - screen readers cannot identify it as a table</p>
-                <code>&lt;div class="fake-table"&gt;&lt;div class="fake-row"&gt;...&lt;/div&gt;&lt;/div&gt;</code>
+                <p>Table created with divs and CSS - visually looks like a table but no semantic markup</p>
+                <code>&lt;div class="fake-table"&gt;&lt;div class="fake-row"&gt;&lt;div class="fake-cell"&gt;...&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code>
             </div>
 
             <!-- PASS -->
             <div class="test-card pass" data-test-id="TC2.1" data-expected-result="pass" data-wcag-criterion="1.3.1">
-                <h3>✅ PASS: Proper Semantic Table</h3>
-                <table style="width: 100%; border-collapse: collapse; border: 1px solid #0d6efd;">
-                    <thead>
-                        <tr>
-                            <th style="border: 1px solid #0d6efd; padding: 10px; background: #e7f1ff;">Name</th>
-                            <th style="border: 1px solid #0d6efd; padding: 10px; background: #e7f1ff;">Age</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="border: 1px solid #0d6efd; padding: 10px;">Jane</td>
-                            <td style="border: 1px solid #0d6efd; padding: 10px;">28</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>Proper table with semantic elements - screen readers announce "table with 2 columns, 2 rows"</p>
-                <code>&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;...&lt;/tbody&gt;&lt;/table&gt;</code>
+                <h3>✅ PASS: Semantic Table (Identical Visual)</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                    <table style="width: 100%; border-collapse: collapse; border: 1px solid #ccc;">
+                        <thead>
+                            <tr style="background: #e9ecef;">
+                                <th style="border: 1px solid #ccc; padding: 10px; font-weight: bold; color: #495057; text-align: left;">Employee</th>
+                                <th style="border: 1px solid #ccc; padding: 10px; font-weight: bold; color: #495057; text-align: left;">Department</th>
+                                <th style="border: 1px solid #ccc; padding: 10px; font-weight: bold; color: #495057; text-align: left;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border: 1px solid #ccc; padding: 10px; color: #666;">Sarah Chen</td>
+                                <td style="border: 1px solid #ccc; padding: 10px; color: #666;">Engineering</td>
+                                <td style="border: 1px solid #ccc; padding: 10px; color: #666;">
+                                    <span style="background: #d1e7dd; color: #0f5132; padding: 2px 8px; border-radius: 3px; font-size: 12px;">Active</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #ccc; padding: 10px; color: #666;">Marcus Liu</td>
+                                <td style="border: 1px solid #ccc; padding: 10px; color: #666;">Design</td>
+                                <td style="border: 1px solid #ccc; padding: 10px; color: #666;">
+                                    <span style="background: #d1e7dd; color: #0f5132; padding: 2px 8px; border-radius: 3px; font-size: 12px;">Active</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Same visual appearance using semantic table - screen readers announce "table with 3 columns, 3 rows"</p>
+                <code>&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Employee&lt;/th&gt;...&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;...&lt;/tbody&gt;&lt;/table&gt;</code>
             </div>
         </div>
 
@@ -88,33 +114,33 @@
             <div class="test-card fail" data-test-id="TC1.2" data-expected-result="violation" data-wcag-criterion="1.3.1">
                 <h3>❌ FAIL: Styled Divs Instead of Headings</h3>
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #212529;">Our Services</div>
-                    <p style="margin: 10px 0; color: #666;">We offer comprehensive solutions</p>
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #495057;">Our Services</div>
+                    <p style="margin: 10px 0; color: #666;">We offer comprehensive solutions for your business needs</p>
 
                     <div style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #495057;">Web Development</div>
-                    <p style="margin: 5px 0; color: #666;">Custom websites and applications</p>
+                    <p style="margin: 5px 0; color: #666;">Custom websites and applications tailored to your requirements</p>
 
                     <div style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #495057;">Mobile Apps</div>
-                    <p style="margin: 5px 0; color: #666;">iOS and Android development</p>
+                    <p style="margin: 5px 0; color: #666;">iOS and Android development with native performance</p>
                 </div>
-                <p>Common pattern: styled divs create visual hierarchy but no semantic structure - AI can recognize this should be h2/h3</p>
-                <code>&lt;div style="font-size: 24px; font-weight: bold"&gt;Our Services&lt;/div&gt;&lt;div style="font-size: 18px; font-weight: bold"&gt;Web Development&lt;/div&gt;</code>
+                <p>Styled divs create visual hierarchy but no semantic structure - AI can recognize heading pattern from font sizes</p>
+                <code>&lt;div style="font-size: 24px; font-weight: bold"&gt;Our Services&lt;/div&gt;&lt;div style="font-size: 18px"&gt;Web Development&lt;/div&gt;</code>
             </div>
 
             <!-- PASS -->
             <div class="test-card pass" data-test-id="TC2.2" data-expected-result="pass" data-wcag-criterion="1.3.1">
-                <h3>✅ PASS: Proper Heading Hierarchy</h3>
-                <div style="background: #e7f1ff; padding: 15px; border-radius: 4px;">
-                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #0d6efd;">Our Services</h2>
-                    <p style="margin: 10px 0; color: #0d6efd;">We offer comprehensive solutions</p>
+                <h3>✅ PASS: Semantic Heading Hierarchy (Identical Visual)</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                    <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 15px; color: #495057;">Our Services</h2>
+                    <p style="margin: 10px 0; color: #666;">We offer comprehensive solutions for your business needs</p>
 
-                    <h3 style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #0d6efd;">Web Development</h3>
-                    <p style="margin: 5px 0; color: #0d6efd;">Custom websites and applications</p>
+                    <h3 style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #495057;">Web Development</h3>
+                    <p style="margin: 5px 0; color: #666;">Custom websites and applications tailored to your requirements</p>
 
-                    <h3 style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #0d6efd;">Mobile Apps</h3>
-                    <p style="margin: 5px 0; color: #0d6efd;">iOS and Android development</p>
+                    <h3 style="font-size: 18px; font-weight: bold; margin: 15px 0 10px; color: #495057;">Mobile Apps</h3>
+                    <p style="margin: 5px 0; color: #666;">iOS and Android development with native performance</p>
                 </div>
-                <p>Proper h2/h3 hierarchy - screen readers can navigate by heading level, understand document structure</p>
+                <p>Same visual with semantic h2/h3 - screen readers can navigate by heading level, understand document outline</p>
                 <code>&lt;h2&gt;Our Services&lt;/h2&gt;&lt;h3&gt;Web Development&lt;/h3&gt;&lt;h3&gt;Mobile Apps&lt;/h3&gt;</code>
             </div>
         </div>
@@ -127,28 +153,30 @@
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
                     <div style="font-weight: bold; margin-bottom: 10px; color: #495057;">Quick Links</div>
                     <div style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">About Us</a></div>
+                    <div style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">Careers</a></div>
                     <div style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">Contact</a></div>
                     <div style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">Privacy Policy</a></div>
                     <div style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">Terms of Service</a></div>
                 </div>
-                <p>Common footer pattern: links in divs without list markup - AI can recognize this is a group of related links that should be a list</p>
-                <code>&lt;div&gt;&lt;a href="#"&gt;About Us&lt;/a&gt;&lt;/div&gt;&lt;div&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/div&gt;</code>
+                <p>Common footer pattern: navigation links in divs - AI can recognize this group of related links should be a list</p>
+                <code>&lt;div&gt;&lt;a href="#"&gt;About Us&lt;/a&gt;&lt;/div&gt;&lt;div&gt;&lt;a href="#"&gt;Careers&lt;/a&gt;&lt;/div&gt;</code>
             </div>
 
             <!-- PASS -->
             <div class="test-card pass" data-test-id="TC2.3" data-expected-result="pass" data-wcag-criterion="1.3.1">
-                <h3>✅ PASS: Links in Semantic List</h3>
-                <div style="background: #e7f1ff; padding: 15px; border-radius: 4px;">
-                    <div style="font-weight: bold; margin-bottom: 10px; color: #0d6efd;">Quick Links</div>
+                <h3>✅ PASS: Semantic List (Identical Visual)</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                    <div style="font-weight: bold; margin-bottom: 10px; color: #495057;">Quick Links</div>
                     <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="margin: 5px 0;"><a href="#" style="color: #0d6efd; text-decoration: none;">About Us</a></li>
-                        <li style="margin: 5px 0;"><a href="#" style="color: #0d6efd; text-decoration: none;">Contact</a></li>
-                        <li style="margin: 5px 0;"><a href="#" style="color: #0d6efd; text-decoration: none;">Privacy Policy</a></li>
-                        <li style="margin: 5px 0;"><a href="#" style="color: #0d6efd; text-decoration: none;">Terms of Service</a></li>
+                        <li style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">About Us</a></li>
+                        <li style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">Careers</a></li>
+                        <li style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">Contact</a></li>
+                        <li style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">Privacy Policy</a></li>
+                        <li style="margin: 5px 0;"><a href="#" style="color: #666; text-decoration: none;">Terms of Service</a></li>
                     </ul>
                 </div>
-                <p>Same visual appearance but uses &lt;ul&gt; and &lt;li&gt; - screen readers announce "list with 4 items" allowing users to skip or navigate</p>
-                <code>&lt;ul&gt;&lt;li&gt;&lt;a href="#"&gt;About Us&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</code>
+                <p>Same visual using &lt;ul&gt; with list-style:none - screen readers announce "list with 5 items", can skip/navigate</p>
+                <code>&lt;ul style="list-style: none"&gt;&lt;li&gt;&lt;a href="#"&gt;About Us&lt;/a&gt;&lt;/li&gt;...&lt;/ul&gt;</code>
             </div>
         </div>
 
@@ -157,25 +185,31 @@
             <!-- FAIL -->
             <div class="test-card fail" data-test-id="TC1.4" data-expected-result="violation" data-wcag-criterion="1.3.1">
                 <h3>❌ FAIL: Radio Group Without Fieldset</h3>
-                <div style="border: 1px solid #ccc; padding: 15px; border-radius: 4px;">
-                    <div style="font-weight: bold; margin-bottom: 10px;">Contact Information</div>
-                    <label><input type="radio" name="contact" value="email"> Email</label><br>
-                    <label><input type="radio" name="contact" value="phone"> Phone</label>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                    <div style="border: 1px solid #ccc; padding: 15px; border-radius: 4px;">
+                        <div style="font-weight: bold; margin-bottom: 10px; color: #495057;">Preferred Contact Method</div>
+                        <label style="display: block; margin: 8px 0; color: #666;"><input type="radio" name="contact" value="email" style="margin-right: 8px;"> Email</label>
+                        <label style="display: block; margin: 8px 0; color: #666;"><input type="radio" name="contact" value="phone" style="margin-right: 8px;"> Phone</label>
+                        <label style="display: block; margin: 8px 0; color: #666;"><input type="radio" name="contact" value="sms" style="margin-right: 8px;"> SMS</label>
+                    </div>
                 </div>
-                <p>Radio group lacks &lt;fieldset&gt; and &lt;legend&gt; - relationship between group label and options not programmatic</p>
-                <code>&lt;div&gt;&lt;div&gt;Contact Information&lt;/div&gt;&lt;input type="radio"&gt;...&lt;/div&gt;</code>
+                <p>Radio group in div - relationship between group label and options not programmatically determinable</p>
+                <code>&lt;div&gt;&lt;div&gt;Preferred Contact Method&lt;/div&gt;&lt;input type="radio"&gt;...&lt;/div&gt;</code>
             </div>
 
             <!-- PASS -->
             <div class="test-card pass" data-test-id="TC2.4" data-expected-result="pass" data-wcag-criterion="1.3.1">
-                <h3>✅ PASS: Radio Group with Fieldset</h3>
-                <fieldset style="border: 1px solid #0d6efd; padding: 15px; border-radius: 4px;">
-                    <legend style="font-weight: bold; color: #0d6efd;">Contact Information</legend>
-                    <label><input type="radio" name="contact2" value="email"> Email</label><br>
-                    <label><input type="radio" name="contact2" value="phone"> Phone</label>
-                </fieldset>
-                <p>Uses &lt;fieldset&gt; and &lt;legend&gt; - screen readers announce legend with each radio option</p>
-                <code>&lt;fieldset&gt;&lt;legend&gt;Contact Information&lt;/legend&gt;&lt;input type="radio"&gt;...&lt;/fieldset&gt;</code>
+                <h3>✅ PASS: Semantic Fieldset (Identical Visual)</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                    <fieldset style="border: 1px solid #ccc; padding: 15px; border-radius: 4px; margin: 0;">
+                        <legend style="font-weight: bold; color: #495057;">Preferred Contact Method</legend>
+                        <label style="display: block; margin: 8px 0; color: #666;"><input type="radio" name="contact2" value="email" style="margin-right: 8px;"> Email</label>
+                        <label style="display: block; margin: 8px 0; color: #666;"><input type="radio" name="contact2" value="phone" style="margin-right: 8px;"> Phone</label>
+                        <label style="display: block; margin: 8px 0; color: #666;"><input type="radio" name="contact2" value="sms" style="margin-right: 8px;"> SMS</label>
+                    </fieldset>
+                </div>
+                <p>Same visual using &lt;fieldset&gt;/&lt;legend&gt; - screen readers announce legend with each radio option</p>
+                <code>&lt;fieldset&gt;&lt;legend&gt;Preferred Contact Method&lt;/legend&gt;&lt;input type="radio"&gt;...&lt;/fieldset&gt;</code>
             </div>
         </div>
 

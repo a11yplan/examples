@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Visibility Detection Algorithm Test Suite</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #212529;
+            border-bottom: 4px solid #0d6efd;
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+        }
+
+        .header-info {
+            background-color: #e7f3ff;
+            border-left: 4px solid #0d6efd;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 2px solid #dee2e6;
+        }
+
+        .test-card h3 {
+            margin-top: 0;
+            color: #495057;
+            font-size: 16px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .expected-score {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .score-fail {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        .score-pass {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .score-edge {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+
+        .test-description {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .test-element-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .css-code {
+            background-color: #2d2d2d;
+            color: #d4d4d4;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 40px 0 20px 0;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .section-header p {
+            margin: 5px 0 0 0;
+            opacity: 0.9;
+        }
+
+        /* ============================================
+           TEST CASE 1: CLEAR FAILURES (Score < 30%)
+           ============================================ */
+
+        /* TC1.1: outline: none with no alternative (-50 points) */
+        .tc1-outline-none {
+            padding: 10px 20px;
+            background-color: #0d6efd;
+            color: white;
+            border: 2px solid #0d6efd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc1-outline-none:focus {
+            outline: none;
+        }
+
+        /* TC1.2: outline: 0 with no alternative (-50 points) */
+        .tc1-outline-zero {
+            padding: 10px 20px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc1-outline-zero:focus {
+            outline: 0;
+        }
+
+        /* TC1.3: Outline disabled + all other indicators score < 30 */
+        .tc1-outline-disabled-minimal {
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            border: 1px solid #6c757d;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc1-outline-disabled-minimal:focus {
+            outline: none;
+            opacity: 0.95; /* Minor change: ~15 points */
+            /* Total: -50 + 15 = -35 (< 30%) */
+        }
+
+        /* TC1.4: Link with no focus indicator */
+        .tc1-link-no-focus {
+            color: #0d6efd;
+            text-decoration: underline;
+            padding: 5px;
+        }
+        .tc1-link-no-focus:focus {
+            outline: none;
+            text-decoration: none; /* Actually removes indicator */
+        }
+
+        /* ============================================
+           TEST CASE 2: CLEAR PASSES (Score > 30%)
+           ============================================ */
+
+        /* TC2.1: Standard outline (50 points) */
+        .tc2-standard-outline {
+            padding: 10px 20px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc2-standard-outline:focus {
+            outline: 2px solid #fd7e14;
+            outline-offset: 2px;
+        }
+
+        /* TC2.2: Custom outline with high visibility (50 points) */
+        .tc2-custom-outline {
+            padding: 10px 20px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc2-custom-outline:focus {
+            outline: 3px dashed #ffc107;
+            outline-offset: 3px;
+        }
+
+        /* TC2.3: Box-shadow only (40 points) */
+        .tc2-box-shadow-only {
+            padding: 10px 20px;
+            background-color: #6610f2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc2-box-shadow-only:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.5);
+        }
+
+        /* TC2.4: Border change only (35 points) */
+        .tc2-border-only {
+            padding: 10px 20px;
+            background-color: white;
+            color: #212529;
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc2-border-only:focus {
+            outline: none;
+            border: 2px solid #0d6efd;
+            border-width: 3px;
+        }
+
+        /* ============================================
+           TEST CASE 3: EDGE CASES (Near 30% threshold)
+           ============================================ */
+
+        /* TC3.1: Background color only (25 points - FAIL) */
+        .tc3-background-only {
+            padding: 10px 20px;
+            background-color: #e9ecef;
+            color: #212529;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc3-background-only:focus {
+            outline: none;
+            background-color: #cfe2ff;
+        }
+
+        /* TC3.2: Background + Opacity (25 + 15 = 40 points - PASS) */
+        .tc3-background-opacity {
+            padding: 10px 20px;
+            background-color: #e9ecef;
+            color: #212529;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+        .tc3-background-opacity:focus {
+            outline: none;
+            background-color: #fff3cd;
+            opacity: 1;
+        }
+
+        /* TC3.3: Transform only (20 points - FAIL) */
+        .tc3-transform-only {
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .tc3-transform-only:focus {
+            outline: none;
+            transform: scale(1.05);
+        }
+
+        /* TC3.4: Subtle border + background (35 + 25 = 60 points - PASS) */
+        .tc3-border-background {
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            color: #212529;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc3-border-background:focus {
+            outline: none;
+            border-color: #0d6efd;
+            background-color: #e7f3ff;
+        }
+
+        /* ============================================
+           TEST CASE 4: COMBINATION SCENARIOS
+           ============================================ */
+
+        /* TC4.1: Outline + Box-shadow (50 + 40 = 90 points - STRONG PASS) */
+        .tc4-outline-shadow {
+            padding: 10px 20px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc4-outline-shadow:focus {
+            outline: 2px solid #ffc107;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 5px rgba(255, 193, 7, 0.3);
+        }
+
+        /* TC4.2: Border + Box-shadow (35 + 40 = 75 points - STRONG PASS) */
+        .tc4-border-shadow {
+            padding: 10px 20px;
+            background-color: white;
+            color: #212529;
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc4-border-shadow:focus {
+            outline: none;
+            border-color: #198754;
+            box-shadow: 0 0 8px rgba(25, 135, 84, 0.4);
+        }
+
+        /* TC4.3: All indicators (50+35+40+25+15 = 165 points - MAXIMUM) */
+        .tc4-all-indicators {
+            padding: 10px 20px;
+            background-color: #6610f2;
+            color: white;
+            border: 2px solid #6610f2;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.95;
+        }
+        .tc4-all-indicators:focus {
+            outline: 3px solid #ffc107;
+            outline-offset: 2px;
+            border-color: #fd7e14;
+            box-shadow: 0 0 12px rgba(255, 193, 7, 0.6);
+            background-color: #520dc2;
+            opacity: 1;
+        }
+
+        /* TC4.4: Disabled outline with strong alternatives */
+        .tc4-no-outline-strong-alt {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: 2px solid #dc3545;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc4-no-outline-strong-alt:focus {
+            outline: none; /* -50 */
+            border-color: #ffc107; /* +35 */
+            box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.5); /* +40 */
+            background-color: #bb2d3b; /* +25 */
+            /* Total: -50 + 35 + 40 + 25 = 50 (PASS) */
+        }
+
+        /* ============================================
+           TEST CASE 5: INPUT ELEMENTS
+           ============================================ */
+
+        /* TC5.1: Input with no focus indicator */
+        .tc5-input-no-focus {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 200px;
+        }
+        .tc5-input-no-focus:focus {
+            outline: none;
+        }
+
+        /* TC5.2: Input with clear focus */
+        .tc5-input-clear-focus {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 200px;
+        }
+        .tc5-input-clear-focus:focus {
+            outline: none;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+        }
+
+        /* TC5.3: Input with border-only focus */
+        .tc5-input-border-only {
+            padding: 8px 12px;
+            border: 2px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 200px;
+        }
+        .tc5-input-border-only:focus {
+            outline: none;
+            border-color: #198754;
+            border-width: 3px;
+        }
+
+        /* ============================================
+           TEST CASE 6: LINKS
+           ============================================ */
+
+        /* TC6.1: Link with no focus */
+        .tc6-link-no-focus {
+            color: #0d6efd;
+            text-decoration: underline;
+        }
+        .tc6-link-no-focus:focus {
+            outline: none;
+        }
+
+        /* TC6.2: Link with background focus */
+        .tc6-link-background {
+            color: #0d6efd;
+            text-decoration: underline;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        .tc6-link-background:focus {
+            outline: none;
+            background-color: #fff3cd;
+            text-decoration: none;
+        }
+
+        /* TC6.3: Link with outline focus */
+        .tc6-link-outline {
+            color: #198754;
+            text-decoration: underline;
+        }
+        .tc6-link-outline:focus {
+            outline: 2px solid #fd7e14;
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           TEST CASE 7: CUSTOM INTERACTIVE ELEMENTS
+           ============================================ */
+
+        /* TC7.1: Div with tabindex but no focus indicator */
+        .tc7-div-no-focus {
+            padding: 15px;
+            background-color: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc7-div-no-focus:focus {
+            outline: none;
+        }
+
+        /* TC7.2: Div with clear focus */
+        .tc7-div-clear-focus {
+            padding: 15px;
+            background-color: #e7f3ff;
+            border: 2px solid #b6d4fe;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tc7-div-clear-focus:focus {
+            outline: 3px solid #0d6efd;
+            outline-offset: 2px;
+            background-color: #cfe2ff;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge-fail {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .badge-pass {
+            background-color: #198754;
+            color: white;
+        }
+
+        .badge-edge {
+            background-color: #ffc107;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Focus Visibility Detection Algorithm - Test Suite</h1>
+
+        <div class="header-info">
+            <strong>Testing Focus Visibility Phase Detection Algorithm</strong>
+            <p style="margin: 5px 0 0 0;">
+                This page contains carefully crafted test cases to validate the focus visibility detection algorithm.
+                Each test case is designed to test specific confidence score thresholds and detection patterns.
+            </p>
+            <p style="margin: 5px 0 0 0; font-size: 14px;">
+                <strong>Algorithm Scoring:</strong> Outline (±50) | Border (35) | Box-shadow (40) | Background (25) | Opacity/Transform (15-20) |
+                <strong>Threshold:</strong> ≥30% confidence = visible
+            </p>
+        </div>
+
+        <!-- TEST CASE 1: CLEAR FAILURES -->
+        <div class="section-header">
+            <h2>❌ Test Case 1: Clear Failures (Expected Score &lt; 30%)</h2>
+            <p>Elements that should be flagged as violations</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>TC1.1: Outline None <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-fail">Expected: -50 points</span>
+                <div class="test-description">
+                    Uses <code>outline: none</code> with no alternative indicators. Should score -50 points.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc1-outline-none">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc1-outline-none:focus {
+  outline: none;
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC1.2: Outline Zero <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-fail">Expected: -50 points</span>
+                <div class="test-description">
+                    Uses <code>outline: 0</code> with no alternative. Should score -50 points.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc1-outline-zero">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc1-outline-zero:focus {
+  outline: 0;
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC1.3: Disabled Outline + Minimal Change <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-fail">Expected: -35 points</span>
+                <div class="test-description">
+                    Outline disabled (-50) with only opacity change (+15). Total below threshold.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc1-outline-disabled-minimal">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc1-outline-disabled-minimal:focus {
+  outline: none;      /* -50 */
+  opacity: 0.95;      /* +15 */
+  /* Total: -35 < 30% */
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC1.4: Link No Focus <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-fail">Expected: -50 points</span>
+                <div class="test-description">
+                    Link removes outline and underline on focus.
+                </div>
+                <div class="test-element-container">
+                    <a href="#" class="tc1-link-no-focus">Focus this link</a>
+                </div>
+                <div class="css-code">.tc1-link-no-focus:focus {
+  outline: none;
+  text-decoration: none;
+}</div>
+            </div>
+        </div>
+
+        <!-- TEST CASE 2: CLEAR PASSES -->
+        <div class="section-header" style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);">
+            <h2>✅ Test Case 2: Clear Passes (Expected Score &gt; 30%)</h2>
+            <p>Elements with clear visible focus indicators</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>TC2.1: Standard Outline <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 50 points</span>
+                <div class="test-description">
+                    Standard visible outline with offset. Should score 50 points.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc2-standard-outline">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc2-standard-outline:focus {
+  outline: 2px solid #fd7e14;
+  outline-offset: 2px;
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC2.2: Custom Outline <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 50 points</span>
+                <div class="test-description">
+                    Custom dashed outline. Should score 50 points.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc2-custom-outline">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc2-custom-outline:focus {
+  outline: 3px dashed #ffc107;
+  outline-offset: 3px;
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC2.3: Box-Shadow Only <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 40 points</span>
+                <div class="test-description">
+                    Modern pattern using box-shadow. Should score 40 points.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc2-box-shadow-only">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc2-box-shadow-only:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.5);
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC2.4: Border Only <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 35 points</span>
+                <div class="test-description">
+                    Border color and width change. Should score 35 points.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc2-border-only">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc2-border-only:focus {
+  outline: none;
+  border: 3px solid #0d6efd;
+}</div>
+            </div>
+        </div>
+
+        <!-- TEST CASE 3: EDGE CASES -->
+        <div class="section-header" style="background: linear-gradient(135deg, #f09819 0%, #edde5d 100%);">
+            <h2>⚠️ Test Case 3: Edge Cases (Near 30% Threshold)</h2>
+            <p>Test boundary conditions of the detection algorithm</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>TC3.1: Background Only <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-edge">Expected: 25 points (below threshold)</span>
+                <div class="test-description">
+                    Only background color change. Should score 25 points (FAIL).
+                </div>
+                <div class="test-element-container">
+                    <button class="tc3-background-only">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc3-background-only:focus {
+  outline: none;
+  background-color: #cfe2ff;
+  /* 25 points < 30% threshold */
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC3.2: Background + Opacity <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-edge">Expected: 40 points (above threshold)</span>
+                <div class="test-description">
+                    Background (25) + opacity (15). Should score 40 points (PASS).
+                </div>
+                <div class="test-element-container">
+                    <button class="tc3-background-opacity">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc3-background-opacity:focus {
+  outline: none;
+  background-color: #fff3cd;  /* +25 */
+  opacity: 1;                 /* +15 */
+  /* Total: 40 > 30% threshold */
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC3.3: Transform Only <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-edge">Expected: 20 points (below threshold)</span>
+                <div class="test-description">
+                    Only transform change. Should score 20 points (FAIL).
+                </div>
+                <div class="test-element-container">
+                    <button class="tc3-transform-only">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc3-transform-only:focus {
+  outline: none;
+  transform: scale(1.05);
+  /* 20 points < 30% threshold */
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC3.4: Border + Background <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-edge">Expected: 60 points (above threshold)</span>
+                <div class="test-description">
+                    Border (35) + background (25). Should score 60 points (PASS).
+                </div>
+                <div class="test-element-container">
+                    <button class="tc3-border-background">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc3-border-background:focus {
+  outline: none;
+  border-color: #0d6efd;      /* +35 */
+  background-color: #e7f3ff;  /* +25 */
+  /* Total: 60 > 30% threshold */
+}</div>
+            </div>
+        </div>
+
+        <!-- TEST CASE 4: COMBINATIONS -->
+        <div class="section-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <h2>🎯 Test Case 4: Combination Scenarios</h2>
+            <p>Multiple indicators working together</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>TC4.1: Outline + Box-Shadow <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 90 points</span>
+                <div class="test-description">
+                    Outline (50) + box-shadow (40). Strong pass with 90 points.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc4-outline-shadow">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc4-outline-shadow:focus {
+  outline: 2px solid #ffc107;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(255, 193, 7, 0.3);
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC4.2: Border + Box-Shadow <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 75 points</span>
+                <div class="test-description">
+                    Border (35) + box-shadow (40). Strong pass with 75 points.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc4-border-shadow">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc4-border-shadow:focus {
+  outline: none;
+  border-color: #198754;
+  box-shadow: 0 0 8px rgba(25, 135, 84, 0.4);
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC4.3: All Indicators <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 165 points (Maximum)</span>
+                <div class="test-description">
+                    All indicators combined. Maximum score test.
+                </div>
+                <div class="test-element-container">
+                    <button class="tc4-all-indicators">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc4-all-indicators:focus {
+  outline: 3px solid #ffc107;    /* +50 */
+  border-color: #fd7e14;          /* +35 */
+  box-shadow: 0 0 12px ...;       /* +40 */
+  background-color: #520dc2;      /* +25 */
+  opacity: 1;                     /* +15 */
+  /* Total: 165 points */
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC4.4: No Outline + Strong Alternatives <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 50 points</span>
+                <div class="test-description">
+                    Outline disabled (-50) but strong alternatives (+100). Net: 50 points (PASS).
+                </div>
+                <div class="test-element-container">
+                    <button class="tc4-no-outline-strong-alt">Focus Me (Tab)</button>
+                </div>
+                <div class="css-code">.tc4-no-outline-strong-alt:focus {
+  outline: none;                  /* -50 */
+  border-color: #ffc107;          /* +35 */
+  box-shadow: 0 0 0 4px ...;      /* +40 */
+  background-color: #bb2d3b;      /* +25 */
+  /* Total: -50+35+40+25 = 50 */
+}</div>
+            </div>
+        </div>
+
+        <!-- TEST CASE 5: INPUT ELEMENTS -->
+        <div class="section-header" style="background: linear-gradient(135deg, #0093E9 0%, #80D0C7 100%);">
+            <h2>📝 Test Case 5: Input Elements</h2>
+            <p>Testing form inputs and textareas</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>TC5.1: Input No Focus <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-fail">Expected: -50 points</span>
+                <div class="test-description">
+                    Input with outline removed, no alternative.
+                </div>
+                <div class="test-element-container">
+                    <input type="text" class="tc5-input-no-focus" placeholder="Type here...">
+                </div>
+                <div class="css-code">.tc5-input-no-focus:focus {
+  outline: none;
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC5.2: Input Clear Focus <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 75 points</span>
+                <div class="test-description">
+                    Input with border (35) + box-shadow (40).
+                </div>
+                <div class="test-element-container">
+                    <input type="text" class="tc5-input-clear-focus" placeholder="Type here...">
+                </div>
+                <div class="css-code">.tc5-input-clear-focus:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC5.3: Input Border Only <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 35 points</span>
+                <div class="test-description">
+                    Input with only border change.
+                </div>
+                <div class="test-element-container">
+                    <input type="text" class="tc5-input-border-only" placeholder="Type here...">
+                </div>
+                <div class="css-code">.tc5-input-border-only:focus {
+  outline: none;
+  border-color: #198754;
+  border-width: 3px;
+}</div>
+            </div>
+        </div>
+
+        <!-- TEST CASE 6: LINKS -->
+        <div class="section-header" style="background: linear-gradient(135deg, #FA8BFF 0%, #2BD2FF 90%, #2BFF88 100%);">
+            <h2>🔗 Test Case 6: Links</h2>
+            <p>Testing anchor elements</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>TC6.1: Link No Focus <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-fail">Expected: -50 points</span>
+                <div class="test-description">
+                    Link with no focus indicator.
+                </div>
+                <div class="test-element-container">
+                    <a href="#" class="tc6-link-no-focus">Click this link</a>
+                </div>
+                <div class="css-code">.tc6-link-no-focus:focus {
+  outline: none;
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC6.2: Link Background Focus <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-edge">Expected: 25 points (below threshold)</span>
+                <div class="test-description">
+                    Link with only background change (insufficient).
+                </div>
+                <div class="test-element-container">
+                    <a href="#" class="tc6-link-background">Click this link</a>
+                </div>
+                <div class="css-code">.tc6-link-background:focus {
+  outline: none;
+  background-color: #fff3cd;
+  /* 25 points < 30% threshold */
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC6.3: Link Outline Focus <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 50 points</span>
+                <div class="test-description">
+                    Link with clear outline indicator.
+                </div>
+                <div class="test-element-container">
+                    <a href="#" class="tc6-link-outline">Click this link</a>
+                </div>
+                <div class="css-code">.tc6-link-outline:focus {
+  outline: 2px solid #fd7e14;
+  outline-offset: 2px;
+}</div>
+            </div>
+        </div>
+
+        <!-- TEST CASE 7: CUSTOM ELEMENTS -->
+        <div class="section-header" style="background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);">
+            <h2>🎨 Test Case 7: Custom Interactive Elements</h2>
+            <p>Testing divs and spans with tabindex</p>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>TC7.1: Div No Focus <span class="badge badge-fail">FAIL</span></h3>
+                <span class="expected-score score-fail">Expected: -50 points</span>
+                <div class="test-description">
+                    Focusable div with no focus indicator.
+                </div>
+                <div class="test-element-container">
+                    <div class="tc7-div-no-focus" tabindex="0" role="button">
+                        Click me (focusable div)
+                    </div>
+                </div>
+                <div class="css-code">.tc7-div-no-focus:focus {
+  outline: none;
+}</div>
+            </div>
+
+            <div class="test-card">
+                <h3>TC7.2: Div Clear Focus <span class="badge badge-pass">PASS</span></h3>
+                <span class="expected-score score-pass">Expected: 100 points</span>
+                <div class="test-description">
+                    Focusable div with outline (50) + background (25) + border (35).
+                </div>
+                <div class="test-element-container">
+                    <div class="tc7-div-clear-focus" tabindex="0" role="button">
+                        Click me (focusable div)
+                    </div>
+                </div>
+                <div class="css-code">.tc7-div-clear-focus:focus {
+  outline: 3px solid #0d6efd;
+  outline-offset: 2px;
+  background-color: #cfe2ff;
+}</div>
+            </div>
+        </div>
+
+        <!-- EXPECTED RESULTS -->
+        <div class="info-box" style="margin-top: 40px;">
+            <h3>📊 Expected Test Results</h3>
+            <p><strong>When running the Focus Visibility Phase, you should see:</strong></p>
+            <ul>
+                <li><strong>Total Focusable Elements:</strong> 27</li>
+                <li><strong>Expected Violations (Score &lt; 30%):</strong> 11 elements
+                    <ul>
+                        <li>TC1.1, TC1.2, TC1.3, TC1.4 (Clear failures)</li>
+                        <li>TC3.1, TC3.3 (Edge cases below threshold)</li>
+                        <li>TC5.1 (Input no focus)</li>
+                        <li>TC6.1, TC6.2 (Link failures)</li>
+                        <li>TC7.1 (Div no focus)</li>
+                    </ul>
+                </li>
+                <li><strong>Expected Passes (Score ≥ 30%):</strong> 16 elements</li>
+            </ul>
+
+            <h3>🔍 Console Output Example</h3>
+            <div class="css-code" style="color: #a9b7c6;">
+[SCOPE:operation] Focus visibility analysis: 27 checked, 11 without visible focus indicator
+[PHASE:FOCUS_VISIBILITY] Checked 27 focusable elements, found 11 without visible focus indicators
+
+Violations Summary:
+- TC1.1: Button (confidence: -50%)
+- TC1.2: Button (confidence: -50%)
+- TC1.3: Button (confidence: -35%)
+- TC3.1: Button (confidence: 25% &lt; 30% threshold)
+- TC3.3: Button (confidence: 20% &lt; 30% threshold)
+...
+            </div>
+
+            <h3>✅ Validation Checklist</h3>
+            <ul>
+                <li>Verify all 11 expected violations are detected</li>
+                <li>Confirm confidence scores match expected values</li>
+                <li>Check that violations include CSS before/after comparison</li>
+                <li>Ensure violations link to WCAG 2.4.7 criterion</li>
+                <li>Verify source is marked as "focus-detector"</li>
+                <li>Confirm status is "pending" for manual review</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive focus event logging for debugging
+        let focusLog = [];
+
+        document.addEventListener('focus', function(e) {
+            const element = e.target;
+            const className = element.className || 'no-class';
+            const tagName = element.tagName.toLowerCase();
+            const timestamp = new Date().toISOString();
+
+            const logEntry = {
+                timestamp,
+                element: tagName,
+                class: className,
+                id: element.id || 'no-id'
+            };
+
+            focusLog.push(logEntry);
+            console.log(`[FOCUS] ${tagName}.${className}`);
+
+            // Log computed styles for debugging
+            if (className.startsWith('tc')) {
+                const styles = window.getComputedStyle(element);
+                console.log('  outline:', styles.outline);
+                console.log('  border:', styles.border);
+                console.log('  box-shadow:', styles.boxShadow);
+                console.log('  background-color:', styles.backgroundColor);
+                console.log('  opacity:', styles.opacity);
+                console.log('  transform:', styles.transform);
+            }
+        }, true);
+
+        // Export focus log for analysis
+        window.getFocusLog = function() {
+            return focusLog;
+        };
+
+        // Helper to get all test elements
+        window.getTestElements = function() {
+            const elements = document.querySelectorAll('[class^="tc"]');
+            return Array.from(elements).map(el => ({
+                class: el.className,
+                tag: el.tagName.toLowerCase(),
+                focusable: el.tabIndex >= 0 || ['A', 'BUTTON', 'INPUT'].includes(el.tagName)
+            }));
+        };
+
+        console.log('%c🔍 Focus Visibility Detection Test Suite Loaded', 'color: #0d6efd; font-size: 16px; font-weight: bold;');
+        console.log('Total test cases: 27');
+        console.log('Run window.getTestElements() to see all test elements');
+        console.log('Run window.getFocusLog() to see focus event history');
+    </script>
+</body>
+</html>

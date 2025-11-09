@@ -56,6 +56,33 @@ This guide explains how to create accessibility test samples that are:
 - Multiple criteria
 - Complex interactions
 
+### Layout Patterns
+
+**Pattern A: Side-by-Side Comparison (Recommended for Semantic/Structural Tests)**
+- Fail (left) vs Pass (right) layout
+- Visually identical elements with different code
+- Best for: ARIA, semantic HTML, alt text, structure
+- Examples: `non-text-content-test.html`, `info-relationships-test.html`, `name-role-value-test.html`
+
+**Pattern B: Independent Grid (For Visual Property Tests)**
+- Each test case in separate card
+- Visual differences are expected
+- Best for: Contrast, color, size, spacing
+- Examples: `contrast-minimum-test.html`, `non-text-contrast-test.html`
+
+**When to Use Side-by-Side Pattern:**
+- ✅ ARIA attributes (role, aria-label, aria-checked, etc.)
+- ✅ Semantic HTML vs div-based layouts
+- ✅ Alt text quality
+- ✅ Form labels and associations
+- ✅ Heading hierarchies
+- ✅ List structures (ul/ol/dl vs divs)
+
+**When NOT to Use Side-by-Side Pattern:**
+- ❌ Color contrast tests (visual difference is the point)
+- ❌ Text size/zoom tests (size difference is required)
+- ❌ Focus visibility algorithm tests (comprehensive coverage needed)
+
 ---
 
 ## Step-by-Step Creation Process
@@ -291,7 +318,17 @@ data-total-score="-50"            <!-- Sum of all scores -->
             margin: 40px 0 20px 0;
         }
 
-        /* Test card grid */
+        /* Test card grid - CHOOSE ONE PATTERN: */
+
+        /* Pattern A: Side-by-side comparison (for semantic tests) */
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;  /* Exactly 2 columns */
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* Pattern B: Responsive grid (for visual tests) */
         .test-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -305,6 +342,24 @@ data-total-score="-50"            <!-- Sum of all scores -->
             padding: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             border: 2px solid #dee2e6;
+        }
+
+        /* Color coding for side-by-side pattern */
+        .test-card.fail {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .test-card.pass {
+            border-color: #198754;
+            background: #f0fff4;
+        }
+
+        /* Responsive: stack on small screens */
+        @media (max-width: 1024px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Badge styles */
@@ -375,7 +430,43 @@ data-total-score="-50"            <!-- Sum of all scores -->
             <p>This page contains {number} test cases to validate detection of {criterion}.</p>
         </div>
 
-        <!-- TEST CATEGORY 1 -->
+        <!-- CHOOSE PATTERN A OR B: -->
+
+        <!-- PATTERN A: Side-by-Side Comparison (for semantic/structural tests) -->
+        <h2>🔍 Test Case 1: [Test Description]</h2>
+        <div class="test-grid">
+            <!-- FAIL: Left side -->
+            <div class="test-card fail"
+                 data-test-id="TC1.1"
+                 data-expected-result="violation"
+                 data-wcag-criterion="{criterion}">
+                <h3>❌ FAIL: [Failure Reason]</h3>
+                <div style="background: #f8f9fa; padding: 15px;">
+                    <!-- Failing element (e.g., missing ARIA, divs instead of semantic HTML) -->
+                    <button onclick="...">Submit</button>
+                </div>
+                <p>Description of why this fails</p>
+                <code>&lt;button onclick="..."&gt;Submit&lt;/button&gt;</code>
+            </div>
+
+            <!-- PASS: Right side - VISUALLY IDENTICAL -->
+            <div class="test-card pass"
+                 data-test-id="TC2.1"
+                 data-expected-result="pass"
+                 data-wcag-criterion="{criterion}">
+                <h3>✅ PASS: [Pass Reason]</h3>
+                <div style="background: #f8f9fa; padding: 15px;">
+                    <!-- Same visual with proper code (e.g., with ARIA, semantic HTML) -->
+                    <button role="button" tabindex="0" aria-label="Submit form" onclick="...">Submit</button>
+                </div>
+                <p>Description of why this passes</p>
+                <code>&lt;button role="button" aria-label="Submit form"&gt;Submit&lt;/button&gt;</code>
+            </div>
+        </div>
+
+        <!-- Repeat for each test case pair -->
+
+        <!-- PATTERN B: Independent Grid (for visual property tests) -->
         <div class="section-header" id="section-clear-failures">
             <h2>❌ Category 1: Clear Failures</h2>
             <p>Description of this category</p>
@@ -890,7 +981,112 @@ console.log('Validation Results:', validation);
 
 ## Examples
 
-### Example 1: Simple Color Contrast Test
+### Example 1: Side-by-Side Comparison (WCAG 1.1.1 - Alt Text)
+
+**Pattern:** Fail (left) vs Pass (right) with visually identical images
+
+```html
+<h2>📊 Test Case 1: Informative Image</h2>
+<div class="test-grid">
+    <!-- FAIL: Left side -->
+    <div class="test-card fail"
+         data-test-id="TC1.1"
+         data-expected-result="violation"
+         data-wcag-criterion="1.1.1">
+        <h3>❌ FAIL: Empty Alt Text</h3>
+        <div style="background: #f8f9fa; padding: 15px;">
+            <img src="data:image/svg+xml,..." alt="" width="200" height="120">
+        </div>
+        <p>Bar chart showing upward trend with empty alt - no description for screen readers</p>
+        <code>&lt;img src="chart.png" alt=""&gt;</code>
+    </div>
+
+    <!-- PASS: Right side - SAME VISUAL -->
+    <div class="test-card pass"
+         data-test-id="TC2.1"
+         data-expected-result="pass"
+         data-wcag-criterion="1.1.1">
+        <h3>✅ PASS: Descriptive Alt Text</h3>
+        <div style="background: #f8f9fa; padding: 15px;">
+            <img src="data:image/svg+xml,..."
+                 alt="Bar chart showing sales growth from Q1 to Q4, increasing from 100 to 400 units"
+                 width="200" height="120">
+        </div>
+        <p>Same visual with descriptive alt text - screen readers get full context</p>
+        <code>&lt;img src="chart.png" alt="Bar chart showing sales growth..."&gt;</code>
+    </div>
+</div>
+```
+
+**Key Points:**
+- Both cards show the SAME visual content
+- Only the code differs (alt text quality)
+- AI must analyze HTML, not visual appearance
+- Color coding: red border/background for fail, green for pass
+
+### Example 2: Side-by-Side Comparison (WCAG 1.3.1 - Semantic Structure)
+
+**Pattern:** Div-based layout (left) vs Semantic HTML (right)
+
+```html
+<h2>📋 Test Case 2: Data Table</h2>
+<div class="test-grid">
+    <!-- FAIL: Divs -->
+    <div class="test-card fail"
+         data-test-id="TC1.1"
+         data-expected-result="violation"
+         data-wcag-criterion="1.3.1">
+        <h3>❌ FAIL: Div-Based Layout</h3>
+        <div style="background: #f8f9fa; padding: 15px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+                <div style="font-weight: bold;">Name</div>
+                <div style="font-weight: bold;">Role</div>
+                <div style="font-weight: bold;">Status</div>
+                <div>John Doe</div>
+                <div>Developer</div>
+                <div style="color: #198754;">Active</div>
+            </div>
+        </div>
+        <p>Table structure using divs - not announced as table to screen readers</p>
+        <code>&lt;div style="display: grid"&gt;...&lt;/div&gt;</code>
+    </div>
+
+    <!-- PASS: Semantic table - SAME VISUAL -->
+    <div class="test-card pass"
+         data-test-id="TC2.1"
+         data-expected-result="pass"
+         data-wcag-criterion="1.3.1">
+        <h3>✅ PASS: Semantic Table</h3>
+        <div style="background: #f8f9fa; padding: 15px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>Developer</td>
+                        <td style="color: #198754;">Active</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Same visual with proper table markup - announced correctly to screen readers</p>
+        <code>&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;...</code>
+    </div>
+</div>
+```
+
+**Key Points:**
+- Identical visual appearance (same layout, colors, spacing)
+- Structural difference: divs vs table elements
+- Tests AI's ability to detect semantic markup violations
+
+### Example 3: Simple Color Contrast Test (Independent Grid)
 
 ```html
 <div class="test-card"

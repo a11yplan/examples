@@ -61,6 +61,78 @@ examples/
 - Multiple WCAG criteria in one page
 - Realistic UI patterns
 
+## Test Layout Patterns
+
+This repository uses two main layout patterns, chosen based on the type of WCAG criterion being tested:
+
+### Pattern A: Side-by-Side Comparison (For Semantic/Structural Tests)
+
+**Visual Layout:** Fail (left) vs Pass (right) in a two-column grid
+
+**Key Feature:** Visually identical elements with different underlying code
+
+**Best for:**
+- ARIA attributes (role, aria-label, aria-checked, etc.)
+- Semantic HTML vs div-based layouts
+- Alt text quality
+- Form labels and associations
+- Heading hierarchies
+- List structures (ul/ol/dl vs divs)
+
+**Examples:** `non-text-content-test.html`, `info-relationships-test.html`, `name-role-value-test.html`
+
+**Why this pattern?** AI vision models must analyze HTML structure, not visual appearance. Making the visuals identical forces testing tools to detect semantic violations from code analysis rather than visual cues.
+
+**Example structure:**
+```html
+<h2>Test Case 1: Custom Button</h2>
+<div class="test-grid">  <!-- grid-template-columns: 1fr 1fr -->
+    <!-- FAIL: Left side -->
+    <div class="test-card fail" data-test-id="TC1.1" data-expected-result="violation">
+        <h3>❌ FAIL: Div Without Role</h3>
+        <div class="custom-button" onclick="...">Submit</div>
+    </div>
+
+    <!-- PASS: Right side - SAME VISUAL -->
+    <div class="test-card pass" data-test-id="TC2.1" data-expected-result="pass">
+        <h3>✅ PASS: Div with Proper ARIA</h3>
+        <div class="custom-button" role="button" tabindex="0" aria-label="Submit" onclick="...">Submit</div>
+    </div>
+</div>
+```
+
+### Pattern B: Independent Grid (For Visual Property Tests)
+
+**Visual Layout:** Responsive grid with auto-fitting cards
+
+**Key Feature:** Visual differences are expected and necessary
+
+**Best for:**
+- Color contrast tests (visual difference is the point)
+- Text size/zoom tests (size difference is required)
+- Focus visibility algorithm tests (comprehensive coverage)
+- Spacing and layout measurements
+
+**Examples:** `contrast-minimum-test.html`, `non-text-contrast-test.html`, `focus-visibility-detector-test.html`
+
+**Why this pattern?** Visual properties like contrast or size must differ to demonstrate pass/fail conditions. The responsive grid allows for many test cases organized by category.
+
+**Example structure:**
+```html
+<div class="section-header">
+    <h2>❌ Category 1: Clear Failures</h2>
+</div>
+<div class="test-grid">  <!-- grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) -->
+    <div class="test-card" data-test-id="TC1.1" data-expected-result="violation">
+        <h3>TC1.1: Low Contrast <span class="badge badge-fail">FAIL</span></h3>
+        <div class="test-sample" style="color: #999; background: #fff;">
+            This text has 2.8:1 contrast (needs 4.5:1)
+        </div>
+    </div>
+    <!-- More independent test cases... -->
+</div>
+```
+
 ## Machine-Readable Conventions
 
 All test samples in this repository follow standardized conventions for AI/script parsing:
@@ -114,20 +186,26 @@ Test expectations are documented in structured HTML that can be parsed:
 
 ### Currently Implemented
 
-| Criterion | File | Test Cases | Description |
-|-----------|------|------------|-------------|
-| **2.4.7** | `focus-visible-test.html` | 6 | Basic focus visible examples |
-| **2.4.7** | `focus-visibility-detector-test.html` | 27 | Algorithm validation suite |
+| Criterion | File | Test Cases | Layout Pattern | Description |
+|-----------|------|------------|----------------|-------------|
+| **1.1.1** | `non-text-content-test.html` | 14 (7 fail, 7 pass) | Side-by-Side | Alt text quality, images, SVG |
+| **1.3.1** | `info-relationships-test.html` | 12 (6 fail, 6 pass) | Side-by-Side | Semantic HTML, tables, lists, headings |
+| **1.4.3** | `contrast-minimum-test.html` | 12 (6 fail, 6 pass) | Independent Grid | Text color contrast |
+| **1.4.4** | `resize-text-test.html` | 6 (3 fail, 3 pass) | Independent Grid | Text resizing |
+| **1.4.11** | `non-text-contrast-test.html` | 10 (5 fail, 5 pass) | Independent Grid | UI component contrast |
+| **2.4.7** | `focus-visible-test.html` | 6 | Independent Grid | Basic focus visible examples |
+| **2.4.7** | `focus-visibility-detector-test.html` | 27 | Independent Grid | Algorithm validation suite |
+| **4.1.2** | `name-role-value-test.html` | 10 (5 fail, 5 pass) | Side-by-Side | ARIA attributes, custom controls |
 
 ### Planned Coverage
 
-- **1.4.3** - Contrast (Minimum)
 - **2.4.4** - Link Purpose (In Context)
 - **2.5.5** - Target Size (Minimum)
-- **4.1.2** - Name, Role, Value
-- **1.3.1** - Info and Relationships
 - **2.1.1** - Keyboard
 - **3.2.4** - Consistent Identification
+- **1.3.5** - Identify Input Purpose
+- **2.4.3** - Focus Order
+- **3.3.2** - Labels or Instructions
 
 ## Using This Repository
 
@@ -223,6 +301,18 @@ async function validateScanner(testFile) {
 - No external dependencies
 - Deterministic results
 - Version controlled
+
+### 6. **AI-Optimized Testing** (NEW)
+- **Side-by-side comparison pattern** for semantic/structural tests
+- **Visually identical** fail/pass pairs force code analysis over visual detection
+- **Realistic patterns** that aren't obviously wrong (e.g., footer navigation instead of bullet lists)
+- **Real-world examples** that AI vision models must analyze structurally:
+  - Employee tables with styled divs vs semantic `<table>`
+  - Heading hierarchies with styled divs vs `<h2>`/`<h3>`
+  - Navigation links with divs vs `<ul>`/`<li>` (with `list-style: none`)
+  - Custom controls vs proper ARIA attributes
+  - Poor alt text patterns (filenames, URLs, generic words) vs descriptive text
+- **Challenge for AI:** Cannot rely on visual cues; must parse HTML structure and attributes
 
 ## Integration with Accessibility Scanners
 

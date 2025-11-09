@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WCAG 1.4.11 Non-text Contrast Test Page</title>
     <meta name="test:wcag-criterion" content="1.4.11">
-    <meta name="test:total-cases" content="12">
-    <meta name="test:expected-violations" content="6">
+    <meta name="test:total-cases" content="10">
+    <meta name="test:expected-violations" content="5">
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; background: #f8f9fa; }
         .container { max-width: 1400px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
@@ -16,57 +16,119 @@
         .test-card { background: white; border: 2px solid #dee2e6; border-radius: 8px; padding: 20px; }
         .test-card.fail { border-color: #dc3545; background: #fff5f5; }
         .test-card.pass { border-color: #198754; background: #f0fff4; }
-        .badge-fail { background: #dc3545; color: white; padding: 4px 8px; border-radius: 10px; font-size: 11px; }
-        .badge-pass { background: #198754; color: white; padding: 4px 8px; border-radius: 10px; font-size: 11px; }
         code { background: #2d2d2d; color: #d4d4d4; padding: 2px 6px; border-radius: 3px; font-size: 13px; display: block; margin: 10px 0; overflow-x: auto; }
         @media (max-width: 1024px) {
             .test-grid { grid-template-columns: 1fr; }
         }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #495057; }
 
-        /* TC1.1: Input with low contrast border - 1.8:1 */
-        .tc1-input-low-border {
+        /* TC1.1: Form fields with low contrast border */
+        .tc1-form-low-border input,
+        .tc1-form-low-border select,
+        .tc1-form-low-border textarea {
             padding: 10px;
             font-size: 16px;
             border: 1px solid #e0e0e0;
             border-radius: 4px;
             background: #ffffff;
             width: 100%;
-            max-width: 250px;
+            color: #333;
+        }
+        .tc1-form-low-border .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tc1-checkbox-low {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            background: #ffffff;
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
-        /* TC2.1: Input with sufficient border - 3.2:1 */
-        .tc2-input-good-border {
+        /* TC2.1: Form fields with sufficient border contrast */
+        .tc2-form-good-border input,
+        .tc2-form-good-border select,
+        .tc2-form-good-border textarea {
             padding: 10px;
             font-size: 16px;
             border: 1px solid #999999;
             border-radius: 4px;
             background: #ffffff;
             width: 100%;
-            max-width: 250px;
+            color: #333;
+        }
+        .tc2-form-good-border .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tc2-checkbox-good {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #999999;
+            border-radius: 4px;
+            background: #ffffff;
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
-        /* TC1.1b: Input with low contrast background - 1.5:1 */
-        .tc1-input-low-bg {
+        /* TC1.1b: Form fields with low contrast background */
+        .tc1-form-low-bg input,
+        .tc1-form-low-bg select,
+        .tc1-form-low-bg textarea {
             padding: 10px;
             font-size: 16px;
             border: none;
             border-radius: 4px;
             background: #f5f5f5;
             width: 100%;
-            max-width: 250px;
             color: #333;
         }
+        .tc1-form-low-bg .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tc1-checkbox-low-bg {
+            width: 20px;
+            height: 20px;
+            border: none;
+            border-radius: 4px;
+            background: #f5f5f5;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
 
-        /* TC2.1b: Input with sufficient background - 3.5:1 */
-        .tc2-input-good-bg {
+        /* TC2.1b: Form fields with sufficient background contrast */
+        .tc2-form-good-bg input,
+        .tc2-form-good-bg select,
+        .tc2-form-good-bg textarea {
             padding: 10px;
             font-size: 16px;
             border: none;
             border-radius: 4px;
             background: #e0e0e0;
             width: 100%;
-            max-width: 250px;
             color: #333;
+        }
+        .tc2-form-good-bg .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tc2-checkbox-good-bg {
+            width: 20px;
+            height: 20px;
+            border: none;
+            border-radius: 4px;
+            background: #e0e0e0;
+            cursor: pointer;
+            flex-shrink: 0;
         }
 
         /* TC1.2: Button with low contrast border - 2.5:1 */
@@ -115,28 +177,8 @@
             color: #888888;
         }
 
-        /* TC4.1: Checkbox with low contrast - 2.0:1 */
-        .tc4-checkbox-low {
-            width: 24px;
-            height: 24px;
-            border: 2px solid #d8d8d8;
-            border-radius: 4px;
-            background: #ffffff;
-            cursor: pointer;
-        }
-
-        /* TC4.2: Checkbox with sufficient contrast - 3.8:1 */
-        .tc4-checkbox-good {
-            width: 24px;
-            height: 24px;
-            border: 2px solid #888888;
-            border-radius: 4px;
-            background: #ffffff;
-            cursor: pointer;
-        }
-
-        /* TC5.1: Focus indicator low contrast - 2.3:1 */
-        .tc5-focus-low {
+        /* TC4.1: Focus indicator low contrast - 2.3:1 */
+        .tc4-focus-low {
             padding: 10px 20px;
             background: #ffffff;
             border: 2px solid #ccc;
@@ -144,13 +186,13 @@
             cursor: pointer;
             color: #495057;
         }
-        .tc5-focus-low:focus {
+        .tc4-focus-low:focus {
             outline: 2px solid #d4d4d4;
             outline-offset: 2px;
         }
 
-        /* TC5.2: Focus indicator sufficient contrast - 4.5:1 */
-        .tc5-focus-good {
+        /* TC4.2: Focus indicator sufficient contrast - 4.5:1 */
+        .tc4-focus-good {
             padding: 10px 20px;
             background: #ffffff;
             border: 2px solid #ccc;
@@ -158,7 +200,7 @@
             cursor: pointer;
             color: #495057;
         }
-        .tc5-focus-good:focus {
+        .tc4-focus-good:focus {
             outline: 2px solid #0d6efd;
             outline-offset: 2px;
         }
@@ -169,48 +211,132 @@
         <h1>🎯 WCAG 1.4.11 Non-text Contrast - Test Page</h1>
         <p><strong>Testing:</strong> UI components and graphical objects require at least 3:1 contrast ratio against adjacent colors.</p>
 
-        <h2>📝 Test Case 1a: Input Border Contrast</h2>
+        <h2>📝 Test Case 1a: Form Fields - Border Contrast</h2>
         <div class="test-grid">
             <!-- FAIL -->
             <div class="test-card fail" data-test-id="TC1.1" data-expected-result="violation" data-wcag-criterion="1.4.11">
-                <h3>❌ FAIL: Low Contrast Border (1.8:1)</h3>
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                    <input type="text" class="tc1-input-low-border" placeholder="Enter text...">
+                <h3>❌ FAIL: Low Contrast Borders (1.8:1)</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;" class="tc1-form-low-border">
+                    <div class="form-group">
+                        <label>Text Input:</label>
+                        <input type="text" placeholder="Enter text...">
+                    </div>
+                    <div class="form-group">
+                        <label>Select:</label>
+                        <select>
+                            <option>Choose option...</option>
+                            <option>Option 1</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Textarea:</label>
+                        <textarea rows="2" placeholder="Enter message..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Checkbox:</label>
+                        <div class="checkbox-wrapper">
+                            <div class="tc1-checkbox-low"></div>
+                            <span>Accept terms</span>
+                        </div>
+                    </div>
                 </div>
-                <p>Input field with very light gray border (#e0e0e0) - barely visible, contrast 1.8:1</p>
-                <code>&lt;input style="border: 1px solid #e0e0e0; background: #ffffff;"&gt;</code>
+                <p>Form fields with very light gray borders (#e0e0e0) - barely visible, contrast 1.8:1</p>
+                <code>&lt;input style="border: 1px solid #e0e0e0;"&gt;</code>
             </div>
 
             <!-- PASS -->
             <div class="test-card pass" data-test-id="TC2.1" data-expected-result="pass" data-wcag-criterion="1.4.11">
                 <h3>✅ PASS: Sufficient Border Contrast (3.2:1)</h3>
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                    <input type="text" class="tc2-input-good-border" placeholder="Enter text...">
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px;" class="tc2-form-good-border">
+                    <div class="form-group">
+                        <label>Text Input:</label>
+                        <input type="text" placeholder="Enter text...">
+                    </div>
+                    <div class="form-group">
+                        <label>Select:</label>
+                        <select>
+                            <option>Choose option...</option>
+                            <option>Option 1</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Textarea:</label>
+                        <textarea rows="2" placeholder="Enter message..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Checkbox:</label>
+                        <div class="checkbox-wrapper">
+                            <div class="tc2-checkbox-good"></div>
+                            <span>Accept terms</span>
+                        </div>
+                    </div>
                 </div>
-                <p>Input field with medium gray border (#999999) - clearly visible, contrast 3.2:1</p>
-                <code>&lt;input style="border: 1px solid #999999; background: #ffffff;"&gt;</code>
+                <p>Form fields with medium gray borders (#999999) - clearly visible, contrast 3.2:1</p>
+                <code>&lt;input style="border: 1px solid #999999;"&gt;</code>
             </div>
         </div>
 
-        <h2>📝 Test Case 1b: Input Background Contrast</h2>
+        <h2>📝 Test Case 1b: Form Fields - Background Contrast</h2>
         <div class="test-grid">
             <!-- FAIL -->
             <div class="test-card fail" data-test-id="TC1.1b" data-expected-result="violation" data-wcag-criterion="1.4.11">
                 <h3>❌ FAIL: Low Contrast Background (1.5:1)</h3>
-                <div style="background: #ffffff; padding: 15px; border-radius: 4px;">
-                    <input type="text" class="tc1-input-low-bg" placeholder="Enter text...">
+                <div style="background: #ffffff; padding: 15px; border-radius: 4px;" class="tc1-form-low-bg">
+                    <div class="form-group">
+                        <label>Text Input:</label>
+                        <input type="text" placeholder="Enter text...">
+                    </div>
+                    <div class="form-group">
+                        <label>Select:</label>
+                        <select>
+                            <option>Choose option...</option>
+                            <option>Option 1</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Textarea:</label>
+                        <textarea rows="2" placeholder="Enter message..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Checkbox:</label>
+                        <div class="checkbox-wrapper">
+                            <div class="tc1-checkbox-low-bg"></div>
+                            <span>Accept terms</span>
+                        </div>
+                    </div>
                 </div>
-                <p>Input with very light gray background (#f5f5f5) - barely distinguishable from white page, contrast 1.5:1</p>
+                <p>Form fields with very light gray background (#f5f5f5) - barely distinguishable, contrast 1.5:1</p>
                 <code>&lt;input style="border: none; background: #f5f5f5;"&gt;</code>
             </div>
 
             <!-- PASS -->
             <div class="test-card pass" data-test-id="TC2.1b" data-expected-result="pass" data-wcag-criterion="1.4.11">
                 <h3>✅ PASS: Sufficient Background Contrast (3.5:1)</h3>
-                <div style="background: #ffffff; padding: 15px; border-radius: 4px;">
-                    <input type="text" class="tc2-input-good-bg" placeholder="Enter text...">
+                <div style="background: #ffffff; padding: 15px; border-radius: 4px;" class="tc2-form-good-bg">
+                    <div class="form-group">
+                        <label>Text Input:</label>
+                        <input type="text" placeholder="Enter text...">
+                    </div>
+                    <div class="form-group">
+                        <label>Select:</label>
+                        <select>
+                            <option>Choose option...</option>
+                            <option>Option 1</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Textarea:</label>
+                        <textarea rows="2" placeholder="Enter message..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Checkbox:</label>
+                        <div class="checkbox-wrapper">
+                            <div class="tc2-checkbox-good-bg"></div>
+                            <span>Accept terms</span>
+                        </div>
+                    </div>
                 </div>
-                <p>Input with medium gray background (#e0e0e0) - clearly visible against white page, contrast 3.5:1</p>
+                <p>Form fields with medium gray background (#e0e0e0) - clearly visible, contrast 3.5:1</p>
                 <code>&lt;input style="border: none; background: #e0e0e0;"&gt;</code>
             </div>
         </div>
@@ -261,46 +387,23 @@
             </div>
         </div>
 
-        <h2>☑️ Test Case 4: Checkbox Contrast</h2>
+        <h2>🎯 Test Case 4: Focus Indicator</h2>
         <div class="test-grid">
             <!-- FAIL -->
             <div class="test-card fail" data-test-id="TC4.1" data-expected-result="violation" data-wcag-criterion="1.4.11">
-                <h3>❌ FAIL: Low Contrast Checkbox (2.0:1)</h3>
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; display: flex; justify-content: center;">
-                    <div class="tc4-checkbox-low"></div>
-                </div>
-                <p>Custom checkbox with light gray border (#d8d8d8) - low contrast 2.0:1</p>
-                <code>&lt;div style="border: 2px solid #d8d8d8; background: #fff;"&gt;&lt;/div&gt;</code>
-            </div>
-
-            <!-- PASS -->
-            <div class="test-card pass" data-test-id="TC4.2" data-expected-result="pass" data-wcag-criterion="1.4.11">
-                <h3>✅ PASS: Sufficient Checkbox Contrast (3.8:1)</h3>
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; display: flex; justify-content: center;">
-                    <div class="tc4-checkbox-good"></div>
-                </div>
-                <p>Custom checkbox with medium gray border (#888888) - good contrast 3.8:1</p>
-                <code>&lt;div style="border: 2px solid #888888; background: #fff;"&gt;&lt;/div&gt;</code>
-            </div>
-        </div>
-
-        <h2>🎯 Test Case 5: Focus Indicator</h2>
-        <div class="test-grid">
-            <!-- FAIL -->
-            <div class="test-card fail" data-test-id="TC5.1" data-expected-result="violation" data-wcag-criterion="1.4.11">
                 <h3>❌ FAIL: Low Contrast Focus Outline (2.3:1)</h3>
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; text-align: center;">
-                    <button class="tc5-focus-low">Focus Me (Tab)</button>
+                    <button class="tc4-focus-low">Focus Me (Tab)</button>
                 </div>
                 <p>Focus outline (#d4d4d4) with insufficient contrast - hard to see when focused</p>
                 <code>&lt;button:focus style="outline: 2px solid #d4d4d4;"&gt;Focus Me&lt;/button&gt;</code>
             </div>
 
             <!-- PASS -->
-            <div class="test-card pass" data-test-id="TC5.2" data-expected-result="pass" data-wcag-criterion="1.4.11">
+            <div class="test-card pass" data-test-id="TC4.2" data-expected-result="pass" data-wcag-criterion="1.4.11">
                 <h3>✅ PASS: High Contrast Focus Outline (4.5:1)</h3>
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; text-align: center;">
-                    <button class="tc5-focus-good">Focus Me (Tab)</button>
+                    <button class="tc4-focus-good">Focus Me (Tab)</button>
                 </div>
                 <p>Focus outline (#0d6efd) with excellent contrast - clearly visible when focused</p>
                 <code>&lt;button:focus style="outline: 2px solid #0d6efd;"&gt;Focus Me&lt;/button&gt;</code>
@@ -310,9 +413,9 @@
         <div style="background: #fff3cd; padding: 20px; border-radius: 5px; margin-top: 30px;">
             <h3>📊 Expected Results</h3>
             <ul>
-                <li><strong>Total Test Cases:</strong> 12</li>
-                <li><strong>Expected Violations:</strong> 6 (TC1.1, TC1.1b, TC1.2, TC3.1, TC4.1, TC5.1)</li>
-                <li><strong>Expected Passes:</strong> 6 (TC2.1, TC2.1b, TC2.2, TC3.2, TC4.2, TC5.2)</li>
+                <li><strong>Total Test Cases:</strong> 10</li>
+                <li><strong>Expected Violations:</strong> 5 (TC1.1, TC1.1b, TC1.2, TC3.1, TC4.1)</li>
+                <li><strong>Expected Passes:</strong> 5 (TC2.1, TC2.1b, TC2.2, TC3.2, TC4.2)</li>
             </ul>
             <h4>WCAG 1.4.11 Requirements:</h4>
             <ul>
@@ -329,18 +432,18 @@
             </ul>
             <h4>Common Violations:</h4>
             <ul>
-                <li><strong>Input Fields:</strong> Very light borders (#e0e0e0, #d4d4d4) that are barely visible</li>
+                <li><strong>Form Fields (TC1a):</strong> Very light borders (#e0e0e0) on input, select, textarea, checkbox - barely visible</li>
+                <li><strong>Form Fields (TC1b):</strong> Very light backgrounds (#f5f5f5) that blend into white page background</li>
                 <li><strong>Buttons:</strong> Low contrast borders without colored backgrounds</li>
                 <li><strong>Icons:</strong> Light gray icons that blend into white backgrounds</li>
-                <li><strong>Custom Controls:</strong> Checkboxes and toggles with insufficient border contrast</li>
                 <li><strong>Focus Indicators:</strong> Outline colors too similar to background</li>
             </ul>
             <h4>AI Testing Capabilities:</h4>
             <ul>
-                <li>Can detect UI components with borders/outlines below 3:1 contrast</li>
+                <li>Can detect form fields (input, select, textarea, checkbox) with borders/backgrounds below 3:1 contrast</li>
                 <li>Can identify focus indicators that don't meet contrast requirements</li>
                 <li>Can measure contrast of icons and graphical elements against backgrounds</li>
-                <li>Can compare visually similar components and detect contrast differences</li>
+                <li>Can compare multiple form field types in same test to ensure consistency</li>
             </ul>
         </div>
     </div>
@@ -349,9 +452,9 @@
             wcagCriterion: '1.4.11',
             criterionName: 'Non-text Contrast',
             level: 'AA',
-            totalCases: 12,
-            expectedViolations: 6,
-            expectedPasses: 6,
+            totalCases: 10,
+            expectedViolations: 5,
+            expectedPasses: 5,
             testCases: []
         };
         document.querySelectorAll('[data-test-id]').forEach(tc => {

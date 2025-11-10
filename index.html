@@ -168,6 +168,11 @@
             color: #3d0066;
         }
 
+        .badge-ai-test {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
         .test-description {
             color: #666;
             font-size: 0.9rem;
@@ -230,7 +235,7 @@
 
         <div class="stats">
             <div class="stat-item">
-                <strong>27</strong>
+                <strong>29</strong>
                 <span>Test Pages</span>
             </div>
             <div class="stat-item">
@@ -238,7 +243,7 @@
                 <span>WCAG Criteria</span>
             </div>
             <div class="stat-item">
-                <strong>260+</strong>
+                <strong>290+</strong>
                 <span>Test Cases</span>
             </div>
         </div>
@@ -495,6 +500,31 @@
             </div>
         </div>
 
+        <h2>AI Browser Interaction Tests</h2>
+        <div class="test-list">
+            <div class="test-item header">
+                <div>Test Page</div>
+                <div>Test Type</div>
+                <div>Category</div>
+                <div>Description</div>
+                <div>Test Actions</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="ai-interaction-simple-test.html">AI Interaction - Simple</a></div>
+                <div class="test-criterion">General Interaction</div>
+                <div class="test-level"><span class="badge badge-ai-test">AI Test</span></div>
+                <div class="test-description">Basic browser interactions: click, type, checkbox, dropdown, reveal content, form submit (~30 seconds)</div>
+                <div class="test-meta">6 actions</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="ai-interaction-advanced-test.html">AI Interaction - Advanced</a></div>
+                <div class="test-criterion">Complex Interaction</div>
+                <div class="test-level"><span class="badge badge-ai-test">AI Test</span></div>
+                <div class="test-description">Complex workflows: modal dialogs, drag-and-drop, dynamic content, multi-step forms (~2-3 minutes)</div>
+                <div class="test-meta">20+ actions</div>
+            </div>
+        </div>
+
         <h2>Comprehensive & Legacy Tests</h2>
         <div class="test-list">
             <div class="test-item header">
@@ -572,6 +602,10 @@
                 'keyboard-test.html',
                 'target-size-test.html',
                 'label-in-name-test.html'
+            ],
+            aiInteraction: [
+                'ai-interaction-simple-test.html',
+                'ai-interaction-advanced-test.html'
             ],
             comprehensive: [
                 'comprehensive-accessibility-test.html',

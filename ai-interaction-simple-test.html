@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Browser Interaction - Simple Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .intro {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .test-card {
+            background-color: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: border-color 0.3s;
+        }
+
+        .test-card.pending {
+            border-left: 5px solid #ff9800;
+        }
+
+        .test-card.completed {
+            border-left: 5px solid #4caf50;
+            background-color: #f1f8f4;
+        }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .test-id {
+            font-weight: bold;
+            color: #1976d2;
+            font-size: 18px;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+
+        .status-completed {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .instruction {
+            background-color: #fffde7;
+            border-left: 4px solid #fbc02d;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .instruction strong {
+            color: #f57f17;
+        }
+
+        .expected-outcome {
+            background-color: #e8eaf6;
+            border-left: 4px solid #5c6bc0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .expected-outcome strong {
+            color: #3f51b5;
+        }
+
+        .test-element {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fafafa;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1976d2;
+        }
+
+        .btn-primary:focus {
+            outline: 3px solid #64b5f6;
+            outline-offset: 2px;
+        }
+
+        .text-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .text-input:focus {
+            outline: 3px solid #2196f3;
+            outline-offset: 2px;
+            border-color: #1976d2;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .select-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            cursor: pointer;
+        }
+
+        .select-input:focus {
+            outline: 3px solid #2196f3;
+            outline-offset: 2px;
+            border-color: #1976d2;
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 5px;
+        }
+
+        .hidden-content.visible {
+            display: block;
+        }
+
+        .result-message {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .success-message {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+        }
+
+        .validation-checklist {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .validation-checklist h4 {
+            margin-top: 0;
+            color: #424242;
+        }
+
+        .validation-checklist ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        .validation-checklist li {
+            margin-bottom: 8px;
+            color: #616161;
+        }
+
+        .summary-box {
+            background-color: #fff3e0;
+            border: 2px solid #ff9800;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .summary-box h3 {
+            margin-top: 0;
+            color: #e65100;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI Browser Interaction - Simple Test</h1>
+
+        <div class="intro">
+            <h3 style="margin-top: 0;">Test Purpose</h3>
+            <p>This page contains <strong>6 simple interaction tests</strong> designed to validate AI browser capabilities. Each test requires the AI to perform a basic action and verify the expected outcome.</p>
+            <p><strong>Target Completion Time:</strong> ~30 seconds</p>
+            <p><strong>Validation Method:</strong> AI must verify DOM state, element properties, and visible text changes</p>
+        </div>
+
+        <!-- TEST CASE 1: Button Click -->
+        <div class="test-card pending"
+             data-test-id="TC1"
+             data-test-type="button-click"
+             data-expected-result="text-change">
+            <div class="test-header">
+                <span class="test-id">Test Case 1: Button Click</span>
+                <span class="status-badge status-pending">Pending</span>
+            </div>
+
+            <div class="instruction">
+                <strong>AI Instruction:</strong> Click the button labeled "Click Me!" below.
+            </div>
+
+            <div class="expected-outcome">
+                <strong>Expected Outcome:</strong> The button text should change from "Click Me!" to "Button Clicked!" and the status badge should change to "Completed".
+            </div>
+
+            <div class="test-element">
+                <button class="btn-primary"
+                        id="tc1-button"
+                        data-element-id="tc1-button"
+                        data-initial-state="Click Me!"
+                        data-expected-state="Button Clicked!">
+                    Click Me!
+                </button>
+            </div>
+
+            <div class="validation-checklist">
+                <h4>Validation Checkpoints:</h4>
+                <ul>
+                    <li>Button text equals "Button Clicked!"</li>
+                    <li>Button's <code>data-clicked</code> attribute is "true"</li>
+                    <li>Test card has class "completed"</li>
+                    <li>Status badge shows "Completed"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TEST CASE 2: Text Input -->
+        <div class="test-card pending"
+             data-test-id="TC2"
+             data-test-type="text-input"
+             data-expected-result="value-update">
+            <div class="test-header">
+                <span class="test-id">Test Case 2: Text Input</span>
+                <span class="status-badge status-pending">Pending</span>
+            </div>
+
+            <div class="instruction">
+                <strong>AI Instruction:</strong> Type "AI Test Input" into the text input field below.
+            </div>
+
+            <div class="expected-outcome">
+                <strong>Expected Outcome:</strong> The input field should contain "AI Test Input" and a confirmation message should appear below showing the typed text.
+            </div>
+
+            <div class="test-element">
+                <input type="text"
+                       class="text-input"
+                       id="tc2-input"
+                       data-element-id="tc2-input"
+                       data-expected-value="AI Test Input"
+                       placeholder="Type here...">
+                <div id="tc2-result" data-result-id="tc2-result"></div>
+            </div>
+
+            <div class="validation-checklist">
+                <h4>Validation Checkpoints:</h4>
+                <ul>
+                    <li>Input value equals "AI Test Input"</li>
+                    <li>Result div contains text: "You typed: AI Test Input"</li>
+                    <li>Test card has class "completed"</li>
+                    <li>Status badge shows "Completed"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TEST CASE 3: Checkbox Toggle -->
+        <div class="test-card pending"
+             data-test-id="TC3"
+             data-test-type="checkbox-toggle"
+             data-expected-result="checked-state">
+            <div class="test-header">
+                <span class="test-id">Test Case 3: Checkbox Toggle</span>
+                <span class="status-badge status-pending">Pending</span>
+            </div>
+
+            <div class="instruction">
+                <strong>AI Instruction:</strong> Click the checkbox to enable the feature.
+            </div>
+
+            <div class="expected-outcome">
+                <strong>Expected Outcome:</strong> The checkbox should be checked and a confirmation message should appear stating "Feature enabled!".
+            </div>
+
+            <div class="test-element">
+                <div class="checkbox-container">
+                    <input type="checkbox"
+                           class="checkbox"
+                           id="tc3-checkbox"
+                           data-element-id="tc3-checkbox"
+                           data-expected-state="checked">
+                    <label for="tc3-checkbox">Enable Feature</label>
+                </div>
+                <div id="tc3-result" data-result-id="tc3-result"></div>
+            </div>
+
+            <div class="validation-checklist">
+                <h4>Validation Checkpoints:</h4>
+                <ul>
+                    <li>Checkbox <code>checked</code> property is true</li>
+                    <li>Result div contains text: "Feature enabled!"</li>
+                    <li>Result div has class "success-message"</li>
+                    <li>Test card has class "completed"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TEST CASE 4: Dropdown Selection -->
+        <div class="test-card pending"
+             data-test-id="TC4"
+             data-test-type="select-dropdown"
+             data-expected-result="option-selected">
+            <div class="test-header">
+                <span class="test-id">Test Case 4: Dropdown Selection</span>
+                <span class="status-badge status-pending">Pending</span>
+            </div>
+
+            <div class="instruction">
+                <strong>AI Instruction:</strong> Select "Option 2" from the dropdown menu.
+            </div>
+
+            <div class="expected-outcome">
+                <strong>Expected Outcome:</strong> The dropdown should show "Option 2" as selected and a confirmation message should display "You selected: Option 2".
+            </div>
+
+            <div class="test-element">
+                <select class="select-input"
+                        id="tc4-select"
+                        data-element-id="tc4-select"
+                        data-expected-value="option2">
+                    <option value="">-- Select an option --</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+                <div id="tc4-result" data-result-id="tc4-result"></div>
+            </div>
+
+            <div class="validation-checklist">
+                <h4>Validation Checkpoints:</h4>
+                <ul>
+                    <li>Select element value equals "option2"</li>
+                    <li>Selected option text is "Option 2"</li>
+                    <li>Result div contains text: "You selected: Option 2"</li>
+                    <li>Test card has class "completed"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TEST CASE 5: Show Hidden Content -->
+        <div class="test-card pending"
+             data-test-id="TC5"
+             data-test-type="reveal-content"
+             data-expected-result="content-visible">
+            <div class="test-header">
+                <span class="test-id">Test Case 5: Reveal Hidden Content</span>
+                <span class="status-badge status-pending">Pending</span>
+            </div>
+
+            <div class="instruction">
+                <strong>AI Instruction:</strong> Click the "Show Content" button to reveal hidden content.
+            </div>
+
+            <div class="expected-outcome">
+                <strong>Expected Outcome:</strong> A green box with the message "This content was hidden! You successfully revealed it." should appear. The button text should change to "Hide Content".
+            </div>
+
+            <div class="test-element">
+                <button class="btn-primary"
+                        id="tc5-button"
+                        data-element-id="tc5-button"
+                        data-toggle-state="hidden">
+                    Show Content
+                </button>
+                <div class="hidden-content"
+                     id="tc5-content"
+                     data-content-id="tc5-content"
+                     data-expected-state="visible">
+                    <strong>🎉 This content was hidden!</strong> You successfully revealed it.
+                </div>
+            </div>
+
+            <div class="validation-checklist">
+                <h4>Validation Checkpoints:</h4>
+                <ul>
+                    <li>Hidden content div has class "visible"</li>
+                    <li>Content is visible (display is not "none")</li>
+                    <li>Button text is "Hide Content"</li>
+                    <li>Test card has class "completed"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TEST CASE 6: Form Submission -->
+        <div class="test-card pending"
+             data-test-id="TC6"
+             data-test-type="form-submit"
+             data-expected-result="success-message">
+            <div class="test-header">
+                <span class="test-id">Test Case 6: Form Submission</span>
+                <span class="status-badge status-pending">Pending</span>
+            </div>
+
+            <div class="instruction">
+                <strong>AI Instruction:</strong> Enter "TestUser" in the username field and click "Submit Form".
+            </div>
+
+            <div class="expected-outcome">
+                <strong>Expected Outcome:</strong> A green success message should appear with text: "Form submitted successfully! Username: TestUser"
+            </div>
+
+            <div class="test-element">
+                <form id="tc6-form" data-form-id="tc6-form">
+                    <div style="margin-bottom: 15px;">
+                        <label for="tc6-username" style="display: block; margin-bottom: 5px; font-weight: 600;">Username:</label>
+                        <input type="text"
+                               class="text-input"
+                               id="tc6-username"
+                               data-element-id="tc6-username"
+                               data-expected-value="TestUser"
+                               placeholder="Enter username">
+                    </div>
+                    <button type="submit" class="btn-primary" data-submit-button="tc6-form">
+                        Submit Form
+                    </button>
+                </form>
+                <div id="tc6-result" data-result-id="tc6-result"></div>
+            </div>
+
+            <div class="validation-checklist">
+                <h4>Validation Checkpoints:</h4>
+                <ul>
+                    <li>Username input value equals "TestUser"</li>
+                    <li>Result div contains text: "Form submitted successfully! Username: TestUser"</li>
+                    <li>Result div has class "success-message"</li>
+                    <li>Form has <code>data-submitted</code> attribute set to "true"</li>
+                    <li>Test card has class "completed"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-box">
+            <h3>📊 Test Completion Summary</h3>
+            <p><strong>Total Tests:</strong> 6</p>
+            <p><strong>Expected Actions:</strong></p>
+            <ol>
+                <li>Click button (TC1)</li>
+                <li>Type text input (TC2)</li>
+                <li>Toggle checkbox (TC3)</li>
+                <li>Select dropdown option (TC4)</li>
+                <li>Reveal hidden content (TC5)</li>
+                <li>Submit form (TC6)</li>
+            </ol>
+            <p><strong>All test cards should show "Completed" status badge and have green left border when finished.</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // TEST CASE 1: Button Click
+        document.getElementById('tc1-button').addEventListener('click', function() {
+            this.textContent = 'Button Clicked!';
+            this.setAttribute('data-clicked', 'true');
+            markTestComplete('TC1');
+        });
+
+        // TEST CASE 2: Text Input
+        document.getElementById('tc2-input').addEventListener('input', function(e) {
+            const value = e.target.value;
+            const resultDiv = document.getElementById('tc2-result');
+            if (value === 'AI Test Input') {
+                resultDiv.textContent = 'You typed: ' + value;
+                resultDiv.className = 'result-message success-message';
+                markTestComplete('TC2');
+            }
+        });
+
+        // TEST CASE 3: Checkbox Toggle
+        document.getElementById('tc3-checkbox').addEventListener('change', function(e) {
+            const resultDiv = document.getElementById('tc3-result');
+            if (e.target.checked) {
+                resultDiv.textContent = 'Feature enabled!';
+                resultDiv.className = 'result-message success-message';
+                markTestComplete('TC3');
+            }
+        });
+
+        // TEST CASE 4: Dropdown Selection
+        document.getElementById('tc4-select').addEventListener('change', function(e) {
+            const resultDiv = document.getElementById('tc4-result');
+            if (e.target.value === 'option2') {
+                const selectedText = e.target.options[e.target.selectedIndex].text;
+                resultDiv.textContent = 'You selected: ' + selectedText;
+                resultDiv.className = 'result-message success-message';
+                markTestComplete('TC4');
+            }
+        });
+
+        // TEST CASE 5: Show/Hide Content
+        document.getElementById('tc5-button').addEventListener('click', function() {
+            const content = document.getElementById('tc5-content');
+            const isHidden = this.getAttribute('data-toggle-state') === 'hidden';
+
+            if (isHidden) {
+                content.classList.add('visible');
+                this.textContent = 'Hide Content';
+                this.setAttribute('data-toggle-state', 'visible');
+                markTestComplete('TC5');
+            } else {
+                content.classList.remove('visible');
+                this.textContent = 'Show Content';
+                this.setAttribute('data-toggle-state', 'hidden');
+            }
+        });
+
+        // TEST CASE 6: Form Submission
+        document.getElementById('tc6-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('tc6-username').value;
+            const resultDiv = document.getElementById('tc6-result');
+
+            if (username === 'TestUser') {
+                resultDiv.textContent = 'Form submitted successfully! Username: ' + username;
+                resultDiv.className = 'result-message success-message';
+                this.setAttribute('data-submitted', 'true');
+                markTestComplete('TC6');
+            }
+        });
+
+        // Helper function to mark test as complete
+        function markTestComplete(testId) {
+            const testCard = document.querySelector('[data-test-id="' + testId + '"]');
+            if (testCard) {
+                testCard.classList.remove('pending');
+                testCard.classList.add('completed');
+                const statusBadge = testCard.querySelector('.status-badge');
+                if (statusBadge) {
+                    statusBadge.textContent = 'Completed';
+                    statusBadge.classList.remove('status-pending');
+                    statusBadge.classList.add('status-completed');
+                }
+            }
+
+            // Log completion for debugging
+            console.log('[TEST COMPLETED] ' + testId);
+        }
+
+        // Log test page ready
+        console.log('[TEST PAGE] Simple interaction tests loaded. 6 test cases ready.');
+        console.log('[AI INSTRUCTION] Complete all 6 test cases in order: TC1 → TC2 → TC3 → TC4 → TC5 → TC6');
+    </script>
+</body>
+</html>

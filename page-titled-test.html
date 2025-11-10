@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 2.4.2 - Page Titled Test Page</title>
+
+    <!-- Machine-readable metadata -->
+    <meta name="test:wcag-criterion" content="2.4.2">
+    <meta name="test:total-cases" content="6">
+    <meta name="test:expected-violations" content="3">
+    <meta name="test:expected-passes" content="3">
+
+    <style>
+        /* Base styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #212529;
+            border-bottom: 4px solid #0d6efd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header-info {
+            background: #e7f1ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0d6efd;
+            margin-bottom: 30px;
+        }
+
+        .header-info p {
+            margin: 5px 0;
+            color: #495057;
+        }
+
+        /* Test grid - Side-by-side pattern */
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 2px solid #dee2e6;
+        }
+
+        .test-card.fail {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .test-card.pass {
+            border-color: #198754;
+            background: #f0fff4;
+        }
+
+        .test-card h3 {
+            margin-top: 0;
+            color: #212529;
+            font-size: 1.1rem;
+        }
+
+        .test-sample {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            color: #d4d4d4;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-top: 12px;
+            overflow-x: auto;
+        }
+
+        .code-block .tag {
+            color: #569cd6;
+        }
+
+        .code-block .attr {
+            color: #9cdcfe;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .expected-results {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border: 2px solid #0d6efd;
+        }
+
+        .expected-results h3 {
+            color: #0d6efd;
+            margin-top: 0;
+        }
+
+        .expected-results ul {
+            margin: 10px 0;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+            color: #495057;
+        }
+
+        .violation-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .violation-list li {
+            padding: 5px 0;
+            border-left: 3px solid #dc3545;
+            padding-left: 10px;
+            margin: 5px 0;
+            background: #fff5f5;
+        }
+
+        .pass-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .pass-list li {
+            padding: 5px 0;
+            border-left: 3px solid #198754;
+            padding-left: 10px;
+            margin: 5px 0;
+            background: #f0fff4;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 WCAG 2.4.2 - Page Titled Test Page</h1>
+
+        <div class="header-info"
+             data-wcag-criterion="2.4.2"
+             data-total-test-cases="6"
+             data-expected-violations="3"
+             data-expected-passes="3">
+            <p><strong>Testing: WCAG 2.4.2 - Page Titled (Level A)</strong></p>
+            <p><strong>Requirement:</strong> Web pages have titles that describe topic or purpose</p>
+            <p><strong>Why it matters:</strong> Page titles help users understand where they are and navigate between pages, especially important for screen reader users</p>
+            <p>This page contains <strong>6 test cases</strong> (3 violations, 3 passes) demonstrating proper and improper page title implementation.</p>
+        </div>
+
+        <h2>🔍 Test Case 1: Missing Title Tag</h2>
+        <div class="test-grid">
+            <!-- FAIL: Missing title -->
+            <div class="test-card fail"
+                 data-test-id="TC1.1"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.4.2">
+                <h3>❌ FAIL: No Title Tag</h3>
+                <div class="test-sample">
+                    <strong>HTML:</strong> Document with no &lt;title&gt; element in &lt;head&gt;
+                </div>
+                <p><strong>Issue:</strong> Screen readers announce the filename or URL instead of a meaningful title. Users have no context about page content.</p>
+                <div class="code-block"><span class="comment">&lt;!-- Missing title tag --&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="comment">&lt;!-- No title element! --&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+            </div>
+
+            <!-- PASS: Descriptive title -->
+            <div class="test-card pass"
+                 data-test-id="TC2.1"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.4.2">
+                <h3>✅ PASS: Descriptive Title</h3>
+                <div class="test-sample">
+                    <strong>Title:</strong> "Contact Us - Acme Corporation"
+                </div>
+                <p><strong>Why it passes:</strong> Clear, descriptive title that identifies both the page purpose and the site name.</p>
+                <div class="code-block"><span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Contact Us - Acme Corporation<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+            </div>
+        </div>
+
+        <h2>🔍 Test Case 2: Empty Title Tag</h2>
+        <div class="test-grid">
+            <!-- FAIL: Empty title -->
+            <div class="test-card fail"
+                 data-test-id="TC1.2"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.4.2">
+                <h3>❌ FAIL: Empty Title</h3>
+                <div class="test-sample">
+                    <strong>Title:</strong> "" (empty string)
+                </div>
+                <p><strong>Issue:</strong> Title tag exists but contains no text. Screen readers announce nothing or the filename.</p>
+                <div class="code-block"><span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;&lt;/title&gt;</span> <span class="comment">&lt;!-- Empty! --&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+            </div>
+
+            <!-- PASS: Purpose with context -->
+            <div class="test-card pass"
+                 data-test-id="TC2.2"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.4.2">
+                <h3>✅ PASS: Purpose with Context</h3>
+                <div class="test-sample">
+                    <strong>Title:</strong> "Shopping Cart (3 items) - Online Store"
+                </div>
+                <p><strong>Why it passes:</strong> Describes both the page purpose and current state, plus site context.</p>
+                <div class="code-block"><span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Shopping Cart (3 items) - Online Store<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+            </div>
+        </div>
+
+        <h2>🔍 Test Case 3: Generic Title</h2>
+        <div class="test-grid">
+            <!-- FAIL: Generic title -->
+            <div class="test-card fail"
+                 data-test-id="TC1.3"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.4.2">
+                <h3>❌ FAIL: Generic Non-Descriptive Title</h3>
+                <div class="test-sample">
+                    <strong>Title:</strong> "Untitled Document"
+                </div>
+                <p><strong>Issue:</strong> Generic title provides no information about page content or purpose. Common with template defaults.</p>
+                <div class="code-block"><span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Untitled Document<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+
+<span class="comment">&lt;!-- Other generic titles that fail: --&gt;</span>
+<span class="comment">&lt;!-- "Page", "New Page", "Document", "Welcome" --&gt;</span></div>
+            </div>
+
+            <!-- PASS: Hierarchical title -->
+            <div class="test-card pass"
+                 data-test-id="TC2.3"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.4.2">
+                <h3>✅ PASS: Hierarchical Descriptive Title</h3>
+                <div class="test-sample">
+                    <strong>Title:</strong> "Product Details: Wireless Mouse - Electronics - Store"
+                </div>
+                <p><strong>Why it passes:</strong> Provides hierarchical context from specific (product) to general (store), helping users understand their location.</p>
+                <div class="code-block"><span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Product Details: Wireless Mouse - Electronics - Store<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+            </div>
+        </div>
+
+        <!-- Expected Results Section -->
+        <div class="expected-results"
+             data-total-test-cases="6"
+             data-expected-violations="3"
+             data-expected-passes="3">
+
+            <h3>📊 Expected Test Results</h3>
+
+            <div class="results-summary">
+                <ul>
+                    <li><strong>Total Test Cases:</strong> 6</li>
+                    <li><strong>Expected Violations:</strong> 3
+                        <ul class="violation-list">
+                            <li><strong>TC1.1</strong> - Missing title tag completely</li>
+                            <li><strong>TC1.2</strong> - Empty title tag (no text content)</li>
+                            <li><strong>TC1.3</strong> - Generic non-descriptive title</li>
+                        </ul>
+                    </li>
+                    <li><strong>Expected Passes:</strong> 3
+                        <ul class="pass-list">
+                            <li><strong>TC2.1</strong> - Descriptive title with site name</li>
+                            <li><strong>TC2.2</strong> - Title with purpose and current state</li>
+                            <li><strong>TC2.3</strong> - Hierarchical descriptive title</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <h4>Detection Method</h4>
+            <p><strong>Automated detection can check:</strong></p>
+            <ul>
+                <li>Presence of &lt;title&gt; element in &lt;head&gt;</li>
+                <li>Title element contains non-empty text</li>
+                <li>Title is not generic (match against common generic patterns)</li>
+                <li>Title length is reasonable (not too short, not too long)</li>
+            </ul>
+
+            <p><strong>Common generic patterns to flag:</strong></p>
+            <ul>
+                <li>"Untitled", "Untitled Document", "New Document"</li>
+                <li>"Page", "New Page", "Home Page" (without context)</li>
+                <li>"Document", "Welcome"</li>
+                <li>Just the site name without page-specific information</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Machine-readable test metadata
+        window.testMetadata = {
+            wcagCriterion: '2.4.2',
+            criterionName: 'Page Titled',
+            level: 'A',
+            totalCases: 6,
+            expectedViolations: 3,
+            expectedPasses: 3,
+            testCases: []
+        };
+
+        // Parse all test cases
+        document.querySelectorAll('[data-test-id]').forEach(testCard => {
+            const testCase = {
+                id: testCard.dataset.testId,
+                expectedResult: testCard.dataset.expectedResult,
+                criterion: testCard.dataset.wcagCriterion
+            };
+            window.testMetadata.testCases.push(testCase);
+        });
+
+        // Export function for validation scripts
+        window.getTestMetadata = function() {
+            return window.testMetadata;
+        };
+
+        console.log('✅ WCAG 2.4.2 - Page Titled test page loaded');
+        console.log('📊 Test metadata:', window.testMetadata);
+        console.log('🔍 Use window.getTestMetadata() to access test data');
+    </script>
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 2.1.1 - Keyboard Accessible Test Page</title>
+
+    <!-- Machine-readable metadata -->
+    <meta name="test:wcag-criterion" content="2.1.1">
+    <meta name="test:total-cases" content="10">
+    <meta name="test:expected-violations" content="5">
+    <meta name="test:expected-passes" content="5">
+
+    <style>
+        /* Base styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #212529;
+            border-bottom: 4px solid #0d6efd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header-info {
+            background: #e7f1ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0d6efd;
+            margin-bottom: 30px;
+        }
+
+        .header-info p {
+            margin: 5px 0;
+            color: #495057;
+        }
+
+        /* Test grid - Side-by-side pattern */
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0 40px 0;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 2px solid #dee2e6;
+        }
+
+        .test-card.fail {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .test-card.pass {
+            border-color: #198754;
+            background: #f0fff4;
+        }
+
+        .test-card h3 {
+            margin-top: 0;
+            color: #212529;
+            font-size: 1.1rem;
+        }
+
+        .test-sample {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            color: #d4d4d4;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-top: 12px;
+            overflow-x: auto;
+        }
+
+        .code-block .tag {
+            color: #569cd6;
+        }
+
+        .code-block .attr {
+            color: #9cdcfe;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        /* Shared button styles */
+        .demo-button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .demo-button:focus {
+            outline: 2px solid #0d6efd;
+            outline-offset: 2px;
+        }
+
+        /* Test case specific styles */
+        .tc1-clickable-div {
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .tc1-mouse-only {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .tc2-proper-button {
+            background-color: #198754;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .tc2-proper-button:focus {
+            outline: 2px solid #0d6efd;
+            outline-offset: 2px;
+        }
+
+        .tc2-accessible-div {
+            background-color: #198754;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .tc2-accessible-div:focus {
+            outline: 2px solid #0d6efd;
+            outline-offset: 2px;
+        }
+
+        .keyboard-hint {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            border-left: 3px solid #ffc107;
+        }
+
+        .expected-results {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border: 2px solid #0d6efd;
+        }
+
+        .expected-results h3 {
+            color: #0d6efd;
+            margin-top: 0;
+        }
+
+        .expected-results ul {
+            margin: 10px 0;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+            color: #495057;
+        }
+
+        .violation-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .violation-list li {
+            padding: 5px 0;
+            border-left: 3px solid #dc3545;
+            padding-left: 10px;
+            margin: 5px 0;
+            background: #fff5f5;
+        }
+
+        .pass-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .pass-list li {
+            padding: 5px 0;
+            border-left: 3px solid #198754;
+            padding-left: 10px;
+            margin: 5px 0;
+            background: #f0fff4;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⌨️ WCAG 2.1.1 - Keyboard Accessible Test Page</h1>
+
+        <div class="header-info"
+             data-wcag-criterion="2.1.1"
+             data-total-test-cases="10"
+             data-expected-violations="5"
+             data-expected-passes="5">
+            <p><strong>Testing: WCAG 2.1.1 - Keyboard (Level A)</strong></p>
+            <p><strong>Requirement:</strong> All functionality of the content is operable through a keyboard interface without requiring specific timings for individual keystrokes</p>
+            <p><strong>Why it matters:</strong> Many users rely on keyboards due to motor disabilities, blindness, or lack of fine motor control. Mouse-only interfaces exclude these users.</p>
+            <p>This page contains <strong>10 test cases</strong> (5 violations, 5 passes). Try using Tab key to navigate and test keyboard accessibility.</p>
+            <div class="keyboard-hint">
+                <strong>💡 Try it:</strong> Press Tab to navigate between focusable elements. Press Enter or Space to activate buttons.
+            </div>
+        </div>
+
+        <h2>🔍 Test Case 1: Clickable Div vs Button</h2>
+        <div class="test-grid">
+            <!-- FAIL: Clickable div -->
+            <div class="test-card fail"
+                 data-test-id="TC1.1"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.1.1">
+                <h3>❌ FAIL: Clickable Div (No Keyboard Access)</h3>
+                <div class="test-sample">
+                    <div class="tc1-clickable-div" onclick="alert('Clicked!')">
+                        Submit
+                    </div>
+                </div>
+                <p><strong>Issue:</strong> Div with onclick handler but no tabindex or role. Cannot be focused with keyboard. Mouse users only.</p>
+                <div class="code-block"><span class="tag">&lt;div</span> <span class="attr">onclick</span>=<span class="string">"..."</span><span class="tag">&gt;</span>Submit<span class="tag">&lt;/div&gt;</span>
+<span class="comment">&lt;!-- No tabindex, no role, not focusable --&gt;</span></div>
+            </div>
+
+            <!-- PASS: Proper button -->
+            <div class="test-card pass"
+                 data-test-id="TC2.1"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.1.1">
+                <h3>✅ PASS: Proper Button Element</h3>
+                <div class="test-sample">
+                    <button class="tc2-proper-button" onclick="alert('Clicked!')">
+                        Submit
+                    </button>
+                </div>
+                <p><strong>Why it passes:</strong> Native &lt;button&gt; element. Automatically keyboard accessible, focusable with Tab, activated with Enter/Space.</p>
+                <div class="code-block"><span class="tag">&lt;button</span> <span class="attr">onclick</span>=<span class="string">"..."</span><span class="tag">&gt;</span>Submit<span class="tag">&lt;/button&gt;</span>
+<span class="comment">&lt;!-- Native element, keyboard accessible --&gt;</span></div>
+            </div>
+        </div>
+
+        <h2>🔍 Test Case 2: Missing vs Proper Link</h2>
+        <div class="test-grid">
+            <!-- FAIL: Span styled as link -->
+            <div class="test-card fail"
+                 data-test-id="TC1.2"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.1.1">
+                <h3>❌ FAIL: Span Styled as Link</h3>
+                <div class="test-sample">
+                    <span style="color: #0d6efd; text-decoration: underline; cursor: pointer;" onclick="location.href='#'">
+                        Go to page
+                    </span>
+                </div>
+                <p><strong>Issue:</strong> Span element looks like a link but is not keyboard accessible. No tabindex or role.</p>
+                <div class="code-block"><span class="tag">&lt;span</span> <span class="attr">onclick</span>=<span class="string">"..."</span> <span class="attr">style</span>=<span class="string">"..."</span><span class="tag">&gt;</span>
+  Go to page
+<span class="tag">&lt;/span&gt;</span>
+<span class="comment">&lt;!-- Looks like link but not accessible --&gt;</span></div>
+            </div>
+
+            <!-- PASS: Proper link -->
+            <div class="test-card pass"
+                 data-test-id="TC2.2"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.1.1">
+                <h3>✅ PASS: Proper Link Element</h3>
+                <div class="test-sample">
+                    <a href="#" style="color: #0d6efd; text-decoration: underline;">
+                        Go to page
+                    </a>
+                </div>
+                <p><strong>Why it passes:</strong> Native &lt;a&gt; element with href. Keyboard accessible, focusable with Tab, activated with Enter.</p>
+                <div class="code-block"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="string">"#"</span><span class="tag">&gt;</span>Go to page<span class="tag">&lt;/a&gt;</span>
+<span class="comment">&lt;!-- Native link, fully accessible --&gt;</span></div>
+            </div>
+        </div>
+
+        <h2>🔍 Test Case 3: Custom Control Without vs With Keyboard Support</h2>
+        <div class="test-grid">
+            <!-- FAIL: Custom control, mouse only -->
+            <div class="test-card fail"
+                 data-test-id="TC1.3"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.1.1">
+                <h3>❌ FAIL: Custom Control (Mouse Only)</h3>
+                <div class="test-sample">
+                    <div class="tc1-mouse-only" onclick="alert('Toggled!')">
+                        Toggle Option
+                    </div>
+                </div>
+                <p><strong>Issue:</strong> Custom toggle control with onclick but no keyboard event handlers. Cannot be operated with keyboard.</p>
+                <div class="code-block"><span class="tag">&lt;div</span> <span class="attr">onclick</span>=<span class="string">"..."</span><span class="tag">&gt;</span>Toggle<span class="tag">&lt;/div&gt;</span>
+<span class="comment">&lt;!-- No keyboard events, no tabindex --&gt;</span></div>
+            </div>
+
+            <!-- PASS: Custom control with keyboard support -->
+            <div class="test-card pass"
+                 data-test-id="TC2.3"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.1.1">
+                <h3>✅ PASS: Custom Control (Keyboard Accessible)</h3>
+                <div class="test-sample">
+                    <div class="tc2-accessible-div"
+                         role="button"
+                         tabindex="0"
+                         onclick="alert('Toggled!')"
+                         onkeydown="if(event.key==='Enter'||event.key===' ')alert('Toggled!')">
+                        Toggle Option
+                    </div>
+                </div>
+                <p><strong>Why it passes:</strong> Custom control with role="button", tabindex="0", and keyboard event handler for Enter/Space keys.</p>
+                <div class="code-block"><span class="tag">&lt;div</span> <span class="attr">role</span>=<span class="string">"button"</span>
+     <span class="attr">tabindex</span>=<span class="string">"0"</span>
+     <span class="attr">onkeydown</span>=<span class="string">"if(event.key==='Enter'||event.key===' ')..."</span><span class="tag">&gt;</span>
+  Toggle
+<span class="tag">&lt;/div&gt;</span></div>
+            </div>
+        </div>
+
+        <h2>🔍 Test Case 4: Negative Tabindex vs Proper Input</h2>
+        <div class="test-grid">
+            <!-- FAIL: tabindex="-1" -->
+            <div class="test-card fail"
+                 data-test-id="TC1.4"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.1.1">
+                <h3>❌ FAIL: Button with tabindex="-1"</h3>
+                <div class="test-sample">
+                    <button tabindex="-1" style="padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px;">
+                        Delete
+                    </button>
+                </div>
+                <p><strong>Issue:</strong> Button intentionally removed from tab order with tabindex="-1". Cannot be reached via keyboard navigation.</p>
+                <div class="code-block"><span class="tag">&lt;button</span> <span class="attr">tabindex</span>=<span class="string">"-1"</span><span class="tag">&gt;</span>Delete<span class="tag">&lt;/button&gt;</span>
+<span class="comment">&lt;!-- Removed from keyboard navigation! --&gt;</span></div>
+            </div>
+
+            <!-- PASS: Form input -->
+            <div class="test-card pass"
+                 data-test-id="TC2.4"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.1.1">
+                <h3>✅ PASS: Form Input Element</h3>
+                <div class="test-sample">
+                    <label>
+                        Name:
+                        <input type="text" placeholder="Enter name" style="padding: 8px; border: 1px solid #ced4da; border-radius: 4px; margin-left: 10px;">
+                    </label>
+                </div>
+                <p><strong>Why it passes:</strong> Native &lt;input&gt; element is keyboard accessible by default. Can be focused, typed into, and submitted via keyboard.</p>
+                <div class="code-block"><span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">placeholder</span>=<span class="string">"..."</span><span class="tag">&gt;</span>
+<span class="comment">&lt;!-- Native form control, fully accessible --&gt;</span></div>
+            </div>
+        </div>
+
+        <h2>🔍 Test Case 5: Image Link Without vs With Keyboard Access</h2>
+        <div class="test-grid">
+            <!-- FAIL: Image with onclick -->
+            <div class="test-card fail"
+                 data-test-id="TC1.5"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.1.1">
+                <h3>❌ FAIL: Image with onclick (No Keyboard)</h3>
+                <div class="test-sample">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='60'%3E%3Crect fill='%230d6efd' width='100' height='60'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='14'%3EClick me%3C/text%3E%3C/svg%3E"
+                         alt="Clickable image"
+                         onclick="alert('Clicked!')"
+                         style="cursor: pointer;">
+                </div>
+                <p><strong>Issue:</strong> Image with onclick handler but no wrapping link or tabindex. Mouse users only.</p>
+                <div class="code-block"><span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"..."</span> <span class="attr">onclick</span>=<span class="string">"..."</span><span class="tag">&gt;</span>
+<span class="comment">&lt;!-- Image not keyboard accessible --&gt;</span></div>
+            </div>
+
+            <!-- PASS: Image in link -->
+            <div class="test-card pass"
+                 data-test-id="TC2.5"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.1.1">
+                <h3>✅ PASS: Image Wrapped in Link</h3>
+                <div class="test-sample">
+                    <a href="#" onclick="alert('Clicked!'); return false;">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='60'%3E%3Crect fill='%23198754' width='100' height='60'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='14'%3EClick me%3C/text%3E%3C/svg%3E"
+                             alt="Clickable image"
+                             style="display: block;">
+                    </a>
+                </div>
+                <p><strong>Why it passes:</strong> Image wrapped in &lt;a&gt; element. The link is keyboard accessible, making the image clickable via keyboard.</p>
+                <div class="code-block"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="string">"..."</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="string">"..."</span> <span class="attr">alt</span>=<span class="string">"..."</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/a&gt;</span>
+<span class="comment">&lt;!-- Link makes image keyboard accessible --&gt;</span></div>
+            </div>
+        </div>
+
+        <!-- Expected Results Section -->
+        <div class="expected-results"
+             data-total-test-cases="10"
+             data-expected-violations="5"
+             data-expected-passes="5">
+
+            <h3>📊 Expected Test Results</h3>
+
+            <div class="results-summary">
+                <ul>
+                    <li><strong>Total Test Cases:</strong> 10</li>
+                    <li><strong>Expected Violations:</strong> 5
+                        <ul class="violation-list">
+                            <li><strong>TC1.1</strong> - Clickable div without tabindex or keyboard handler</li>
+                            <li><strong>TC1.2</strong> - Span styled as link without href or tabindex</li>
+                            <li><strong>TC1.3</strong> - Custom control with onclick but no keyboard events</li>
+                            <li><strong>TC1.4</strong> - Interactive element with tabindex="-1"</li>
+                            <li><strong>TC1.5</strong> - Image with onclick but not in a link</li>
+                        </ul>
+                    </li>
+                    <li><strong>Expected Passes:</strong> 5
+                        <ul class="pass-list">
+                            <li><strong>TC2.1</strong> - Native button element (keyboard accessible by default)</li>
+                            <li><strong>TC2.2</strong> - Native link element with href</li>
+                            <li><strong>TC2.3</strong> - Custom control with role, tabindex, and keyboard handler</li>
+                            <li><strong>TC2.4</strong> - Native form input element</li>
+                            <li><strong>TC2.5</strong> - Image wrapped in link element</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <h4>Detection Method</h4>
+            <p><strong>Automated detection can identify:</strong></p>
+            <ul>
+                <li>Interactive elements (onclick, onmousedown, etc.) without keyboard events</li>
+                <li>Elements with mouse handlers but no tabindex or semantic role</li>
+                <li>Elements with tabindex="-1" that should be in tab order</li>
+                <li>Custom controls without proper ARIA roles</li>
+                <li>Images with click handlers not wrapped in links or buttons</li>
+            </ul>
+
+            <h4>Making Elements Keyboard Accessible</h4>
+            <p><strong>Option 1: Use native HTML elements (preferred)</strong></p>
+            <ul>
+                <li>&lt;button&gt; for actions</li>
+                <li>&lt;a href="..."&gt; for navigation</li>
+                <li>&lt;input&gt;, &lt;select&gt;, &lt;textarea&gt; for form controls</li>
+            </ul>
+
+            <p><strong>Option 2: Make custom elements accessible</strong></p>
+            <ul>
+                <li>Add <strong>tabindex="0"</strong> to make element focusable</li>
+                <li>Add <strong>role="button"</strong> or appropriate ARIA role</li>
+                <li>Add <strong>keyboard event handlers</strong> (onkeydown/onkeypress)</li>
+                <li>Handle <strong>Enter and Space keys</strong> for activation</li>
+                <li>Add <strong>visual focus indicator</strong> (:focus styles)</li>
+            </ul>
+
+            <h4>Keyboard Event Handling</h4>
+            <p><strong>Standard activation keys:</strong></p>
+            <ul>
+                <li><strong>Enter:</strong> Activate buttons and links</li>
+                <li><strong>Space:</strong> Activate buttons (not links)</li>
+                <li><strong>Arrow keys:</strong> Navigate within custom components (menus, tabs, etc.)</li>
+                <li><strong>Escape:</strong> Close dialogs, cancel operations</li>
+            </ul>
+
+            <h4>Common Violations</h4>
+            <ul>
+                <li>Clickable divs/spans without tabindex</li>
+                <li>Images with onclick but not wrapped in links</li>
+                <li>Custom dropdowns/selects without keyboard support</li>
+                <li>Drag-and-drop without keyboard alternatives</li>
+                <li>Hover-only menus without keyboard access</li>
+                <li>Modal dialogs without keyboard focus management</li>
+            </ul>
+
+            <h4>Exception</h4>
+            <p>Functionality that requires path-dependent input (e.g., freehand drawing) is exempt from keyboard requirements, but keyboard-accessible alternatives should be provided where possible.</p>
+        </div>
+    </div>
+
+    <script>
+        // Machine-readable test metadata
+        window.testMetadata = {
+            wcagCriterion: '2.1.1',
+            criterionName: 'Keyboard',
+            level: 'A',
+            totalCases: 10,
+            expectedViolations: 5,
+            expectedPasses: 5,
+            testCases: []
+        };
+
+        // Parse all test cases
+        document.querySelectorAll('[data-test-id]').forEach(testCard => {
+            const testCase = {
+                id: testCard.dataset.testId,
+                expectedResult: testCard.dataset.expectedResult,
+                criterion: testCard.dataset.wcagCriterion
+            };
+            window.testMetadata.testCases.push(testCase);
+        });
+
+        // Export function for validation scripts
+        window.getTestMetadata = function() {
+            return window.testMetadata;
+        };
+
+        // Log keyboard events for testing
+        document.addEventListener('keydown', function(e) {
+            if (e.target.matches('[role="button"]')) {
+                console.log(`[KEYBOARD] Key pressed: ${e.key} on custom button`);
+            }
+        }, true);
+
+        console.log('✅ WCAG 2.1.1 - Keyboard test page loaded');
+        console.log('📊 Test metadata:', window.testMetadata);
+        console.log('🔍 Use window.getTestMetadata() to access test data');
+        console.log('⌨️  Try using Tab key to navigate between elements');
+    </script>
+</body>
+</html>

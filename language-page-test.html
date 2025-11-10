@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 3.1.1 - Language of Page Test Page</title>
+
+    <!-- Machine-readable metadata -->
+    <meta name="test:wcag-criterion" content="3.1.1">
+    <meta name="test:total-cases" content="6">
+    <meta name="test:expected-violations" content="3">
+    <meta name="test:expected-passes" content="3">
+
+    <style>
+        /* Base styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #212529;
+            border-bottom: 4px solid #0d6efd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header-info {
+            background: #e7f1ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0d6efd;
+            margin-bottom: 30px;
+        }
+
+        .header-info p {
+            margin: 5px 0;
+            color: #495057;
+        }
+
+        /* Test grid - Side-by-side pattern */
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 2px solid #dee2e6;
+        }
+
+        .test-card.fail {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .test-card.pass {
+            border-color: #198754;
+            background: #f0fff4;
+        }
+
+        .test-card h3 {
+            margin-top: 0;
+            color: #212529;
+            font-size: 1.1rem;
+        }
+
+        .test-sample {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .lang-display {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #0d6efd;
+            padding: 10px;
+            background: #e7f1ff;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            color: #d4d4d4;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-top: 12px;
+            overflow-x: auto;
+        }
+
+        .code-block .tag {
+            color: #569cd6;
+        }
+
+        .code-block .attr {
+            color: #9cdcfe;
+        }
+
+        .code-block .string {
+            color: #ce9178;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .expected-results {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border: 2px solid #0d6efd;
+        }
+
+        .expected-results h3 {
+            color: #0d6efd;
+            margin-top: 0;
+        }
+
+        .expected-results ul {
+            margin: 10px 0;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+            color: #495057;
+        }
+
+        .violation-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .violation-list li {
+            padding: 5px 0;
+            border-left: 3px solid #dc3545;
+            padding-left: 10px;
+            margin: 5px 0;
+            background: #fff5f5;
+        }
+
+        .pass-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .pass-list li {
+            padding: 5px 0;
+            border-left: 3px solid #198754;
+            padding-left: 10px;
+            margin: 5px 0;
+            background: #f0fff4;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 WCAG 3.1.1 - Language of Page Test Page</h1>
+
+        <div class="header-info"
+             data-wcag-criterion="3.1.1"
+             data-total-test-cases="6"
+             data-expected-violations="3"
+             data-expected-passes="3">
+            <p><strong>Testing: WCAG 3.1.1 - Language of Page (Level A)</strong></p>
+            <p><strong>Requirement:</strong> The default human language of each web page can be programmatically determined</p>
+            <p><strong>Why it matters:</strong> Screen readers need to know the page language to pronounce words correctly. Without it, content may be unintelligible to users.</p>
+            <p>This page contains <strong>6 test cases</strong> (3 violations, 3 passes) demonstrating proper and improper language declaration.</p>
+        </div>
+
+        <h2>🔍 Test Case 1: Missing Language Attribute</h2>
+        <div class="test-grid">
+            <!-- FAIL: Missing lang -->
+            <div class="test-card fail"
+                 data-test-id="TC1.1"
+                 data-expected-result="violation"
+                 data-wcag-criterion="3.1.1">
+                <h3>❌ FAIL: No lang Attribute</h3>
+                <div class="test-sample">
+                    <strong>HTML:</strong> &lt;html&gt; element without lang attribute
+                </div>
+                <p><strong>Issue:</strong> Screen readers cannot determine the page language, resulting in incorrect pronunciation. May default to wrong language or user's system language.</p>
+                <div class="code-block"><span class="comment">&lt;!-- Missing lang attribute --&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Welcome<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+            </div>
+
+            <!-- PASS: Basic lang -->
+            <div class="test-card pass"
+                 data-test-id="TC2.1"
+                 data-expected-result="pass"
+                 data-wcag-criterion="3.1.1">
+                <h3>✅ PASS: Valid lang Attribute</h3>
+                <div class="test-sample">
+                    <div class="lang-display">lang="en"</div>
+                    <strong>English language page</strong>
+                </div>
+                <p><strong>Why it passes:</strong> Correct ISO 639-1 language code (en = English). Screen readers will pronounce text correctly.</p>
+                <div class="code-block"><span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"en"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Welcome<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+            </div>
+        </div>
+
+        <h2>🔍 Test Case 2: Empty Language Attribute</h2>
+        <div class="test-grid">
+            <!-- FAIL: Empty lang -->
+            <div class="test-card fail"
+                 data-test-id="TC1.2"
+                 data-expected-result="violation"
+                 data-wcag-criterion="3.1.1">
+                <h3>❌ FAIL: Empty lang Attribute</h3>
+                <div class="test-sample">
+                    <div class="lang-display">lang=""</div>
+                    <strong>Empty string value</strong>
+                </div>
+                <p><strong>Issue:</strong> lang attribute exists but has no value. Screen readers cannot determine language.</p>
+                <div class="code-block"><span class="comment">&lt;!-- Empty lang attribute --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">""</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Welcome<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+            </div>
+
+            <!-- PASS: lang with region -->
+            <div class="test-card pass"
+                 data-test-id="TC2.2"
+                 data-expected-result="pass"
+                 data-wcag-criterion="3.1.1">
+                <h3>✅ PASS: Language with Region Code</h3>
+                <div class="test-sample">
+                    <div class="lang-display">lang="en-US"</div>
+                    <strong>English (United States)</strong>
+                </div>
+                <p><strong>Why it passes:</strong> Valid language code with region subtag. Helps screen readers use appropriate pronunciation and dialect.</p>
+                <div class="code-block"><span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"en-US"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Welcome<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+
+<span class="comment">&lt;!-- Other valid examples: en-GB, en-CA, en-AU --&gt;</span></div>
+            </div>
+        </div>
+
+        <h2>🔍 Test Case 3: Invalid Language Code</h2>
+        <div class="test-grid">
+            <!-- FAIL: Invalid lang -->
+            <div class="test-card fail"
+                 data-test-id="TC1.3"
+                 data-expected-result="violation"
+                 data-wcag-criterion="3.1.1">
+                <h3>❌ FAIL: Invalid Language Code</h3>
+                <div class="test-sample">
+                    <div class="lang-display">lang="english"</div>
+                    <strong>Not a valid ISO 639-1 code</strong>
+                </div>
+                <p><strong>Issue:</strong> Full language name instead of ISO code. Screen readers won't recognize this as a valid language identifier.</p>
+                <div class="code-block"><span class="comment">&lt;!-- Invalid language code --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"english"</span><span class="tag">&gt;</span> <span class="comment">&lt;!-- Wrong! Should be "en" --&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Welcome<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+
+<span class="comment">&lt;!-- Other invalid examples: --&gt;</span>
+<span class="comment">&lt;!-- lang="EN" (case-sensitive, should be lowercase) --&gt;</span>
+<span class="comment">&lt;!-- lang="eng" (3-letter code, use 2-letter when available) --&gt;</span></div>
+            </div>
+
+            <!-- PASS: Different language -->
+            <div class="test-card pass"
+                 data-test-id="TC2.3"
+                 data-expected-result="pass"
+                 data-wcag-criterion="3.1.1">
+                <h3>✅ PASS: Multiple Language Examples</h3>
+                <div class="test-sample">
+                    <div class="lang-display">lang="es"</div>
+                    <strong>Spanish: Bienvenido a nuestro sitio web</strong>
+
+                    <div class="lang-display" style="margin-top: 10px;">lang="fr"</div>
+                    <strong>French: Bienvenue sur notre site</strong>
+
+                    <div class="lang-display" style="margin-top: 10px;">lang="de"</div>
+                    <strong>German: Willkommen auf unserer Website</strong>
+                </div>
+                <p><strong>Why it passes:</strong> All use valid ISO 639-1 language codes. Screen readers will switch to appropriate pronunciation.</p>
+                <div class="code-block"><span class="comment">&lt;!-- Spanish --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"es"</span><span class="tag">&gt;</span>
+
+<span class="comment">&lt;!-- French --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"fr"</span><span class="tag">&gt;</span>
+
+<span class="comment">&lt;!-- German --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="string">"de"</span><span class="tag">&gt;</span>
+
+<span class="comment">&lt;!-- More examples: ja (Japanese), zh (Chinese), ar (Arabic) --&gt;</span></div>
+            </div>
+        </div>
+
+        <!-- Expected Results Section -->
+        <div class="expected-results"
+             data-total-test-cases="6"
+             data-expected-violations="3"
+             data-expected-passes="3">
+
+            <h3>📊 Expected Test Results</h3>
+
+            <div class="results-summary">
+                <ul>
+                    <li><strong>Total Test Cases:</strong> 6</li>
+                    <li><strong>Expected Violations:</strong> 3
+                        <ul class="violation-list">
+                            <li><strong>TC1.1</strong> - Missing lang attribute on html element</li>
+                            <li><strong>TC1.2</strong> - Empty lang attribute (lang="")</li>
+                            <li><strong>TC1.3</strong> - Invalid language code (not ISO 639-1)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Expected Passes:</strong> 3
+                        <ul class="pass-list">
+                            <li><strong>TC2.1</strong> - Valid lang attribute (lang="en")</li>
+                            <li><strong>TC2.2</strong> - Language with region code (lang="en-US")</li>
+                            <li><strong>TC2.3</strong> - Valid codes for other languages (es, fr, de)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <h4>Detection Method</h4>
+            <p><strong>Automated detection can check:</strong></p>
+            <ul>
+                <li>Presence of lang attribute on &lt;html&gt; element</li>
+                <li>lang attribute is not empty</li>
+                <li>lang value matches valid ISO 639-1 or ISO 639-2 codes</li>
+                <li>Case sensitivity (should be lowercase)</li>
+            </ul>
+
+            <h4>Valid Language Codes (ISO 639-1)</h4>
+            <p><strong>Common 2-letter codes:</strong></p>
+            <ul>
+                <li><strong>en</strong> - English</li>
+                <li><strong>es</strong> - Spanish</li>
+                <li><strong>fr</strong> - French</li>
+                <li><strong>de</strong> - German</li>
+                <li><strong>it</strong> - Italian</li>
+                <li><strong>pt</strong> - Portuguese</li>
+                <li><strong>ja</strong> - Japanese</li>
+                <li><strong>zh</strong> - Chinese</li>
+                <li><strong>ar</strong> - Arabic</li>
+                <li><strong>ru</strong> - Russian</li>
+            </ul>
+
+            <h4>Common Region Subtags</h4>
+            <ul>
+                <li><strong>en-US</strong> - English (United States)</li>
+                <li><strong>en-GB</strong> - English (United Kingdom)</li>
+                <li><strong>en-CA</strong> - English (Canada)</li>
+                <li><strong>es-ES</strong> - Spanish (Spain)</li>
+                <li><strong>es-MX</strong> - Spanish (Mexico)</li>
+                <li><strong>fr-FR</strong> - French (France)</li>
+                <li><strong>fr-CA</strong> - French (Canada)</li>
+                <li><strong>pt-BR</strong> - Portuguese (Brazil)</li>
+                <li><strong>pt-PT</strong> - Portuguese (Portugal)</li>
+                <li><strong>zh-CN</strong> - Chinese (Simplified)</li>
+                <li><strong>zh-TW</strong> - Chinese (Traditional)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Machine-readable test metadata
+        window.testMetadata = {
+            wcagCriterion: '3.1.1',
+            criterionName: 'Language of Page',
+            level: 'A',
+            totalCases: 6,
+            expectedViolations: 3,
+            expectedPasses: 3,
+            testCases: []
+        };
+
+        // Parse all test cases
+        document.querySelectorAll('[data-test-id]').forEach(testCard => {
+            const testCase = {
+                id: testCard.dataset.testId,
+                expectedResult: testCard.dataset.expectedResult,
+                criterion: testCard.dataset.wcagCriterion
+            };
+            window.testMetadata.testCases.push(testCase);
+        });
+
+        // Export function for validation scripts
+        window.getTestMetadata = function() {
+            return window.testMetadata;
+        };
+
+        // Display current page's lang attribute
+        const currentLang = document.documentElement.lang || '(not set)';
+        console.log('✅ WCAG 3.1.1 - Language of Page test page loaded');
+        console.log('🌐 This page\'s lang attribute:', currentLang);
+        console.log('📊 Test metadata:', window.testMetadata);
+        console.log('🔍 Use window.getTestMetadata() to access test data');
+    </script>
+</body>
+</html>

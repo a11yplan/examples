@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 2.5.8 - Target Size (Minimum) Test Page</title>
+
+    <!-- Machine-readable metadata -->
+    <meta name="test:wcag-criterion" content="2.5.8">
+    <meta name="test:total-cases" content="10">
+    <meta name="test:expected-violations" content="5">
+    <meta name="test:expected-passes" content="5">
+
+    <style>
+        /* Base styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #212529;
+            border-bottom: 4px solid #0d6efd;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header-info {
+            background: #e7f1ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #0d6efd;
+            margin-bottom: 30px;
+        }
+
+        .header-info p {
+            margin: 5px 0;
+            color: #495057;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 40px 0 20px 0;
+        }
+
+        .section-header h2 {
+            margin: 0 0 5px 0;
+        }
+
+        .section-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* Test grid - Independent grid pattern */
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 2px solid #dee2e6;
+        }
+
+        .test-card h3 {
+            margin-top: 0;
+            color: #212529;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-fail { background-color: #dc3545; color: white; }
+        .badge-pass { background-color: #198754; color: white; }
+
+        .size-info {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            border-left: 3px solid #0d6efd;
+        }
+
+        .test-sample {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            color: #d4d4d4;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
+        .code-block .property {
+            color: #9cdcfe;
+        }
+
+        .code-block .value {
+            color: #ce9178;
+        }
+
+        /* Test Case Styles */
+
+        /* TC1.1: 16x16 - Too small */
+        .tc1-16px {
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        /* TC1.2: 20x20 - Too small */
+        .tc1-20px {
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        /* TC1.3: 22x22 - Just below threshold */
+        .tc1-22px {
+            width: 22px;
+            height: 22px;
+            padding: 0;
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* TC1.4: Icon button 18x18 */
+        .tc1-icon-18px {
+            width: 18px;
+            height: 18px;
+            padding: 0;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* TC1.5: Small text link */
+        .tc1-small-link {
+            font-size: 12px;
+            line-height: 16px;
+            color: #0d6efd;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* TC2.1: 24x24 - Minimum pass */
+        .tc2-24px {
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* TC2.2: 30x30 - Comfortable */
+        .tc2-30px {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* TC2.3: 44x44 - Recommended (iOS/Material Design) */
+        .tc2-44px {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* TC2.4: Small button with spacing */
+        .tc2-spaced {
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            margin: 12px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            /* Total clickable area: 20 + 12 + 12 = 44px */
+        }
+
+        /* TC2.5: Text link with adequate line height */
+        .tc2-adequate-link {
+            font-size: 16px;
+            line-height: 24px;
+            color: #0d6efd;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+
+        .expected-results {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border: 2px solid #0d6efd;
+        }
+
+        .expected-results h3 {
+            color: #0d6efd;
+            margin-top: 0;
+        }
+
+        .expected-results ul {
+            margin: 10px 0;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+            color: #495057;
+        }
+
+        .violation-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .violation-list li {
+            padding: 5px 0;
+            border-left: 3px solid #dc3545;
+            padding-left: 10px;
+            margin: 5px 0;
+            background: #fff5f5;
+        }
+
+        .pass-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .pass-list li {
+            padding: 5px 0;
+            border-left: 3px solid #198754;
+            padding-left: 10px;
+            margin: 5px 0;
+            background: #f0fff4;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 WCAG 2.5.8 - Target Size (Minimum) Test Page</h1>
+
+        <div class="header-info"
+             data-wcag-criterion="2.5.8"
+             data-total-test-cases="10"
+             data-expected-violations="5"
+             data-expected-passes="5">
+            <p><strong>Testing: WCAG 2.5.8 - Target Size (Minimum) (Level AA)</strong></p>
+            <p><strong>Requirement:</strong> Touch targets are at least 24×24 CSS pixels, with exceptions for spacing and essential controls</p>
+            <p><strong>Why it matters:</strong> Adequate touch target size helps users with motor impairments, tremors, or large fingers accurately activate controls without frustration.</p>
+            <p>This page contains <strong>10 test cases</strong> (5 violations, 5 passes) demonstrating various target sizes.</p>
+        </div>
+
+        <!-- CATEGORY 1: Clear Failures -->
+        <div class="section-header">
+            <h2>❌ Category 1: Target Sizes Below Minimum (24×24px)</h2>
+            <p>These controls are too small and violate WCAG 2.5.8</p>
+        </div>
+
+        <div class="test-grid">
+            <!-- TC1.1: 16x16 -->
+            <div class="test-card"
+                 data-test-id="TC1.1"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="16"
+                 data-target-height="16">
+                <h3>TC1.1: 16×16px Button <span class="badge badge-fail">FAIL</span></h3>
+                <div class="size-info">
+                    <strong>Size:</strong> 16×16px | <strong>Required:</strong> 24×24px | <strong>Gap:</strong> 8px too small
+                </div>
+                <div class="test-sample">
+                    <button class="tc1-16px">×</button>
+                </div>
+                <p>Close icon button. Too small for reliable touch interaction.</p>
+                <div class="code-block"><span class="property">width:</span> <span class="value">16px</span>;
+<span class="property">height:</span> <span class="value">16px</span>;
+<span class="property">padding:</span> <span class="value">0</span>;</div>
+            </div>
+
+            <!-- TC1.2: 20x20 -->
+            <div class="test-card"
+                 data-test-id="TC1.2"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="20"
+                 data-target-height="20">
+                <h3>TC1.2: 20×20px Button <span class="badge badge-fail">FAIL</span></h3>
+                <div class="size-info">
+                    <strong>Size:</strong> 20×20px | <strong>Required:</strong> 24×24px | <strong>Gap:</strong> 4px too small
+                </div>
+                <div class="test-sample">
+                    <button class="tc1-20px">★</button>
+                </div>
+                <p>Star/favorite button. Common but below minimum size.</p>
+                <div class="code-block"><span class="property">width:</span> <span class="value">20px</span>;
+<span class="property">height:</span> <span class="value">20px</span>;
+<span class="property">padding:</span> <span class="value">0</span>;</div>
+            </div>
+
+            <!-- TC1.3: 22x22 -->
+            <div class="test-card"
+                 data-test-id="TC1.3"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="22"
+                 data-target-height="22">
+                <h3>TC1.3: 22×22px Button <span class="badge badge-fail">FAIL</span></h3>
+                <div class="size-info">
+                    <strong>Size:</strong> 22×22px | <strong>Required:</strong> 24×24px | <strong>Gap:</strong> 2px too small
+                </div>
+                <div class="test-sample">
+                    <button class="tc1-22px">☰</button>
+                </div>
+                <p>Menu hamburger button. Just below threshold - edge case.</p>
+                <div class="code-block"><span class="property">width:</span> <span class="value">22px</span>;
+<span class="property">height:</span> <span class="value">22px</span>;
+<span class="property">padding:</span> <span class="value">0</span>;</div>
+            </div>
+
+            <!-- TC1.4: 18x18 icon -->
+            <div class="test-card"
+                 data-test-id="TC1.4"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="18"
+                 data-target-height="18">
+                <h3>TC1.4: 18×18px Icon Button <span class="badge badge-fail">FAIL</span></h3>
+                <div class="size-info">
+                    <strong>Size:</strong> 18×18px | <strong>Required:</strong> 24×24px | <strong>Gap:</strong> 6px too small
+                </div>
+                <div class="test-sample">
+                    <button class="tc1-icon-18px">i</button>
+                </div>
+                <p>Info icon button. Small circular target.</p>
+                <div class="code-block"><span class="property">width:</span> <span class="value">18px</span>;
+<span class="property">height:</span> <span class="value">18px</span>;
+<span class="property">border-radius:</span> <span class="value">50%</span>;</div>
+            </div>
+
+            <!-- TC1.5: Small text link -->
+            <div class="test-card"
+                 data-test-id="TC1.5"
+                 data-expected-result="violation"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="auto"
+                 data-target-height="16">
+                <h3>TC1.5: Small Text Link <span class="badge badge-fail">FAIL</span></h3>
+                <div class="size-info">
+                    <strong>Line height:</strong> 16px | <strong>Font size:</strong> 12px | <strong>Required:</strong> 24px
+                </div>
+                <div class="test-sample">
+                    <a href="#" class="tc1-small-link">Click here for details</a>
+                </div>
+                <p>Link with small font and insufficient line height.</p>
+                <div class="code-block"><span class="property">font-size:</span> <span class="value">12px</span>;
+<span class="property">line-height:</span> <span class="value">16px</span>;</div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 2: Clear Passes -->
+        <div class="section-header">
+            <h2>✅ Category 2: Target Sizes Meeting or Exceeding Minimum</h2>
+            <p>These controls meet WCAG 2.5.8 requirements (24×24px or larger)</p>
+        </div>
+
+        <div class="test-grid">
+            <!-- TC2.1: 24x24 -->
+            <div class="test-card"
+                 data-test-id="TC2.1"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="24"
+                 data-target-height="24">
+                <h3>TC2.1: 24×24px Button <span class="badge badge-pass">PASS</span></h3>
+                <div class="size-info">
+                    <strong>Size:</strong> 24×24px | <strong>Required:</strong> 24×24px | <strong>Status:</strong> ✓ Minimum met
+                </div>
+                <div class="test-sample">
+                    <button class="tc2-24px">✓</button>
+                </div>
+                <p>Minimum acceptable size. Passes WCAG 2.5.8.</p>
+                <div class="code-block"><span class="property">width:</span> <span class="value">24px</span>;
+<span class="property">height:</span> <span class="value">24px</span>;
+<span class="property">padding:</span> <span class="value">0</span>;</div>
+            </div>
+
+            <!-- TC2.2: 30x30 -->
+            <div class="test-card"
+                 data-test-id="TC2.2"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="30"
+                 data-target-height="30">
+                <h3>TC2.2: 30×30px Button <span class="badge badge-pass">PASS</span></h3>
+                <div class="size-info">
+                    <strong>Size:</strong> 30×30px | <strong>Required:</strong> 24×24px | <strong>Status:</strong> ✓ Exceeds minimum
+                </div>
+                <div class="test-sample">
+                    <button class="tc2-30px">♥</button>
+                </div>
+                <p>Comfortable size for most users. Well above minimum.</p>
+                <div class="code-block"><span class="property">width:</span> <span class="value">30px</span>;
+<span class="property">height:</span> <span class="value">30px</span>;
+<span class="property">padding:</span> <span class="value">0</span>;</div>
+            </div>
+
+            <!-- TC2.3: 44x44 -->
+            <div class="test-card"
+                 data-test-id="TC2.3"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="44"
+                 data-target-height="44">
+                <h3>TC2.3: 44×44px Button <span class="badge badge-pass">PASS</span></h3>
+                <div class="size-info">
+                    <strong>Size:</strong> 44×44px | <strong>Required:</strong> 24×24px | <strong>Status:</strong> ✓ iOS/Material Design standard
+                </div>
+                <div class="test-sample">
+                    <button class="tc2-44px">+</button>
+                </div>
+                <p>Recommended size (iOS 44px, Material Design 48dp). Optimal for touch.</p>
+                <div class="code-block"><span class="property">width:</span> <span class="value">44px</span>;
+<span class="property">height:</span> <span class="value">44px</span>;
+<span class="property">padding:</span> <span class="value">0</span>;</div>
+            </div>
+
+            <!-- TC2.4: Spaced button -->
+            <div class="test-card"
+                 data-test-id="TC2.4"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="44"
+                 data-target-height="44">
+                <h3>TC2.4: Small Button with Spacing <span class="badge badge-pass">PASS</span></h3>
+                <div class="size-info">
+                    <strong>Button:</strong> 20×20px | <strong>Margin:</strong> 12px all sides | <strong>Total:</strong> 44×44px ✓
+                </div>
+                <div class="test-sample">
+                    <button class="tc2-spaced">×</button>
+                </div>
+                <p>Small visual button with adequate spacing. Total clickable area meets minimum.</p>
+                <div class="code-block"><span class="property">width:</span> <span class="value">20px</span>;
+<span class="property">height:</span> <span class="value">20px</span>;
+<span class="property">margin:</span> <span class="value">12px</span>; <span class="comment">/* Total: 44×44px */</span></div>
+            </div>
+
+            <!-- TC2.5: Text link adequate -->
+            <div class="test-card"
+                 data-test-id="TC2.5"
+                 data-expected-result="pass"
+                 data-wcag-criterion="2.5.8"
+                 data-target-width="auto"
+                 data-target-height="32">
+                <h3>TC2.5: Text Link with Adequate Height <span class="badge badge-pass">PASS</span></h3>
+                <div class="size-info">
+                    <strong>Font:</strong> 16px | <strong>Line height:</strong> 24px | <strong>Padding:</strong> 4px | <strong>Total:</strong> 32px ✓
+                </div>
+                <div class="test-sample">
+                    <a href="#" class="tc2-adequate-link">Read more about our services</a>
+                </div>
+                <p>Link with adequate line height and padding. Easy to tap.</p>
+                <div class="code-block"><span class="property">font-size:</span> <span class="value">16px</span>;
+<span class="property">line-height:</span> <span class="value">24px</span>;
+<span class="property">padding:</span> <span class="value">4px 0</span>;</div>
+            </div>
+        </div>
+
+        <!-- Expected Results Section -->
+        <div class="expected-results"
+             data-total-test-cases="10"
+             data-expected-violations="5"
+             data-expected-passes="5">
+
+            <h3>📊 Expected Test Results</h3>
+
+            <div class="results-summary">
+                <ul>
+                    <li><strong>Total Test Cases:</strong> 10</li>
+                    <li><strong>Expected Violations:</strong> 5
+                        <ul class="violation-list">
+                            <li><strong>TC1.1</strong> - 16×16px button (8px below minimum)</li>
+                            <li><strong>TC1.2</strong> - 20×20px button (4px below minimum)</li>
+                            <li><strong>TC1.3</strong> - 22×22px button (2px below minimum)</li>
+                            <li><strong>TC1.4</strong> - 18×18px icon button (6px below minimum)</li>
+                            <li><strong>TC1.5</strong> - Text link with 16px line height (8px below minimum)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Expected Passes:</strong> 5
+                        <ul class="pass-list">
+                            <li><strong>TC2.1</strong> - 24×24px button (exactly minimum)</li>
+                            <li><strong>TC2.2</strong> - 30×30px button (6px above minimum)</li>
+                            <li><strong>TC2.3</strong> - 44×44px button (recommended size)</li>
+                            <li><strong>TC2.4</strong> - 20×20px button with 12px margin (44×44px total)</li>
+                            <li><strong>TC2.5</strong> - Text link with 24px line height + padding</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <h4>Detection Method</h4>
+            <p><strong>Automated detection should check:</strong></p>
+            <ul>
+                <li>Computed width and height of interactive elements</li>
+                <li>Include padding, border, and margin in calculations</li>
+                <li>For text links: line-height + padding determines minimum height</li>
+                <li>Spacing exception: controls can be smaller if spacing creates 24×24px offset</li>
+                <li>Flag violations when total clickable area &lt; 24×24 CSS pixels</li>
+            </ul>
+
+            <h4>Measurement Guidelines</h4>
+            <p><strong>Include in target size calculation:</strong></p>
+            <ul>
+                <li>Content box (width × height)</li>
+                <li>Padding (all sides)</li>
+                <li>Border (thickness on all sides)</li>
+                <li>Margin (creates spacing offset)</li>
+            </ul>
+
+            <h4>Exceptions (Not Required to be 24×24px)</h4>
+            <ul>
+                <li><strong>Inline text links</strong> - Within sentences/paragraphs</li>
+                <li><strong>Essential controls</strong> - When target size is essential to functionality</li>
+                <li><strong>User agent control</strong> - Browser default controls</li>
+                <li><strong>Spacing</strong> - Smaller targets with adequate spacing between them</li>
+            </ul>
+
+            <h4>Recommended Sizes</h4>
+            <ul>
+                <li><strong>WCAG 2.5.8 Minimum:</strong> 24×24 CSS pixels (Level AA)</li>
+                <li><strong>iOS Human Interface:</strong> 44×44 points</li>
+                <li><strong>Material Design:</strong> 48×48 density-independent pixels</li>
+                <li><strong>Optimal:</strong> 44-48px for primary touch targets</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Machine-readable test metadata
+        window.testMetadata = {
+            wcagCriterion: '2.5.8',
+            criterionName: 'Target Size (Minimum)',
+            level: 'AA',
+            totalCases: 10,
+            expectedViolations: 5,
+            expectedPasses: 5,
+            minimumSize: 24,
+            testCases: []
+        };
+
+        // Parse all test cases
+        document.querySelectorAll('[data-test-id]').forEach(testCard => {
+            const testCase = {
+                id: testCard.dataset.testId,
+                expectedResult: testCard.dataset.expectedResult,
+                criterion: testCard.dataset.wcagCriterion,
+                targetWidth: testCard.dataset.targetWidth,
+                targetHeight: testCard.dataset.targetHeight
+            };
+            window.testMetadata.testCases.push(testCase);
+        });
+
+        // Export function for validation scripts
+        window.getTestMetadata = function() {
+            return window.testMetadata;
+        };
+
+        console.log('✅ WCAG 2.5.8 - Target Size (Minimum) test page loaded');
+        console.log('📊 Test metadata:', window.testMetadata);
+        console.log('🔍 Use window.getTestMetadata() to access test data');
+        console.log('📏 Minimum target size: 24×24 CSS pixels');
+    </script>
+</body>
+</html>

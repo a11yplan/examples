@@ -230,15 +230,15 @@
 
         <div class="stats">
             <div class="stat-item">
-                <strong>10</strong>
+                <strong>18</strong>
                 <span>Test Pages</span>
             </div>
             <div class="stat-item">
-                <strong>7</strong>
+                <strong>15</strong>
                 <span>WCAG Criteria</span>
             </div>
             <div class="stat-item">
-                <strong>100+</strong>
+                <strong>170+</strong>
                 <span>Test Cases</span>
             </div>
         </div>
@@ -316,6 +316,45 @@
                 <div class="test-description">Alternative text for images, icons, and SVG graphics</div>
                 <div class="test-meta">10 cases</div>
             </div>
+            <div class="test-item">
+                <div class="test-name"><a href="use-of-color-test.html">Use of Color</a></div>
+                <div class="test-criterion">1.4.1</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">Color not used as only visual means of conveying information</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+        </div>
+
+        <h2>Navigation and Page Structure</h2>
+        <div class="test-list">
+            <div class="test-item header">
+                <div>Test Page</div>
+                <div>WCAG Criterion</div>
+                <div>Level</div>
+                <div>Description</div>
+                <div>Test Cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="page-titled-test.html">Page Titled</a></div>
+                <div class="test-criterion">2.4.2</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">Web pages have descriptive titles (not generic, empty, or missing)</div>
+                <div class="test-meta">6 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="language-page-test.html">Language of Page</a></div>
+                <div class="test-criterion">3.1.1</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">Default language of page is programmatically determined via lang attribute</div>
+                <div class="test-meta">6 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="link-purpose-test.html">Link Purpose (In Context)</a></div>
+                <div class="test-criterion">2.4.4</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">Link text describes destination (not "click here", "read more", etc.)</div>
+                <div class="test-meta">10 cases</div>
+            </div>
         </div>
 
         <h2>Structure and Semantics</h2>
@@ -339,6 +378,45 @@
                 <div class="test-criterion">4.1.2</div>
                 <div class="test-level"><span class="badge badge-a">Level A</span></div>
                 <div class="test-description">Programmatically determinable names, roles, and values for UI components</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+        </div>
+
+        <h2>Keyboard and Input</h2>
+        <div class="test-list">
+            <div class="test-item header">
+                <div>Test Page</div>
+                <div>WCAG Criterion</div>
+                <div>Level</div>
+                <div>Description</div>
+                <div>Test Cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="keyboard-test.html">Keyboard Accessible</a></div>
+                <div class="test-criterion">2.1.1</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">All functionality operable via keyboard (not mouse-only)</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="identify-input-purpose-test.html">Identify Input Purpose</a></div>
+                <div class="test-criterion">1.3.5</div>
+                <div class="test-level"><span class="badge badge-aa">Level AA</span></div>
+                <div class="test-description">Form inputs have autocomplete attributes for user information</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="target-size-test.html">Target Size (Minimum)</a></div>
+                <div class="test-criterion">2.5.8</div>
+                <div class="test-level"><span class="badge badge-aa">Level AA</span></div>
+                <div class="test-description">Touch targets are at least 24×24 CSS pixels</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="label-in-name-test.html">Label in Name</a></div>
+                <div class="test-criterion">2.5.3</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">Accessible name contains visible text (for voice control)</div>
                 <div class="test-meta">10 cases</div>
             </div>
         </div>
@@ -382,6 +460,11 @@
         // Log all available test pages
         console.log('🎯 WCAG Test Pages Repository');
         console.log('Available test pages:', {
+            navigation: [
+                'page-titled-test.html',
+                'language-page-test.html',
+                'link-purpose-test.html'
+            ],
             focusVisibility: [
                 'focus-visible-test.html',
                 'focus-visibility-detector-test.html'
@@ -392,11 +475,18 @@
             ],
             content: [
                 'resize-text-test.html',
-                'non-text-content-test.html'
+                'non-text-content-test.html',
+                'use-of-color-test.html'
             ],
             structure: [
                 'info-relationships-test.html',
                 'name-role-value-test.html'
+            ],
+            keyboard: [
+                'keyboard-test.html',
+                'identify-input-purpose-test.html',
+                'target-size-test.html',
+                'label-in-name-test.html'
             ],
             comprehensive: [
                 'comprehensive-accessibility-test.html',

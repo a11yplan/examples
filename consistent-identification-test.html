@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 3.2.4 Consistent Identification - Test Cases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .wcag-info {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .wcag-info h2 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .section-header {
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1400px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .test-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .test-card.fail {
+            border-left: 5px solid #f44336;
+            background: #fff5f5;
+        }
+
+        .test-card.pass {
+            border-left: 5px solid #4CAF50;
+            background: #f5fff5;
+        }
+
+        .test-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .page-simulation {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin: 10px 0;
+            padding: 15px;
+        }
+
+        .page-title {
+            font-weight: 600;
+            color: #1976D2;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin: 5px;
+            transition: all 0.2s;
+        }
+
+        .action-button:hover {
+            background: #f0f0f0;
+            border-color: #999;
+        }
+
+        .icon {
+            font-size: 1.2rem;
+        }
+
+        .multi-page-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-left: 4px solid #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .expected-results {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 2px solid #2196F3;
+        }
+
+        .expected-results h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .expected-results ul {
+            margin-left: 20px;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+        }
+
+        .highlight-inconsistent {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-weight: 600;
+            border: 1px solid #ffc107;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WCAG 3.2.4: Consistent Identification</h1>
+
+        <div class="wcag-info">
+            <h2>Success Criterion 3.2.4 Consistent Identification (Level AA)</h2>
+            <p><strong>Requirement:</strong> Components that have the same functionality within a set of Web pages are identified consistently.</p>
+            <p><strong>Purpose:</strong> Helps users learn the interface and predict where to find specific functionality. Particularly beneficial for users with cognitive limitations, screen reader users who rely on consistent labels, and users who benefit from predictable interfaces.</p>
+            <p><strong>Scope:</strong> Applies to buttons, links, icons, form fields, and any interactive component that appears on multiple pages with the same function. Labels, alt text, and aria-labels must be consistent when functionality is the same.</p>
+            <p><strong>Note:</strong> This criterion focuses on consistency of identification, not position. Components with different functions may use different labels, even if visually similar.</p>
+        </div>
+
+        <div class="expected-results">
+            <h3>Expected Test Results</h3>
+            <ul>
+                <li><strong>Total Test Cases:</strong> 10 (5 violations + 5 passes)</li>
+                <li><strong>Expected Violations:</strong> 5 (TC1.1 - TC1.5) - Same functionality identified inconsistently</li>
+                <li><strong>Expected Passes:</strong> 5 (TC2.1 - TC2.5) - Same functionality identified consistently</li>
+                <li><strong>Test Categories:</strong>
+                    <ul>
+                        <li>Button labels and icons</li>
+                        <li>Search functionality</li>
+                        <li>Navigation controls</li>
+                        <li>Action buttons (save, delete, download)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Test Case 1: Download Button -->
+        <h2>Test Case 1: Download Functionality</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.1"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Inconsistent Download Labels</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Documents</div>
+                        <button class="action-button">
+                            <span class="icon">⬇️</span>
+                            <span>Download</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Images</div>
+                        <button class="action-button">
+                            <span class="icon">💾</span>
+                            <span class="highlight-inconsistent">Save</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Reports</div>
+                        <button class="action-button">
+                            <span class="icon">📥</span>
+                            <span class="highlight-inconsistent">Get File</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Same functionality (downloading files) identified three different ways: "Download", "Save", "Get File". Users cannot predict which label will be used.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Inconsistent labels for same function --&gt;
+&lt;!-- Documents page --&gt;
+&lt;button&gt;Download&lt;/button&gt;
+
+&lt;!-- Images page --&gt;
+&lt;button&gt;Save&lt;/button&gt;
+
+&lt;!-- Reports page --&gt;
+&lt;button&gt;Get File&lt;/button&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.1"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Consistent Download Labels</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Documents</div>
+                        <button class="action-button">
+                            <span class="icon">⬇️</span>
+                            <span>Download</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Images</div>
+                        <button class="action-button">
+                            <span class="icon">⬇️</span>
+                            <span>Download</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Reports</div>
+                        <button class="action-button">
+                            <span class="icon">⬇️</span>
+                            <span>Download</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Download functionality consistently labeled "Download" with same icon across all pages. Users can reliably identify the function.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Consistent labels --&gt;
+&lt;!-- All pages use same label --&gt;
+&lt;button&gt;
+  &lt;span aria-hidden="true"&gt;⬇️&lt;/span&gt;
+  Download
+&lt;/button&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 2: Search Functionality -->
+        <h2>Test Case 2: Search Function</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.2"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Inconsistent Search Icons & Labels</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Home</div>
+                        <button class="action-button">
+                            <span class="icon">🔍</span>
+                            <span>Search</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Products</div>
+                        <button class="action-button">
+                            <span class="icon">🔎</span>
+                            <span class="highlight-inconsistent">Find Products</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Support</div>
+                        <button class="action-button">
+                            <span class="icon">🔦</span>
+                            <span class="highlight-inconsistent">Lookup</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Search functionality uses different labels ("Search", "Find Products", "Lookup") and different icons, making it harder to recognize across pages.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Different labels/icons --&gt;
+&lt;!-- Home --&gt;
+&lt;button aria-label="Search"&gt;🔍&lt;/button&gt;
+
+&lt;!-- Products --&gt;
+&lt;button aria-label="Find Products"&gt;🔎&lt;/button&gt;
+
+&lt;!-- Support --&gt;
+&lt;button aria-label="Lookup"&gt;🔦&lt;/button&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.2"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Consistent Search Identification</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Home</div>
+                        <button class="action-button">
+                            <span class="icon">🔍</span>
+                            <span>Search</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Products</div>
+                        <button class="action-button">
+                            <span class="icon">🔍</span>
+                            <span>Search</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Support</div>
+                        <button class="action-button">
+                            <span class="icon">🔍</span>
+                            <span>Search</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Search function consistently uses "Search" label and same magnifying glass icon across all pages.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Consistent identification --&gt;
+&lt;!-- All pages --&gt;
+&lt;button aria-label="Search"&gt;
+  &lt;span aria-hidden="true"&gt;🔍&lt;/span&gt;
+  Search
+&lt;/button&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 3: Navigation Controls -->
+        <h2>Test Case 3: Pagination Controls</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.3"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Inconsistent Navigation Labels</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Blog Posts</div>
+                        <div class="button-group">
+                            <button class="action-button">← Previous</button>
+                            <button class="action-button">Next →</button>
+                        </div>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Image Gallery</div>
+                        <div class="button-group">
+                            <button class="action-button"><span class="highlight-inconsistent">← Back</span></button>
+                            <button class="action-button"><span class="highlight-inconsistent">Forward →</span></button>
+                        </div>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Product List</div>
+                        <div class="button-group">
+                            <button class="action-button"><span class="highlight-inconsistent">← Prev</span></button>
+                            <button class="action-button"><span class="highlight-inconsistent">Next Page →</span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Pagination controls use different labels: "Previous/Next", "Back/Forward", "Prev/Next Page". Same functionality, different names.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Varied pagination labels --&gt;
+&lt;!-- Blog --&gt;
+&lt;button&gt;Previous&lt;/button&gt; &lt;button&gt;Next&lt;/button&gt;
+
+&lt;!-- Gallery --&gt;
+&lt;button&gt;Back&lt;/button&gt; &lt;button&gt;Forward&lt;/button&gt;
+
+&lt;!-- Products --&gt;
+&lt;button&gt;Prev&lt;/button&gt; &lt;button&gt;Next Page&lt;/button&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.3"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Consistent Navigation Labels</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Blog Posts</div>
+                        <div class="button-group">
+                            <button class="action-button">← Previous</button>
+                            <button class="action-button">Next →</button>
+                        </div>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Image Gallery</div>
+                        <div class="button-group">
+                            <button class="action-button">← Previous</button>
+                            <button class="action-button">Next →</button>
+                        </div>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Product List</div>
+                        <div class="button-group">
+                            <button class="action-button">← Previous</button>
+                            <button class="action-button">Next →</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> All pagination controls use consistent "Previous" and "Next" labels across different content types.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Standard pagination labels --&gt;
+&lt;!-- All pages --&gt;
+&lt;button&gt;← Previous&lt;/button&gt;
+&lt;button&gt;Next →&lt;/button&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 4: Delete/Remove Actions -->
+        <h2>Test Case 4: Delete Functionality</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.4"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Inconsistent Delete Actions</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Shopping Cart</div>
+                        <button class="action-button">
+                            <span class="icon">🗑️</span>
+                            <span>Remove Item</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Account Settings</div>
+                        <button class="action-button">
+                            <span class="icon">❌</span>
+                            <span class="highlight-inconsistent">Delete Account</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: File Manager</div>
+                        <button class="action-button">
+                            <span class="icon">⊗</span>
+                            <span class="highlight-inconsistent">Trash File</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Deletion functionality uses different verbs ("Remove", "Delete", "Trash") and different icons, despite serving the same purpose of removing items.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Varied deletion labels --&gt;
+&lt;!-- Cart --&gt;
+&lt;button&gt;🗑️ Remove Item&lt;/button&gt;
+
+&lt;!-- Settings --&gt;
+&lt;button&gt;❌ Delete Account&lt;/button&gt;
+
+&lt;!-- Files --&gt;
+&lt;button&gt;⊗ Trash File&lt;/button&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.4"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Consistent Delete Actions</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Shopping Cart</div>
+                        <button class="action-button">
+                            <span class="icon">🗑️</span>
+                            <span>Delete Item</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Account Settings</div>
+                        <button class="action-button">
+                            <span class="icon">🗑️</span>
+                            <span>Delete Account</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: File Manager</div>
+                        <button class="action-button">
+                            <span class="icon">🗑️</span>
+                            <span>Delete File</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Deletion functionality consistently uses "Delete [object]" pattern and same trash can icon. Users can recognize the action pattern.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Consistent delete pattern --&gt;
+&lt;!-- All deletion actions --&gt;
+&lt;button&gt;
+  &lt;span aria-hidden="true"&gt;🗑️&lt;/span&gt;
+  Delete [Item/Account/File]
+&lt;/button&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 5: Help/Support Links -->
+        <h2>Test Case 5: Help Functionality</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.5"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Inconsistent Help Link Identification</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Dashboard</div>
+                        <button class="action-button">
+                            <span class="icon">❓</span>
+                            <span>Help</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Settings</div>
+                        <button class="action-button">
+                            <span class="icon">💬</span>
+                            <span class="highlight-inconsistent">Support</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Checkout</div>
+                        <button class="action-button">
+                            <span class="icon">ℹ️</span>
+                            <span class="highlight-inconsistent">Need Assistance?</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Help functionality identified as "Help", "Support", and "Need Assistance?" with different icons. Users cannot reliably find help.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Varied help labels --&gt;
+&lt;!-- Dashboard --&gt;
+&lt;button&gt;❓ Help&lt;/button&gt;
+
+&lt;!-- Settings --&gt;
+&lt;button&gt;💬 Support&lt;/button&gt;
+
+&lt;!-- Checkout --&gt;
+&lt;button&gt;ℹ️ Need Assistance?&lt;/button&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.5"
+                 data-wcag-criterion="3.2.4"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Consistent Help Link Identification</h3>
+                <div class="multi-page-container">
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Dashboard</div>
+                        <button class="action-button">
+                            <span class="icon">❓</span>
+                            <span>Help</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Settings</div>
+                        <button class="action-button">
+                            <span class="icon">❓</span>
+                            <span>Help</span>
+                        </button>
+                    </div>
+                    <div class="page-simulation">
+                        <div class="page-title">Page: Checkout</div>
+                        <button class="action-button">
+                            <span class="icon">❓</span>
+                            <span>Help</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Help functionality consistently labeled "Help" with same question mark icon across all pages. Predictable and easy to locate.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Consistent help identification --&gt;
+&lt;!-- All pages --&gt;
+&lt;button aria-label="Help"&gt;
+  &lt;span aria-hidden="true"&gt;❓&lt;/span&gt;
+  Help
+&lt;/button&gt;</div>
+            </div>
+        </div>
+
+        <div class="wcag-info" style="margin-top: 40px;">
+            <h2>Important Notes</h2>
+            <p><strong>Consistent Identification Applies To:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Button labels:</strong> Text on buttons with same function</li>
+                <li><strong>Link text:</strong> Anchor text for similar destinations</li>
+                <li><strong>Icons:</strong> Visual indicators for same actions</li>
+                <li><strong>Alt text:</strong> Image alternatives for functional images</li>
+                <li><strong>ARIA labels:</strong> Accessible names for controls</li>
+                <li><strong>Form field labels:</strong> Labels for similar input fields</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Different Functions May Use Different Labels:</strong></p>
+            <p style="margin-left: 20px;">If two buttons have different functions (e.g., "Save Draft" vs "Save and Publish"), they should have different labels to clarify the different outcomes.</p>
+            <p style="margin-top: 15px;"><strong>Testing:</strong> Review multiple pages and verify that components with identical functionality use identical labels, icons, and accessible names.</p>
+        </div>
+    </div>
+
+    <script>
+        // Validation logging for automated testing
+        console.log('=== WCAG 3.2.4 Consistent Identification Test Page ===');
+
+        const testCases = document.querySelectorAll('[data-test-id]');
+        console.log(`Total test cases: ${testCases.length}`);
+
+        const violations = document.querySelectorAll('[data-expected-result="violation"]');
+        const passes = document.querySelectorAll('[data-expected-result="pass"]');
+
+        console.log(`Expected violations: ${violations.length}`);
+        console.log(`Expected passes: ${passes.length}`);
+
+        console.log('\nViolation Test Cases (Inconsistent identification):');
+        violations.forEach(tc => {
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+        });
+
+        console.log('\nPass Test Cases (Consistent identification):');
+        passes.forEach(tc => {
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+        });
+
+        console.log('\nNote: Each test case simulates multiple pages to demonstrate identification consistency.');
+    </script>
+</body>
+</html>

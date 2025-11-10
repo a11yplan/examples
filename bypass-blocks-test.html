@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 2.4.1 Bypass Blocks - Test Cases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .wcag-info {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .wcag-info h2 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .section-header {
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1400px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .test-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .test-card.fail {
+            border-left: 5px solid #f44336;
+            background: #fff5f5;
+        }
+
+        .test-card.pass {
+            border-left: 5px solid #4CAF50;
+            background: #f5fff5;
+        }
+
+        .test-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .test-sample {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        /* Skip Link Styles */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 10px;
+            background: #000;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            left: 10px;
+        }
+
+        .skip-link-visible {
+            position: relative;
+            left: 0;
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Sample Page Layout */
+        .sample-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+        }
+
+        .sample-nav {
+            background: #34495e;
+            padding: 10px;
+        }
+
+        .sample-nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            display: inline-block;
+        }
+
+        .sample-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .sample-sidebar {
+            background: #ecf0f1;
+            padding: 15px;
+            border-right: 1px solid #bdc3c7;
+        }
+
+        .sample-content {
+            padding: 20px;
+            background: white;
+        }
+
+        .sample-content h2 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .layout-flex {
+            display: flex;
+        }
+
+        .layout-sidebar {
+            flex: 0 0 200px;
+        }
+
+        .layout-main {
+            flex: 1;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-left: 4px solid #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .expected-results {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 2px solid #2196F3;
+        }
+
+        .expected-results h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .expected-results ul {
+            margin-left: 20px;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+        }
+
+        .technique-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976D2;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin: 2px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WCAG 2.4.1: Bypass Blocks</h1>
+
+        <div class="wcag-info">
+            <h2>Success Criterion 2.4.1 Bypass Blocks (Level A)</h2>
+            <p><strong>Requirement:</strong> A mechanism is available to bypass blocks of content that are repeated on multiple Web pages.</p>
+            <p><strong>Purpose:</strong> Allows keyboard users to skip directly to main content without tabbing through all navigation links, headers, and other repeated content on every page. Critical for users who navigate via keyboard, voice control, or switch devices.</p>
+            <p><strong>Common Techniques:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Skip links (visible or hidden until focused)</li>
+                <li>ARIA landmarks (main, navigation, complementary, etc.)</li>
+                <li>Proper heading structure for easy navigation</li>
+                <li>Multiple bypass mechanisms provide redundancy</li>
+            </ul>
+        </div>
+
+        <div class="expected-results">
+            <h3>Expected Test Results</h3>
+            <ul>
+                <li><strong>Total Test Cases:</strong> 10 (5 violations + 5 passes)</li>
+                <li><strong>Expected Violations:</strong> 5 (TC1.1 - TC1.5) - Missing bypass mechanisms</li>
+                <li><strong>Expected Passes:</strong> 5 (TC2.1 - TC2.5) - Proper bypass mechanisms implemented</li>
+                <li><strong>Techniques Tested:</strong>
+                    <ul>
+                        <li>Skip to main content links</li>
+                        <li>ARIA landmark regions</li>
+                        <li>Heading structure navigation</li>
+                        <li>Multiple bypass methods</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Test Case 1: No Skip Link -->
+        <h2>Test Case 1: Missing Skip Link</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.1"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: No Skip Link</h3>
+                <div class="test-sample">
+                    <!-- No skip link -->
+                    <div class="sample-header">
+                        <h2 style="margin: 0; color: white;">Company Name</h2>
+                    </div>
+                    <div class="sample-nav">
+                        <a href="#home">Home</a>
+                        <a href="#about">About</a>
+                        <a href="#services">Services</a>
+                        <a href="#products">Products</a>
+                        <a href="#blog">Blog</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    <div class="sample-content">
+                        <h2>Main Content</h2>
+                        <p>Keyboard users must tab through all 6 navigation links on every page before reaching content.</p>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> No bypass mechanism. Keyboard users must tab through header and all navigation links to reach main content on every page.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: No skip link --&gt;
+&lt;header&gt;Company Name&lt;/header&gt;
+&lt;nav&gt;
+  &lt;a href="#home"&gt;Home&lt;/a&gt;
+  &lt;!-- 6 navigation links... --&gt;
+&lt;/nav&gt;
+&lt;div&gt;Main Content&lt;/div&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.1"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Skip Link Provided</h3>
+                <div class="test-sample">
+                    <a href="#main-content-1" class="skip-link-visible">Skip to main content</a>
+                    <div class="sample-header">
+                        <h2 style="margin: 0; color: white;">Company Name</h2>
+                    </div>
+                    <div class="sample-nav">
+                        <a href="#home">Home</a>
+                        <a href="#about">About</a>
+                        <a href="#services">Services</a>
+                        <a href="#products">Products</a>
+                        <a href="#blog">Blog</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    <div class="sample-content" id="main-content-1">
+                        <h2>Main Content</h2>
+                        <p>Skip link allows keyboard users to bypass navigation and jump directly to main content.</p>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Skip link provided at the top. Keyboard users can press Tab once and Enter to bypass all navigation.
+                    <span class="technique-badge">Skip Link</span>
+                </div>
+                <div class="code-block">&lt;!-- PASS: Skip link provided --&gt;
+&lt;a href="#main" class="skip-link"&gt;Skip to main content&lt;/a&gt;
+&lt;header&gt;Company Name&lt;/header&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;main id="main"&gt;Main Content&lt;/main&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 2: No ARIA Landmarks -->
+        <h2>Test Case 2: Missing ARIA Landmarks</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.2"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: No ARIA Landmarks</h3>
+                <div class="test-sample">
+                    <div class="sample-header">
+                        <div style="color: white; font-weight: bold;">Site Header</div>
+                    </div>
+                    <div class="sample-nav">
+                        <a href="#nav1">Link 1</a>
+                        <a href="#nav2">Link 2</a>
+                        <a href="#nav3">Link 3</a>
+                    </div>
+                    <div class="layout-flex">
+                        <div class="layout-sidebar sample-sidebar">
+                            <div style="font-weight: bold; margin-bottom: 10px;">Sidebar</div>
+                            <a href="#side1" style="display: block; color: #2c3e50;">Item 1</a>
+                            <a href="#side2" style="display: block; color: #2c3e50;">Item 2</a>
+                        </div>
+                        <div class="layout-main sample-content">
+                            <h2>Article Title</h2>
+                            <p>All divs, no semantic HTML or ARIA landmarks.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Generic divs without ARIA landmarks. Screen reader users cannot use landmark navigation to jump between page regions.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: No landmarks --&gt;
+&lt;div&gt;Header&lt;/div&gt;
+&lt;div&gt;Navigation&lt;/div&gt;
+&lt;div&gt;Sidebar&lt;/div&gt;
+&lt;div&gt;Content&lt;/div&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.2"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="pass">
+                <h3>✅ PASS: ARIA Landmarks Present</h3>
+                <div class="test-sample">
+                    <div class="sample-header" role="banner">
+                        <div style="color: white; font-weight: bold;">Site Header</div>
+                    </div>
+                    <div class="sample-nav" role="navigation" aria-label="Main navigation">
+                        <a href="#nav1">Link 1</a>
+                        <a href="#nav2">Link 2</a>
+                        <a href="#nav3">Link 3</a>
+                    </div>
+                    <div class="layout-flex">
+                        <div class="layout-sidebar sample-sidebar" role="complementary" aria-label="Sidebar">
+                            <div style="font-weight: bold; margin-bottom: 10px;">Sidebar</div>
+                            <a href="#side1" style="display: block; color: #2c3e50;">Item 1</a>
+                            <a href="#side2" style="display: block; color: #2c3e50;">Item 2</a>
+                        </div>
+                        <div class="layout-main sample-content" role="main">
+                            <h2>Article Title</h2>
+                            <p>Proper ARIA landmarks allow landmark navigation shortcuts.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> ARIA landmarks (banner, navigation, main, complementary) enable screen reader users to jump directly to any page region.
+                    <span class="technique-badge">ARIA Landmarks</span>
+                </div>
+                <div class="code-block">&lt;!-- PASS: ARIA landmarks --&gt;
+&lt;div role="banner"&gt;Header&lt;/div&gt;
+&lt;nav role="navigation"&gt;Navigation&lt;/nav&gt;
+&lt;aside role="complementary"&gt;Sidebar&lt;/aside&gt;
+&lt;main role="main"&gt;Content&lt;/main&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 3: Poor Heading Structure -->
+        <h2>Test Case 3: Missing Heading Structure</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.3"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: No Heading Structure</h3>
+                <div class="test-sample">
+                    <div class="sample-content">
+                        <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 10px;">Page Title</div>
+                        <p>This page uses styled divs instead of proper headings.</p>
+                        <div style="font-size: 1.1rem; font-weight: bold; margin: 15px 0 5px;">Section 1</div>
+                        <p>Screen readers cannot navigate by headings.</p>
+                        <div style="font-size: 1.1rem; font-weight: bold; margin: 15px 0 5px;">Section 2</div>
+                        <p>Users must read through all content linearly.</p>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Styled divs instead of semantic headings. Screen reader users cannot use heading navigation to jump between sections.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: No headings --&gt;
+&lt;div class="title"&gt;Page Title&lt;/div&gt;
+&lt;p&gt;Content&lt;/p&gt;
+&lt;div class="subtitle"&gt;Section 1&lt;/div&gt;
+&lt;p&gt;Content&lt;/p&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.3"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Proper Heading Structure</h3>
+                <div class="test-sample">
+                    <div class="sample-content">
+                        <h2 style="margin-bottom: 10px;">Page Title</h2>
+                        <p>This page uses proper semantic headings.</p>
+                        <h3 style="margin: 15px 0 5px;">Section 1</h3>
+                        <p>Screen readers can navigate by headings (H key).</p>
+                        <h3 style="margin: 15px 0 5px;">Section 2</h3>
+                        <p>Users can jump directly to any section.</p>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Proper heading structure (h2, h3) allows screen reader users to list all headings and jump to any section.
+                    <span class="technique-badge">Heading Navigation</span>
+                </div>
+                <div class="code-block">&lt;!-- PASS: Semantic headings --&gt;
+&lt;h1&gt;Page Title&lt;/h1&gt;
+&lt;p&gt;Content&lt;/p&gt;
+&lt;h2&gt;Section 1&lt;/h2&gt;
+&lt;p&gt;Content&lt;/p&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 4: No Multiple Methods -->
+        <h2>Test Case 4: Single Bypass Method</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.4"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Complex Page, Single Method</h3>
+                <div class="test-sample">
+                    <a href="#content-fail" class="skip-link-visible">Skip to content</a>
+                    <div class="sample-header">
+                        <div style="color: white;">Site Name</div>
+                    </div>
+                    <div class="sample-nav">
+                        <a href="#l1">L1</a> <a href="#l2">L2</a> <a href="#l3">L3</a> <a href="#l4">L4</a> <a href="#l5">L5</a>
+                    </div>
+                    <div class="sample-nav" style="background: #3e5771;">
+                        <a href="#s1">S1</a> <a href="#s2">S2</a> <a href="#s3">S3</a> <a href="#s4">S4</a>
+                    </div>
+                    <div class="layout-flex">
+                        <div class="layout-sidebar sample-sidebar">
+                            <div style="font-weight: bold;">Sidebar</div>
+                            <a href="#sb1" style="display: block; color: #2c3e50;">Item</a>
+                        </div>
+                        <div class="layout-main sample-content" id="content-fail">
+                            <div style="font-size: 1.2rem; font-weight: bold;">Article</div>
+                            <p>Skip link only, no landmarks or heading structure.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Complex page with only skip link. No ARIA landmarks or heading structure. Limited bypass options for different user needs.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Only skip link, missing other methods --&gt;
+&lt;a href="#main" class="skip"&gt;Skip&lt;/a&gt;
+&lt;div&gt;Header&lt;/div&gt;
+&lt;div&gt;Nav&lt;/div&gt;
+&lt;div id="main"&gt;Content (no headings or landmarks)&lt;/div&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.4"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Multiple Bypass Methods</h3>
+                <div class="test-sample">
+                    <a href="#content-pass" class="skip-link-visible">Skip to main content</a>
+                    <div class="sample-header" role="banner">
+                        <div style="color: white;">Site Name</div>
+                    </div>
+                    <div class="sample-nav" role="navigation" aria-label="Primary">
+                        <a href="#l1">L1</a> <a href="#l2">L2</a> <a href="#l3">L3</a> <a href="#l4">L4</a> <a href="#l5">L5</a>
+                    </div>
+                    <div class="sample-nav" role="navigation" aria-label="Secondary" style="background: #3e5771;">
+                        <a href="#s1">S1</a> <a href="#s2">S2</a> <a href="#s3">S3</a> <a href="#s4">S4</a>
+                    </div>
+                    <div class="layout-flex">
+                        <div class="layout-sidebar sample-sidebar" role="complementary">
+                            <h3 style="margin-bottom: 10px;">Sidebar</h3>
+                            <a href="#sb1" style="display: block; color: #2c3e50;">Item</a>
+                        </div>
+                        <div class="layout-main sample-content" role="main" id="content-pass">
+                            <h2 style="margin-bottom: 10px;">Article Title</h2>
+                            <p>Multiple bypass methods: skip link, ARIA landmarks, and heading structure.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Three bypass methods: skip link, ARIA landmarks, and heading structure. Provides options for different user preferences and technologies.
+                    <span class="technique-badge">Skip Link</span>
+                    <span class="technique-badge">ARIA Landmarks</span>
+                    <span class="technique-badge">Headings</span>
+                </div>
+                <div class="code-block">&lt;!-- PASS: Multiple bypass methods --&gt;
+&lt;a href="#main" class="skip"&gt;Skip to main content&lt;/a&gt;
+&lt;header role="banner"&gt;Site Name&lt;/header&gt;
+&lt;nav role="navigation"&gt;Primary Nav&lt;/nav&gt;
+&lt;main role="main" id="main"&gt;
+  &lt;h1&gt;Article Title&lt;/h1&gt;
+  &lt;p&gt;Content&lt;/p&gt;
+&lt;/main&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 5: Semantic HTML -->
+        <h2>Test Case 5: Semantic HTML Elements</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.5"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Generic Div Structure</h3>
+                <div class="test-sample">
+                    <div class="sample-header">
+                        <div style="color: white; font-weight: bold;">Website</div>
+                    </div>
+                    <div class="sample-nav">
+                        <a href="#d1">Link</a>
+                        <a href="#d2">Link</a>
+                        <a href="#d3">Link</a>
+                    </div>
+                    <div class="sample-content">
+                        <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 10px;">Content</div>
+                        <p>All generic div elements, no semantic HTML.</p>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Generic divs throughout. No implicit ARIA landmarks from semantic HTML. Screen readers cannot identify page regions.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Generic divs --&gt;
+&lt;div class="header"&gt;Website&lt;/div&gt;
+&lt;div class="nav"&gt;Links&lt;/div&gt;
+&lt;div class="content"&gt;Content&lt;/div&gt;
+&lt;div class="footer"&gt;Footer&lt;/div&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.5"
+                 data-wcag-criterion="2.4.1"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Semantic HTML5 Elements</h3>
+                <div class="test-sample">
+                    <div class="sample-header" style="padding: 15px; background: #2c3e50;">
+                        <div style="color: white; font-weight: bold;">Website</div>
+                    </div>
+                    <div class="sample-nav">
+                        <a href="#s1">Link</a>
+                        <a href="#s2">Link</a>
+                        <a href="#s3">Link</a>
+                    </div>
+                    <div class="sample-content">
+                        <h2 style="margin-bottom: 10px;">Content Heading</h2>
+                        <p>Semantic HTML5 elements provide implicit ARIA landmarks.</p>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Semantic HTML5 elements (header, nav, main, footer) automatically create ARIA landmarks for assistive technology.
+                    <span class="technique-badge">Semantic HTML</span>
+                </div>
+                <div class="code-block">&lt;!-- PASS: Semantic HTML5 --&gt;
+&lt;header&gt;Website&lt;/header&gt;
+&lt;nav&gt;Links&lt;/nav&gt;
+&lt;main&gt;
+  &lt;h1&gt;Content Heading&lt;/h1&gt;
+  &lt;p&gt;Content&lt;/p&gt;
+&lt;/main&gt;
+&lt;footer&gt;Footer&lt;/footer&gt;</div>
+            </div>
+        </div>
+
+        <div class="wcag-info" style="margin-top: 40px;">
+            <h2>Testing Guidelines</h2>
+            <p><strong>Keyboard Testing:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Press Tab - Can you skip navigation quickly?</li>
+                <li>Look for visible skip links on first Tab press</li>
+                <li>Count how many Tab presses to reach main content</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Screen Reader Testing:</strong></p>
+            <ul style="margin-left: 20px;">
+                <li>List landmarks (NVDA: Insert+F7, JAWS: Insert+Ctrl+;)</li>
+                <li>List headings (NVDA/JAWS: Insert+F6)</li>
+                <li>Navigate by landmark (NVDA/JAWS: D key)</li>
+                <li>Navigate by heading (NVDA/JAWS: H key)</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Best Practice:</strong> Provide multiple bypass mechanisms. Different users prefer different methods, and redundancy ensures accessibility even if one method fails.</p>
+        </div>
+    </div>
+
+    <script>
+        // Validation logging for automated testing
+        console.log('=== WCAG 2.4.1 Bypass Blocks Test Page ===');
+
+        const testCases = document.querySelectorAll('[data-test-id]');
+        console.log(`Total test cases: ${testCases.length}`);
+
+        const violations = document.querySelectorAll('[data-expected-result="violation"]');
+        const passes = document.querySelectorAll('[data-expected-result="pass"]');
+
+        console.log(`Expected violations: ${violations.length}`);
+        console.log(`Expected passes: ${passes.length}`);
+
+        console.log('\nViolation Test Cases:');
+        violations.forEach(tc => {
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+        });
+
+        console.log('\nPass Test Cases:');
+        passes.forEach(tc => {
+            const techniques = Array.from(tc.querySelectorAll('.technique-badge')).map(b => b.textContent);
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+            if (techniques.length > 0) {
+                console.log(`  Techniques: ${techniques.join(', ')}`);
+            }
+        });
+
+        // Analyze landmark usage
+        console.log('\nARIA Landmarks Analysis:');
+        const landmarks = document.querySelectorAll('[role="banner"], [role="navigation"], [role="main"], [role="complementary"], header, nav, main, aside, footer');
+        console.log(`Total landmarks found in examples: ${landmarks.length}`);
+    </script>
+</body>
+</html>

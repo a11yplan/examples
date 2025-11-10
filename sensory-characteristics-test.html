@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 1.3.3 Sensory Characteristics - Test Cases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .wcag-info {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .wcag-info h2 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .section-header {
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .test-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .test-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge-fail {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .badge-pass {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .test-sample {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .instruction {
+            font-weight: 600;
+            color: #1976D2;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #e3f2fd;
+            border-radius: 4px;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .test-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .test-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .red-button {
+            background: #f44336;
+            color: white;
+        }
+
+        .blue-button {
+            background: #2196F3;
+            color: white;
+        }
+
+        .green-button {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .round-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #9C27B0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .square-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 4px;
+            background: #FF9800;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .large-button {
+            padding: 20px 40px;
+            font-size: 1.3rem;
+        }
+
+        .small-button {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+
+        .position-demo {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .explanation strong {
+            color: #e65100;
+        }
+
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .expected-results {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 2px solid #2196F3;
+        }
+
+        .expected-results h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .expected-results ul {
+            margin-left: 20px;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+        }
+
+        /* Visual indicator for pass/fail at card level */
+        .test-card[data-expected-result="violation"] {
+            border-left: 5px solid #f44336;
+        }
+
+        .test-card[data-expected-result="pass"] {
+            border-left: 5px solid #4CAF50;
+        }
+
+        .icon-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WCAG 1.3.3: Sensory Characteristics</h1>
+
+        <div class="wcag-info">
+            <h2>Success Criterion 1.3.3 Sensory Characteristics (Level A)</h2>
+            <p><strong>Requirement:</strong> Instructions provided for understanding and operating content do not rely solely on sensory characteristics of components such as shape, color, size, visual location, orientation, or sound.</p>
+            <p><strong>Purpose:</strong> Ensures that users who cannot perceive color, shape, size, or visual location can still understand instructions. This is critical for users who are blind, have low vision, are colorblind, or use screen readers.</p>
+            <p><strong>Common Issues:</strong> Instructions like "Click the red button", "Select the round icon", "Use the button on the right", or "Press the large button" without additional text identification.</p>
+        </div>
+
+        <div class="expected-results">
+            <h3>Expected Test Results</h3>
+            <ul>
+                <li><strong>Total Test Cases:</strong> 10</li>
+                <li><strong>Expected Violations:</strong> 5 (TC1.1 - TC1.5)</li>
+                <li><strong>Expected Passes:</strong> 5 (TC2.1 - TC2.5)</li>
+                <li><strong>Test Categories:</strong>
+                    <ul>
+                        <li>Color-based instructions</li>
+                        <li>Position-based instructions</li>
+                        <li>Shape-based instructions</li>
+                        <li>Size-based instructions</li>
+                        <li>Combined sensory characteristics</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- FAILURES -->
+        <div class="section-header">
+            <h2>❌ Violations: Instructions Relying on Sensory Characteristics Alone</h2>
+        </div>
+
+        <div class="test-grid">
+            <!-- TC1.1: Color Only -->
+            <div class="test-card"
+                 data-test-id="TC1.1"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="violation">
+                <h3>TC1.1: Color-Based Instruction <span class="badge badge-fail">FAIL</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Click the red button to continue</div>
+                    <div class="button-row">
+                        <button class="test-button red-button">Submit</button>
+                        <button class="test-button blue-button">Cancel</button>
+                        <button class="test-button green-button">Reset</button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Instruction relies solely on color ("red button") without identifying the button's function. Screen reader users and colorblind users cannot distinguish which button to use.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Color-only reference --&gt;
+&lt;p&gt;Click the red button to continue&lt;/p&gt;</div>
+            </div>
+
+            <!-- TC1.2: Position Only -->
+            <div class="test-card"
+                 data-test-id="TC1.2"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="violation">
+                <h3>TC1.2: Position-Based Instruction <span class="badge badge-fail">FAIL</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Click the button on the right to submit</div>
+                    <div class="position-demo">
+                        <button class="test-button blue-button">Cancel</button>
+                        <button class="test-button green-button">Submit</button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Instruction relies on visual position ("on the right"). Screen reader users cannot perceive spatial layout, and responsive designs may change button positions on different devices.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Position-only reference --&gt;
+&lt;p&gt;Click the button on the right to submit&lt;/p&gt;</div>
+            </div>
+
+            <!-- TC1.3: Shape Only -->
+            <div class="test-card"
+                 data-test-id="TC1.3"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="violation">
+                <h3>TC1.3: Shape-Based Instruction <span class="badge badge-fail">FAIL</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Select the round icon to open settings</div>
+                    <div class="button-row">
+                        <div class="round-icon">⚙️</div>
+                        <div class="square-icon">📁</div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Instruction relies on shape ("round icon"). Screen reader users and users with low vision cannot perceive shape distinctions, making the instruction meaningless.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Shape-only reference --&gt;
+&lt;p&gt;Select the round icon to open settings&lt;/p&gt;</div>
+            </div>
+
+            <!-- TC1.4: Size Only -->
+            <div class="test-card"
+                 data-test-id="TC1.4"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="violation">
+                <h3>TC1.4: Size-Based Instruction <span class="badge badge-fail">FAIL</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Press the large button to continue</div>
+                    <div class="button-row">
+                        <button class="test-button small-button blue-button">Back</button>
+                        <button class="test-button large-button green-button">Continue</button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Instruction relies on size ("large button"). Screen reader users cannot perceive size, and users with zoom settings may see different relative sizes.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Size-only reference --&gt;
+&lt;p&gt;Press the large button to continue&lt;/p&gt;</div>
+            </div>
+
+            <!-- TC1.5: Multiple Sensory -->
+            <div class="test-card"
+                 data-test-id="TC1.5"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="violation">
+                <h3>TC1.5: Multiple Sensory Characteristics <span class="badge badge-fail">FAIL</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Click the small blue button on the left</div>
+                    <div class="position-demo">
+                        <button class="test-button small-button blue-button">Details</button>
+                        <button class="test-button green-button">Save</button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Instruction combines multiple sensory characteristics (size, color, position) without providing text identification. While using multiple characteristics may seem more specific, it still excludes users who cannot perceive any of these attributes.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Multiple sensory references --&gt;
+&lt;p&gt;Click the small blue button on the left&lt;/p&gt;</div>
+            </div>
+        </div>
+
+        <!-- PASSES -->
+        <div class="section-header">
+            <h2>✅ Passes: Instructions with Text Alternatives</h2>
+        </div>
+
+        <div class="test-grid">
+            <!-- TC2.1: Color + Text -->
+            <div class="test-card"
+                 data-test-id="TC2.1"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="pass">
+                <h3>TC2.1: Color with Text Label <span class="badge badge-pass">PASS</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Click Submit (red button) to continue</div>
+                    <div class="button-row">
+                        <button class="test-button red-button">Submit</button>
+                        <button class="test-button blue-button">Cancel</button>
+                        <button class="test-button green-button">Reset</button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Instruction identifies the button by its text label ("Submit") with color as supplementary information. Screen reader users can identify the button, and color provides additional visual context for sighted users.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Text label + color as supplement --&gt;
+&lt;p&gt;Click Submit (red button) to continue&lt;/p&gt;</div>
+            </div>
+
+            <!-- TC2.2: Position + Text -->
+            <div class="test-card"
+                 data-test-id="TC2.2"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="pass">
+                <h3>TC2.2: Position with Text Label <span class="badge badge-pass">PASS</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Click the Submit button (located on the right) to proceed</div>
+                    <div class="position-demo">
+                        <button class="test-button blue-button">Cancel</button>
+                        <button class="test-button green-button">Submit</button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Instruction identifies the button by its label ("Submit button") with position as additional context. All users can identify the correct button regardless of their ability to perceive spatial layout.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Text label + position as supplement --&gt;
+&lt;p&gt;Click the Submit button (located on the right)&lt;/p&gt;</div>
+            </div>
+
+            <!-- TC2.3: Shape + Text -->
+            <div class="test-card"
+                 data-test-id="TC2.3"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="pass">
+                <h3>TC2.3: Shape with Text Label <span class="badge badge-pass">PASS</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Select the Settings icon (gear symbol, round shape) to configure</div>
+                    <div class="button-row">
+                        <div class="round-icon" role="button" tabindex="0" aria-label="Settings">⚙️</div>
+                        <span class="icon-label">Settings</span>
+                        <div class="square-icon" role="button" tabindex="0" aria-label="Files">📁</div>
+                        <span class="icon-label">Files</span>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Instruction identifies the icon by its function and symbol ("Settings icon, gear symbol") with shape as supplementary information. Visual labels and aria-label attributes ensure all users can identify the control.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Function + symbol + shape --&gt;
+&lt;p&gt;Select the Settings icon (gear symbol, round shape)&lt;/p&gt;
+&lt;div role="button" aria-label="Settings"&gt;⚙️&lt;/div&gt;</div>
+            </div>
+
+            <!-- TC2.4: Size + Text -->
+            <div class="test-card"
+                 data-test-id="TC2.4"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="pass">
+                <h3>TC2.4: Size with Text Label <span class="badge badge-pass">PASS</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Press the Continue button (large, green button) to proceed</div>
+                    <div class="button-row">
+                        <button class="test-button small-button blue-button">Back</button>
+                        <button class="test-button large-button green-button">Continue</button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Instruction identifies the button by its label ("Continue button") with size and color as additional visual cues. Screen reader users can identify the button by its label, while sighted users benefit from the visual description.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Text label + size/color as supplement --&gt;
+&lt;p&gt;Press the Continue button (large, green button)&lt;/p&gt;</div>
+            </div>
+
+            <!-- TC2.5: Text Only -->
+            <div class="test-card"
+                 data-test-id="TC2.5"
+                 data-wcag-criterion="1.3.3"
+                 data-expected-result="pass">
+                <h3>TC2.5: Text Label Only (Best Practice) <span class="badge badge-pass">PASS</span></h3>
+                <div class="test-sample">
+                    <div class="instruction">Click the Details button to view more information</div>
+                    <div class="position-demo">
+                        <button class="test-button small-button blue-button">Details</button>
+                        <button class="test-button green-button">Save</button>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass (Best Practice):</strong> Instruction identifies the button solely by its text label without any sensory characteristics. This is the most accessible approach, ensuring all users can identify the control regardless of their abilities or assistive technology.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Text label only (best practice) --&gt;
+&lt;p&gt;Click the Details button to view more information&lt;/p&gt;</div>
+            </div>
+        </div>
+
+        <div class="wcag-info" style="margin-top: 40px;">
+            <h2>Testing Guidelines</h2>
+            <p><strong>Manual Testing:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Read all instructions without looking at the interface - can you identify the correct control?</li>
+                <li>Use a screen reader to navigate - are instructions meaningful without visual context?</li>
+                <li>Test with color blindness simulators - can you still follow instructions?</li>
+                <li>Resize the page or change orientation - do position-based instructions still work?</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Automated Testing:</strong> This criterion is difficult to test automatically. Scanners can flag potential issues (e.g., instructions containing words like "red", "right", "round", "large") but human review is required to determine if text alternatives are provided.</p>
+        </div>
+    </div>
+
+    <script>
+        // Validation logging for automated testing
+        console.log('=== WCAG 1.3.3 Sensory Characteristics Test Page ===');
+
+        const testCases = document.querySelectorAll('[data-test-id]');
+        console.log(`Total test cases: ${testCases.length}`);
+
+        const violations = document.querySelectorAll('[data-expected-result="violation"]');
+        const passes = document.querySelectorAll('[data-expected-result="pass"]');
+
+        console.log(`Expected violations: ${violations.length}`);
+        console.log(`Expected passes: ${passes.length}`);
+
+        console.log('\nViolation Test Cases:');
+        violations.forEach(tc => {
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+        });
+
+        console.log('\nPass Test Cases:');
+        passes.forEach(tc => {
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+        });
+
+        // Add click handlers for demonstration
+        document.querySelectorAll('.test-button, .round-icon, .square-icon').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const label = this.getAttribute('aria-label') || this.textContent;
+                alert(`Clicked: ${label}`);
+            });
+        });
+    </script>
+</body>
+</html>

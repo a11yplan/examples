@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 3.1.2 Language of Parts - Test Cases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .wcag-info {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .wcag-info h2 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .section-header {
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1200px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .test-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .test-card.fail {
+            border-left: 5px solid #f44336;
+            background: #fff5f5;
+        }
+
+        .test-card.pass {
+            border-left: 5px solid #4CAF50;
+            background: #f5fff5;
+        }
+
+        .test-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .test-sample {
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .foreign-text {
+            font-style: italic;
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-left: 4px solid #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .expected-results {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 2px solid #2196F3;
+        }
+
+        .expected-results h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .expected-results ul {
+            margin-left: 20px;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge-fail {
+            background: #f44336;
+            color: white;
+        }
+
+        .badge-pass {
+            background: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WCAG 3.1.2: Language of Parts</h1>
+
+        <div class="wcag-info">
+            <h2>Success Criterion 3.1.2 Language of Parts (Level AA)</h2>
+            <p><strong>Requirement:</strong> The human language of each passage or phrase in the content can be programmatically determined, except for proper names, technical terms, words of indeterminate language, and words or phrases that have become part of the vernacular of the immediate surrounding text.</p>
+            <p><strong>Purpose:</strong> Ensures screen readers and other assistive technologies can correctly pronounce content in different languages. Without proper language tagging, screen readers will attempt to pronounce foreign text using the wrong language pronunciation rules.</p>
+            <p><strong>Implementation:</strong> Use the <code>lang</code> attribute on HTML elements containing text in a different language from the page's primary language (specified in the <code>&lt;html&gt;</code> tag).</p>
+        </div>
+
+        <div class="expected-results">
+            <h3>Expected Test Results</h3>
+            <ul>
+                <li><strong>Total Test Cases:</strong> 10 (5 violations + 5 passes)</li>
+                <li><strong>Expected Violations:</strong> 5 (TC1.1 - TC1.5) - Foreign language content without lang attribute</li>
+                <li><strong>Expected Passes:</strong> 5 (TC2.1 - TC2.5) - Foreign language content with proper lang attribute</li>
+                <li><strong>Languages Tested:</strong> French (fr), Spanish (es), German (de), Japanese (ja), Italian (it)</li>
+                <li><strong>Note:</strong> This page has <code>lang="en"</code> on the <code>&lt;html&gt;</code> tag, establishing English as the primary language</li>
+            </ul>
+        </div>
+
+        <!-- Test Case 1: French Phrase -->
+        <h2>Test Case 1: French Phrase</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.1"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: French Without Lang Attribute</h3>
+                <div class="test-sample">
+                    <p>The restaurant's signature dish is <span class="foreign-text">coq au vin</span>, which translates to "chicken in wine."</p>
+                </div>
+                <div class="explanation">
+                    <strong>Issue:</strong> The French phrase "coq au vin" lacks a lang attribute. Screen readers will attempt to pronounce it using English pronunciation rules, resulting in incorrect pronunciation.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Missing lang attribute --&gt;
+&lt;span&gt;coq au vin&lt;/span&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.1"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: French With Lang Attribute</h3>
+                <div class="test-sample">
+                    <p>The restaurant's signature dish is <span class="foreign-text" lang="fr">coq au vin</span>, which translates to "chicken in wine."</p>
+                </div>
+                <div class="explanation">
+                    <strong>Correct:</strong> The French phrase has <code>lang="fr"</code> attribute, allowing screen readers to switch to French pronunciation rules for accurate reading.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Proper lang attribute --&gt;
+&lt;span lang="fr"&gt;coq au vin&lt;/span&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 2: Spanish Quote -->
+        <h2>Test Case 2: Spanish Quote</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.2"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Spanish Quote Without Lang</h3>
+                <div class="test-sample">
+                    <p>As the saying goes, <span class="foreign-text">"No hay mal que por bien no venga"</span> - every cloud has a silver lining.</p>
+                </div>
+                <div class="explanation">
+                    <strong>Issue:</strong> The Spanish quote lacks language identification. Screen readers will mispronounce Spanish words using English phonetics.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Missing lang attribute --&gt;
+&lt;span&gt;"No hay mal que por bien no venga"&lt;/span&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.2"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Spanish Quote With Lang</h3>
+                <div class="test-sample">
+                    <p>As the saying goes, <span class="foreign-text" lang="es">"No hay mal que por bien no venga"</span> - every cloud has a silver lining.</p>
+                </div>
+                <div class="explanation">
+                    <strong>Correct:</strong> The Spanish quote has <code>lang="es"</code>, enabling proper Spanish pronunciation by assistive technologies.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Proper lang attribute --&gt;
+&lt;span lang="es"&gt;"No hay mal que por bien no venga"&lt;/span&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 3: German Word -->
+        <h2>Test Case 3: German Word in Context</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.3"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: German Word Without Lang</h3>
+                <div class="test-sample">
+                    <p>The concept of <span class="foreign-text">Schadenfreude</span> describes pleasure derived from another's misfortune.</p>
+                </div>
+                <div class="explanation">
+                    <strong>Issue:</strong> The German word "Schadenfreude" has no lang attribute, causing potential mispronunciation despite being a commonly used loanword.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Missing lang attribute --&gt;
+&lt;span&gt;Schadenfreude&lt;/span&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.3"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: German Word With Lang</h3>
+                <div class="test-sample">
+                    <p>The concept of <span class="foreign-text" lang="de">Schadenfreude</span> describes pleasure derived from another's misfortune.</p>
+                </div>
+                <div class="explanation">
+                    <strong>Correct:</strong> The German word is marked with <code>lang="de"</code>, ensuring correct pronunciation using German phonetics.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Proper lang attribute --&gt;
+&lt;span lang="de"&gt;Schadenfreude&lt;/span&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 4: Japanese Name -->
+        <h2>Test Case 4: Japanese Phrase</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.4"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Japanese Phrase Without Lang</h3>
+                <div class="test-sample">
+                    <p>Before the meal, it's customary to say <span class="foreign-text">"いただきます"</span> (itadakimasu), expressing gratitude for the food.</p>
+                </div>
+                <div class="explanation">
+                    <strong>Issue:</strong> Japanese text lacks lang attribute. Screen readers cannot properly handle the Japanese characters without language identification.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Missing lang attribute --&gt;
+&lt;span&gt;"いただきます"&lt;/span&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.4"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Japanese Phrase With Lang</h3>
+                <div class="test-sample">
+                    <p>Before the meal, it's customary to say <span class="foreign-text" lang="ja">"いただきます"</span> (itadakimasu), expressing gratitude for the food.</p>
+                </div>
+                <div class="explanation">
+                    <strong>Correct:</strong> Japanese text is marked with <code>lang="ja"</code>, allowing assistive technologies to handle the characters appropriately.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Proper lang attribute --&gt;
+&lt;span lang="ja"&gt;"いただきます"&lt;/span&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 5: Multiple Languages -->
+        <h2>Test Case 5: Multiple Language Switches</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.5"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Multiple Languages Without Lang</h3>
+                <div class="test-sample">
+                    <p>She ordered <span class="foreign-text">café au lait</span> in France, <span class="foreign-text">caffè latte</span> in Italy, and <span class="foreign-text">café con leche</span> in Spain.</p>
+                </div>
+                <div class="explanation">
+                    <strong>Issue:</strong> Three different language phrases (French, Italian, Spanish) lack language identification, making proper pronunciation impossible for screen readers.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Missing lang attributes --&gt;
+&lt;span&gt;café au lait&lt;/span&gt;
+&lt;span&gt;caffè latte&lt;/span&gt;
+&lt;span&gt;café con leche&lt;/span&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.5"
+                 data-wcag-criterion="3.1.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Multiple Languages With Lang</h3>
+                <div class="test-sample">
+                    <p>She ordered <span class="foreign-text" lang="fr">café au lait</span> in France, <span class="foreign-text" lang="it">caffè latte</span> in Italy, and <span class="foreign-text" lang="es">café con leche</span> in Spain.</p>
+                </div>
+                <div class="explanation">
+                    <strong>Correct:</strong> Each phrase is marked with its appropriate language code (fr, it, es), enabling correct pronunciation for each language switch.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Proper lang attributes --&gt;
+&lt;span lang="fr"&gt;café au lait&lt;/span&gt;
+&lt;span lang="it"&gt;caffè latte&lt;/span&gt;
+&lt;span lang="es"&gt;café con leche&lt;/span&gt;</div>
+            </div>
+        </div>
+
+        <div class="wcag-info" style="margin-top: 40px;">
+            <h2>Important Notes</h2>
+            <p><strong>Exceptions:</strong> You do NOT need to mark language for:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Proper names:</strong> "Paris", "Tokyo", "María"</li>
+                <li><strong>Technical terms:</strong> "HTTP", "API", "Boolean"</li>
+                <li><strong>Vernacular adoption:</strong> Words that have become common in English like "café" or "resume" (when used as English words)</li>
+                <li><strong>Indeterminate language:</strong> Made-up words or words without identifiable language origin</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Testing:</strong> Use a screen reader to verify proper pronunciation. Without lang attributes, foreign words will be mispronounced using English pronunciation rules.</p>
+            <p style="margin-top: 10px;"><strong>Common Language Codes:</strong></p>
+            <ul style="margin-left: 20px;">
+                <li><code>en</code> - English</li>
+                <li><code>es</code> - Spanish</li>
+                <li><code>fr</code> - French</li>
+                <li><code>de</code> - German</li>
+                <li><code>it</code> - Italian</li>
+                <li><code>ja</code> - Japanese</li>
+                <li><code>zh</code> - Chinese</li>
+                <li><code>ar</code> - Arabic</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Validation logging for automated testing
+        console.log('=== WCAG 3.1.2 Language of Parts Test Page ===');
+
+        const testCases = document.querySelectorAll('[data-test-id]');
+        console.log(`Total test cases: ${testCases.length}`);
+
+        const violations = document.querySelectorAll('[data-expected-result="violation"]');
+        const passes = document.querySelectorAll('[data-expected-result="pass"]');
+
+        console.log(`Expected violations: ${violations.length}`);
+        console.log(`Expected passes: ${passes.length}`);
+
+        console.log('\nViolation Test Cases (Missing lang attribute):');
+        violations.forEach(tc => {
+            const foreignText = tc.querySelector('.foreign-text');
+            const hasLang = foreignText && foreignText.hasAttribute('lang');
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+            console.log(`  Foreign text: "${foreignText ? foreignText.textContent : 'N/A'}"`);
+            console.log(`  Has lang attribute: ${hasLang} (should be false)`);
+        });
+
+        console.log('\nPass Test Cases (Proper lang attribute):');
+        passes.forEach(tc => {
+            const foreignTexts = tc.querySelectorAll('.foreign-text');
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+            foreignTexts.forEach((ft, idx) => {
+                console.log(`  Text ${idx + 1}: "${ft.textContent}" - lang="${ft.getAttribute('lang')}"`);
+            });
+        });
+
+        // Verify page language
+        const htmlLang = document.documentElement.lang;
+        console.log(`\nPage primary language (html lang): ${htmlLang}`);
+        console.log('All foreign language content should differ from this primary language.');
+    </script>
+</body>
+</html>

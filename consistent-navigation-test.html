@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 3.2.3 Consistent Navigation - Test Cases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .wcag-info {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .wcag-info h2 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .section-header {
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1400px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .test-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .test-card.fail {
+            border-left: 5px solid #f44336;
+            background: #fff5f5;
+        }
+
+        .test-card.pass {
+            border-left: 5px solid #4CAF50;
+            background: #f5fff5;
+        }
+
+        .test-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .page-simulation {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .page-header {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .page-nav {
+            background: #34495e;
+            padding: 10px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .page-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .page-nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .page-nav a.active {
+            background: #2196F3;
+        }
+
+        .page-content {
+            padding: 15px;
+            min-height: 60px;
+            background: white;
+        }
+
+        .multi-page-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-left: 4px solid #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .expected-results {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 2px solid #2196F3;
+        }
+
+        .expected-results h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .expected-results ul {
+            margin-left: 20px;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+        }
+
+        .highlight-change {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .order-indicator {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976D2;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WCAG 3.2.3: Consistent Navigation</h1>
+
+        <div class="wcag-info">
+            <h2>Success Criterion 3.2.3 Consistent Navigation (Level AA)</h2>
+            <p><strong>Requirement:</strong> Navigational mechanisms that are repeated on multiple Web pages within a set of Web pages occur in the same relative order each time they are repeated, unless a change is initiated by the user.</p>
+            <p><strong>Purpose:</strong> Helps users with cognitive limitations, low vision, and intellectual disabilities by allowing them to develop a mental model of where navigation elements appear. Consistent positioning reduces cognitive load and makes sites easier to navigate.</p>
+            <p><strong>Scope:</strong> Applies to navigation menus, search boxes, and other repeated navigation mechanisms. Does not prevent adding/removing items, only requires maintaining relative order of repeated items.</p>
+        </div>
+
+        <div class="expected-results">
+            <h3>Expected Test Results</h3>
+            <ul>
+                <li><strong>Total Test Cases:</strong> 10 (5 violations + 5 passes)</li>
+                <li><strong>Expected Violations:</strong> 5 (TC1.1 - TC1.5) - Inconsistent navigation order across pages</li>
+                <li><strong>Expected Passes:</strong> 5 (TC2.1 - TC2.5) - Consistent navigation order maintained</li>
+                <li><strong>Note:</strong> Each test case simulates multiple pages to demonstrate consistency (or lack thereof)</li>
+            </ul>
+        </div>
+
+        <!-- Test Case 1: Reordered Navigation -->
+        <h2>Test Case 1: Navigation Menu Reordering</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.1"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Navigation Order Changes</h3>
+                <div class="multi-page-container">
+                    <!-- Home Page -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Home</div>
+                        <div class="page-nav">
+                            <a href="#" class="active">Home</a>
+                            <a href="#">About</a>
+                            <a href="#">Services</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            Order: Home, About, Services, Contact
+                        </div>
+                    </div>
+                    <!-- Services Page -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Services</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#" class="active">Services</a>
+                            <a href="#">About</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            Order changed: Home, <span class="highlight-change">Services, About</span>, Contact
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Navigation items change order between pages. "Services" and "About" swap positions, forcing users to relearn navigation on each page.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Inconsistent order --&gt;
+&lt;!-- Home page --&gt;
+&lt;nav&gt;Home | About | Services | Contact&lt;/nav&gt;
+
+&lt;!-- Services page --&gt;
+&lt;nav&gt;Home | Services | About | Contact&lt;/nav&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.1"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Navigation Order Consistent</h3>
+                <div class="multi-page-container">
+                    <!-- Home Page -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Home</div>
+                        <div class="page-nav">
+                            <a href="#" class="active">Home</a>
+                            <a href="#">About</a>
+                            <a href="#">Services</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            Order: Home, About, Services, Contact
+                        </div>
+                    </div>
+                    <!-- Services Page -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Services</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#">About</a>
+                            <a href="#" class="active">Services</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            Same order maintained: Home, About, Services, Contact
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Navigation items maintain the same relative order on all pages. Users can predict where each link will be located.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Consistent order --&gt;
+&lt;!-- All pages use same order --&gt;
+&lt;nav&gt;Home | About | Services | Contact&lt;/nav&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 2: Section-Specific Reordering -->
+        <h2>Test Case 2: Section-Based Reordering</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.2"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Priority-Based Reordering</h3>
+                <div class="multi-page-container">
+                    <!-- Products Page -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Products Section</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#" class="active">Products</a>
+                            <a href="#">About</a>
+                            <a href="#">Blog</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            Products section: Products moved to position 2
+                        </div>
+                    </div>
+                    <!-- Blog Page -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Blog Section</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#" class="active">Blog</a>
+                            <a href="#">About</a>
+                            <a href="#">Products</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            Blog section: <span class="highlight-change">Blog moved to position 2, Products to position 4</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Navigation items rearranged to prioritize the current section. While this seems helpful, it confuses users who rely on consistent positioning.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Context-based reordering --&gt;
+&lt;!-- Products page --&gt;
+&lt;nav&gt;Home | Products | About | Blog | Contact&lt;/nav&gt;
+
+&lt;!-- Blog page --&gt;
+&lt;nav&gt;Home | Blog | About | Products | Contact&lt;/nav&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.2"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Fixed Order with Visual Indicator</h3>
+                <div class="multi-page-container">
+                    <!-- Products Page -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Products Section</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#">About</a>
+                            <a href="#" class="active">Products</a>
+                            <a href="#">Blog</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            Products section: Order maintained, current page highlighted
+                        </div>
+                    </div>
+                    <!-- Blog Page -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Blog Section</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#">About</a>
+                            <a href="#">Products</a>
+                            <a href="#" class="active">Blog</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            Blog section: Same order, visual highlighting shows current page
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Navigation order stays the same. Visual styling (highlighting) indicates current page without changing position.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Fixed order with active state --&gt;
+&lt;!-- All pages use same order --&gt;
+&lt;nav&gt;
+  &lt;a href="#"&gt;Home&lt;/a&gt;
+  &lt;a href="#"&gt;About&lt;/a&gt;
+  &lt;a href="#" class="active"&gt;Products&lt;/a&gt;
+  &lt;a href="#"&gt;Blog&lt;/a&gt;
+  &lt;a href="#"&gt;Contact&lt;/a&gt;
+&lt;/nav&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 3: Adding Items Inconsistently -->
+        <h2>Test Case 3: Inserting Navigation Items</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.3"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Items Inserted in Different Positions</h3>
+                <div class="multi-page-container">
+                    <!-- Page 1 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Documentation</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#" class="active">Docs</a>
+                            <a href="#">API</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            "API" appears after "Docs"
+                        </div>
+                    </div>
+                    <!-- Page 2 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: API Reference</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#">API</a>
+                            <a href="#">Docs</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            <span class="highlight-change">"API" now appears before "Docs"</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> "API" and "Docs" links swap positions between pages. Even though both items exist on both pages, their relative order changes.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Relative order changes --&gt;
+&lt;!-- Docs page --&gt;
+&lt;nav&gt;Home | Docs | API | Contact&lt;/nav&gt;
+
+&lt;!-- API page --&gt;
+&lt;nav&gt;Home | API | Docs | Contact&lt;/nav&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.3"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Items Added at End</h3>
+                <div class="multi-page-container">
+                    <!-- Basic Pages -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Home</div>
+                        <div class="page-nav">
+                            <a href="#" class="active">Home</a>
+                            <a href="#">About</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="page-content">
+                            Basic navigation: Home, About, Contact
+                        </div>
+                    </div>
+                    <!-- Page with Additional Item -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Shop</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#">About</a>
+                            <a href="#">Contact</a>
+                            <a href="#" class="active">Shop</a>
+                        </div>
+                        <div class="page-content">
+                            Additional item added: Home, About, Contact, <span class="highlight-change">Shop (at end)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Original items (Home, About, Contact) maintain their relative order. New item "Shop" added at the end without disrupting existing order.
+                </div>
+                <div class="code-block">&lt;!-- PASS: New items appended --&gt;
+&lt;!-- Basic pages --&gt;
+&lt;nav&gt;Home | About | Contact&lt;/nav&gt;
+
+&lt;!-- Extended pages --&gt;
+&lt;nav&gt;Home | About | Contact | Shop&lt;/nav&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 4: Search Box Position -->
+        <h2>Test Case 4: Search Box Consistency</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.4"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Search Box Position Changes</h3>
+                <div class="multi-page-container">
+                    <!-- Page 1 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Home</div>
+                        <div class="page-nav">
+                            <a href="#" class="active">Home</a>
+                            <a href="#">Products</a>
+                            <a href="#">About</a>
+                            <input type="search" placeholder="Search..." style="padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.9); margin-left: auto;">
+                        </div>
+                        <div class="page-content">
+                            Search box at the end (right side)
+                        </div>
+                    </div>
+                    <!-- Page 2 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Products</div>
+                        <div class="page-nav">
+                            <input type="search" placeholder="Search..." style="padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.9);">
+                            <a href="#">Home</a>
+                            <a href="#" class="active">Products</a>
+                            <a href="#">About</a>
+                        </div>
+                        <div class="page-content">
+                            <span class="highlight-change">Search box moved to beginning (left side)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Search box changes position relative to navigation links. On home it's at the end, on products it's at the beginning.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Search position changes --&gt;
+&lt;!-- Home page --&gt;
+&lt;nav&gt;Home | Products | About | [Search]&lt;/nav&gt;
+
+&lt;!-- Products page --&gt;
+&lt;nav&gt;[Search] | Home | Products | About&lt;/nav&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.4"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Search Box Position Fixed</h3>
+                <div class="multi-page-container">
+                    <!-- Page 1 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Home</div>
+                        <div class="page-nav">
+                            <input type="search" placeholder="Search..." style="padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.9); margin-right: 10px;">
+                            <a href="#" class="active">Home</a>
+                            <a href="#">Products</a>
+                            <a href="#">About</a>
+                        </div>
+                        <div class="page-content">
+                            Search box always first, then navigation links
+                        </div>
+                    </div>
+                    <!-- Page 2 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Products</div>
+                        <div class="page-nav">
+                            <input type="search" placeholder="Search..." style="padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.9); margin-right: 10px;">
+                            <a href="#">Home</a>
+                            <a href="#" class="active">Products</a>
+                            <a href="#">About</a>
+                        </div>
+                        <div class="page-content">
+                            Same order maintained: Search, Home, Products, About
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Search box always appears in the same relative position (before all navigation links) on every page.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Search position consistent --&gt;
+&lt;!-- All pages --&gt;
+&lt;nav&gt;[Search] | Home | Products | About&lt;/nav&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 5: Utility Links -->
+        <h2>Test Case 5: Secondary Navigation</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.5"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Utility Links Reordered</h3>
+                <div class="multi-page-container">
+                    <!-- Page 1 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Home</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#">Products</a>
+                            <div style="margin-left: auto; display: flex; gap: 5px;">
+                                <a href="#">Login</a>
+                                <a href="#">Cart</a>
+                                <a href="#">Help</a>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            Utility order: Login, Cart, Help
+                        </div>
+                    </div>
+                    <!-- Page 2 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Products</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#" class="active">Products</a>
+                            <div style="margin-left: auto; display: flex; gap: 5px;">
+                                <a href="#">Cart</a>
+                                <a href="#">Help</a>
+                                <a href="#">Login</a>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <span class="highlight-change">Reordered: Cart, Help, Login</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Utility links (Login, Cart, Help) change order between pages. Users expect these common elements in consistent positions.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Utility links reordered --&gt;
+&lt;!-- Home page --&gt;
+&lt;nav&gt;... | Login | Cart | Help&lt;/nav&gt;
+
+&lt;!-- Products page --&gt;
+&lt;nav&gt;... | Cart | Help | Login&lt;/nav&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.5"
+                 data-wcag-criterion="3.2.3"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Utility Links Consistent</h3>
+                <div class="multi-page-container">
+                    <!-- Page 1 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Home</div>
+                        <div class="page-nav">
+                            <a href="#" class="active">Home</a>
+                            <a href="#">Products</a>
+                            <div style="margin-left: auto; display: flex; gap: 5px;">
+                                <a href="#">Login</a>
+                                <a href="#">Cart</a>
+                                <a href="#">Help</a>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            Utility order: Login, Cart, Help
+                        </div>
+                    </div>
+                    <!-- Page 2 -->
+                    <div class="page-simulation">
+                        <div class="page-header">Page: Products</div>
+                        <div class="page-nav">
+                            <a href="#">Home</a>
+                            <a href="#" class="active">Products</a>
+                            <div style="margin-left: auto; display: flex; gap: 5px;">
+                                <a href="#">Login</a>
+                                <a href="#">Cart</a>
+                                <a href="#">Help</a>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            Same order maintained: Login, Cart, Help
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Utility links maintain consistent order (Login, Cart, Help) across all pages. Users can predict where each link will be.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Utility links consistent --&gt;
+&lt;!-- All pages --&gt;
+&lt;nav&gt;... | Login | Cart | Help&lt;/nav&gt;</div>
+            </div>
+        </div>
+
+        <div class="wcag-info" style="margin-top: 40px;">
+            <h2>Important Notes</h2>
+            <p><strong>What IS allowed:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Adding new items to navigation (at beginning or end)</li>
+                <li>Removing items from navigation on some pages</li>
+                <li>User-initiated changes (e.g., personalized navigation order)</li>
+                <li>Visual styling changes (highlighting current page)</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>What is NOT allowed:</strong></p>
+            <ul style="margin-left: 20px;">
+                <li>Changing the relative order of repeated navigation items</li>
+                <li>Moving navigation elements to different positions</li>
+                <li>Context-based reordering without user control</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Testing:</strong> Navigate through multiple pages of a site and verify that navigation elements appear in the same relative order on each page.</p>
+        </div>
+    </div>
+
+    <script>
+        // Validation logging for automated testing
+        console.log('=== WCAG 3.2.3 Consistent Navigation Test Page ===');
+
+        const testCases = document.querySelectorAll('[data-test-id]');
+        console.log(`Total test cases: ${testCases.length}`);
+
+        const violations = document.querySelectorAll('[data-expected-result="violation"]');
+        const passes = document.querySelectorAll('[data-expected-result="pass"]');
+
+        console.log(`Expected violations: ${violations.length}`);
+        console.log(`Expected passes: ${passes.length}`);
+
+        console.log('\nViolation Test Cases:');
+        violations.forEach(tc => {
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+        });
+
+        console.log('\nPass Test Cases:');
+        passes.forEach(tc => {
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+        });
+
+        console.log('\nNote: Each test case simulates multiple pages to demonstrate navigation consistency.');
+    </script>
+</body>
+</html>

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 1.3.2 Meaningful Sequence - Test Cases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .wcag-info {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+        }
+
+        .wcag-info h2 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .section-header {
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .section-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 1400px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .test-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .test-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .test-card.fail {
+            border-left: 5px solid #f44336;
+            background: #fff5f5;
+        }
+
+        .test-card.pass {
+            border-left: 5px solid #4CAF50;
+            background: #f5fff5;
+        }
+
+        .test-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .test-sample {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        /* Test Case 1: Float-based columns */
+        .fail-float-container {
+            overflow: hidden;
+        }
+
+        .fail-float-main {
+            float: right;
+            width: 70%;
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .fail-float-sidebar {
+            float: left;
+            width: 25%;
+            background: #fff3e0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .pass-float-container {
+            overflow: hidden;
+        }
+
+        .pass-float-sidebar {
+            float: left;
+            width: 25%;
+            background: #fff3e0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .pass-float-main {
+            float: right;
+            width: 70%;
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        /* Test Case 2: Flexbox order */
+        .fail-flex-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .fail-flex-item-1 {
+            order: 3;
+            flex: 1;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .fail-flex-item-2 {
+            order: 1;
+            flex: 1;
+            background: #fce4ec;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .fail-flex-item-3 {
+            order: 2;
+            flex: 1;
+            background: #fff9c4;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .pass-flex-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .pass-flex-item {
+            flex: 1;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        /* Test Case 3: Absolute positioning */
+        .fail-absolute-container {
+            position: relative;
+            height: 180px;
+            background: #fafafa;
+            border-radius: 4px;
+        }
+
+        .fail-absolute-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #e1f5fe;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .fail-absolute-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #f3e5f5;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .pass-absolute-container {
+            background: #fafafa;
+            border-radius: 4px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Test Case 4: Form layout */
+        .fail-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .fail-form-right {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .fail-form-left {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .pass-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-field label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-field input,
+        .form-field select {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-left: 4px solid #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .dom-order-indicator {
+            background: #fff3cd;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            border: 1px solid #ffc107;
+        }
+
+        .dom-order-indicator strong {
+            color: #e65100;
+        }
+
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .expected-results {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 2px solid #2196F3;
+        }
+
+        .expected-results h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .expected-results ul {
+            margin-left: 20px;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WCAG 1.3.2: Meaningful Sequence</h1>
+
+        <div class="wcag-info">
+            <h2>Success Criterion 1.3.2 Meaningful Sequence (Level A)</h2>
+            <p><strong>Requirement:</strong> When the sequence in which content is presented affects its meaning, a correct reading sequence can be programmatically determined.</p>
+            <p><strong>Purpose:</strong> Ensures that content is presented in a meaningful order when linearized by assistive technologies. Critical for screen reader users who navigate content in DOM order, not visual order.</p>
+            <p><strong>Key Principle:</strong> The order of elements in the HTML source code (DOM order) should match the logical reading sequence, even if CSS changes the visual presentation.</p>
+            <p><strong>Common Issues:</strong> Using CSS (floats, positioning, flexbox order, grid placement) to reorder content visually without maintaining meaningful DOM sequence.</p>
+        </div>
+
+        <div class="expected-results">
+            <h3>Expected Test Results</h3>
+            <ul>
+                <li><strong>Total Test Cases:</strong> 10 (5 violations + 5 passes)</li>
+                <li><strong>Expected Violations:</strong> 5 (TC1.1 - TC1.5) - DOM order doesn't match logical sequence</li>
+                <li><strong>Expected Passes:</strong> 5 (TC2.1 - TC2.5) - DOM order matches logical reading sequence</li>
+                <li><strong>Test Categories:</strong>
+                    <ul>
+                        <li>Float-based layouts</li>
+                        <li>Flexbox reordering</li>
+                        <li>Absolute positioning</li>
+                        <li>Form field sequences</li>
+                        <li>Multi-step processes</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Test Case 1: Float Layout -->
+        <h2>Test Case 1: Float-Based Two-Column Layout</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.1"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: DOM Order Doesn't Match Visual Order</h3>
+                <div class="test-sample">
+                    <div class="fail-float-container">
+                        <!-- Main content in DOM first, but floated right -->
+                        <div class="fail-float-main">
+                            <strong>Main Content</strong>
+                            <p>This appears on the right visually.</p>
+                        </div>
+                        <!-- Sidebar in DOM second, but floated left -->
+                        <div class="fail-float-sidebar">
+                            <strong>Sidebar</strong>
+                            <p>This appears on the left visually.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dom-order-indicator">
+                    <strong>DOM Order:</strong> Main Content (1st) → Sidebar (2nd)<br>
+                    <strong>Visual Order:</strong> Sidebar (left) → Main Content (right)<br>
+                    <strong>Screen Reader Experience:</strong> Reads main content before sidebar, opposite of visual flow
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Main content is floated right, sidebar floated left. Visual order (left to right: Sidebar → Main) doesn't match DOM order (Main → Sidebar). Screen readers follow DOM order.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Visual order ≠ DOM order --&gt;
+&lt;div style="float: right"&gt;Main Content&lt;/div&gt;
+&lt;div style="float: left"&gt;Sidebar&lt;/div&gt;
+&lt;!-- Screen reader: Main → Sidebar
+     Visual: Sidebar → Main --&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.1"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: DOM Order Matches Visual Order</h3>
+                <div class="test-sample">
+                    <div class="pass-float-container">
+                        <!-- Sidebar in DOM first AND floated left -->
+                        <div class="pass-float-sidebar">
+                            <strong>Sidebar</strong>
+                            <p>This appears on the left visually.</p>
+                        </div>
+                        <!-- Main content in DOM second AND floated right -->
+                        <div class="pass-float-main">
+                            <strong>Main Content</strong>
+                            <p>This appears on the right visually.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dom-order-indicator" style="background: #e8f5e9; border-color: #4CAF50;">
+                    <strong>DOM Order:</strong> Sidebar (1st) → Main Content (2nd)<br>
+                    <strong>Visual Order:</strong> Sidebar (left) → Main Content (right)<br>
+                    <strong>Screen Reader Experience:</strong> Matches visual left-to-right flow ✓
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Sidebar in DOM first and floated left, main content in DOM second and floated right. Both visual and DOM order are Sidebar → Main.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Visual order = DOM order --&gt;
+&lt;div style="float: left"&gt;Sidebar&lt;/div&gt;
+&lt;div style="float: right"&gt;Main Content&lt;/div&gt;
+&lt;!-- Screen reader: Sidebar → Main
+     Visual: Sidebar → Main ✓ --&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 2: Flexbox Order Property -->
+        <h2>Test Case 2: Flexbox Order Reordering</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.2"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Flexbox Order Changes Sequence</h3>
+                <div class="test-sample">
+                    <div class="fail-flex-container">
+                        <div class="fail-flex-item-1">
+                            <strong>Step 1</strong>
+                            <p>First in DOM, but order: 3</p>
+                        </div>
+                        <div class="fail-flex-item-2">
+                            <strong>Step 2</strong>
+                            <p>Second in DOM, but order: 1</p>
+                        </div>
+                        <div class="fail-flex-item-3">
+                            <strong>Step 3</strong>
+                            <p>Third in DOM, but order: 2</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dom-order-indicator">
+                    <strong>DOM Order:</strong> Step 1 → Step 2 → Step 3<br>
+                    <strong>Visual Order:</strong> Step 2 → Step 3 → Step 1 (due to flexbox order property)<br>
+                    <strong>Screen Reader:</strong> Announces steps in confusing DOM order
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Flexbox order property reorders items visually (2, 3, 1) but screen readers follow DOM order (1, 2, 3). Creates confusing experience for sequential content.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: order property changes visual sequence --&gt;
+&lt;div style="display: flex"&gt;
+  &lt;div style="order: 3"&gt;Step 1&lt;/div&gt;
+  &lt;div style="order: 1"&gt;Step 2&lt;/div&gt;
+  &lt;div style="order: 2"&gt;Step 3&lt;/div&gt;
+&lt;/div&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.2"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: DOM Order Without Reordering</h3>
+                <div class="test-sample">
+                    <div class="pass-flex-container">
+                        <div class="pass-flex-item" style="background: #e8f5e9;">
+                            <strong>Step 1</strong>
+                            <p>First in DOM and visually</p>
+                        </div>
+                        <div class="pass-flex-item" style="background: #fce4ec;">
+                            <strong>Step 2</strong>
+                            <p>Second in DOM and visually</p>
+                        </div>
+                        <div class="pass-flex-item" style="background: #fff9c4;">
+                            <strong>Step 3</strong>
+                            <p>Third in DOM and visually</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dom-order-indicator" style="background: #e8f5e9; border-color: #4CAF50;">
+                    <strong>DOM Order:</strong> Step 1 → Step 2 → Step 3<br>
+                    <strong>Visual Order:</strong> Step 1 → Step 2 → Step 3<br>
+                    <strong>Screen Reader:</strong> Announces steps in correct sequence ✓
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Flexbox used for layout but no order property. DOM sequence matches visual sequence for sequential content.
+                </div>
+                <div class="code-block">&lt;!-- PASS: No order property, natural flow --&gt;
+&lt;div style="display: flex"&gt;
+  &lt;div&gt;Step 1&lt;/div&gt;
+  &lt;div&gt;Step 2&lt;/div&gt;
+  &lt;div&gt;Step 3&lt;/div&gt;
+&lt;/div&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 3: Absolute Positioning -->
+        <h2>Test Case 3: Absolute Positioning</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.3"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Positioned Content Wrong DOM Order</h3>
+                <div class="test-sample">
+                    <div class="fail-absolute-container">
+                        <!-- Footer in DOM first, positioned bottom -->
+                        <div class="fail-absolute-bottom">
+                            <strong>Footer</strong>
+                            <p>Positioned at bottom, but first in DOM</p>
+                        </div>
+                        <!-- Header in DOM second, positioned top -->
+                        <div class="fail-absolute-top">
+                            <strong>Header</strong>
+                            <p>Positioned at top, but second in DOM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dom-order-indicator">
+                    <strong>DOM Order:</strong> Footer → Header<br>
+                    <strong>Visual Order:</strong> Header (top) → Footer (bottom)<br>
+                    <strong>Problem:</strong> Screen reader announces footer before header
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Absolute positioning places footer at bottom and header at top, but DOM order is Footer → Header. Confuses screen reader users.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Position reverses natural order --&gt;
+&lt;div style="position: relative"&gt;
+  &lt;div style="position: absolute; bottom: 0"&gt;Footer&lt;/div&gt;
+  &lt;div style="position: absolute; top: 0"&gt;Header&lt;/div&gt;
+&lt;/div&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.3"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: DOM Order Matches Logical Sequence</h3>
+                <div class="test-sample">
+                    <div class="pass-absolute-container">
+                        <!-- Header in DOM first -->
+                        <div style="background: #f3e5f5; padding: 10px; border-radius: 4px;">
+                            <strong>Header</strong>
+                            <p>First in DOM, displayed at top</p>
+                        </div>
+                        <!-- Footer in DOM second -->
+                        <div style="background: #e1f5fe; padding: 10px; border-radius: 4px;">
+                            <strong>Footer</strong>
+                            <p>Second in DOM, displayed at bottom</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dom-order-indicator" style="background: #e8f5e9; border-color: #4CAF50;">
+                    <strong>DOM Order:</strong> Header → Footer<br>
+                    <strong>Visual Order:</strong> Header (top) → Footer (bottom)<br>
+                    <strong>Screen Reader:</strong> Announces in correct logical order ✓
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> DOM order (Header → Footer) matches both visual and logical reading sequence. No positioning manipulation.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Natural document flow --&gt;
+&lt;div&gt;
+  &lt;div&gt;Header&lt;/div&gt;
+  &lt;div&gt;Footer&lt;/div&gt;
+&lt;/div&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 4: Form Field Order -->
+        <h2>Test Case 4: Form Field Sequence</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.4"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Form Fields in Wrong DOM Order</h3>
+                <div class="test-sample">
+                    <form class="fail-form-grid">
+                        <!-- Last Name in DOM first, displayed on right -->
+                        <div class="form-field fail-form-right">
+                            <label for="fail-lastname">Last Name</label>
+                            <input type="text" id="fail-lastname">
+                        </div>
+                        <!-- First Name in DOM second, displayed on left -->
+                        <div class="form-field fail-form-left">
+                            <label for="fail-firstname">First Name</label>
+                            <input type="text" id="fail-firstname">
+                        </div>
+                    </form>
+                </div>
+                <div class="dom-order-indicator">
+                    <strong>DOM Order:</strong> Last Name → First Name<br>
+                    <strong>Visual Order:</strong> First Name (left) → Last Name (right)<br>
+                    <strong>Tab Order:</strong> Follows DOM, goes to Last Name first (confusing!)
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> CSS Grid places "Last Name" on left visually, but it's first in DOM. Tab order and screen reader order don't match visual layout.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Grid placement reverses field order --&gt;
+&lt;form style="display: grid; grid-template-columns: 1fr 1fr"&gt;
+  &lt;div style="grid-column: 2"&gt;Last Name&lt;/div&gt;
+  &lt;div style="grid-column: 1"&gt;First Name&lt;/div&gt;
+&lt;/form&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.4"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Form Fields in Correct DOM Order</h3>
+                <div class="test-sample">
+                    <form class="pass-form">
+                        <!-- First Name in DOM first -->
+                        <div class="form-field">
+                            <label for="pass-firstname">First Name</label>
+                            <input type="text" id="pass-firstname">
+                        </div>
+                        <!-- Last Name in DOM second -->
+                        <div class="form-field">
+                            <label for="pass-lastname">Last Name</label>
+                            <input type="text" id="pass-lastname">
+                        </div>
+                    </form>
+                </div>
+                <div class="dom-order-indicator" style="background: #e8f5e9; border-color: #4CAF50;">
+                    <strong>DOM Order:</strong> First Name → Last Name<br>
+                    <strong>Visual Order:</strong> First Name → Last Name<br>
+                    <strong>Tab Order:</strong> Follows logical sequence ✓
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Form fields in DOM match logical filling order (First Name → Last Name). Tab order and screen reader order are predictable.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Logical field order --&gt;
+&lt;form&gt;
+  &lt;label&gt;First Name&lt;/label&gt;
+  &lt;input type="text"&gt;
+
+  &lt;label&gt;Last Name&lt;/label&gt;
+  &lt;input type="text"&gt;
+&lt;/form&gt;</div>
+            </div>
+        </div>
+
+        <!-- Test Case 5: Multi-Step Process -->
+        <h2>Test Case 5: Sequential Process Steps</h2>
+        <div class="test-grid">
+            <!-- FAIL -->
+            <div class="test-card fail"
+                 data-test-id="TC1.5"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="violation">
+                <h3>❌ FAIL: Process Steps Out of Order</h3>
+                <div class="test-sample">
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Step 3 in DOM first -->
+                        <div style="background: #fff9c4; padding: 10px; border-radius: 4px; order: 3;">
+                            <strong>Step 3:</strong> Confirm order
+                        </div>
+                        <!-- Step 1 in DOM second -->
+                        <div style="background: #e8f5e9; padding: 10px; border-radius: 4px; order: 1;">
+                            <strong>Step 1:</strong> Select product
+                        </div>
+                        <!-- Step 2 in DOM third -->
+                        <div style="background: #fce4ec; padding: 10px; border-radius: 4px; order: 2;">
+                            <strong>Step 2:</strong> Enter shipping info
+                        </div>
+                    </div>
+                </div>
+                <div class="dom-order-indicator">
+                    <strong>DOM Order:</strong> Step 3 → Step 1 → Step 2<br>
+                    <strong>Visual Order:</strong> Step 1 → Step 2 → Step 3<br>
+                    <strong>Problem:</strong> Screen reader announces steps out of sequence
+                </div>
+                <div class="explanation">
+                    <strong>Violation:</strong> Sequential process steps presented in wrong DOM order. Screen reader users hear steps 3, 1, 2 instead of logical 1, 2, 3 sequence.
+                </div>
+                <div class="code-block">&lt;!-- FAIL: Steps in wrong DOM order --&gt;
+&lt;div style="display: flex; flex-direction: column"&gt;
+  &lt;div style="order: 3"&gt;Step 3&lt;/div&gt;
+  &lt;div style="order: 1"&gt;Step 1&lt;/div&gt;
+  &lt;div style="order: 2"&gt;Step 2&lt;/div&gt;
+&lt;/div&gt;</div>
+            </div>
+
+            <!-- PASS -->
+            <div class="test-card pass"
+                 data-test-id="TC2.5"
+                 data-wcag-criterion="1.3.2"
+                 data-expected-result="pass">
+                <h3>✅ PASS: Process Steps in Correct Order</h3>
+                <div class="test-sample">
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Step 1 in DOM first -->
+                        <div style="background: #e8f5e9; padding: 10px; border-radius: 4px;">
+                            <strong>Step 1:</strong> Select product
+                        </div>
+                        <!-- Step 2 in DOM second -->
+                        <div style="background: #fce4ec; padding: 10px; border-radius: 4px;">
+                            <strong>Step 2:</strong> Enter shipping info
+                        </div>
+                        <!-- Step 3 in DOM third -->
+                        <div style="background: #fff9c4; padding: 10px; border-radius: 4px;">
+                            <strong>Step 3:</strong> Confirm order
+                        </div>
+                    </div>
+                </div>
+                <div class="dom-order-indicator" style="background: #e8f5e9; border-color: #4CAF50;">
+                    <strong>DOM Order:</strong> Step 1 → Step 2 → Step 3<br>
+                    <strong>Visual Order:</strong> Step 1 → Step 2 → Step 3<br>
+                    <strong>Screen Reader:</strong> Announces steps in correct sequence ✓
+                </div>
+                <div class="explanation">
+                    <strong>Pass:</strong> Process steps in DOM match logical sequence (1, 2, 3). All users experience steps in correct order.
+                </div>
+                <div class="code-block">&lt;!-- PASS: Natural sequential order --&gt;
+&lt;div&gt;
+  &lt;div&gt;Step 1: Select product&lt;/div&gt;
+  &lt;div&gt;Step 2: Enter shipping&lt;/div&gt;
+  &lt;div&gt;Step 3: Confirm order&lt;/div&gt;
+&lt;/div&gt;</div>
+            </div>
+        </div>
+
+        <div class="wcag-info" style="margin-top: 40px;">
+            <h2>Testing Guidelines</h2>
+            <p><strong>Manual Testing:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Disable CSS:</strong> View page without styles to see DOM order</li>
+                <li><strong>Use Screen Reader:</strong> Navigate with NVDA/JAWS to hear content order</li>
+                <li><strong>Tab Through:</strong> Tab order follows DOM, reveals logical flow issues</li>
+                <li><strong>Linearize:</strong> Use browser tools to view linearized content</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Automated Testing:</strong></p>
+            <ul style="margin-left: 20px;">
+                <li>Check for CSS properties that reorder: float, position: absolute, flexbox order, grid placement</li>
+                <li>Compare visual order with DOM order</li>
+                <li>Validate tab order matches logical sequence</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Key Principle:</strong> CSS is for presentation. HTML order determines meaning and sequence for assistive technologies.</p>
+        </div>
+    </div>
+
+    <script>
+        // Validation logging for automated testing
+        console.log('=== WCAG 1.3.2 Meaningful Sequence Test Page ===');
+
+        const testCases = document.querySelectorAll('[data-test-id]');
+        console.log(`Total test cases: ${testCases.length}`);
+
+        const violations = document.querySelectorAll('[data-expected-result="violation"]');
+        const passes = document.querySelectorAll('[data-expected-result="pass"]');
+
+        console.log(`Expected violations: ${violations.length}`);
+        console.log(`Expected passes: ${passes.length}`);
+
+        console.log('\nViolation Test Cases (DOM order ≠ logical order):');
+        violations.forEach(tc => {
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+        });
+
+        console.log('\nPass Test Cases (DOM order = logical order):');
+        passes.forEach(tc => {
+            console.log(`- ${tc.dataset.testId}: ${tc.querySelector('h3').textContent.replace(/\s+/g, ' ').trim()}`);
+        });
+
+        console.log('\nTesting Tip: Disable CSS or use screen reader to verify DOM order matches intended reading sequence.');
+    </script>
+</body>
+</html>

@@ -230,15 +230,15 @@
 
         <div class="stats">
             <div class="stat-item">
-                <strong>19</strong>
+                <strong>27</strong>
                 <span>Test Pages</span>
             </div>
             <div class="stat-item">
-                <strong>17</strong>
+                <strong>25</strong>
                 <span>WCAG Criteria</span>
             </div>
             <div class="stat-item">
-                <strong>180+</strong>
+                <strong>260+</strong>
                 <span>Test Cases</span>
             </div>
         </div>
@@ -323,6 +323,13 @@
                 <div class="test-description">Color not used as only visual means of conveying information</div>
                 <div class="test-meta">10 cases</div>
             </div>
+            <div class="test-item">
+                <div class="test-name"><a href="sensory-characteristics-test.html">Sensory Characteristics</a></div>
+                <div class="test-criterion">1.3.3</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">Instructions don't rely solely on sensory characteristics (shape, color, size, position, sound)</div>
+                <div class="test-meta">10 cases</div>
+            </div>
         </div>
 
         <h2>Navigation and Page Structure</h2>
@@ -349,10 +356,45 @@
                 <div class="test-meta">6 cases</div>
             </div>
             <div class="test-item">
+                <div class="test-name"><a href="bypass-blocks-test.html">Bypass Blocks</a></div>
+                <div class="test-criterion">2.4.1</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">Mechanism to bypass repeated blocks (skip links, landmarks, headings)</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+            <div class="test-item">
                 <div class="test-name"><a href="link-purpose-test.html">Link Purpose (In Context)</a></div>
                 <div class="test-criterion">2.4.4</div>
                 <div class="test-level"><span class="badge badge-a">Level A</span></div>
                 <div class="test-description">Link text describes destination (not "click here", "read more", etc.)</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="headings-labels-test.html">Headings and Labels</a></div>
+                <div class="test-criterion">2.4.6</div>
+                <div class="test-level"><span class="badge badge-aa">Level AA</span></div>
+                <div class="test-description">Headings and labels are descriptive (not generic or vague)</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="language-parts-test.html">Language of Parts</a></div>
+                <div class="test-criterion">3.1.2</div>
+                <div class="test-level"><span class="badge badge-aa">Level AA</span></div>
+                <div class="test-description">Foreign language passages marked with lang attribute for proper pronunciation</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="consistent-navigation-test.html">Consistent Navigation</a></div>
+                <div class="test-criterion">3.2.3</div>
+                <div class="test-level"><span class="badge badge-aa">Level AA</span></div>
+                <div class="test-description">Navigation mechanisms occur in same relative order across pages</div>
+                <div class="test-meta">10 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="consistent-identification-test.html">Consistent Identification</a></div>
+                <div class="test-criterion">3.2.4</div>
+                <div class="test-level"><span class="badge badge-aa">Level AA</span></div>
+                <div class="test-description">Components with same functionality identified consistently across pages</div>
                 <div class="test-meta">10 cases</div>
             </div>
         </div>
@@ -380,6 +422,13 @@
                 <div class="test-description">Programmatically determinable names, roles, and values for UI components</div>
                 <div class="test-meta">10 cases</div>
             </div>
+            <div class="test-item">
+                <div class="test-name"><a href="meaningful-sequence-test.html">Meaningful Sequence</a></div>
+                <div class="test-criterion">1.3.2</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">DOM order matches logical reading sequence (not reordered by CSS)</div>
+                <div class="test-meta">10 cases</div>
+            </div>
         </div>
 
         <h2>Forms and Input Validation</h2>
@@ -404,6 +453,13 @@
                 <div class="test-level"><span class="badge badge-aa">Level AA</span></div>
                 <div class="test-description">Form inputs have autocomplete attributes for user information (52 fields)</div>
                 <div class="test-meta">2 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="labels-instructions-test.html">Labels or Instructions</a></div>
+                <div class="test-criterion">3.3.2</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span></div>
+                <div class="test-description">Form inputs have proper labels and instructions (format, requirements, etc.)</div>
+                <div class="test-meta">10 cases</div>
             </div>
         </div>
 
@@ -481,7 +537,12 @@
             navigation: [
                 'page-titled-test.html',
                 'language-page-test.html',
-                'link-purpose-test.html'
+                'bypass-blocks-test.html',
+                'link-purpose-test.html',
+                'headings-labels-test.html',
+                'language-parts-test.html',
+                'consistent-navigation-test.html',
+                'consistent-identification-test.html'
             ],
             focusVisibility: [
                 'focus-visible-test.html',
@@ -494,15 +555,18 @@
             content: [
                 'resize-text-test.html',
                 'non-text-content-test.html',
-                'use-of-color-test.html'
+                'use-of-color-test.html',
+                'sensory-characteristics-test.html'
             ],
             structure: [
                 'info-relationships-test.html',
-                'name-role-value-test.html'
+                'name-role-value-test.html',
+                'meaningful-sequence-test.html'
             ],
             forms: [
                 'form-error-identification-test.html',
-                'identify-input-purpose-test.html'
+                'identify-input-purpose-test.html',
+                'labels-instructions-test.html'
             ],
             keyboard: [
                 'keyboard-test.html',

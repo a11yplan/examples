@@ -230,15 +230,15 @@
 
         <div class="stats">
             <div class="stat-item">
-                <strong>18</strong>
+                <strong>19</strong>
                 <span>Test Pages</span>
             </div>
             <div class="stat-item">
-                <strong>15</strong>
+                <strong>17</strong>
                 <span>WCAG Criteria</span>
             </div>
             <div class="stat-item">
-                <strong>170+</strong>
+                <strong>180+</strong>
                 <span>Test Cases</span>
             </div>
         </div>
@@ -382,6 +382,31 @@
             </div>
         </div>
 
+        <h2>Forms and Input Validation</h2>
+        <div class="test-list">
+            <div class="test-item header">
+                <div>Test Page</div>
+                <div>WCAG Criterion</div>
+                <div>Level</div>
+                <div>Description</div>
+                <div>Test Cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="form-error-identification-test.html">Form Error Identification & Suggestion</a></div>
+                <div class="test-criterion">3.3.1, 3.3.3</div>
+                <div class="test-level"><span class="badge badge-a">Level A</span> <span class="badge badge-aa">Level AA</span></div>
+                <div class="test-description">Form validation errors clearly identified with helpful correction suggestions and ARIA attributes</div>
+                <div class="test-meta">8 cases</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="identify-input-purpose-test.html">Identify Input Purpose</a></div>
+                <div class="test-criterion">1.3.5</div>
+                <div class="test-level"><span class="badge badge-aa">Level AA</span></div>
+                <div class="test-description">Form inputs have autocomplete attributes for user information (52 fields)</div>
+                <div class="test-meta">2 cases</div>
+            </div>
+        </div>
+
         <h2>Keyboard and Input</h2>
         <div class="test-list">
             <div class="test-item header">
@@ -396,13 +421,6 @@
                 <div class="test-criterion">2.1.1</div>
                 <div class="test-level"><span class="badge badge-a">Level A</span></div>
                 <div class="test-description">All functionality operable via keyboard (not mouse-only)</div>
-                <div class="test-meta">10 cases</div>
-            </div>
-            <div class="test-item">
-                <div class="test-name"><a href="identify-input-purpose-test.html">Identify Input Purpose</a></div>
-                <div class="test-criterion">1.3.5</div>
-                <div class="test-level"><span class="badge badge-aa">Level AA</span></div>
-                <div class="test-description">Form inputs have autocomplete attributes for user information</div>
                 <div class="test-meta">10 cases</div>
             </div>
             <div class="test-item">
@@ -482,9 +500,12 @@
                 'info-relationships-test.html',
                 'name-role-value-test.html'
             ],
+            forms: [
+                'form-error-identification-test.html',
+                'identify-input-purpose-test.html'
+            ],
             keyboard: [
                 'keyboard-test.html',
-                'identify-input-purpose-test.html',
                 'target-size-test.html',
                 'label-in-name-test.html'
             ],

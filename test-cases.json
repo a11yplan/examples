@@ -1,0 +1,876 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-11-11",
+    "repository": "https://github.com/a11yplan/examples",
+    "description": "Machine-readable test samples for validating accessibility scanning tools and algorithms",
+    "totalTestPages": 29,
+    "totalWCAGCriteria": 25,
+    "totalTestCases": 244
+  },
+  "testPages": [
+    {
+      "id": "focus-visible",
+      "filename": "focus-visible-test.html",
+      "url": "https://a11yplan.github.io/examples/focus-visible-test.html",
+      "title": "Focus Visible - Basic",
+      "wcagCriteria": [
+        "2.4.7"
+      ],
+      "wcagLevel": "AA",
+      "category": "Focus Visibility",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Simple pass/fail demonstrations of focus visibility with buttons, links, and inputs",
+      "totalCases": null,
+      "expectedViolations": null,
+      "expectedPasses": null,
+      "machineReadable": false,
+      "hasMetadata": false,
+      "hasExpectedResults": false,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "focus-visibility-detector",
+      "filename": "focus-visibility-detector-test.html",
+      "url": "https://a11yplan.github.io/examples/focus-visibility-detector-test.html",
+      "title": "Focus Visibility Algorithm",
+      "wcagCriteria": [
+        "2.4.7"
+      ],
+      "wcagLevel": "AA",
+      "category": "Focus Visibility",
+      "testType": "algorithm",
+      "layoutPattern": "independent-grid",
+      "description": "Comprehensive validation for focus detection algorithms (outline, border, box-shadow, background)",
+      "totalCases": null,
+      "expectedViolations": null,
+      "expectedPasses": null,
+      "machineReadable": false,
+      "hasMetadata": false,
+      "hasExpectedResults": false,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "contrast-minimum",
+      "filename": "contrast-minimum-test.html",
+      "url": "https://a11yplan.github.io/examples/contrast-minimum-test.html",
+      "title": "Contrast (Minimum)",
+      "wcagCriteria": [
+        "1.4.3"
+      ],
+      "wcagLevel": "AA",
+      "category": "Color Contrast",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Text color contrast requirements (4.5:1 normal, 3:1 large text)",
+      "totalCases": 12,
+      "expectedViolations": 6,
+      "expectedPasses": 6,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "non-text-contrast",
+      "filename": "non-text-contrast-test.html",
+      "url": "https://a11yplan.github.io/examples/non-text-contrast-test.html",
+      "title": "Non-text Contrast",
+      "wcagCriteria": [
+        "1.4.11"
+      ],
+      "wcagLevel": "AA",
+      "category": "Color Contrast",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "UI components and graphical objects requiring 3:1 contrast",
+      "totalCases": 12,
+      "expectedViolations": 6,
+      "expectedPasses": 6,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "resize-text",
+      "filename": "resize-text-test.html",
+      "url": "https://a11yplan.github.io/examples/resize-text-test.html",
+      "title": "Resize Text",
+      "wcagCriteria": [
+        "1.4.4"
+      ],
+      "wcagLevel": "AA",
+      "category": "Text and Content",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Text resizing up to 200% without loss of content or functionality",
+      "totalCases": 6,
+      "expectedViolations": 3,
+      "expectedPasses": 3,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "non-text-content",
+      "filename": "non-text-content-test.html",
+      "url": "https://a11yplan.github.io/examples/non-text-content-test.html",
+      "title": "Non-text Content",
+      "wcagCriteria": [
+        "1.1.1"
+      ],
+      "wcagLevel": "A",
+      "category": "Text and Content",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Alternative text for images, icons, and SVG graphics",
+      "totalCases": 14,
+      "expectedViolations": 7,
+      "expectedPasses": 7,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "use-of-color",
+      "filename": "use-of-color-test.html",
+      "url": "https://a11yplan.github.io/examples/use-of-color-test.html",
+      "title": "Use of Color",
+      "wcagCriteria": [
+        "1.4.1"
+      ],
+      "wcagLevel": "A",
+      "category": "Text and Content",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Color not used as only visual means of conveying information",
+      "totalCases": 10,
+      "expectedViolations": 5,
+      "expectedPasses": 5,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "sensory-characteristics",
+      "filename": "sensory-characteristics-test.html",
+      "url": "https://a11yplan.github.io/examples/sensory-characteristics-test.html",
+      "title": "Sensory Characteristics",
+      "wcagCriteria": [
+        "1.3.3"
+      ],
+      "wcagLevel": "A",
+      "category": "Text and Content",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Instructions don't rely solely on sensory characteristics (shape, color, size, position, sound)",
+      "totalCases": 10,
+      "expectedViolations": 7,
+      "expectedPasses": 7,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "page-titled",
+      "filename": "page-titled-test.html",
+      "url": "https://a11yplan.github.io/examples/page-titled-test.html",
+      "title": "Page Titled",
+      "wcagCriteria": [
+        "2.4.2"
+      ],
+      "wcagLevel": "A",
+      "category": "Navigation and Page Structure",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Web pages have descriptive titles (not generic, empty, or missing)",
+      "totalCases": 6,
+      "expectedViolations": 3,
+      "expectedPasses": 3,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "language-page",
+      "filename": "language-page-test.html",
+      "url": "https://a11yplan.github.io/examples/language-page-test.html",
+      "title": "Language of Page",
+      "wcagCriteria": [
+        "3.1.1"
+      ],
+      "wcagLevel": "A",
+      "category": "Navigation and Page Structure",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Default language of page is programmatically determined via lang attribute",
+      "totalCases": 6,
+      "expectedViolations": 3,
+      "expectedPasses": 3,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "bypass-blocks",
+      "filename": "bypass-blocks-test.html",
+      "url": "https://a11yplan.github.io/examples/bypass-blocks-test.html",
+      "title": "Bypass Blocks",
+      "wcagCriteria": [
+        "2.4.1"
+      ],
+      "wcagLevel": "A",
+      "category": "Navigation and Page Structure",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Mechanism to bypass repeated blocks (skip links, landmarks, headings)",
+      "totalCases": 10,
+      "expectedViolations": 6,
+      "expectedPasses": 6,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "link-purpose",
+      "filename": "link-purpose-test.html",
+      "url": "https://a11yplan.github.io/examples/link-purpose-test.html",
+      "title": "Link Purpose (In Context)",
+      "wcagCriteria": [
+        "2.4.4"
+      ],
+      "wcagLevel": "A",
+      "category": "Navigation and Page Structure",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Link text describes destination (not \"click here\", \"read more\", etc.)",
+      "totalCases": 10,
+      "expectedViolations": 5,
+      "expectedPasses": 5,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "headings-labels",
+      "filename": "headings-labels-test.html",
+      "url": "https://a11yplan.github.io/examples/headings-labels-test.html",
+      "title": "Headings and Labels",
+      "wcagCriteria": [
+        "2.4.6"
+      ],
+      "wcagLevel": "AA",
+      "category": "Navigation and Page Structure",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Headings and labels are descriptive (not generic or vague)",
+      "totalCases": 10,
+      "expectedViolations": 5,
+      "expectedPasses": 5,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "language-parts",
+      "filename": "language-parts-test.html",
+      "url": "https://a11yplan.github.io/examples/language-parts-test.html",
+      "title": "Language of Parts",
+      "wcagCriteria": [
+        "3.1.2"
+      ],
+      "wcagLevel": "AA",
+      "category": "Navigation and Page Structure",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Foreign language passages marked with lang attribute for proper pronunciation",
+      "totalCases": 10,
+      "expectedViolations": 6,
+      "expectedPasses": 6,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "consistent-navigation",
+      "filename": "consistent-navigation-test.html",
+      "url": "https://a11yplan.github.io/examples/consistent-navigation-test.html",
+      "title": "Consistent Navigation",
+      "wcagCriteria": [
+        "3.2.3"
+      ],
+      "wcagLevel": "AA",
+      "category": "Navigation and Page Structure",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Navigation mechanisms occur in same relative order across pages",
+      "totalCases": 10,
+      "expectedViolations": 6,
+      "expectedPasses": 6,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "consistent-identification",
+      "filename": "consistent-identification-test.html",
+      "url": "https://a11yplan.github.io/examples/consistent-identification-test.html",
+      "title": "Consistent Identification",
+      "wcagCriteria": [
+        "3.2.4"
+      ],
+      "wcagLevel": "AA",
+      "category": "Navigation and Page Structure",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Components with same functionality identified consistently across pages",
+      "totalCases": 10,
+      "expectedViolations": 6,
+      "expectedPasses": 6,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "info-relationships",
+      "filename": "info-relationships-test.html",
+      "url": "https://a11yplan.github.io/examples/info-relationships-test.html",
+      "title": "Info and Relationships",
+      "wcagCriteria": [
+        "1.3.1"
+      ],
+      "wcagLevel": "A",
+      "category": "Structure and Semantics",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Semantic HTML markup vs non-semantic alternatives (tables, headings, lists, forms)",
+      "totalCases": 12,
+      "expectedViolations": 6,
+      "expectedPasses": 6,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "name-role-value",
+      "filename": "name-role-value-test.html",
+      "url": "https://a11yplan.github.io/examples/name-role-value-test.html",
+      "title": "Name, Role, Value",
+      "wcagCriteria": [
+        "4.1.2"
+      ],
+      "wcagLevel": "A",
+      "category": "Structure and Semantics",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Programmatically determinable names, roles, and values for UI components",
+      "totalCases": 10,
+      "expectedViolations": 5,
+      "expectedPasses": 5,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "meaningful-sequence",
+      "filename": "meaningful-sequence-test.html",
+      "url": "https://a11yplan.github.io/examples/meaningful-sequence-test.html",
+      "title": "Meaningful Sequence",
+      "wcagCriteria": [
+        "1.3.2"
+      ],
+      "wcagLevel": "A",
+      "category": "Structure and Semantics",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "DOM order matches logical reading sequence (not reordered by CSS)",
+      "totalCases": 10,
+      "expectedViolations": 6,
+      "expectedPasses": 6,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "form-error-identification",
+      "filename": "form-error-identification-test.html",
+      "url": "https://a11yplan.github.io/examples/form-error-identification-test.html",
+      "title": "Form Error Identification & Suggestion",
+      "wcagCriteria": [
+        "3.3.1",
+        "3.3.3"
+      ],
+      "wcagLevel": "A",
+      "category": "Forms and Input Validation",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Form validation errors clearly identified with helpful correction suggestions and ARIA attributes",
+      "totalCases": 8,
+      "expectedViolations": 4,
+      "expectedPasses": 4,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "identify-input-purpose",
+      "filename": "identify-input-purpose-test.html",
+      "url": "https://a11yplan.github.io/examples/identify-input-purpose-test.html",
+      "title": "Identify Input Purpose",
+      "wcagCriteria": [
+        "1.3.5"
+      ],
+      "wcagLevel": "AA",
+      "category": "Forms and Input Validation",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Form inputs have autocomplete attributes for user information (52 fields)",
+      "totalCases": 2,
+      "expectedViolations": 1,
+      "expectedPasses": 1,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "labels-instructions",
+      "filename": "labels-instructions-test.html",
+      "url": "https://a11yplan.github.io/examples/labels-instructions-test.html",
+      "title": "Labels or Instructions",
+      "wcagCriteria": [
+        "3.3.2"
+      ],
+      "wcagLevel": "A",
+      "category": "Forms and Input Validation",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Form inputs have proper labels and instructions (format, requirements, etc.)",
+      "totalCases": 10,
+      "expectedViolations": 5,
+      "expectedPasses": 5,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "keyboard",
+      "filename": "keyboard-test.html",
+      "url": "https://a11yplan.github.io/examples/keyboard-test.html",
+      "title": "Keyboard Accessible",
+      "wcagCriteria": [
+        "2.1.1"
+      ],
+      "wcagLevel": "A",
+      "category": "Keyboard and Input",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "All functionality operable via keyboard (not mouse-only)",
+      "totalCases": 10,
+      "expectedViolations": 5,
+      "expectedPasses": 5,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "target-size",
+      "filename": "target-size-test.html",
+      "url": "https://a11yplan.github.io/examples/target-size-test.html",
+      "title": "Target Size (Minimum)",
+      "wcagCriteria": [
+        "2.5.8"
+      ],
+      "wcagLevel": "AA",
+      "category": "Keyboard and Input",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Touch targets are at least 24×24 CSS pixels",
+      "totalCases": 10,
+      "expectedViolations": 5,
+      "expectedPasses": 5,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "label-in-name",
+      "filename": "label-in-name-test.html",
+      "url": "https://a11yplan.github.io/examples/label-in-name-test.html",
+      "title": "Label in Name",
+      "wcagCriteria": [
+        "2.5.3"
+      ],
+      "wcagLevel": "A",
+      "category": "Keyboard and Input",
+      "testType": "basic",
+      "layoutPattern": "side-by-side",
+      "description": "Accessible name contains visible text (for voice control)",
+      "totalCases": 10,
+      "expectedViolations": 5,
+      "expectedPasses": 5,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "ai-interaction-simple",
+      "filename": "ai-interaction-simple-test.html",
+      "url": "https://a11yplan.github.io/examples/ai-interaction-simple-test.html",
+      "title": "AI Interaction - Simple",
+      "wcagCriteria": [],
+      "wcagLevel": null,
+      "category": "AI Browser Interaction Tests",
+      "testType": "ai-validation",
+      "layoutPattern": "interactive",
+      "description": "Basic browser interactions: click, type, checkbox, dropdown, reveal content, form submit (~30 seconds)",
+      "totalCases": 7,
+      "expectedViolations": null,
+      "expectedPasses": null,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": false,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "ai-interaction-advanced",
+      "filename": "ai-interaction-advanced-test.html",
+      "url": "https://a11yplan.github.io/examples/ai-interaction-advanced-test.html",
+      "title": "AI Interaction - Advanced",
+      "wcagCriteria": [],
+      "wcagLevel": null,
+      "category": "AI Browser Interaction Tests",
+      "testType": "ai-validation",
+      "layoutPattern": "interactive",
+      "description": "Complex workflows: modal dialogs, drag-and-drop, dynamic content, multi-step forms (~2-3 minutes)",
+      "totalCases": 19,
+      "expectedViolations": null,
+      "expectedPasses": null,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": false,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "comprehensive-accessibility",
+      "filename": "comprehensive-accessibility-test.html",
+      "url": "https://a11yplan.github.io/examples/comprehensive-accessibility-test.html",
+      "title": "Comprehensive Test Page",
+      "wcagCriteria": [],
+      "wcagLevel": "Multiple",
+      "category": "Comprehensive & Legacy Tests",
+      "testType": "integration",
+      "layoutPattern": "mixed",
+      "description": "20+ different violation types across multiple WCAG criteria",
+      "totalCases": null,
+      "expectedViolations": null,
+      "expectedPasses": null,
+      "machineReadable": false,
+      "hasMetadata": false,
+      "hasExpectedResults": false,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "legacy-axe",
+      "filename": "legacy-axe-test.html",
+      "url": "https://a11yplan.github.io/examples/legacy-axe-test.html",
+      "title": "Legacy AXE Core Test",
+      "wcagCriteria": [],
+      "wcagLevel": "Multiple",
+      "category": "Comprehensive & Legacy Tests",
+      "testType": "legacy",
+      "layoutPattern": "mixed",
+      "description": "Original multi-violation test page (historical reference)",
+      "totalCases": null,
+      "expectedViolations": null,
+      "expectedPasses": null,
+      "machineReadable": false,
+      "hasMetadata": false,
+      "hasExpectedResults": false,
+      "hasConfidenceScores": false
+    }
+  ],
+  "wcagCriteria": [
+    {
+      "criterion": "1.1.1",
+      "name": "Non-text Content",
+      "level": "A",
+      "principle": "Perceivable",
+      "guideline": "1.1 Text Alternatives",
+      "testPages": [
+        "non-text-content-test.html"
+      ]
+    },
+    {
+      "criterion": "1.3.1",
+      "name": "Info and Relationships",
+      "level": "A",
+      "principle": "Perceivable",
+      "guideline": "1.3 Adaptable",
+      "testPages": [
+        "info-relationships-test.html"
+      ]
+    },
+    {
+      "criterion": "1.3.2",
+      "name": "Meaningful Sequence",
+      "level": "A",
+      "principle": "Perceivable",
+      "guideline": "1.3 Adaptable",
+      "testPages": [
+        "meaningful-sequence-test.html"
+      ]
+    },
+    {
+      "criterion": "1.3.3",
+      "name": "Sensory Characteristics",
+      "level": "A",
+      "principle": "Perceivable",
+      "guideline": "1.3 Adaptable",
+      "testPages": [
+        "sensory-characteristics-test.html"
+      ]
+    },
+    {
+      "criterion": "1.3.5",
+      "name": "Identify Input Purpose",
+      "level": "AA",
+      "principle": "Perceivable",
+      "guideline": "1.3 Adaptable",
+      "testPages": [
+        "identify-input-purpose-test.html"
+      ]
+    },
+    {
+      "criterion": "1.4.1",
+      "name": "Use of Color",
+      "level": "A",
+      "principle": "Perceivable",
+      "guideline": "1.4 Distinguishable",
+      "testPages": [
+        "use-of-color-test.html"
+      ]
+    },
+    {
+      "criterion": "1.4.11",
+      "name": "Non-text Contrast",
+      "level": "AA",
+      "principle": "Perceivable",
+      "guideline": "1.4 Distinguishable",
+      "testPages": [
+        "non-text-contrast-test.html"
+      ]
+    },
+    {
+      "criterion": "1.4.3",
+      "name": "Contrast (Minimum)",
+      "level": "AA",
+      "principle": "Perceivable",
+      "guideline": "1.4 Distinguishable",
+      "testPages": [
+        "contrast-minimum-test.html"
+      ]
+    },
+    {
+      "criterion": "1.4.4",
+      "name": "Resize Text",
+      "level": "AA",
+      "principle": "Perceivable",
+      "guideline": "1.4 Distinguishable",
+      "testPages": [
+        "resize-text-test.html"
+      ]
+    },
+    {
+      "criterion": "2.1.1",
+      "name": "Keyboard",
+      "level": "A",
+      "principle": "Operable",
+      "guideline": "2.1 Keyboard Accessible",
+      "testPages": [
+        "keyboard-test.html"
+      ]
+    },
+    {
+      "criterion": "2.4.1",
+      "name": "Bypass Blocks",
+      "level": "A",
+      "principle": "Operable",
+      "guideline": "2.4 Navigable",
+      "testPages": [
+        "bypass-blocks-test.html"
+      ]
+    },
+    {
+      "criterion": "2.4.2",
+      "name": "Page Titled",
+      "level": "A",
+      "principle": "Operable",
+      "guideline": "2.4 Navigable",
+      "testPages": [
+        "page-titled-test.html"
+      ]
+    },
+    {
+      "criterion": "2.4.4",
+      "name": "Link Purpose (In Context)",
+      "level": "A",
+      "principle": "Operable",
+      "guideline": "2.4 Navigable",
+      "testPages": [
+        "link-purpose-test.html"
+      ]
+    },
+    {
+      "criterion": "2.4.6",
+      "name": "Headings and Labels",
+      "level": "AA",
+      "principle": "Operable",
+      "guideline": "2.4 Navigable",
+      "testPages": [
+        "headings-labels-test.html"
+      ]
+    },
+    {
+      "criterion": "2.4.7",
+      "name": "Focus Visible",
+      "level": "AA",
+      "principle": "Operable",
+      "guideline": "2.4 Navigable",
+      "testPages": [
+        "focus-visible-test.html",
+        "focus-visibility-detector-test.html"
+      ]
+    },
+    {
+      "criterion": "2.5.3",
+      "name": "Label in Name",
+      "level": "A",
+      "principle": "Operable",
+      "guideline": "2.5 Input Modalities",
+      "testPages": [
+        "label-in-name-test.html"
+      ]
+    },
+    {
+      "criterion": "2.5.8",
+      "name": "Target Size (Minimum)",
+      "level": "AA",
+      "principle": "Operable",
+      "guideline": "2.5 Input Modalities",
+      "testPages": [
+        "target-size-test.html"
+      ]
+    },
+    {
+      "criterion": "3.1.1",
+      "name": "Language of Page",
+      "level": "A",
+      "principle": "Understandable",
+      "guideline": "3.1 Readable",
+      "testPages": [
+        "language-page-test.html"
+      ]
+    },
+    {
+      "criterion": "3.1.2",
+      "name": "Language of Parts",
+      "level": "AA",
+      "principle": "Understandable",
+      "guideline": "3.1 Readable",
+      "testPages": [
+        "language-parts-test.html"
+      ]
+    },
+    {
+      "criterion": "3.2.3",
+      "name": "Consistent Navigation",
+      "level": "AA",
+      "principle": "Understandable",
+      "guideline": "3.2 Predictable",
+      "testPages": [
+        "consistent-navigation-test.html"
+      ]
+    },
+    {
+      "criterion": "3.2.4",
+      "name": "Consistent Identification",
+      "level": "AA",
+      "principle": "Understandable",
+      "guideline": "3.2 Predictable",
+      "testPages": [
+        "consistent-identification-test.html"
+      ]
+    },
+    {
+      "criterion": "3.3.1",
+      "name": "Error Identification",
+      "level": "A",
+      "principle": "Understandable",
+      "guideline": "3.3 Input Assistance",
+      "testPages": [
+        "form-error-identification-test.html"
+      ]
+    },
+    {
+      "criterion": "3.3.2",
+      "name": "Labels or Instructions",
+      "level": "A",
+      "principle": "Understandable",
+      "guideline": "3.3 Input Assistance",
+      "testPages": [
+        "labels-instructions-test.html"
+      ]
+    },
+    {
+      "criterion": "3.3.3",
+      "name": "Error Suggestion",
+      "level": "AA",
+      "principle": "Understandable",
+      "guideline": "3.3 Input Assistance",
+      "testPages": [
+        "form-error-identification-test.html"
+      ]
+    },
+    {
+      "criterion": "4.1.2",
+      "name": "Name, Role, Value",
+      "level": "A",
+      "principle": "Robust",
+      "guideline": "4.1 Compatible",
+      "testPages": [
+        "name-role-value-test.html"
+      ]
+    }
+  ],
+  "usage": {
+    "downloadInstructions": "Download this JSON file to programmatically access all test case metadata",
+    "exampleUsage": {
+      "javascript": "const response = await fetch('https://a11yplan.github.io/examples/test-cases.json');\nconst testData = await response.json();\nconsole.log(`Total test pages: ${testData.metadata.totalTestPages}`);\nconsole.log(`WCAG criteria covered: ${testData.metadata.totalWCAGCriteria}`);\n\n// Filter by WCAG level\nconst levelATests = testData.testPages.filter(t => t.wcagLevel === 'A');\n\n// Find tests for specific criterion\nconst focusTests = testData.testPages.filter(t => t.wcagCriteria.includes('2.4.7'));\n\n// Get all machine-readable tests\nconst machineTests = testData.testPages.filter(t => t.machineReadable);",
+      "python": "import requests\n\nresponse = requests.get('https://a11yplan.github.io/examples/test-cases.json')\ntest_data = response.json()\n\nprint(f\"Total test pages: {test_data['metadata']['totalTestPages']}\")\nprint(f\"WCAG criteria covered: {test_data['metadata']['totalWCAGCriteria']}\")\n\n# Filter by category\ncontrast_tests = [t for t in test_data['testPages'] if t['category'] == 'Color Contrast']\n\n# Get all URLs\ntest_urls = [t['url'] for t in test_data['testPages']]"
+    },
+    "automatedTesting": "Use this JSON to iterate through all test pages and validate your accessibility scanner against known test cases with expected results"
+  }
+}

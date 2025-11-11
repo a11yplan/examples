@@ -4,14 +4,18 @@
 
 This repository contains **machine-readable, AI-parsable test samples** for validating accessibility scanning tools and algorithms. Each HTML file is specifically designed to test detection capabilities for various WCAG (Web Content Accessibility Guidelines) criteria violations.
 
+**🎉 NEW: Public JSON API** - All test cases are now available via a publicly accessible JSON file at `https://a11yplan.github.io/examples/test-cases.json`, enabling automated discovery and implementation of all available tests. See the [Public JSON API section](#-public-json-api-test-casesjson) for details.
+
 ## Purpose
 
 The primary goal of this repository is to enable **automated, script-driven accessibility testing** where both AI agents and automated tools can:
 
-1. **Parse test expectations** from structured metadata
-2. **Validate detection algorithms** against known violations
-3. **Generate comprehensive test reports** with confidence scores
-4. **Benchmark scanner accuracy** across different WCAG criteria
+1. **Download test suite metadata** from the public JSON API
+2. **Parse test expectations** from structured metadata
+3. **Validate detection algorithms** against known violations
+4. **Generate comprehensive test reports** with confidence scores
+5. **Benchmark scanner accuracy** across different WCAG criteria
+6. **Integrate with CI/CD pipelines** for continuous validation
 
 ## Repository Structure
 
@@ -19,6 +23,8 @@ The primary goal of this repository is to enable **automated, script-driven acce
 examples/
 ├── index.html                                   # Landing page with links to all tests
 ├── claude.md                                    # This file - repository documentation
+├── test-cases.json                              # 🆕 PUBLIC JSON API - All test metadata
+├── sync-test-cases.js                           # 🆕 Script to generate test-cases.json
 ├── SAMPLE_CREATION_GUIDE.md                     # How to create new samples
 ├── focus-visible-test.html                      # Basic WCAG 2.4.7 example
 ├── focus-visibility-detector-test.html          # Algorithm test suite
@@ -29,7 +35,8 @@ examples/
 ├── info-relationships-test.html                 # WCAG 1.3.1 test page
 ├── name-role-value-test.html                    # WCAG 4.1.2 test page
 ├── comprehensive-accessibility-test.html        # Multi-criteria integration test
-└── legacy-axe-test.html                         # Legacy test (historical)
+├── legacy-axe-test.html                         # Legacy test (historical)
+└── ... (29 total test pages)
 ```
 
 ## Test Sample Categories
@@ -131,6 +138,177 @@ This repository uses two main layout patterns, chosen based on the type of WCAG 
     </div>
     <!-- More independent test cases... -->
 </div>
+```
+
+## 📊 Public JSON API: test-cases.json
+
+**NEW:** This repository now provides a **publicly available JSON file** that is automatically generated and updated with every change. This enables external systems to programmatically discover and implement all available test cases.
+
+### Accessing the JSON File
+
+**URL:** `https://a11yplan.github.io/examples/test-cases.json`
+
+The JSON file contains:
+- Complete metadata for all 29 test pages
+- WCAG criteria coverage (25 criteria)
+- Test case counts and expected results
+- Direct URLs to all test pages
+- Machine-readable indicators
+- Usage examples in JavaScript and Python
+
+### JSON Structure
+
+```json
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-11-11",
+    "totalTestPages": 29,
+    "totalWCAGCriteria": 25,
+    "totalTestCases": 244
+  },
+  "testPages": [
+    {
+      "id": "focus-visible",
+      "filename": "focus-visible-test.html",
+      "url": "https://a11yplan.github.io/examples/focus-visible-test.html",
+      "title": "Focus Visible - Basic",
+      "wcagCriteria": ["2.4.7"],
+      "wcagLevel": "AA",
+      "category": "Focus Visibility",
+      "testType": "basic",
+      "description": "Simple pass/fail demonstrations...",
+      "totalCases": 6,
+      "expectedViolations": 3,
+      "expectedPasses": 3,
+      "machineReadable": true
+    }
+  ],
+  "wcagCriteria": [...],
+  "usage": {...}
+}
+```
+
+### Usage Examples
+
+**JavaScript/Node.js:**
+```javascript
+const response = await fetch('https://a11yplan.github.io/examples/test-cases.json');
+const testData = await response.json();
+
+console.log(`Total test pages: ${testData.metadata.totalTestPages}`);
+console.log(`WCAG criteria covered: ${testData.metadata.totalWCAGCriteria}`);
+
+// Filter by WCAG level
+const levelATests = testData.testPages.filter(t => t.wcagLevel === 'A');
+
+// Find tests for specific criterion
+const focusTests = testData.testPages.filter(t => t.wcagCriteria.includes('2.4.7'));
+
+// Get all machine-readable tests
+const machineTests = testData.testPages.filter(t => t.machineReadable);
+
+// Iterate through all tests
+for (const test of testData.testPages) {
+  console.log(`Testing ${test.title} at ${test.url}`);
+  // Run your scanner against test.url
+  // Compare results with test.expectedViolations and test.expectedPasses
+}
+```
+
+**Python:**
+```python
+import requests
+
+response = requests.get('https://a11yplan.github.io/examples/test-cases.json')
+test_data = response.json()
+
+print(f"Total test pages: {test_data['metadata']['totalTestPages']}")
+print(f"WCAG criteria covered: {test_data['metadata']['totalWCAGCriteria']}")
+
+# Filter by category
+contrast_tests = [t for t in test_data['testPages'] if t['category'] == 'Color Contrast']
+
+# Get all URLs
+test_urls = [t['url'] for t in test_data['testPages']]
+
+# Run automated testing
+for test in test_data['testPages']:
+    if test['machineReadable']:
+        print(f"Testing {test['title']}")
+        # Run your scanner
+        # Validate against test['expectedViolations']
+```
+
+### Automated Sync Process
+
+The JSON file is automatically generated from `index.html` and the HTML test files using the `sync-test-cases.js` script.
+
+**To regenerate the JSON file:**
+```bash
+node sync-test-cases.js
+```
+
+The script:
+1. Parses `index.html` to extract test page listings
+2. Reads each HTML test file to extract metadata (meta tags, data attributes)
+3. Counts test cases automatically
+4. Generates a comprehensive JSON file with all metadata
+5. Saves to `test-cases.json`
+
+**When to run the sync script:**
+- After creating a new test page
+- After updating test case counts
+- After modifying test metadata
+- Before committing changes to the repository
+
+### Benefits of the JSON API
+
+1. **Automated Discovery:** External systems can automatically discover all available tests
+2. **Version Control:** JSON includes version number and last updated date
+3. **Programmatic Access:** No need to parse HTML - use structured JSON
+4. **Filtering:** Easily filter by WCAG level, category, test type, etc.
+5. **Integration:** Simple integration with CI/CD pipelines
+6. **Documentation:** Self-documenting with usage examples included
+
+### Use Cases
+
+**1. Automated Scanner Validation**
+```javascript
+// Download test suite
+const tests = await fetch('https://a11yplan.github.io/examples/test-cases.json');
+const data = await tests.json();
+
+// Run scanner against all tests
+for (const test of data.testPages.filter(t => t.machineReadable)) {
+  const results = await runScanner(test.url);
+  const accuracy = compareResults(results, test);
+  console.log(`${test.title}: ${accuracy}% accurate`);
+}
+```
+
+**2. CI/CD Integration**
+```yaml
+# .github/workflows/test-scanner.yml
+- name: Download test cases
+  run: curl -O https://a11yplan.github.io/examples/test-cases.json
+
+- name: Run scanner validation
+  run: npm run validate-scanner test-cases.json
+```
+
+**3. Test Coverage Dashboard**
+```javascript
+// Generate coverage report
+const data = await fetch('https://a11yplan.github.io/examples/test-cases.json');
+const tests = await data.json();
+
+const coverage = {
+  levelA: tests.testPages.filter(t => t.wcagLevel === 'A').length,
+  levelAA: tests.testPages.filter(t => t.wcagLevel === 'AA').length,
+  totalCriteria: tests.metadata.totalWCAGCriteria,
+  machineReadable: tests.testPages.filter(t => t.machineReadable).length
+};
 ```
 
 ## Machine-Readable Conventions
@@ -354,9 +532,11 @@ See **[SAMPLE_CREATION_GUIDE.md](./SAMPLE_CREATION_GUIDE.md)** for detailed inst
 6. Test with your scanner
 7. **Update index.html** - Add your new test page to the index (see below)
 
-### 📋 IMPORTANT: Maintaining index.html
+### 📋 IMPORTANT: Maintaining index.html and test-cases.json
 
-**REQUIREMENT:** Whenever you create a new test page, you MUST update `index.html` to include a link to it.
+**REQUIREMENT:** Whenever you create a new test page, you MUST:
+1. Update `index.html` to include a link to it
+2. Run `node sync-test-cases.js` to regenerate the JSON file
 
 The `index.html` file serves as the landing page and directory for all test pages. When adding a new test:
 
@@ -426,6 +606,8 @@ Before committing a new test sample:
 - [ ] Visual indicators (color coding) present
 - [ ] No external dependencies
 - [ ] Console logging for debugging (optional)
+- [ ] **index.html updated** with new test page entry
+- [ ] **test-cases.json regenerated** by running `node sync-test-cases.js`
 
 ## Tools and Technologies
 
@@ -502,7 +684,12 @@ For questions or contributions, please [contact information].
 - **v1.1** - Added WCAG 2.4.7 basic examples
 - **v1.2** - Added focus visibility algorithm test suite
 - **v1.3** - Added documentation and sample creation guide
+- **v1.4** - Added public JSON API (test-cases.json) for automated test discovery and implementation
+  - New `test-cases.json` file with complete metadata for all test pages
+  - `sync-test-cases.js` script to automatically generate JSON from HTML files
+  - Comprehensive usage examples in JavaScript and Python
+  - Integration guides for CI/CD pipelines
 
 ---
 
-**Last Updated:** 2025-11-08
+**Last Updated:** 2025-11-11

@@ -357,18 +357,21 @@
             <div class="expected-results">
                 <h3>📊 Expected Test Results</h3>
                 <ul>
-                    <li><strong>Total Stable Violations:</strong> 18 (always present)</li>
-                    <li><strong>Total Dynamic Violations:</strong> 0-5 (varies by probability)</li>
-                    <li><strong>Expected Average:</strong> ~21 total violations per load</li>
+                    <li><strong>Total Stable Violations:</strong> 22 (always present, verified axe-core rules)</li>
+                    <li><strong>Total Dynamic Violations:</strong> 0-7 (varies by probability)</li>
+                    <li><strong>Expected Average:</strong> ~26 total violations per load</li>
                     <li><strong>Dynamic Violation Probabilities:</strong>
                         <ul style="margin-left: 20px; margin-top: 5px;">
-                            <li>Missing alt text (70% chance)</li>
-                            <li>Low contrast (50% chance)</li>
-                            <li>Duplicate ID (30% chance)</li>
-                            <li>Missing ARIA label (60% chance)</li>
-                            <li>Empty link (40% chance)</li>
+                            <li>D1: Missing alt text (70% chance)</li>
+                            <li>D2: Low contrast (50% chance)</li>
+                            <li>D3: Duplicate ID (30% chance)</li>
+                            <li>D4: Missing ARIA label (60% chance)</li>
+                            <li>D5: Empty link (40% chance)</li>
+                            <li>D6: Missing input label (55% chance)</li>
+                            <li>D7: List item without parent (45% chance)</li>
                         </ul>
                     </li>
+                    <li><strong>Note:</strong> All violations use proven axe-core rules for reliable detection</li>
                 </ul>
             </div>
 
@@ -486,29 +489,30 @@
                 <!-- S9: Invalid ARIA Role -->
                 <div class="violation-item">
                     <h3>S9. Invalid ARIA Role <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
-                    <div role="invalid-role"
+                    <div role="banana"
                          data-test-id="S9"
-                         data-violation-type="aria-roles"
+                         data-violation-type="aria-allowed-role"
                          data-stable="true">
-                        Element with invalid ARIA role
+                        Element with invalid ARIA role "banana"
                     </div>
                     <div class="code-info">
-                        <strong>Violation:</strong> Invalid ARIA role value<br>
+                        <strong>Violation:</strong> Invalid ARIA role value "banana"<br>
                         <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
                     </div>
                 </div>
 
-                <!-- S10: Invalid ARIA Attribute -->
+                <!-- S10: Invalid ARIA Attribute Value -->
                 <div class="violation-item">
-                    <h3>S10. Invalid ARIA Attribute <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
-                    <div aria-invalid-attribute="true"
-                         data-test-id="S10"
-                         data-violation-type="aria-valid-attr"
-                         data-stable="true">
-                        Element with invalid ARIA attribute
-                    </div>
+                    <h3>S10. Invalid ARIA Attribute Value <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
+                    <button aria-pressed="maybe"
+                            class="btn"
+                            data-test-id="S10"
+                            data-violation-type="aria-valid-attr-value"
+                            data-stable="true">
+                        Button with aria-pressed="maybe" (invalid value)
+                    </button>
                     <div class="code-info">
-                        <strong>Violation:</strong> Invalid ARIA attribute name<br>
+                        <strong>Violation:</strong> Invalid ARIA attribute value (aria-pressed must be "true", "false", or "mixed")<br>
                         <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
                     </div>
                 </div>
@@ -516,12 +520,12 @@
                 <!-- S11: Missing Required ARIA Child -->
                 <div class="violation-item">
                     <h3>S11. Missing Required ARIA Child <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
-                    <div role="list"
-                         data-test-id="S11"
-                         data-violation-type="aria-required-children"
-                         data-stable="true">
-                        <div>List item without role="listitem"</div>
-                    </div>
+                    <ul role="list"
+                        data-test-id="S11"
+                        data-violation-type="aria-required-children"
+                        data-stable="true">
+                        <div>List child without role="listitem"</div>
+                    </ul>
                     <div class="code-info">
                         <strong>Violation:</strong> role="list" requires children with role="listitem"<br>
                         <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
@@ -549,95 +553,146 @@
                     </div>
                 </div>
 
-                <!-- S13: Non-descriptive Link -->
+                <!-- S13: Another Image Without Alt -->
                 <div class="violation-item">
-                    <h3>S13. Non-descriptive Link Text <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.4.4</span></h3>
+                    <h3>S13. Second Image Without Alt <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.1.1</span></h3>
+                    <img src="https://via.placeholder.com/120"
+                         width="120"
+                         height="120"
+                         data-test-id="S13"
+                         data-violation-type="image-alt"
+                         data-stable="true" />
+                    <div class="code-info">
+                        <strong>Violation:</strong> Second image missing alt attribute<br>
+                        <strong>WCAG:</strong> 1.1.1 Non-text Content (Level A)
+                    </div>
+                </div>
+
+                <!-- S14: Another Low Contrast Element -->
+                <div class="violation-item">
+                    <h3>S14. Second Low Contrast Text <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.4.3</span></h3>
+                    <p style="color: #ccc; background: #fff; padding: 10px;"
+                       data-test-id="S14"
+                       data-violation-type="color-contrast"
+                       data-stable="true">
+                        Another low contrast paragraph (color: #ccc on white, ratio ~1.9:1)
+                    </p>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Second text with insufficient contrast<br>
+                        <strong>WCAG:</strong> 1.4.3 Contrast (Minimum) (Level AA)
+                    </div>
+                </div>
+
+                <!-- S15: Another Input Without Label -->
+                <div class="violation-item">
+                    <h3>S15. Second Input Without Label <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.1, 3.3.2</span></h3>
+                    <input type="email"
+                           placeholder="Email without label"
+                           data-test-id="S15"
+                           data-violation-type="label"
+                           data-stable="true" />
+                    <div class="code-info">
+                        <strong>Violation:</strong> Second input missing associated label<br>
+                        <strong>WCAG:</strong> 1.3.1 Info and Relationships, 3.3.2 Labels or Instructions (Level A)
+                    </div>
+                </div>
+
+                <!-- S16: Another Empty Link -->
+                <div class="violation-item">
+                    <h3>S16. Second Empty Link <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.4.4, 4.1.2</span></h3>
                     <a href="#"
-                       data-test-id="S13"
-                       data-violation-type="link-text"
-                       data-stable="true">Click here</a>
+                       data-test-id="S16"
+                       data-violation-type="link-name"
+                       data-stable="true"></a>
                     <div class="code-info">
-                        <strong>Violation:</strong> Link text not descriptive ("click here")<br>
-                        <strong>WCAG:</strong> 2.4.4 Link Purpose (In Context) (Level A)
+                        <strong>Violation:</strong> Second link with no accessible name<br>
+                        <strong>WCAG:</strong> 2.4.4 Link Purpose, 4.1.2 Name, Role, Value (Level A)
                     </div>
                 </div>
 
-                <!-- S14: Clickable Div Without Keyboard Support -->
+                <!-- S17: Another Empty Button -->
                 <div class="violation-item">
-                    <h3>S14. Non-keyboard Accessible Element <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.1.1</span></h3>
-                    <div onclick="alert('clicked')"
-                         style="cursor: pointer; padding: 10px; background: #eee;"
-                         data-test-id="S14"
-                         data-violation-type="keyboard"
-                         data-stable="true">
-                        Clickable div without keyboard support
-                    </div>
+                    <h3>S17. Second Empty Button <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
+                    <button data-test-id="S17"
+                            data-violation-type="button-name"
+                            data-stable="true"></button>
                     <div class="code-info">
-                        <strong>Violation:</strong> Interactive element not keyboard accessible<br>
-                        <strong>WCAG:</strong> 2.1.1 Keyboard (Level A)
+                        <strong>Violation:</strong> Second button with no accessible name<br>
+                        <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
                     </div>
                 </div>
 
-                <!-- S15: No Focus Indicator -->
+                <!-- S18: List Item Without Parent List -->
                 <div class="violation-item">
-                    <h3>S15. No Visible Focus Indicator <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.4.7</span></h3>
-                    <button class="no-focus-outline btn"
-                            data-test-id="S15"
-                            data-violation-type="focus-visible"
-                            data-stable="true">
-                        Button with outline: none on focus
-                    </button>
+                    <h3>S18. List Item Without Parent <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.1</span></h3>
+                    <li data-test-id="S18"
+                        data-violation-type="listitem"
+                        data-stable="true">
+                        List item without &lt;ul&gt; or &lt;ol&gt; parent
+                    </li>
                     <div class="code-info">
-                        <strong>Violation:</strong> No visible focus indicator<br>
-                        <strong>WCAG:</strong> 2.4.7 Focus Visible (Level AA)
-                    </div>
-                </div>
-
-                <!-- S16: Positive Tabindex -->
-                <div class="violation-item">
-                    <h3>S16. Positive Tabindex <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.4.3</span></h3>
-                    <button tabindex="5"
-                            class="btn"
-                            data-test-id="S16"
-                            data-violation-type="tabindex"
-                            data-stable="true">
-                        Button with tabindex="5"
-                    </button>
-                    <div class="code-info">
-                        <strong>Violation:</strong> Positive tabindex disrupts natural tab order<br>
-                        <strong>WCAG:</strong> 2.4.3 Focus Order (Level A)
-                    </div>
-                </div>
-
-                <!-- S17: Missing Fieldset for Radio Group -->
-                <div class="violation-item">
-                    <h3>S17. Radio Group Without Fieldset <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.1, 3.3.2</span></h3>
-                    <div data-test-id="S17"
-                         data-violation-type="fieldset"
-                         data-stable="true">
-                        <label><input type="radio" name="color" value="red"> Red</label>
-                        <label><input type="radio" name="color" value="blue"> Blue</label>
-                    </div>
-                    <div class="code-info">
-                        <strong>Violation:</strong> Radio buttons not grouped with fieldset/legend<br>
+                        <strong>Violation:</strong> &lt;li&gt; element not inside &lt;ul&gt;, &lt;ol&gt;, or &lt;menu&gt;<br>
                         <strong>WCAG:</strong> 1.3.1 Info and Relationships (Level A)
                     </div>
                 </div>
 
-                <!-- S18: Missing Autocomplete -->
+                <!-- S19: Third Image Without Alt -->
                 <div class="violation-item">
-                    <h3>S18. Missing Autocomplete Attribute <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.5</span></h3>
-                    <div class="form-group">
-                        <label for="credit-card">Credit Card Number</label>
-                        <input type="text"
-                               id="credit-card"
-                               data-test-id="S18"
-                               data-violation-type="autocomplete"
-                               data-stable="true" />
-                    </div>
+                    <h3>S19. Third Image Without Alt <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.1.1</span></h3>
+                    <img src="https://via.placeholder.com/100"
+                         width="100"
+                         height="100"
+                         data-test-id="S19"
+                         data-violation-type="image-alt"
+                         data-stable="true" />
                     <div class="code-info">
-                        <strong>Violation:</strong> Sensitive input missing autocomplete attribute<br>
-                        <strong>WCAG:</strong> 1.3.5 Identify Input Purpose (Level AA)
+                        <strong>Violation:</strong> Third image missing alt attribute<br>
+                        <strong>WCAG:</strong> 1.1.1 Non-text Content (Level A)
+                    </div>
+                </div>
+
+                <!-- S20: Third Input Without Label -->
+                <div class="violation-item">
+                    <h3>S20. Third Input Without Label <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.1, 3.3.2</span></h3>
+                    <input type="password"
+                           placeholder="Password without label"
+                           data-test-id="S20"
+                           data-violation-type="label"
+                           data-stable="true" />
+                    <div class="code-info">
+                        <strong>Violation:</strong> Third input missing associated label<br>
+                        <strong>WCAG:</strong> 1.3.1 Info and Relationships, 3.3.2 Labels or Instructions (Level A)
+                    </div>
+                </div>
+
+                <!-- S21: Invalid Lang Attribute -->
+                <div class="violation-item">
+                    <h3>S21. Invalid Language Code <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 3.1.2</span></h3>
+                    <p lang="xyz"
+                       data-test-id="S21"
+                       data-violation-type="valid-lang"
+                       data-stable="true">
+                        This paragraph has an invalid lang attribute value "xyz"
+                    </p>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Invalid language code in lang attribute<br>
+                        <strong>WCAG:</strong> 3.1.2 Language of Parts (Level AA)
+                    </div>
+                </div>
+
+                <!-- S22: ARIA Hidden on Focusable Element -->
+                <div class="violation-item">
+                    <h3>S22. ARIA Hidden on Focusable <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
+                    <button aria-hidden="true"
+                            class="btn"
+                            data-test-id="S22"
+                            data-violation-type="aria-hidden-focus"
+                            data-stable="true">
+                        Focusable button with aria-hidden="true"
+                    </button>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Focusable element hidden from screen readers<br>
+                        <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
                     </div>
                 </div>
             </div>
@@ -715,49 +770,86 @@
                         <strong>WCAG:</strong> 2.4.4 Link Purpose (Level A)
                     </div>
                 </div>
+
+                <!-- D6: Dynamic Missing Input Label (55% chance) -->
+                <div class="violation-item">
+                    <h3>D6. Dynamic Missing Input Label <span class="badge dynamic">Dynamic 55%</span> <span class="badge wcag">WCAG 1.3.1, 3.3.2</span></h3>
+                    <div id="dynamic-input-container">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    <div class="code-info">
+                        <strong>Probability:</strong> 55% chance to appear<br>
+                        <strong>Violation:</strong> Input conditionally missing label<br>
+                        <strong>WCAG:</strong> 1.3.1 Info and Relationships, 3.3.2 Labels or Instructions (Level A)
+                    </div>
+                </div>
+
+                <!-- D7: Dynamic List Item Without Parent (45% chance) -->
+                <div class="violation-item">
+                    <h3>D7. Dynamic List Item Without Parent <span class="badge dynamic">Dynamic 45%</span> <span class="badge wcag">WCAG 1.3.1</span></h3>
+                    <div id="dynamic-listitem-container">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    <div class="code-info">
+                        <strong>Probability:</strong> 45% chance to appear<br>
+                        <strong>Violation:</strong> &lt;li&gt; conditionally without parent list<br>
+                        <strong>WCAG:</strong> 1.3.1 Info and Relationships (Level A)
+                    </div>
+                </div>
             </div>
 
             <!-- Summary -->
             <div class="section info">
                 <h2>📋 Summary</h2>
-                <p><strong>Stable Violations (Always Present):</strong></p>
+                <p><strong>Stable Violations (22 total - Always Present):</strong></p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>S1: Missing alt text</li>
-                    <li>S2: Low contrast text</li>
-                    <li>S3: Input without label</li>
-                    <li>S4: Heading hierarchy skip</li>
-                    <li>S5-S6: Duplicate IDs</li>
-                    <li>S7: Empty link</li>
-                    <li>S8: Empty button</li>
-                    <li>S9: Invalid ARIA role</li>
-                    <li>S10: Invalid ARIA attribute</li>
-                    <li>S11: Missing required ARIA child</li>
-                    <li>S12: Table without headers</li>
-                    <li>S13: Non-descriptive link text</li>
-                    <li>S14: Non-keyboard accessible element</li>
-                    <li>S15: No focus indicator</li>
-                    <li>S16: Positive tabindex</li>
-                    <li>S17: Radio group without fieldset</li>
-                    <li>S18: Missing autocomplete</li>
+                    <li>S1: Missing alt text (image-alt)</li>
+                    <li>S2: Low contrast text (color-contrast)</li>
+                    <li>S3: Input without label (label)</li>
+                    <li>S4: Heading hierarchy skip (heading-order)</li>
+                    <li>S5-S6: Duplicate IDs (duplicate-id) - counts as 1 violation</li>
+                    <li>S7: Empty link (link-name)</li>
+                    <li>S8: Empty button (button-name)</li>
+                    <li>S9: Invalid ARIA role "banana" (aria-allowed-role)</li>
+                    <li>S10: Invalid ARIA attribute value (aria-valid-attr-value)</li>
+                    <li>S11: Missing required ARIA child (aria-required-children)</li>
+                    <li>S12: Table without headers (table-th)</li>
+                    <li>S13: Second image without alt (image-alt)</li>
+                    <li>S14: Second low contrast element (color-contrast)</li>
+                    <li>S15: Second input without label (label)</li>
+                    <li>S16: Second empty link (link-name)</li>
+                    <li>S17: Second empty button (button-name)</li>
+                    <li>S18: List item without parent (listitem)</li>
+                    <li>S19: Third image without alt (image-alt)</li>
+                    <li>S20: Third input without label (label)</li>
+                    <li>S21: Invalid language code (valid-lang)</li>
+                    <li>S22: ARIA hidden on focusable element (aria-hidden-focus)</li>
                 </ul>
 
-                <p style="margin-top: 20px;"><strong>Dynamic Violations (Probability-Based):</strong></p>
+                <p style="margin-top: 20px;"><strong>Dynamic Violations (7 total - Probability-Based):</strong></p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
                     <li>D1: Dynamic missing alt (70%)</li>
                     <li>D2: Dynamic low contrast (50%)</li>
                     <li>D3: Dynamic duplicate ID (30%)</li>
                     <li>D4: Dynamic missing ARIA label (60%)</li>
                     <li>D5: Dynamic empty link (40%)</li>
+                    <li>D6: Dynamic missing input label (55%)</li>
+                    <li>D7: Dynamic list item without parent (45%)</li>
                 </ul>
 
                 <p style="margin-top: 20px; color: #4a5568;">
-                    <strong>Testing Strategy:</strong> Run axe-core monitoring across multiple page loads to verify:
+                    <strong>Expected Results:</strong> 22-29 violations per load (22 stable + 0-7 dynamic)
+                </p>
+
+                <p style="margin-top: 15px; color: #4a5568;">
+                    <strong>Testing Strategy:</strong> Run axe-core monitoring across 20-30 page loads to verify:
                 </p>
                 <ul style="margin-left: 20px; margin-top: 10px; color: #4a5568;">
-                    <li>Stable violations consistently detected</li>
+                    <li>All 22 stable violations consistently detected</li>
                     <li>Dynamic violations appear at expected frequencies</li>
-                    <li>Charting accurately reflects violation trends</li>
+                    <li>Charting accurately reflects violation trends over time</li>
                     <li>Recurring detection properly identifies patterns</li>
+                    <li>Hash matching works correctly for stable violations</li>
                 </ul>
             </div>
         </div>
@@ -774,11 +866,13 @@
     <script>
         // Configuration for dynamic violations
         const dynamicViolations = [
-            { id: 'D1', name: 'Missing Alt Text', probability: 0.70, type: 'missing-alt' },
+            { id: 'D1', name: 'Missing Alt Text', probability: 0.70, type: 'image-alt' },
             { id: 'D2', name: 'Low Contrast', probability: 0.50, type: 'color-contrast' },
             { id: 'D3', name: 'Duplicate ID', probability: 0.30, type: 'duplicate-id' },
             { id: 'D4', name: 'Missing ARIA Label', probability: 0.60, type: 'button-name' },
-            { id: 'D5', name: 'Empty Link', probability: 0.40, type: 'link-name' }
+            { id: 'D5', name: 'Empty Link', probability: 0.40, type: 'link-name' },
+            { id: 'D6', name: 'Missing Input Label', probability: 0.55, type: 'label' },
+            { id: 'D7', name: 'List Item Without Parent', probability: 0.45, type: 'listitem' }
         ];
 
         // Generate seed for reproducibility
@@ -934,11 +1028,56 @@
             `;
         }
 
+        // D6: Dynamic Missing Input Label (55%)
+        const inputContainer = document.getElementById('dynamic-input-container');
+        if (activeViolations['D6']) {
+            inputContainer.innerHTML = `
+                <input type="text"
+                       placeholder="Dynamic input without label"
+                       data-test-id="D6"
+                       data-violation-type="label"
+                       data-stable="false"
+                       data-probability="0.55" />
+                <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Input missing label</p>
+            `;
+        } else {
+            inputContainer.innerHTML = `
+                <label for="dynamic-input-pass">Dynamic Input Label</label>
+                <input type="text"
+                       id="dynamic-input-pass"
+                       placeholder="Input with label"
+                       data-test-id="D6-pass"
+                       data-stable="false" />
+                <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Input has associated label</p>
+            `;
+        }
+
+        // D7: Dynamic List Item Without Parent (45%)
+        const listitemContainer = document.getElementById('dynamic-listitem-container');
+        if (activeViolations['D7']) {
+            listitemContainer.innerHTML = `
+                <li data-test-id="D7"
+                    data-violation-type="listitem"
+                    data-stable="false"
+                    data-probability="0.45">
+                    Dynamic list item without &lt;ul&gt; or &lt;ol&gt; parent
+                </li>
+                <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: List item without parent</p>
+            `;
+        } else {
+            listitemContainer.innerHTML = `
+                <ul>
+                    <li data-test-id="D7-pass" data-stable="false">Dynamic list item with proper parent</li>
+                </ul>
+                <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: List item has proper parent</p>
+            `;
+        }
+
         // Console logging for debugging
         console.log('🔍 Axe-Core Monitoring Test Page Loaded');
         console.log('Seed:', seed);
         console.log('Active Dynamic Violations:', activeViolations);
-        console.log('Expected Total Violations:', 18 + Object.values(activeViolations).filter(Boolean).length);
+        console.log('Expected Total Violations:', 22 + Object.values(activeViolations).filter(Boolean).length);
 
         // Log all test IDs for validation
         const allTestIds = Array.from(document.querySelectorAll('[data-test-id]'))

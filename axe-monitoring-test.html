@@ -875,20 +875,13 @@
             { id: 'D7', name: 'List Item Without Parent', probability: 0.45, type: 'listitem' }
         ];
 
-        // Generate seed for reproducibility
+        // Generate seed for display/debugging purposes
         const seed = Math.floor(Math.random() * 1000000);
 
-        // Simple seeded random number generator
-        function seededRandom(seed) {
-            let x = Math.sin(seed++) * 10000;
-            return x - Math.floor(x);
-        }
-
-        // Determine which violations are active
+        // Determine which violations are active using Math.random() directly
         const activeViolations = {};
-        dynamicViolations.forEach((violation, index) => {
-            const random = seededRandom(seed + index);
-            activeViolations[violation.id] = random < violation.probability;
+        dynamicViolations.forEach(violation => {
+            activeViolations[violation.id] = Math.random() < violation.probability;
         });
 
         // Update status panel

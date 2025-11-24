@@ -929,21 +929,7 @@
             d1Container.appendChild(label);
             console.log('✅ D1 (Missing Alt): VIOLATION created in DOM');
         } else {
-            // PASS: Image with alt attribute
-            const img = document.createElement('img');
-            img.src = 'https://via.placeholder.com/150/51cf66';
-            img.width = 150;
-            img.height = 150;
-            img.alt = 'Properly described placeholder image';
-            img.setAttribute('data-test-id', 'D1-pass');
-            img.setAttribute('data-stable', 'false');
-            d1Container.appendChild(img);
-
-            const label = document.createElement('p');
-            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
-            label.textContent = '✅ PASS: Image has proper alt text';
-            d1Container.appendChild(label);
-            console.log('❌ D1 (Missing Alt): PASS created in DOM');
+            console.log('❌ D1 (Missing Alt): Not active - no element created');
         }
 
         // D2: Dynamic Low Contrast (50%)
@@ -965,19 +951,7 @@
             d2Container.appendChild(label);
             console.log('✅ D2 (Low Contrast): VIOLATION created in DOM');
         } else {
-            // PASS: Good contrast text
-            const p = document.createElement('p');
-            p.style.cssText = 'color: #2d3748; background: #fff; padding: 10px;';
-            p.textContent = 'This text has good contrast (readable)';
-            p.setAttribute('data-test-id', 'D2-pass');
-            p.setAttribute('data-stable', 'false');
-            d2Container.appendChild(p);
-
-            const label = document.createElement('p');
-            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
-            label.textContent = '✅ PASS: Sufficient contrast ratio';
-            d2Container.appendChild(label);
-            console.log('❌ D2 (Low Contrast): PASS created in DOM');
+            console.log('❌ D2 (Low Contrast): Not active - no element created');
         }
 
         // D3: Dynamic Duplicate ID (30%)
@@ -999,19 +973,7 @@
             d3Container.appendChild(label);
             console.log('✅ D3 (Duplicate ID): VIOLATION created in DOM');
         } else {
-            // PASS: Element with unique ID
-            const div = document.createElement('div');
-            div.id = 'unique-dynamic-id';
-            div.textContent = 'Element with unique ID "unique-dynamic-id"';
-            div.setAttribute('data-test-id', 'D3-pass');
-            div.setAttribute('data-stable', 'false');
-            d3Container.appendChild(div);
-
-            const label = document.createElement('p');
-            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
-            label.textContent = '✅ PASS: No duplicate ID';
-            d3Container.appendChild(label);
-            console.log('❌ D3 (Duplicate ID): PASS created in DOM');
+            console.log('❌ D3 (Duplicate ID): Not active - no element created');
         }
 
         // D4: Dynamic Missing ARIA Label (60%)
@@ -1033,20 +995,7 @@
             d4Container.appendChild(label);
             console.log('✅ D4 (Missing ARIA Label): VIOLATION created in DOM');
         } else {
-            // PASS: Button with aria-label
-            const button = document.createElement('button');
-            button.className = 'btn';
-            button.textContent = '⚙️';
-            button.setAttribute('aria-label', 'Settings');
-            button.setAttribute('data-test-id', 'D4-pass');
-            button.setAttribute('data-stable', 'false');
-            d4Container.appendChild(button);
-
-            const label = document.createElement('p');
-            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
-            label.textContent = '✅ PASS: Button has aria-label';
-            d4Container.appendChild(label);
-            console.log('❌ D4 (Missing ARIA Label): PASS created in DOM');
+            console.log('❌ D4 (Missing ARIA Label): Not active - no element created');
         }
 
         // D5: Dynamic Empty Link (40%)
@@ -1067,19 +1016,7 @@
             d5Container.appendChild(label);
             console.log('✅ D5 (Empty Link): VIOLATION created in DOM');
         } else {
-            // PASS: Link with text
-            const a = document.createElement('a');
-            a.href = '#';
-            a.textContent = 'Link with text';
-            a.setAttribute('data-test-id', 'D5-pass');
-            a.setAttribute('data-stable', 'false');
-            d5Container.appendChild(a);
-
-            const label = document.createElement('p');
-            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
-            label.textContent = '✅ PASS: Link has text content';
-            d5Container.appendChild(label);
-            console.log('❌ D5 (Empty Link): PASS created in DOM');
+            console.log('❌ D5 (Empty Link): Not active - no element created');
         }
 
         // D6: Dynamic Missing Input Label (55%)
@@ -1101,25 +1038,7 @@
             d6Container.appendChild(label);
             console.log('✅ D6 (Missing Input Label): VIOLATION created in DOM');
         } else {
-            // PASS: Input with label
-            const label = document.createElement('label');
-            label.setAttribute('for', 'dynamic-input-pass');
-            label.textContent = 'Dynamic Input Label';
-            d6Container.appendChild(label);
-
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.id = 'dynamic-input-pass';
-            input.placeholder = 'Input with label';
-            input.setAttribute('data-test-id', 'D6-pass');
-            input.setAttribute('data-stable', 'false');
-            d6Container.appendChild(input);
-
-            const passLabel = document.createElement('p');
-            passLabel.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
-            passLabel.textContent = '✅ PASS: Input has associated label';
-            d6Container.appendChild(passLabel);
-            console.log('❌ D6 (Missing Input Label): PASS created in DOM');
+            console.log('❌ D6 (Missing Input Label): Not active - no element created');
         }
 
         // D7: Dynamic List Item Without Parent (45%)
@@ -1140,20 +1059,7 @@
             d7Container.appendChild(label);
             console.log('✅ D7 (List Item Without Parent): VIOLATION created in DOM');
         } else {
-            // PASS: List item with proper parent
-            const ul = document.createElement('ul');
-            const li = document.createElement('li');
-            li.textContent = 'Dynamic list item with proper parent';
-            li.setAttribute('data-test-id', 'D7-pass');
-            li.setAttribute('data-stable', 'false');
-            ul.appendChild(li);
-            d7Container.appendChild(ul);
-
-            const label = document.createElement('p');
-            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
-            label.textContent = '✅ PASS: List item has proper parent';
-            d7Container.appendChild(label);
-            console.log('❌ D7 (List Item Without Parent): PASS created in DOM');
+            console.log('❌ D7 (List Item Without Parent): Not active - no element created');
         }
 
         // Console logging for debugging

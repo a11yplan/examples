@@ -1037,83 +1037,84 @@
         document.getElementById('seed-display').textContent = `Random Seed: ${seed} (for reproducibility)`;
 
         // Show/hide dynamic violations based on active state
-        // Both versions exist in HTML, we just toggle visibility
+        // Both versions exist in HTML initially, but we REMOVE the inactive one from DOM
+        // This ensures axe-core only scans one version per dynamic violation
 
         // D1: Dynamic Missing Alt (70%)
         if (activeViolations['D1']) {
+            document.querySelector('[data-dynamic="D1-pass"]').remove();
             document.querySelector('[data-dynamic="D1-fail"]').style.display = 'block';
-            document.querySelector('[data-dynamic="D1-pass"]').style.display = 'none';
-            console.log('✅ D1 (Missing Alt): VIOLATION active');
+            console.log('✅ D1 (Missing Alt): VIOLATION active (pass version removed from DOM)');
         } else {
-            document.querySelector('[data-dynamic="D1-fail"]').style.display = 'none';
+            document.querySelector('[data-dynamic="D1-fail"]').remove();
             document.querySelector('[data-dynamic="D1-pass"]').style.display = 'block';
-            console.log('❌ D1 (Missing Alt): PASS active');
+            console.log('❌ D1 (Missing Alt): PASS active (fail version removed from DOM)');
         }
 
         // D2: Dynamic Low Contrast (50%)
         if (activeViolations['D2']) {
+            document.querySelector('[data-dynamic="D2-pass"]').remove();
             document.querySelector('[data-dynamic="D2-fail"]').style.display = 'block';
-            document.querySelector('[data-dynamic="D2-pass"]').style.display = 'none';
-            console.log('✅ D2 (Low Contrast): VIOLATION active');
+            console.log('✅ D2 (Low Contrast): VIOLATION active (pass version removed from DOM)');
         } else {
-            document.querySelector('[data-dynamic="D2-fail"]').style.display = 'none';
+            document.querySelector('[data-dynamic="D2-fail"]').remove();
             document.querySelector('[data-dynamic="D2-pass"]').style.display = 'block';
-            console.log('❌ D2 (Low Contrast): PASS active');
+            console.log('❌ D2 (Low Contrast): PASS active (fail version removed from DOM)');
         }
 
         // D3: Dynamic Duplicate ID (30%)
         if (activeViolations['D3']) {
+            document.querySelector('[data-dynamic="D3-pass"]').remove();
             document.querySelector('[data-dynamic="D3-fail"]').style.display = 'block';
-            document.querySelector('[data-dynamic="D3-pass"]').style.display = 'none';
-            console.log('✅ D3 (Duplicate ID): VIOLATION active');
+            console.log('✅ D3 (Duplicate ID): VIOLATION active (pass version removed from DOM)');
         } else {
-            document.querySelector('[data-dynamic="D3-fail"]').style.display = 'none';
+            document.querySelector('[data-dynamic="D3-fail"]').remove();
             document.querySelector('[data-dynamic="D3-pass"]').style.display = 'block';
-            console.log('❌ D3 (Duplicate ID): PASS active');
+            console.log('❌ D3 (Duplicate ID): PASS active (fail version removed from DOM)');
         }
 
         // D4: Dynamic Missing ARIA Label (60%)
         if (activeViolations['D4']) {
+            document.querySelector('[data-dynamic="D4-pass"]').remove();
             document.querySelector('[data-dynamic="D4-fail"]').style.display = 'block';
-            document.querySelector('[data-dynamic="D4-pass"]').style.display = 'none';
-            console.log('✅ D4 (Missing ARIA Label): VIOLATION active');
+            console.log('✅ D4 (Missing ARIA Label): VIOLATION active (pass version removed from DOM)');
         } else {
-            document.querySelector('[data-dynamic="D4-fail"]').style.display = 'none';
+            document.querySelector('[data-dynamic="D4-fail"]').remove();
             document.querySelector('[data-dynamic="D4-pass"]').style.display = 'block';
-            console.log('❌ D4 (Missing ARIA Label): PASS active');
+            console.log('❌ D4 (Missing ARIA Label): PASS active (fail version removed from DOM)');
         }
 
         // D5: Dynamic Empty Link (40%)
         if (activeViolations['D5']) {
+            document.querySelector('[data-dynamic="D5-pass"]').remove();
             document.querySelector('[data-dynamic="D5-fail"]').style.display = 'block';
-            document.querySelector('[data-dynamic="D5-pass"]').style.display = 'none';
-            console.log('✅ D5 (Empty Link): VIOLATION active');
+            console.log('✅ D5 (Empty Link): VIOLATION active (pass version removed from DOM)');
         } else {
-            document.querySelector('[data-dynamic="D5-fail"]').style.display = 'none';
+            document.querySelector('[data-dynamic="D5-fail"]').remove();
             document.querySelector('[data-dynamic="D5-pass"]').style.display = 'block';
-            console.log('❌ D5 (Empty Link): PASS active');
+            console.log('❌ D5 (Empty Link): PASS active (fail version removed from DOM)');
         }
 
         // D6: Dynamic Missing Input Label (55%)
         if (activeViolations['D6']) {
+            document.querySelector('[data-dynamic="D6-pass"]').remove();
             document.querySelector('[data-dynamic="D6-fail"]').style.display = 'block';
-            document.querySelector('[data-dynamic="D6-pass"]').style.display = 'none';
-            console.log('✅ D6 (Missing Input Label): VIOLATION active');
+            console.log('✅ D6 (Missing Input Label): VIOLATION active (pass version removed from DOM)');
         } else {
-            document.querySelector('[data-dynamic="D6-fail"]').style.display = 'none';
+            document.querySelector('[data-dynamic="D6-fail"]').remove();
             document.querySelector('[data-dynamic="D6-pass"]').style.display = 'block';
-            console.log('❌ D6 (Missing Input Label): PASS active');
+            console.log('❌ D6 (Missing Input Label): PASS active (fail version removed from DOM)');
         }
 
         // D7: Dynamic List Item Without Parent (45%)
         if (activeViolations['D7']) {
+            document.querySelector('[data-dynamic="D7-pass"]').remove();
             document.querySelector('[data-dynamic="D7-fail"]').style.display = 'block';
-            document.querySelector('[data-dynamic="D7-pass"]').style.display = 'none';
-            console.log('✅ D7 (List Item Without Parent): VIOLATION active');
+            console.log('✅ D7 (List Item Without Parent): VIOLATION active (pass version removed from DOM)');
         } else {
-            document.querySelector('[data-dynamic="D7-fail"]').style.display = 'none';
+            document.querySelector('[data-dynamic="D7-fail"]').remove();
             document.querySelector('[data-dynamic="D7-pass"]').style.display = 'block';
-            console.log('❌ D7 (List Item Without Parent): PASS active');
+            console.log('❌ D7 (List Item Without Parent): PASS active (fail version removed from DOM)');
         }
 
         // Console logging for debugging

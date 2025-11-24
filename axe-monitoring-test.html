@@ -709,27 +709,7 @@
                 <div class="violation-item">
                     <h3>D1. Dynamic Missing Alt Text <span class="badge dynamic">Dynamic 70%</span> <span class="badge wcag">WCAG 1.1.1</span></h3>
                     <div id="dynamic-alt-container">
-                        <!-- VIOLATION VERSION (hidden by default) -->
-                        <div data-dynamic="D1-fail" style="display: none;">
-                            <img src="https://via.placeholder.com/150/ff6b6b"
-                                 width="150"
-                                 height="150"
-                                 data-test-id="D1"
-                                 data-violation-type="image-alt"
-                                 data-stable="false"
-                                 data-probability="0.70" />
-                            <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Image missing alt attribute</p>
-                        </div>
-                        <!-- PASS VERSION (hidden by default) -->
-                        <div data-dynamic="D1-pass" style="display: none;">
-                            <img src="https://via.placeholder.com/150/51cf66"
-                                 width="150"
-                                 height="150"
-                                 alt="Properly described placeholder image"
-                                 data-test-id="D1-pass"
-                                 data-stable="false" />
-                            <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Image has proper alt text</p>
-                        </div>
+                        <!-- Content will be dynamically created by JavaScript -->
                     </div>
                     <div class="code-info">
                         <strong>Probability:</strong> 70% chance to appear<br>
@@ -742,26 +722,7 @@
                 <div class="violation-item">
                     <h3>D2. Dynamic Low Contrast <span class="badge dynamic">Dynamic 50%</span> <span class="badge wcag">WCAG 1.4.3</span></h3>
                     <div id="dynamic-contrast-container">
-                        <!-- VIOLATION VERSION (hidden by default) -->
-                        <div data-dynamic="D2-fail" style="display: none;">
-                            <p class="dynamic-low-contrast"
-                               data-test-id="D2"
-                               data-violation-type="color-contrast"
-                               data-stable="false"
-                               data-probability="0.50">
-                                This text has very low contrast (1.2:1) - color: #e8e8e8 on #f0f0f0 background
-                            </p>
-                            <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Low contrast ratio</p>
-                        </div>
-                        <!-- PASS VERSION (hidden by default) -->
-                        <div data-dynamic="D2-pass" style="display: none;">
-                            <p style="color: #2d3748; background: #fff; padding: 10px;"
-                               data-test-id="D2-pass"
-                               data-stable="false">
-                                This text has good contrast (readable)
-                            </p>
-                            <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Sufficient contrast ratio</p>
-                        </div>
+                        <!-- Content will be dynamically created by JavaScript -->
                     </div>
                     <div class="code-info">
                         <strong>Probability:</strong> 50% chance to appear<br>
@@ -775,24 +736,7 @@
                     <h3>D3. Dynamic Duplicate ID <span class="badge dynamic">Dynamic 30%</span> <span class="badge wcag">WCAG 4.1.1</span></h3>
                     <div id="duplicate-id-fixed">First element with fixed ID</div>
                     <div id="dynamic-duplicate-container">
-                        <!-- VIOLATION VERSION (hidden by default) -->
-                        <div data-dynamic="D3-fail" style="display: none;">
-                            <div id="duplicate-id-fixed"
-                                 data-test-id="D3"
-                                 data-violation-type="duplicate-id"
-                                 data-stable="false"
-                                 data-probability="0.30">
-                                Second element with duplicate ID "duplicate-id-fixed"
-                            </div>
-                            <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Duplicate ID created</p>
-                        </div>
-                        <!-- PASS VERSION (hidden by default) -->
-                        <div data-dynamic="D3-pass" style="display: none;">
-                            <div id="unique-dynamic-id" data-test-id="D3-pass" data-stable="false">
-                                Element with unique ID "unique-dynamic-id"
-                            </div>
-                            <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: No duplicate ID</p>
-                        </div>
+                        <!-- Content will be dynamically created by JavaScript -->
                     </div>
                     <div class="code-info">
                         <strong>Probability:</strong> 30% chance to appear<br>
@@ -805,27 +749,7 @@
                 <div class="violation-item">
                     <h3>D4. Dynamic Missing ARIA Label <span class="badge dynamic">Dynamic 60%</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
                     <div id="dynamic-aria-container">
-                        <!-- VIOLATION VERSION (hidden by default) -->
-                        <div data-dynamic="D4-fail" style="display: none;">
-                            <button class="btn"
-                                    data-test-id="D4"
-                                    data-violation-type="button-name"
-                                    data-stable="false"
-                                    data-probability="0.60">
-                                ⚙️
-                            </button>
-                            <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Button missing aria-label</p>
-                        </div>
-                        <!-- PASS VERSION (hidden by default) -->
-                        <div data-dynamic="D4-pass" style="display: none;">
-                            <button class="btn"
-                                    aria-label="Settings"
-                                    data-test-id="D4-pass"
-                                    data-stable="false">
-                                ⚙️
-                            </button>
-                            <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Button has aria-label</p>
-                        </div>
+                        <!-- Content will be dynamically created by JavaScript -->
                     </div>
                     <div class="code-info">
                         <strong>Probability:</strong> 60% chance to appear<br>
@@ -838,20 +762,7 @@
                 <div class="violation-item">
                     <h3>D5. Dynamic Empty Link <span class="badge dynamic">Dynamic 40%</span> <span class="badge wcag">WCAG 2.4.4</span></h3>
                     <div id="dynamic-link-container">
-                        <!-- VIOLATION VERSION (hidden by default) -->
-                        <div data-dynamic="D5-fail" style="display: none;">
-                            <a href="#"
-                               data-test-id="D5"
-                               data-violation-type="link-name"
-                               data-stable="false"
-                               data-probability="0.40"></a>
-                            <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Empty link</p>
-                        </div>
-                        <!-- PASS VERSION (hidden by default) -->
-                        <div data-dynamic="D5-pass" style="display: none;">
-                            <a href="#" data-test-id="D5-pass" data-stable="false">Link with text</a>
-                            <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Link has text content</p>
-                        </div>
+                        <!-- Content will be dynamically created by JavaScript -->
                     </div>
                     <div class="code-info">
                         <strong>Probability:</strong> 40% chance to appear<br>
@@ -864,26 +775,7 @@
                 <div class="violation-item">
                     <h3>D6. Dynamic Missing Input Label <span class="badge dynamic">Dynamic 55%</span> <span class="badge wcag">WCAG 1.3.1, 3.3.2</span></h3>
                     <div id="dynamic-input-container">
-                        <!-- VIOLATION VERSION (hidden by default) -->
-                        <div data-dynamic="D6-fail" style="display: none;">
-                            <input type="text"
-                                   placeholder="Dynamic input without label"
-                                   data-test-id="D6"
-                                   data-violation-type="label"
-                                   data-stable="false"
-                                   data-probability="0.55" />
-                            <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Input missing label</p>
-                        </div>
-                        <!-- PASS VERSION (hidden by default) -->
-                        <div data-dynamic="D6-pass" style="display: none;">
-                            <label for="dynamic-input-pass">Dynamic Input Label</label>
-                            <input type="text"
-                                   id="dynamic-input-pass"
-                                   placeholder="Input with label"
-                                   data-test-id="D6-pass"
-                                   data-stable="false" />
-                            <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Input has associated label</p>
-                        </div>
+                        <!-- Content will be dynamically created by JavaScript -->
                     </div>
                     <div class="code-info">
                         <strong>Probability:</strong> 55% chance to appear<br>
@@ -896,23 +788,7 @@
                 <div class="violation-item">
                     <h3>D7. Dynamic List Item Without Parent <span class="badge dynamic">Dynamic 45%</span> <span class="badge wcag">WCAG 1.3.1</span></h3>
                     <div id="dynamic-listitem-container">
-                        <!-- VIOLATION VERSION (hidden by default) -->
-                        <div data-dynamic="D7-fail" style="display: none;">
-                            <li data-test-id="D7"
-                                data-violation-type="listitem"
-                                data-stable="false"
-                                data-probability="0.45">
-                                Dynamic list item without &lt;ul&gt; or &lt;ol&gt; parent
-                            </li>
-                            <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: List item without parent</p>
-                        </div>
-                        <!-- PASS VERSION (hidden by default) -->
-                        <div data-dynamic="D7-pass" style="display: none;">
-                            <ul>
-                                <li data-test-id="D7-pass" data-stable="false">Dynamic list item with proper parent</li>
-                            </ul>
-                            <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: List item has proper parent</p>
-                        </div>
+                        <!-- Content will be dynamically created by JavaScript -->
                     </div>
                     <div class="code-info">
                         <strong>Probability:</strong> 45% chance to appear<br>
@@ -1036,85 +912,255 @@
         // Display seed
         document.getElementById('seed-display').textContent = `Random Seed: ${seed} (for reproducibility)`;
 
-        // Show/hide dynamic violations based on active state
-        // Both versions exist in HTML initially, but we REMOVE the inactive one from DOM
-        // This ensures axe-core only scans one version per dynamic violation
+        // Dynamically create DOM elements for dynamic violations
+        // Only the active version (violation or pass) is created
+        // This ensures axe-core only sees one version
 
         // D1: Dynamic Missing Alt (70%)
+        const d1Container = document.getElementById('dynamic-alt-container');
         if (activeViolations['D1']) {
-            document.querySelector('[data-dynamic="D1-pass"]').remove();
-            document.querySelector('[data-dynamic="D1-fail"]').style.display = 'block';
-            console.log('✅ D1 (Missing Alt): VIOLATION active (pass version removed from DOM)');
+            // VIOLATION: Image without alt attribute
+            const img = document.createElement('img');
+            img.src = 'https://via.placeholder.com/150/ff6b6b';
+            img.width = 150;
+            img.height = 150;
+            img.setAttribute('data-test-id', 'D1');
+            img.setAttribute('data-violation-type', 'image-alt');
+            img.setAttribute('data-stable', 'false');
+            img.setAttribute('data-probability', '0.70');
+            d1Container.appendChild(img);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #c53030; font-weight: 600; margin-top: 10px;';
+            label.textContent = '⚠️ VIOLATION ACTIVE: Image missing alt attribute';
+            d1Container.appendChild(label);
+            console.log('✅ D1 (Missing Alt): VIOLATION created in DOM');
         } else {
-            document.querySelector('[data-dynamic="D1-fail"]').remove();
-            document.querySelector('[data-dynamic="D1-pass"]').style.display = 'block';
-            console.log('❌ D1 (Missing Alt): PASS active (fail version removed from DOM)');
+            // PASS: Image with alt attribute
+            const img = document.createElement('img');
+            img.src = 'https://via.placeholder.com/150/51cf66';
+            img.width = 150;
+            img.height = 150;
+            img.alt = 'Properly described placeholder image';
+            img.setAttribute('data-test-id', 'D1-pass');
+            img.setAttribute('data-stable', 'false');
+            d1Container.appendChild(img);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
+            label.textContent = '✅ PASS: Image has proper alt text';
+            d1Container.appendChild(label);
+            console.log('❌ D1 (Missing Alt): PASS created in DOM');
         }
 
         // D2: Dynamic Low Contrast (50%)
+        const d2Container = document.getElementById('dynamic-contrast-container');
         if (activeViolations['D2']) {
-            document.querySelector('[data-dynamic="D2-pass"]').remove();
-            document.querySelector('[data-dynamic="D2-fail"]').style.display = 'block';
-            console.log('✅ D2 (Low Contrast): VIOLATION active (pass version removed from DOM)');
+            // VIOLATION: Low contrast text
+            const p = document.createElement('p');
+            p.className = 'dynamic-low-contrast';
+            p.textContent = 'This text has very low contrast (1.2:1) - color: #e8e8e8 on #f0f0f0 background';
+            p.setAttribute('data-test-id', 'D2');
+            p.setAttribute('data-violation-type', 'color-contrast');
+            p.setAttribute('data-stable', 'false');
+            p.setAttribute('data-probability', '0.50');
+            d2Container.appendChild(p);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #c53030; font-weight: 600; margin-top: 10px;';
+            label.textContent = '⚠️ VIOLATION ACTIVE: Low contrast ratio';
+            d2Container.appendChild(label);
+            console.log('✅ D2 (Low Contrast): VIOLATION created in DOM');
         } else {
-            document.querySelector('[data-dynamic="D2-fail"]').remove();
-            document.querySelector('[data-dynamic="D2-pass"]').style.display = 'block';
-            console.log('❌ D2 (Low Contrast): PASS active (fail version removed from DOM)');
+            // PASS: Good contrast text
+            const p = document.createElement('p');
+            p.style.cssText = 'color: #2d3748; background: #fff; padding: 10px;';
+            p.textContent = 'This text has good contrast (readable)';
+            p.setAttribute('data-test-id', 'D2-pass');
+            p.setAttribute('data-stable', 'false');
+            d2Container.appendChild(p);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
+            label.textContent = '✅ PASS: Sufficient contrast ratio';
+            d2Container.appendChild(label);
+            console.log('❌ D2 (Low Contrast): PASS created in DOM');
         }
 
         // D3: Dynamic Duplicate ID (30%)
+        const d3Container = document.getElementById('dynamic-duplicate-container');
         if (activeViolations['D3']) {
-            document.querySelector('[data-dynamic="D3-pass"]').remove();
-            document.querySelector('[data-dynamic="D3-fail"]').style.display = 'block';
-            console.log('✅ D3 (Duplicate ID): VIOLATION active (pass version removed from DOM)');
+            // VIOLATION: Element with duplicate ID
+            const div = document.createElement('div');
+            div.id = 'duplicate-id-fixed'; // Creates duplicate!
+            div.textContent = 'Second element with duplicate ID "duplicate-id-fixed"';
+            div.setAttribute('data-test-id', 'D3');
+            div.setAttribute('data-violation-type', 'duplicate-id');
+            div.setAttribute('data-stable', 'false');
+            div.setAttribute('data-probability', '0.30');
+            d3Container.appendChild(div);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #c53030; font-weight: 600; margin-top: 10px;';
+            label.textContent = '⚠️ VIOLATION ACTIVE: Duplicate ID created';
+            d3Container.appendChild(label);
+            console.log('✅ D3 (Duplicate ID): VIOLATION created in DOM');
         } else {
-            document.querySelector('[data-dynamic="D3-fail"]').remove();
-            document.querySelector('[data-dynamic="D3-pass"]').style.display = 'block';
-            console.log('❌ D3 (Duplicate ID): PASS active (fail version removed from DOM)');
+            // PASS: Element with unique ID
+            const div = document.createElement('div');
+            div.id = 'unique-dynamic-id';
+            div.textContent = 'Element with unique ID "unique-dynamic-id"';
+            div.setAttribute('data-test-id', 'D3-pass');
+            div.setAttribute('data-stable', 'false');
+            d3Container.appendChild(div);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
+            label.textContent = '✅ PASS: No duplicate ID';
+            d3Container.appendChild(label);
+            console.log('❌ D3 (Duplicate ID): PASS created in DOM');
         }
 
         // D4: Dynamic Missing ARIA Label (60%)
+        const d4Container = document.getElementById('dynamic-aria-container');
         if (activeViolations['D4']) {
-            document.querySelector('[data-dynamic="D4-pass"]').remove();
-            document.querySelector('[data-dynamic="D4-fail"]').style.display = 'block';
-            console.log('✅ D4 (Missing ARIA Label): VIOLATION active (pass version removed from DOM)');
+            // VIOLATION: Button without aria-label
+            const button = document.createElement('button');
+            button.className = 'btn';
+            button.textContent = '⚙️';
+            button.setAttribute('data-test-id', 'D4');
+            button.setAttribute('data-violation-type', 'button-name');
+            button.setAttribute('data-stable', 'false');
+            button.setAttribute('data-probability', '0.60');
+            d4Container.appendChild(button);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #c53030; font-weight: 600; margin-top: 10px;';
+            label.textContent = '⚠️ VIOLATION ACTIVE: Button missing aria-label';
+            d4Container.appendChild(label);
+            console.log('✅ D4 (Missing ARIA Label): VIOLATION created in DOM');
         } else {
-            document.querySelector('[data-dynamic="D4-fail"]').remove();
-            document.querySelector('[data-dynamic="D4-pass"]').style.display = 'block';
-            console.log('❌ D4 (Missing ARIA Label): PASS active (fail version removed from DOM)');
+            // PASS: Button with aria-label
+            const button = document.createElement('button');
+            button.className = 'btn';
+            button.textContent = '⚙️';
+            button.setAttribute('aria-label', 'Settings');
+            button.setAttribute('data-test-id', 'D4-pass');
+            button.setAttribute('data-stable', 'false');
+            d4Container.appendChild(button);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
+            label.textContent = '✅ PASS: Button has aria-label';
+            d4Container.appendChild(label);
+            console.log('❌ D4 (Missing ARIA Label): PASS created in DOM');
         }
 
         // D5: Dynamic Empty Link (40%)
+        const d5Container = document.getElementById('dynamic-link-container');
         if (activeViolations['D5']) {
-            document.querySelector('[data-dynamic="D5-pass"]').remove();
-            document.querySelector('[data-dynamic="D5-fail"]').style.display = 'block';
-            console.log('✅ D5 (Empty Link): VIOLATION active (pass version removed from DOM)');
+            // VIOLATION: Empty link
+            const a = document.createElement('a');
+            a.href = '#';
+            a.setAttribute('data-test-id', 'D5');
+            a.setAttribute('data-violation-type', 'link-name');
+            a.setAttribute('data-stable', 'false');
+            a.setAttribute('data-probability', '0.40');
+            d5Container.appendChild(a);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #c53030; font-weight: 600; margin-top: 10px;';
+            label.textContent = '⚠️ VIOLATION ACTIVE: Empty link';
+            d5Container.appendChild(label);
+            console.log('✅ D5 (Empty Link): VIOLATION created in DOM');
         } else {
-            document.querySelector('[data-dynamic="D5-fail"]').remove();
-            document.querySelector('[data-dynamic="D5-pass"]').style.display = 'block';
-            console.log('❌ D5 (Empty Link): PASS active (fail version removed from DOM)');
+            // PASS: Link with text
+            const a = document.createElement('a');
+            a.href = '#';
+            a.textContent = 'Link with text';
+            a.setAttribute('data-test-id', 'D5-pass');
+            a.setAttribute('data-stable', 'false');
+            d5Container.appendChild(a);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
+            label.textContent = '✅ PASS: Link has text content';
+            d5Container.appendChild(label);
+            console.log('❌ D5 (Empty Link): PASS created in DOM');
         }
 
         // D6: Dynamic Missing Input Label (55%)
+        const d6Container = document.getElementById('dynamic-input-container');
         if (activeViolations['D6']) {
-            document.querySelector('[data-dynamic="D6-pass"]').remove();
-            document.querySelector('[data-dynamic="D6-fail"]').style.display = 'block';
-            console.log('✅ D6 (Missing Input Label): VIOLATION active (pass version removed from DOM)');
+            // VIOLATION: Input without label
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Dynamic input without label';
+            input.setAttribute('data-test-id', 'D6');
+            input.setAttribute('data-violation-type', 'label');
+            input.setAttribute('data-stable', 'false');
+            input.setAttribute('data-probability', '0.55');
+            d6Container.appendChild(input);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #c53030; font-weight: 600; margin-top: 10px;';
+            label.textContent = '⚠️ VIOLATION ACTIVE: Input missing label';
+            d6Container.appendChild(label);
+            console.log('✅ D6 (Missing Input Label): VIOLATION created in DOM');
         } else {
-            document.querySelector('[data-dynamic="D6-fail"]').remove();
-            document.querySelector('[data-dynamic="D6-pass"]').style.display = 'block';
-            console.log('❌ D6 (Missing Input Label): PASS active (fail version removed from DOM)');
+            // PASS: Input with label
+            const label = document.createElement('label');
+            label.setAttribute('for', 'dynamic-input-pass');
+            label.textContent = 'Dynamic Input Label';
+            d6Container.appendChild(label);
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.id = 'dynamic-input-pass';
+            input.placeholder = 'Input with label';
+            input.setAttribute('data-test-id', 'D6-pass');
+            input.setAttribute('data-stable', 'false');
+            d6Container.appendChild(input);
+
+            const passLabel = document.createElement('p');
+            passLabel.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
+            passLabel.textContent = '✅ PASS: Input has associated label';
+            d6Container.appendChild(passLabel);
+            console.log('❌ D6 (Missing Input Label): PASS created in DOM');
         }
 
         // D7: Dynamic List Item Without Parent (45%)
+        const d7Container = document.getElementById('dynamic-listitem-container');
         if (activeViolations['D7']) {
-            document.querySelector('[data-dynamic="D7-pass"]').remove();
-            document.querySelector('[data-dynamic="D7-fail"]').style.display = 'block';
-            console.log('✅ D7 (List Item Without Parent): VIOLATION active (pass version removed from DOM)');
+            // VIOLATION: List item without ul/ol parent
+            const li = document.createElement('li');
+            li.textContent = 'Dynamic list item without <ul> or <ol> parent';
+            li.setAttribute('data-test-id', 'D7');
+            li.setAttribute('data-violation-type', 'listitem');
+            li.setAttribute('data-stable', 'false');
+            li.setAttribute('data-probability', '0.45');
+            d7Container.appendChild(li);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #c53030; font-weight: 600; margin-top: 10px;';
+            label.textContent = '⚠️ VIOLATION ACTIVE: List item without parent';
+            d7Container.appendChild(label);
+            console.log('✅ D7 (List Item Without Parent): VIOLATION created in DOM');
         } else {
-            document.querySelector('[data-dynamic="D7-fail"]').remove();
-            document.querySelector('[data-dynamic="D7-pass"]').style.display = 'block';
-            console.log('❌ D7 (List Item Without Parent): PASS active (fail version removed from DOM)');
+            // PASS: List item with proper parent
+            const ul = document.createElement('ul');
+            const li = document.createElement('li');
+            li.textContent = 'Dynamic list item with proper parent';
+            li.setAttribute('data-test-id', 'D7-pass');
+            li.setAttribute('data-stable', 'false');
+            ul.appendChild(li);
+            d7Container.appendChild(ul);
+
+            const label = document.createElement('p');
+            label.style.cssText = 'color: #2f855a; font-weight: 600; margin-top: 10px;';
+            label.textContent = '✅ PASS: List item has proper parent';
+            d7Container.appendChild(label);
+            console.log('❌ D7 (List Item Without Parent): PASS created in DOM');
         }
 
         // Console logging for debugging

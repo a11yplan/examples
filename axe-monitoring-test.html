@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axe-Core Monitoring Test Page - Stable & Dynamic Violations</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Status Panel */
+        .status-panel {
+            background: #f8f9fa;
+            border: 2px solid #6c757d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 30px;
+        }
+
+        .status-panel h2 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .status-item {
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px solid #e2e8f0;
+            background: white;
+        }
+
+        .status-item.active {
+            background: #fff5f5;
+            border-color: #fc8181;
+        }
+
+        .status-item.inactive {
+            background: #f0fff4;
+            border-color: #68d391;
+            opacity: 0.6;
+        }
+
+        .status-item .label {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .status-item .probability {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .status-item .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .status-badge.active {
+            background: #fc8181;
+            color: #742a2a;
+        }
+
+        .status-badge.inactive {
+            background: #68d391;
+            color: #22543d;
+        }
+
+        .seed-display {
+            background: #edf2f7;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 40px 30px;
+        }
+
+        /* Section Styles */
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .section.stable {
+            background: #fff5f5;
+            border: 3px solid #fc8181;
+            border-left: 8px solid #f56565;
+        }
+
+        .section.dynamic {
+            background: #fffaf0;
+            border: 3px solid #f6ad55;
+            border-left: 8px solid #ed8936;
+        }
+
+        .section.info {
+            background: #f0fff4;
+            border: 3px solid #68d391;
+            border-left: 8px solid #48bb78;
+        }
+
+        .section h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            color: #4a5568;
+            font-size: 1.3rem;
+            margin: 20px 0 10px 0;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge.stable {
+            background: #feb2b2;
+            color: #742a2a;
+        }
+
+        .badge.dynamic {
+            background: #fbd38d;
+            color: #7c2d12;
+        }
+
+        .badge.wcag {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+
+        /* Code blocks */
+        .code-info {
+            background: #edf2f7;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .violation-item {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 2px solid #e2e8f0;
+        }
+
+        /* Intentional Stable Violations */
+
+        /* STABLE VIOLATION: Low contrast text */
+        .low-contrast {
+            color: #d3d3d3;
+            background-color: #fff;
+        }
+
+        /* STABLE VIOLATION: No focus indicator */
+        .no-focus-outline:focus {
+            outline: none;
+        }
+
+        /* DYNAMIC VIOLATION: Sometimes low contrast */
+        .dynamic-low-contrast {
+            color: #e8e8e8;
+            background-color: #f0f0f0;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .form-group input {
+            padding: 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            max-width: 300px;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 5px;
+            background: #667eea;
+            color: white;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table td {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        /* Expected Results */
+        .expected-results {
+            background: #e6fffa;
+            border: 2px solid #319795;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .expected-results h3 {
+            color: #234e52;
+            margin-bottom: 15px;
+        }
+
+        .expected-results ul {
+            margin-left: 20px;
+        }
+
+        .expected-results li {
+            margin: 8px 0;
+            color: #2c5282;
+        }
+
+        .expected-results strong {
+            color: #234e52;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Axe-Core Monitoring Test Page</h1>
+            <p>Stable & Dynamic Violations for Testing Recurring Detection</p>
+        </header>
+
+        <!-- Status Panel -->
+        <div class="status-panel">
+            <h2>🔍 Dynamic Violation Status</h2>
+            <p style="color: #6c757d; margin-bottom: 15px;">
+                This panel shows which dynamic violations are currently active on this page load.
+                Refresh the page to generate a new random state.
+            </p>
+            <div class="status-grid" id="status-grid">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div class="seed-display" id="seed-display">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Introduction -->
+            <div class="section info">
+                <h2>About This Test Page <span class="badge wcag">Info</span></h2>
+                <p>
+                    This page contains <strong>~20 accessibility violations</strong> designed to test
+                    axe-core's monitoring capabilities including:
+                </p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Stable Violations (~80%):</strong> Always present on every page load</li>
+                    <li><strong>Dynamic Violations (~20%):</strong> Appear/disappear based on weighted random probability</li>
+                </ul>
+                <p style="margin-top: 15px;">
+                    <strong>Purpose:</strong> Test charting, recurring detection, and violation tracking across multiple page loads.
+                </p>
+            </div>
+
+            <!-- Expected Results -->
+            <div class="expected-results">
+                <h3>📊 Expected Test Results</h3>
+                <ul>
+                    <li><strong>Total Stable Violations:</strong> 18 (always present)</li>
+                    <li><strong>Total Dynamic Violations:</strong> 0-5 (varies by probability)</li>
+                    <li><strong>Expected Average:</strong> ~21 total violations per load</li>
+                    <li><strong>Dynamic Violation Probabilities:</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li>Missing alt text (70% chance)</li>
+                            <li>Low contrast (50% chance)</li>
+                            <li>Duplicate ID (30% chance)</li>
+                            <li>Missing ARIA label (60% chance)</li>
+                            <li>Empty link (40% chance)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- STABLE VIOLATIONS SECTION -->
+            <div class="section stable">
+                <h2>🔒 Stable Violations (Always Present)</h2>
+                <p style="margin-bottom: 20px; color: #4a5568;">
+                    These violations are consistently present on every page load to establish a baseline for monitoring.
+                </p>
+
+                <!-- S1: Missing Alt Text -->
+                <div class="violation-item">
+                    <h3>S1. Image Without Alt Text <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.1.1</span></h3>
+                    <img src="https://via.placeholder.com/150"
+                         width="150"
+                         height="150"
+                         data-test-id="S1"
+                         data-violation-type="missing-alt"
+                         data-stable="true" />
+                    <div class="code-info">
+                        <strong>Violation:</strong> Image missing alt attribute<br>
+                        <strong>WCAG:</strong> 1.1.1 Non-text Content (Level A)
+                    </div>
+                </div>
+
+                <!-- S2: Low Contrast Text -->
+                <div class="violation-item">
+                    <h3>S2. Low Contrast Text <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.4.3</span></h3>
+                    <p class="low-contrast"
+                       data-test-id="S2"
+                       data-violation-type="color-contrast"
+                       data-stable="true">
+                        This text has insufficient contrast ratio (1.6:1) - color: #d3d3d3 on white background
+                    </p>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Text contrast ratio below 4.5:1<br>
+                        <strong>WCAG:</strong> 1.4.3 Contrast (Minimum) (Level AA)
+                    </div>
+                </div>
+
+                <!-- S3: Form Input Without Label -->
+                <div class="violation-item">
+                    <h3>S3. Input Without Label <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.1, 3.3.2</span></h3>
+                    <input type="text"
+                           placeholder="Input without label"
+                           data-test-id="S3"
+                           data-violation-type="form-label-missing"
+                           data-stable="true" />
+                    <div class="code-info">
+                        <strong>Violation:</strong> Form input missing associated label<br>
+                        <strong>WCAG:</strong> 1.3.1 Info and Relationships, 3.3.2 Labels or Instructions (Level A)
+                    </div>
+                </div>
+
+                <!-- S4: Heading Hierarchy Skip -->
+                <div class="violation-item">
+                    <h3>S4. Heading Hierarchy Skip <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.1</span></h3>
+                    <h5 data-test-id="S4"
+                        data-violation-type="heading-order"
+                        data-stable="true">
+                        This h5 skips h4 (improper heading hierarchy)
+                    </h5>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Heading levels skipped (h3 → h5)<br>
+                        <strong>WCAG:</strong> 1.3.1 Info and Relationships (Level A)
+                    </div>
+                </div>
+
+                <!-- S5 & S6: Duplicate IDs -->
+                <div class="violation-item">
+                    <h3>S5 & S6. Duplicate IDs <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.1</span></h3>
+                    <div id="duplicate-id-stable"
+                         data-test-id="S5"
+                         data-violation-type="duplicate-id"
+                         data-stable="true">
+                        First element with ID "duplicate-id-stable"
+                    </div>
+                    <div id="duplicate-id-stable"
+                         data-test-id="S6"
+                         data-violation-type="duplicate-id"
+                         data-stable="true">
+                        Second element with same ID "duplicate-id-stable"
+                    </div>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Multiple elements share the same ID<br>
+                        <strong>WCAG:</strong> 4.1.1 Parsing (Level A)
+                    </div>
+                </div>
+
+                <!-- S7: Empty Link -->
+                <div class="violation-item">
+                    <h3>S7. Empty Link <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.4.4, 4.1.2</span></h3>
+                    <a href="#"
+                       data-test-id="S7"
+                       data-violation-type="link-name"
+                       data-stable="true"></a>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Link has no accessible name<br>
+                        <strong>WCAG:</strong> 2.4.4 Link Purpose, 4.1.2 Name, Role, Value (Level A)
+                    </div>
+                </div>
+
+                <!-- S8: Empty Button -->
+                <div class="violation-item">
+                    <h3>S8. Empty Button <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
+                    <button data-test-id="S8"
+                            data-violation-type="button-name"
+                            data-stable="true"></button>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Button has no accessible name<br>
+                        <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
+                    </div>
+                </div>
+
+                <!-- S9: Invalid ARIA Role -->
+                <div class="violation-item">
+                    <h3>S9. Invalid ARIA Role <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
+                    <div role="invalid-role"
+                         data-test-id="S9"
+                         data-violation-type="aria-roles"
+                         data-stable="true">
+                        Element with invalid ARIA role
+                    </div>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Invalid ARIA role value<br>
+                        <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
+                    </div>
+                </div>
+
+                <!-- S10: Invalid ARIA Attribute -->
+                <div class="violation-item">
+                    <h3>S10. Invalid ARIA Attribute <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
+                    <div aria-invalid-attribute="true"
+                         data-test-id="S10"
+                         data-violation-type="aria-valid-attr"
+                         data-stable="true">
+                        Element with invalid ARIA attribute
+                    </div>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Invalid ARIA attribute name<br>
+                        <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
+                    </div>
+                </div>
+
+                <!-- S11: Missing Required ARIA Child -->
+                <div class="violation-item">
+                    <h3>S11. Missing Required ARIA Child <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
+                    <div role="list"
+                         data-test-id="S11"
+                         data-violation-type="aria-required-children"
+                         data-stable="true">
+                        <div>List item without role="listitem"</div>
+                    </div>
+                    <div class="code-info">
+                        <strong>Violation:</strong> role="list" requires children with role="listitem"<br>
+                        <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
+                    </div>
+                </div>
+
+                <!-- S12: Table Without Headers -->
+                <div class="violation-item">
+                    <h3>S12. Table Without Headers <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.1</span></h3>
+                    <table data-test-id="S12"
+                           data-violation-type="table-th"
+                           data-stable="true">
+                        <tr>
+                            <td>Name</td>
+                            <td>Age</td>
+                        </tr>
+                        <tr>
+                            <td>John</td>
+                            <td>30</td>
+                        </tr>
+                    </table>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Data table missing &lt;th&gt; elements<br>
+                        <strong>WCAG:</strong> 1.3.1 Info and Relationships (Level A)
+                    </div>
+                </div>
+
+                <!-- S13: Non-descriptive Link -->
+                <div class="violation-item">
+                    <h3>S13. Non-descriptive Link Text <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.4.4</span></h3>
+                    <a href="#"
+                       data-test-id="S13"
+                       data-violation-type="link-text"
+                       data-stable="true">Click here</a>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Link text not descriptive ("click here")<br>
+                        <strong>WCAG:</strong> 2.4.4 Link Purpose (In Context) (Level A)
+                    </div>
+                </div>
+
+                <!-- S14: Clickable Div Without Keyboard Support -->
+                <div class="violation-item">
+                    <h3>S14. Non-keyboard Accessible Element <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.1.1</span></h3>
+                    <div onclick="alert('clicked')"
+                         style="cursor: pointer; padding: 10px; background: #eee;"
+                         data-test-id="S14"
+                         data-violation-type="keyboard"
+                         data-stable="true">
+                        Clickable div without keyboard support
+                    </div>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Interactive element not keyboard accessible<br>
+                        <strong>WCAG:</strong> 2.1.1 Keyboard (Level A)
+                    </div>
+                </div>
+
+                <!-- S15: No Focus Indicator -->
+                <div class="violation-item">
+                    <h3>S15. No Visible Focus Indicator <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.4.7</span></h3>
+                    <button class="no-focus-outline btn"
+                            data-test-id="S15"
+                            data-violation-type="focus-visible"
+                            data-stable="true">
+                        Button with outline: none on focus
+                    </button>
+                    <div class="code-info">
+                        <strong>Violation:</strong> No visible focus indicator<br>
+                        <strong>WCAG:</strong> 2.4.7 Focus Visible (Level AA)
+                    </div>
+                </div>
+
+                <!-- S16: Positive Tabindex -->
+                <div class="violation-item">
+                    <h3>S16. Positive Tabindex <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 2.4.3</span></h3>
+                    <button tabindex="5"
+                            class="btn"
+                            data-test-id="S16"
+                            data-violation-type="tabindex"
+                            data-stable="true">
+                        Button with tabindex="5"
+                    </button>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Positive tabindex disrupts natural tab order<br>
+                        <strong>WCAG:</strong> 2.4.3 Focus Order (Level A)
+                    </div>
+                </div>
+
+                <!-- S17: Missing Fieldset for Radio Group -->
+                <div class="violation-item">
+                    <h3>S17. Radio Group Without Fieldset <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.1, 3.3.2</span></h3>
+                    <div data-test-id="S17"
+                         data-violation-type="fieldset"
+                         data-stable="true">
+                        <label><input type="radio" name="color" value="red"> Red</label>
+                        <label><input type="radio" name="color" value="blue"> Blue</label>
+                    </div>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Radio buttons not grouped with fieldset/legend<br>
+                        <strong>WCAG:</strong> 1.3.1 Info and Relationships (Level A)
+                    </div>
+                </div>
+
+                <!-- S18: Missing Autocomplete -->
+                <div class="violation-item">
+                    <h3>S18. Missing Autocomplete Attribute <span class="badge stable">Stable</span> <span class="badge wcag">WCAG 1.3.5</span></h3>
+                    <div class="form-group">
+                        <label for="credit-card">Credit Card Number</label>
+                        <input type="text"
+                               id="credit-card"
+                               data-test-id="S18"
+                               data-violation-type="autocomplete"
+                               data-stable="true" />
+                    </div>
+                    <div class="code-info">
+                        <strong>Violation:</strong> Sensitive input missing autocomplete attribute<br>
+                        <strong>WCAG:</strong> 1.3.5 Identify Input Purpose (Level AA)
+                    </div>
+                </div>
+            </div>
+
+            <!-- DYNAMIC VIOLATIONS SECTION -->
+            <div class="section dynamic">
+                <h2>🎲 Dynamic Violations (Weighted Random)</h2>
+                <p style="margin-bottom: 20px; color: #4a5568;">
+                    These violations appear or disappear based on weighted probabilities.
+                    Check the status panel above to see which are active on this page load.
+                </p>
+
+                <!-- D1: Dynamic Missing Alt (70% chance) -->
+                <div class="violation-item">
+                    <h3>D1. Dynamic Missing Alt Text <span class="badge dynamic">Dynamic 70%</span> <span class="badge wcag">WCAG 1.1.1</span></h3>
+                    <div id="dynamic-alt-container">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    <div class="code-info">
+                        <strong>Probability:</strong> 70% chance to appear<br>
+                        <strong>Violation:</strong> Image conditionally missing alt attribute<br>
+                        <strong>WCAG:</strong> 1.1.1 Non-text Content (Level A)
+                    </div>
+                </div>
+
+                <!-- D2: Dynamic Low Contrast (50% chance) -->
+                <div class="violation-item">
+                    <h3>D2. Dynamic Low Contrast <span class="badge dynamic">Dynamic 50%</span> <span class="badge wcag">WCAG 1.4.3</span></h3>
+                    <div id="dynamic-contrast-container">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    <div class="code-info">
+                        <strong>Probability:</strong> 50% chance to appear<br>
+                        <strong>Violation:</strong> Text conditionally has low contrast<br>
+                        <strong>WCAG:</strong> 1.4.3 Contrast (Minimum) (Level AA)
+                    </div>
+                </div>
+
+                <!-- D3: Dynamic Duplicate ID (30% chance) -->
+                <div class="violation-item">
+                    <h3>D3. Dynamic Duplicate ID <span class="badge dynamic">Dynamic 30%</span> <span class="badge wcag">WCAG 4.1.1</span></h3>
+                    <div id="duplicate-id-fixed">First element with fixed ID</div>
+                    <div id="dynamic-duplicate-container">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    <div class="code-info">
+                        <strong>Probability:</strong> 30% chance to appear<br>
+                        <strong>Violation:</strong> Conditionally creates duplicate ID<br>
+                        <strong>WCAG:</strong> 4.1.1 Parsing (Level A)
+                    </div>
+                </div>
+
+                <!-- D4: Dynamic Missing ARIA Label (60% chance) -->
+                <div class="violation-item">
+                    <h3>D4. Dynamic Missing ARIA Label <span class="badge dynamic">Dynamic 60%</span> <span class="badge wcag">WCAG 4.1.2</span></h3>
+                    <div id="dynamic-aria-container">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    <div class="code-info">
+                        <strong>Probability:</strong> 60% chance to appear<br>
+                        <strong>Violation:</strong> Button conditionally missing aria-label<br>
+                        <strong>WCAG:</strong> 4.1.2 Name, Role, Value (Level A)
+                    </div>
+                </div>
+
+                <!-- D5: Dynamic Empty Link (40% chance) -->
+                <div class="violation-item">
+                    <h3>D5. Dynamic Empty Link <span class="badge dynamic">Dynamic 40%</span> <span class="badge wcag">WCAG 2.4.4</span></h3>
+                    <div id="dynamic-link-container">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                    <div class="code-info">
+                        <strong>Probability:</strong> 40% chance to appear<br>
+                        <strong>Violation:</strong> Link conditionally empty<br>
+                        <strong>WCAG:</strong> 2.4.4 Link Purpose (Level A)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section info">
+                <h2>📋 Summary</h2>
+                <p><strong>Stable Violations (Always Present):</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>S1: Missing alt text</li>
+                    <li>S2: Low contrast text</li>
+                    <li>S3: Input without label</li>
+                    <li>S4: Heading hierarchy skip</li>
+                    <li>S5-S6: Duplicate IDs</li>
+                    <li>S7: Empty link</li>
+                    <li>S8: Empty button</li>
+                    <li>S9: Invalid ARIA role</li>
+                    <li>S10: Invalid ARIA attribute</li>
+                    <li>S11: Missing required ARIA child</li>
+                    <li>S12: Table without headers</li>
+                    <li>S13: Non-descriptive link text</li>
+                    <li>S14: Non-keyboard accessible element</li>
+                    <li>S15: No focus indicator</li>
+                    <li>S16: Positive tabindex</li>
+                    <li>S17: Radio group without fieldset</li>
+                    <li>S18: Missing autocomplete</li>
+                </ul>
+
+                <p style="margin-top: 20px;"><strong>Dynamic Violations (Probability-Based):</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>D1: Dynamic missing alt (70%)</li>
+                    <li>D2: Dynamic low contrast (50%)</li>
+                    <li>D3: Dynamic duplicate ID (30%)</li>
+                    <li>D4: Dynamic missing ARIA label (60%)</li>
+                    <li>D5: Dynamic empty link (40%)</li>
+                </ul>
+
+                <p style="margin-top: 20px; color: #4a5568;">
+                    <strong>Testing Strategy:</strong> Run axe-core monitoring across multiple page loads to verify:
+                </p>
+                <ul style="margin-left: 20px; margin-top: 10px; color: #4a5568;">
+                    <li>Stable violations consistently detected</li>
+                    <li>Dynamic violations appear at expected frequencies</li>
+                    <li>Charting accurately reflects violation trends</li>
+                    <li>Recurring detection properly identifies patterns</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer style="background: #2d3748; color: white; padding: 30px; text-align: center;">
+            <p>Axe-Core Monitoring Test Page - Stable & Dynamic Violations</p>
+            <p style="margin-top: 10px; opacity: 0.8;">
+                For testing violation tracking, charting, and recurring detection
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Configuration for dynamic violations
+        const dynamicViolations = [
+            { id: 'D1', name: 'Missing Alt Text', probability: 0.70, type: 'missing-alt' },
+            { id: 'D2', name: 'Low Contrast', probability: 0.50, type: 'color-contrast' },
+            { id: 'D3', name: 'Duplicate ID', probability: 0.30, type: 'duplicate-id' },
+            { id: 'D4', name: 'Missing ARIA Label', probability: 0.60, type: 'button-name' },
+            { id: 'D5', name: 'Empty Link', probability: 0.40, type: 'link-name' }
+        ];
+
+        // Generate seed for reproducibility
+        const seed = Math.floor(Math.random() * 1000000);
+
+        // Simple seeded random number generator
+        function seededRandom(seed) {
+            let x = Math.sin(seed++) * 10000;
+            return x - Math.floor(x);
+        }
+
+        // Determine which violations are active
+        const activeViolations = {};
+        dynamicViolations.forEach((violation, index) => {
+            const random = seededRandom(seed + index);
+            activeViolations[violation.id] = random < violation.probability;
+        });
+
+        // Update status panel
+        const statusGrid = document.getElementById('status-grid');
+        dynamicViolations.forEach(violation => {
+            const isActive = activeViolations[violation.id];
+            const statusItem = document.createElement('div');
+            statusItem.className = `status-item ${isActive ? 'active' : 'inactive'}`;
+            statusItem.innerHTML = `
+                <div class="label">
+                    ${violation.id}: ${violation.name}
+                    <span class="status-badge ${isActive ? 'active' : 'inactive'}">
+                        ${isActive ? 'ACTIVE' : 'INACTIVE'}
+                    </span>
+                </div>
+                <div class="probability">Probability: ${(violation.probability * 100).toFixed(0)}%</div>
+            `;
+            statusGrid.appendChild(statusItem);
+        });
+
+        // Display seed
+        document.getElementById('seed-display').textContent = `Random Seed: ${seed} (for reproducibility)`;
+
+        // Inject dynamic violations based on active state
+
+        // D1: Dynamic Missing Alt (70%)
+        const altContainer = document.getElementById('dynamic-alt-container');
+        if (activeViolations['D1']) {
+            altContainer.innerHTML = `
+                <img src="https://via.placeholder.com/150/ff6b6b"
+                     width="150"
+                     height="150"
+                     data-test-id="D1"
+                     data-violation-type="missing-alt"
+                     data-stable="false"
+                     data-probability="0.70" />
+                <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Image missing alt attribute</p>
+            `;
+        } else {
+            altContainer.innerHTML = `
+                <img src="https://via.placeholder.com/150/51cf66"
+                     width="150"
+                     height="150"
+                     alt="Properly described placeholder image"
+                     data-test-id="D1-pass"
+                     data-stable="false" />
+                <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Image has proper alt text</p>
+            `;
+        }
+
+        // D2: Dynamic Low Contrast (50%)
+        const contrastContainer = document.getElementById('dynamic-contrast-container');
+        if (activeViolations['D2']) {
+            contrastContainer.innerHTML = `
+                <p class="dynamic-low-contrast"
+                   data-test-id="D2"
+                   data-violation-type="color-contrast"
+                   data-stable="false"
+                   data-probability="0.50">
+                    This text has very low contrast (1.2:1) - color: #e8e8e8 on #f0f0f0 background
+                </p>
+                <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Low contrast ratio</p>
+            `;
+        } else {
+            contrastContainer.innerHTML = `
+                <p style="color: #2d3748; background: #fff; padding: 10px;"
+                   data-test-id="D2-pass"
+                   data-stable="false">
+                    This text has good contrast (readable)
+                </p>
+                <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Sufficient contrast ratio</p>
+            `;
+        }
+
+        // D3: Dynamic Duplicate ID (30%)
+        const duplicateContainer = document.getElementById('dynamic-duplicate-container');
+        if (activeViolations['D3']) {
+            duplicateContainer.innerHTML = `
+                <div id="duplicate-id-fixed"
+                     data-test-id="D3"
+                     data-violation-type="duplicate-id"
+                     data-stable="false"
+                     data-probability="0.30">
+                    Second element with duplicate ID "duplicate-id-fixed"
+                </div>
+                <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Duplicate ID created</p>
+            `;
+        } else {
+            duplicateContainer.innerHTML = `
+                <div id="unique-dynamic-id" data-test-id="D3-pass" data-stable="false">
+                    Element with unique ID "unique-dynamic-id"
+                </div>
+                <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: No duplicate ID</p>
+            `;
+        }
+
+        // D4: Dynamic Missing ARIA Label (60%)
+        const ariaContainer = document.getElementById('dynamic-aria-container');
+        if (activeViolations['D4']) {
+            ariaContainer.innerHTML = `
+                <button class="btn"
+                        data-test-id="D4"
+                        data-violation-type="button-name"
+                        data-stable="false"
+                        data-probability="0.60">
+                    ⚙️
+                </button>
+                <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Button missing aria-label</p>
+            `;
+        } else {
+            ariaContainer.innerHTML = `
+                <button class="btn"
+                        aria-label="Settings"
+                        data-test-id="D4-pass"
+                        data-stable="false">
+                    ⚙️
+                </button>
+                <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Button has aria-label</p>
+            `;
+        }
+
+        // D5: Dynamic Empty Link (40%)
+        const linkContainer = document.getElementById('dynamic-link-container');
+        if (activeViolations['D5']) {
+            linkContainer.innerHTML = `
+                <a href="#"
+                   data-test-id="D5"
+                   data-violation-type="link-name"
+                   data-stable="false"
+                   data-probability="0.40"></a>
+                <p style="color: #c53030; font-weight: 600; margin-top: 10px;">⚠️ VIOLATION ACTIVE: Empty link</p>
+            `;
+        } else {
+            linkContainer.innerHTML = `
+                <a href="#" data-test-id="D5-pass" data-stable="false">Link with text</a>
+                <p style="color: #2f855a; font-weight: 600; margin-top: 10px;">✅ PASS: Link has text content</p>
+            `;
+        }
+
+        // Console logging for debugging
+        console.log('🔍 Axe-Core Monitoring Test Page Loaded');
+        console.log('Seed:', seed);
+        console.log('Active Dynamic Violations:', activeViolations);
+        console.log('Expected Total Violations:', 18 + Object.values(activeViolations).filter(Boolean).length);
+
+        // Log all test IDs for validation
+        const allTestIds = Array.from(document.querySelectorAll('[data-test-id]'))
+            .map(el => ({
+                testId: el.getAttribute('data-test-id'),
+                violationType: el.getAttribute('data-violation-type'),
+                stable: el.getAttribute('data-stable') === 'true'
+            }));
+        console.log('All Test Elements:', allTestIds);
+    </script>
+</body>
+</html>

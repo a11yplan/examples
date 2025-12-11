@@ -4,9 +4,9 @@
     "lastUpdated": "2025-12-11",
     "repository": "https://github.com/a11yplan/examples",
     "description": "Machine-readable test samples for validating accessibility scanning tools and algorithms",
-    "totalTestPages": 32,
-    "totalWCAGCriteria": 27,
-    "totalTestCases": 328
+    "totalTestPages": 33,
+    "totalWCAGCriteria": 28,
+    "totalTestCases": 340
   },
   "testPages": [
     {
@@ -467,6 +467,27 @@
       "totalCases": 10,
       "expectedViolations": 5,
       "expectedPasses": 5,
+      "machineReadable": true,
+      "hasMetadata": true,
+      "hasExpectedResults": true,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "status-messages",
+      "filename": "status-messages-test.html",
+      "url": "https://a11yplan.github.io/examples/status-messages-test.html",
+      "title": "Status Messages",
+      "wcagCriteria": [
+        "4.1.3"
+      ],
+      "wcagLevel": "AA",
+      "category": "Other",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Status messages use role=\"alert\", role=\"status\", and aria-live for screen reader announcements",
+      "totalCases": 12,
+      "expectedViolations": 6,
+      "expectedPasses": 6,
       "machineReadable": true,
       "hasMetadata": true,
       "hasExpectedResults": true,

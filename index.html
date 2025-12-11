@@ -173,6 +173,11 @@
             color: #e65100;
         }
 
+        .badge-automation {
+            background: #e0f2f1;
+            color: #00695c;
+        }
+
         .test-description {
             color: #666;
             font-size: 0.9rem;
@@ -235,7 +240,7 @@
 
         <div class="stats">
             <div class="stat-item">
-                <strong>31</strong>
+                <strong>33</strong>
                 <span>Test Pages</span>
             </div>
             <div class="stat-item">
@@ -532,6 +537,31 @@
             </div>
         </div>
 
+        <h2>Automation Test Samples</h2>
+        <div class="test-list">
+            <div class="test-item header">
+                <div>Test Page</div>
+                <div>Test Type</div>
+                <div>Category</div>
+                <div>Description</div>
+                <div>Test Actions</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="cookie-dialog-test.html">Cookie Dialog</a></div>
+                <div class="test-criterion">Cookie Consent</div>
+                <div class="test-level"><span class="badge badge-automation">Automation</span></div>
+                <div class="test-description">Modal overlay cookie consent dialog with Accept/Reject buttons, close button, and status tracking</div>
+                <div class="test-meta">3 actions</div>
+            </div>
+            <div class="test-item">
+                <div class="test-name"><a href="login-form-test.html">Login Form</a></div>
+                <div class="test-criterion">Authentication</div>
+                <div class="test-level"><span class="badge badge-automation">Automation</span></div>
+                <div class="test-description">Email/password login form with validation, show/hide password toggle, remember me checkbox, and status feedback</div>
+                <div class="test-meta">5 actions</div>
+            </div>
+        </div>
+
         <h2>Comprehensive & Legacy Tests</h2>
         <div class="test-list">
             <div class="test-item header">
@@ -621,6 +651,10 @@
             aiInteraction: [
                 'ai-interaction-simple-test.html',
                 'ai-interaction-advanced-test.html'
+            ],
+            automation: [
+                'cookie-dialog-test.html',
+                'login-form-test.html'
             ],
             comprehensive: [
                 'axe-monitoring-test.html',

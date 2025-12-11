@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="test-type" content="automation">
+    <meta name="test-category" content="login-form">
+    <meta name="total-cases" content="1">
+    <title>Login Form - Automation Test Sample</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Login Card */
+        .login-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: #f8f9fa;
+            padding: 24px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .login-header h1 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .login-header p {
+            margin: 8px 0 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .login-body {
+            padding: 32px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9em;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-control.error {
+            border-color: #e53935;
+        }
+
+        .form-control.success {
+            border-color: #43a047;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            padding: 4px;
+            font-size: 14px;
+        }
+
+        .password-toggle:hover {
+            color: #333;
+        }
+
+        .input-wrapper .form-control {
+            padding-right: 50px;
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #e53935;
+            font-size: 0.85em;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Links */
+        .form-links {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .form-links a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .form-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Status Display */
+        .status-display {
+            margin-top: 24px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+        }
+
+        .status-display h4 {
+            margin: 0 0 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        #login-status {
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 4px;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+
+        #login-status.idle {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        #login-status.loading {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        #login-status.success {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        #login-status.error {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        /* Info Panel */
+        .info-panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 24px;
+        }
+
+        .info-panel h2 {
+            margin: 0 0 16px;
+            color: #333;
+            font-size: 1.2em;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .info-section h3 {
+            margin: 0 0 10px;
+            color: #667eea;
+            font-size: 0.95em;
+        }
+
+        .info-section ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .info-section li {
+            margin: 6px 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .info-section code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        /* Credentials Box */
+        .credentials-box {
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .credentials-box h4 {
+            margin: 0 0 10px;
+            color: #2e7d32;
+            font-size: 0.9em;
+        }
+
+        .credentials-box p {
+            margin: 4px 0;
+            font-size: 0.9em;
+        }
+
+        .credentials-box strong {
+            display: inline-block;
+            width: 80px;
+        }
+
+        /* Selectors Reference */
+        .selectors-ref {
+            background: #263238;
+            color: #eceff1;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+
+        .selectors-ref h4 {
+            margin: 0 0 12px;
+            color: #80cbc4;
+            font-size: 0.85em;
+        }
+
+        .selector-item {
+            margin: 6px 0;
+            display: flex;
+            gap: 8px;
+        }
+
+        .selector-name {
+            color: #ffcc80;
+            min-width: 120px;
+        }
+
+        .selector-value {
+            color: #a5d6a7;
+        }
+
+        /* Reset button */
+        .reset-btn {
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: #607d8b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .reset-btn:hover {
+            background: #455a64;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form Card -->
+        <div class="login-card" data-test-id="login-card">
+            <div class="login-header">
+                <h1>Welcome Back</h1>
+                <p>Sign in to your account</p>
+            </div>
+
+            <div class="login-body">
+                <form id="login-form" data-test-id="login-form" onsubmit="handleSubmit(event)">
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            data-test-id="email-input"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+                        <div class="error-message" data-test-id="email-error">
+                            Please enter a valid email address
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="form-control"
+                                data-test-id="password-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                                minlength="6"
+                            >
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-test-id="password-toggle"
+                                onclick="togglePassword()"
+                                aria-label="Toggle password visibility"
+                            >
+                                Show
+                            </button>
+                        </div>
+                        <div class="error-message" data-test-id="password-error">
+                            Password must be at least 6 characters
+                        </div>
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="checkbox-group">
+                        <input
+                            type="checkbox"
+                            id="remember"
+                            name="remember"
+                            data-test-id="remember-checkbox"
+                        >
+                        <label for="remember">Remember me</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn" data-test-id="submit-btn">
+                        Sign In
+                    </button>
+
+                    <!-- Links -->
+                    <div class="form-links">
+                        <a href="#" data-test-id="forgot-password-link">Forgot your password?</a>
+                        <span style="margin: 0 10px; color: #ccc;">|</span>
+                        <a href="#" data-test-id="create-account-link">Create an account</a>
+                    </div>
+                </form>
+
+                <!-- Status Display -->
+                <div class="status-display">
+                    <h4>Login Status</h4>
+                    <div id="login-status" class="idle" data-test-id="login-status" data-status="idle">
+                        Waiting for input
+                    </div>
+                    <br>
+                    <button class="reset-btn" data-test-id="reset-btn" onclick="resetForm()">
+                        Reset Form
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="info-panel">
+            <h2>Automation Test Info</h2>
+
+            <div class="credentials-box">
+                <h4>Test Credentials</h4>
+                <p><strong>Email:</strong> test@example.com</p>
+                <p><strong>Password:</strong> password123</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Automation Scenarios</h3>
+                <ul>
+                    <li>Fill email: <code>[data-test-id="email-input"]</code></li>
+                    <li>Fill password: <code>[data-test-id="password-input"]</code></li>
+                    <li>Toggle password: <code>[data-test-id="password-toggle"]</code></li>
+                    <li>Check remember: <code>[data-test-id="remember-checkbox"]</code></li>
+                    <li>Submit form: <code>[data-test-id="submit-btn"]</code></li>
+                    <li>Check status: <code>[data-test-id="login-status"]</code></li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3>Expected Behaviors</h3>
+                <ul>
+                    <li><strong>Valid credentials:</strong> Status shows "Success"</li>
+                    <li><strong>Invalid email:</strong> Shows email error</li>
+                    <li><strong>Short password:</strong> Shows password error</li>
+                    <li><strong>Wrong credentials:</strong> Status shows "Error"</li>
+                </ul>
+            </div>
+
+            <div class="selectors-ref">
+                <h4>All Test Selectors</h4>
+                <div class="selector-item">
+                    <span class="selector-name">Form:</span>
+                    <span class="selector-value">[data-test-id="login-form"]</span>
+                </div>
+                <div class="selector-item">
+                    <span class="selector-name">Email:</span>
+                    <span class="selector-value">[data-test-id="email-input"]</span>
+                </div>
+                <div class="selector-item">
+                    <span class="selector-name">Password:</span>
+                    <span class="selector-value">[data-test-id="password-input"]</span>
+                </div>
+                <div class="selector-item">
+                    <span class="selector-name">Toggle:</span>
+                    <span class="selector-value">[data-test-id="password-toggle"]</span>
+                </div>
+                <div class="selector-item">
+                    <span class="selector-name">Remember:</span>
+                    <span class="selector-value">[data-test-id="remember-checkbox"]</span>
+                </div>
+                <div class="selector-item">
+                    <span class="selector-name">Submit:</span>
+                    <span class="selector-value">[data-test-id="submit-btn"]</span>
+                </div>
+                <div class="selector-item">
+                    <span class="selector-name">Status:</span>
+                    <span class="selector-value">[data-test-id="login-status"]</span>
+                </div>
+                <div class="selector-item">
+                    <span class="selector-name">Email Err:</span>
+                    <span class="selector-value">[data-test-id="email-error"]</span>
+                </div>
+                <div class="selector-item">
+                    <span class="selector-name">Pass Err:</span>
+                    <span class="selector-value">[data-test-id="password-error"]</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test credentials
+        const VALID_EMAIL = 'test@example.com';
+        const VALID_PASSWORD = 'password123';
+
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.querySelector('[data-test-id="password-toggle"]');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.textContent = 'Hide';
+                console.log('[LOGIN] Password visibility: shown');
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.textContent = 'Show';
+                console.log('[LOGIN] Password visibility: hidden');
+            }
+        }
+
+        // Update status display
+        function updateStatus(status, message) {
+            const statusEl = document.getElementById('login-status');
+            statusEl.className = status;
+            statusEl.setAttribute('data-status', status);
+            statusEl.textContent = message;
+
+            console.log(`[LOGIN] Status: ${status} - ${message}`);
+
+            // Dispatch custom event
+            window.dispatchEvent(new CustomEvent('loginStatusChanged', {
+                detail: { status, message }
+            }));
+        }
+
+        // Show/hide error messages
+        function showError(field, show) {
+            const errorEl = document.querySelector(`[data-test-id="${field}-error"]`);
+            const inputEl = document.querySelector(`[data-test-id="${field}-input"]`);
+
+            if (show) {
+                errorEl.classList.add('visible');
+                inputEl.classList.add('error');
+                inputEl.classList.remove('success');
+            } else {
+                errorEl.classList.remove('visible');
+                inputEl.classList.remove('error');
+            }
+        }
+
+        // Validate form
+        function validateForm() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            let valid = true;
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('email', true);
+                valid = false;
+            } else {
+                showError('email', false);
+                document.querySelector('[data-test-id="email-input"]').classList.add('success');
+            }
+
+            // Password validation
+            if (password.length < 6) {
+                showError('password', true);
+                valid = false;
+            } else {
+                showError('password', false);
+                document.querySelector('[data-test-id="password-input"]').classList.add('success');
+            }
+
+            return valid;
+        }
+
+        // Handle form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            console.log('[LOGIN] Form submitted');
+
+            // Validate
+            if (!validateForm()) {
+                updateStatus('error', 'Validation failed');
+                return;
+            }
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+
+            console.log(`[LOGIN] Attempting login - Email: ${email}, Remember: ${remember}`);
+
+            // Show loading state
+            updateStatus('loading', 'Signing in...');
+
+            // Simulate API call
+            setTimeout(() => {
+                if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+                    updateStatus('success', 'Login successful!');
+                    console.log('[LOGIN] Authentication successful');
+                } else {
+                    updateStatus('error', 'Invalid email or password');
+                    console.log('[LOGIN] Authentication failed - invalid credentials');
+                }
+            }, 1000);
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('login-form').reset();
+            document.getElementById('password').type = 'password';
+            document.querySelector('[data-test-id="password-toggle"]').textContent = 'Show';
+
+            // Clear all states
+            showError('email', false);
+            showError('password', false);
+            document.querySelector('[data-test-id="email-input"]').classList.remove('success');
+            document.querySelector('[data-test-id="password-input"]').classList.remove('success');
+
+            updateStatus('idle', 'Waiting for input');
+            console.log('[LOGIN] Form reset');
+        }
+
+        // Clear errors on input
+        document.getElementById('email').addEventListener('input', () => showError('email', false));
+        document.getElementById('password').addEventListener('input', () => showError('password', false));
+
+        // Log initial state
+        console.log('[LOGIN] Test page loaded');
+        console.log('[LOGIN] Valid credentials - Email: test@example.com, Password: password123');
+    </script>
+</body>
+</html>

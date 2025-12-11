@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="test-type" content="automation">
+    <meta name="test-category" content="cookie-dialog">
+    <meta name="total-cases" content="1">
+    <title>Cookie Dialog - Automation Test Sample</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        .description {
+            background: #e8f4fd;
+            border-left: 4px solid #2196F3;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .automation-info {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .automation-info h3 {
+            margin-top: 0;
+            color: #e65100;
+        }
+
+        .automation-info code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .status-display {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+        }
+
+        .status-display h3 {
+            margin-top: 0;
+        }
+
+        #consent-status {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        #consent-status.pending {
+            background: #ffecb3;
+            color: #ff6f00;
+        }
+
+        #consent-status.accepted {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        #consent-status.rejected {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .reset-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #607d8b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .reset-btn:hover {
+            background: #455a64;
+        }
+
+        /* Cookie Dialog Overlay */
+        .cookie-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .cookie-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Cookie Dialog Modal */
+        .cookie-dialog {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-overlay.hidden .cookie-dialog {
+            transform: translateY(-20px);
+        }
+
+        .cookie-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cookie-header h2 {
+            margin: 0;
+            font-size: 1.25em;
+            color: #333;
+        }
+
+        .cookie-close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .cookie-close-btn:hover {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .cookie-body {
+            padding: 24px;
+        }
+
+        .cookie-body p {
+            margin: 0 0 16px 0;
+            color: #555;
+        }
+
+        .cookie-body a {
+            color: #2196F3;
+        }
+
+        .cookie-footer {
+            padding: 16px 24px 24px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .cookie-btn-accept {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .cookie-btn-accept:hover {
+            background: #43A047;
+            border-color: #43A047;
+        }
+
+        .cookie-btn-reject {
+            background: white;
+            color: #666;
+            border-color: #ddd;
+        }
+
+        .cookie-btn-reject:hover {
+            background: #f5f5f5;
+            border-color: #bbb;
+        }
+
+        .cookie-btn-settings {
+            background: white;
+            color: #2196F3;
+            border-color: #2196F3;
+            flex: 0 0 auto;
+        }
+
+        .cookie-btn-settings:hover {
+            background: #e3f2fd;
+        }
+
+        /* Selectors Reference */
+        .selectors-ref {
+            margin-top: 30px;
+            background: #263238;
+            color: #eceff1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        .selectors-ref h4 {
+            margin: 0 0 15px 0;
+            color: #80cbc4;
+        }
+
+        .selectors-ref .selector-item {
+            margin: 8px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .selectors-ref .selector-name {
+            color: #ffcc80;
+            min-width: 180px;
+        }
+
+        .selectors-ref .selector-value {
+            color: #a5d6a7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Content (behind dialog) -->
+    <div class="page-content" data-test-id="page-content">
+        <h1>Cookie Dialog Automation Test</h1>
+
+        <div class="description">
+            <p><strong>Purpose:</strong> This page demonstrates a common cookie consent dialog pattern for automation testing. The dialog appears as a modal overlay that blocks page interaction until dismissed.</p>
+        </div>
+
+        <div class="automation-info">
+            <h3>Automation Scenarios</h3>
+            <ul>
+                <li><strong>Accept cookies:</strong> Click <code>[data-test-id="cookie-accept-btn"]</code></li>
+                <li><strong>Reject cookies:</strong> Click <code>[data-test-id="cookie-reject-btn"]</code></li>
+                <li><strong>Close via X button:</strong> Click <code>[data-test-id="cookie-close-btn"]</code></li>
+                <li><strong>Verify dismissed:</strong> Check <code>[data-test-id="cookie-overlay"]</code> has class <code>hidden</code></li>
+                <li><strong>Check consent status:</strong> Read <code>[data-test-id="consent-status"]</code> text content</li>
+            </ul>
+        </div>
+
+        <div class="status-display">
+            <h3>Current Consent Status</h3>
+            <div id="consent-status" class="pending" data-test-id="consent-status" data-consent="pending">
+                Pending - No action taken
+            </div>
+            <br>
+            <button class="reset-btn" data-test-id="reset-btn" onclick="resetDialog()">
+                Reset Dialog
+            </button>
+        </div>
+
+        <div class="selectors-ref">
+            <h4>Test Selectors Reference</h4>
+            <div class="selector-item">
+                <span class="selector-name">Overlay:</span>
+                <span class="selector-value">[data-test-id="cookie-overlay"]</span>
+            </div>
+            <div class="selector-item">
+                <span class="selector-name">Dialog:</span>
+                <span class="selector-value">[data-test-id="cookie-dialog"]</span>
+            </div>
+            <div class="selector-item">
+                <span class="selector-name">Accept Button:</span>
+                <span class="selector-value">[data-test-id="cookie-accept-btn"]</span>
+            </div>
+            <div class="selector-item">
+                <span class="selector-name">Reject Button:</span>
+                <span class="selector-value">[data-test-id="cookie-reject-btn"]</span>
+            </div>
+            <div class="selector-item">
+                <span class="selector-name">Close Button:</span>
+                <span class="selector-value">[data-test-id="cookie-close-btn"]</span>
+            </div>
+            <div class="selector-item">
+                <span class="selector-name">Settings Button:</span>
+                <span class="selector-value">[data-test-id="cookie-settings-btn"]</span>
+            </div>
+            <div class="selector-item">
+                <span class="selector-name">Consent Status:</span>
+                <span class="selector-value">[data-test-id="consent-status"]</span>
+            </div>
+            <div class="selector-item">
+                <span class="selector-name">Reset Button:</span>
+                <span class="selector-value">[data-test-id="reset-btn"]</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Dialog -->
+    <div class="cookie-overlay" data-test-id="cookie-overlay" role="dialog" aria-modal="true" aria-labelledby="cookie-title">
+        <div class="cookie-dialog" data-test-id="cookie-dialog">
+            <div class="cookie-header">
+                <h2 id="cookie-title">Cookie Preferences</h2>
+                <button class="cookie-close-btn" data-test-id="cookie-close-btn" aria-label="Close dialog" onclick="dismissDialog('closed')">
+                    &times;
+                </button>
+            </div>
+            <div class="cookie-body">
+                <p>We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.</p>
+                <p>Read our <a href="#" data-test-id="privacy-link">Privacy Policy</a> and <a href="#" data-test-id="cookie-policy-link">Cookie Policy</a> for more information.</p>
+            </div>
+            <div class="cookie-footer">
+                <button class="cookie-btn cookie-btn-reject" data-test-id="cookie-reject-btn" onclick="dismissDialog('rejected')">
+                    Reject All
+                </button>
+                <button class="cookie-btn cookie-btn-settings" data-test-id="cookie-settings-btn" onclick="openSettings()">
+                    Settings
+                </button>
+                <button class="cookie-btn cookie-btn-accept" data-test-id="cookie-accept-btn" onclick="dismissDialog('accepted')">
+                    Accept All
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let consentState = 'pending';
+
+        function dismissDialog(action) {
+            const overlay = document.querySelector('[data-test-id="cookie-overlay"]');
+            const statusEl = document.getElementById('consent-status');
+
+            // Update state
+            consentState = action;
+
+            // Hide dialog
+            overlay.classList.add('hidden');
+
+            // Update status display
+            statusEl.className = action;
+            statusEl.setAttribute('data-consent', action);
+
+            const statusTexts = {
+                'accepted': 'Accepted - All cookies enabled',
+                'rejected': 'Rejected - Only essential cookies',
+                'closed': 'Closed - No preference set'
+            };
+            statusEl.textContent = statusTexts[action] || action;
+
+            // Log for automation verification
+            console.log(`[COOKIE-DIALOG] Action: ${action}`);
+            console.log(`[COOKIE-DIALOG] Consent state: ${consentState}`);
+
+            // Dispatch custom event for automation frameworks
+            window.dispatchEvent(new CustomEvent('cookieConsentChanged', {
+                detail: { action, consent: consentState }
+            }));
+        }
+
+        function resetDialog() {
+            const overlay = document.querySelector('[data-test-id="cookie-overlay"]');
+            const statusEl = document.getElementById('consent-status');
+
+            // Reset state
+            consentState = 'pending';
+
+            // Show dialog
+            overlay.classList.remove('hidden');
+
+            // Reset status display
+            statusEl.className = 'pending';
+            statusEl.setAttribute('data-consent', 'pending');
+            statusEl.textContent = 'Pending - No action taken';
+
+            console.log('[COOKIE-DIALOG] Dialog reset');
+        }
+
+        function openSettings() {
+            // Placeholder for settings panel
+            console.log('[COOKIE-DIALOG] Settings clicked - would open preferences panel');
+            alert('Cookie settings panel would open here.\nFor this test, use Accept All or Reject All.');
+        }
+
+        // Log initial state
+        console.log('[COOKIE-DIALOG] Test page loaded');
+        console.log('[COOKIE-DIALOG] Dialog visible, awaiting user action');
+    </script>
+</body>
+</html>

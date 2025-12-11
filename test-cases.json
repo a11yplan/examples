@@ -1,12 +1,12 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "lastUpdated": "2025-11-11",
+    "lastUpdated": "2025-12-11",
     "repository": "https://github.com/a11yplan/examples",
     "description": "Machine-readable test samples for validating accessibility scanning tools and algorithms",
-    "totalTestPages": 29,
-    "totalWCAGCriteria": 25,
-    "totalTestCases": 244
+    "totalTestPages": 32,
+    "totalWCAGCriteria": 27,
+    "totalTestCases": 328
   },
   "testPages": [
     {
@@ -566,6 +566,67 @@
       "layoutPattern": "interactive",
       "description": "Complex workflows: modal dialogs, drag-and-drop, dynamic content, multi-step forms (~2-3 minutes)",
       "totalCases": 19,
+      "expectedViolations": null,
+      "expectedPasses": null,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": false,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "cookie-dialog",
+      "filename": "cookie-dialog-test.html",
+      "url": "https://a11yplan.github.io/examples/cookie-dialog-test.html",
+      "title": "Cookie Dialog",
+      "wcagCriteria": [
+        "Cookie Consent"
+      ],
+      "wcagLevel": null,
+      "category": "Other",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Modal overlay cookie consent dialog with Accept/Reject buttons, close button, and status tracking",
+      "totalCases": 26,
+      "expectedViolations": null,
+      "expectedPasses": null,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": false,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "login-form",
+      "filename": "login-form-test.html",
+      "url": "https://a11yplan.github.io/examples/login-form-test.html",
+      "title": "Login Form",
+      "wcagCriteria": [
+        "Authentication"
+      ],
+      "wcagLevel": null,
+      "category": "Other",
+      "testType": "basic",
+      "layoutPattern": "independent-grid",
+      "description": "Email/password login form with validation, show/hide password toggle, remember me checkbox, and status feedback",
+      "totalCases": 36,
+      "expectedViolations": null,
+      "expectedPasses": null,
+      "machineReadable": true,
+      "hasMetadata": false,
+      "hasExpectedResults": false,
+      "hasConfidenceScores": false
+    },
+    {
+      "id": "axe-monitoring",
+      "filename": "axe-monitoring-test.html",
+      "url": "https://a11yplan.github.io/examples/axe-monitoring-test.html",
+      "title": "Axe-Core Monitoring Test",
+      "wcagCriteria": [],
+      "wcagLevel": "AA",
+      "category": "Comprehensive & Legacy Tests",
+      "testType": "algorithm",
+      "layoutPattern": "independent-grid",
+      "description": "Stable & dynamic violations for testing charting and recurring detection. 18 stable violations always present, 5 dynamic violations with weighted probabilities (70%, 50%, 30%, 60%, 40%).",
+      "totalCases": 22,
       "expectedViolations": null,
       "expectedPasses": null,
       "machineReadable": true,

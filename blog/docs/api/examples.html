@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (2):
+1. link-name (critical, WCAG 2.0 A 4.1.2) - Line 69
+2. heading-order (moderate, best-practice) - Line 66
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +20,6 @@
         .breadcrumb { margin-bottom: 20px; color: #666; }
         .breadcrumb a { color: #0066cc; }
         pre { background: #f4f4f4; padding: 15px; overflow-x: auto; border-radius: 5px; }
-        .example { margin: 30px 0; }
-        .example h3 { border-bottom: 1px solid #ddd; padding-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -35,69 +38,34 @@
         </div>
 
         <h1>Code-Beispiele</h1>
+        <p>Diese Seite ist auf Tiefe 3 (/docs/api/examples.html).</p>
 
-        <div class="example">
-            <h3>JavaScript / Node.js</h3>
-            <pre><code>const scanner = require('@a11yplan/scanner');
+        <h2>JavaScript / Node.js</h2>
+        <pre><code>const scanner = require('@a11yplan/scanner');
 
 async function runScan() {
   const results = await scanner.scan({
     url: 'https://example.com',
-    wcagVersion: '2.2',
-    level: 'AA',
-    bestPractices: true
+    level: 'AA'
   });
-
-  console.log(`Found ${results.violations.length} violations`);
+  console.log(results);
 }</code></pre>
-        </div>
 
-        <div class="example">
-            <h3>Python</h3>
-            <pre><code>import requests
+        <h2>Python</h2>
+        <pre><code>import requests
 
 response = requests.post(
     'https://api.a11yplan.com/v1/scan',
-    headers={'Authorization': 'Bearer YOUR_API_KEY'},
-    json={
-        'url': 'https://example.com',
-        'level': 'AA'
-    }
+    json={'url': 'https://example.com'}
 )
+print(response.json())</code></pre>
 
-results = response.json()
-print(f"Found {len(results['violations'])} violations")</code></pre>
-        </div>
+        <!-- VIOLATION 2: heading-order (h4 after h2, skipping h3) -->
+        <h4>Weitere Beispiele</h4>
+        <p>Zusätzliche Beispiele finden Sie in der vollständigen Referenz.</p>
 
-        <div class="example">
-            <h3>cURL</h3>
-            <pre><code>curl -X POST https://api.a11yplan.com/v1/scan \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://example.com", "level": "AA"}'</code></pre>
-        </div>
-
-        <!-- Violation: Link to non-existent anchor -->
-        <h2>Weitere Beispiele</h2>
-        <ul>
-            <li><a href="#crawler-example">Crawler-Konfiguration</a></li>
-            <li><a href="#filter-example">Filter-Beispiele</a></li>
-            <li><a href="#webhook-example">Webhook-Integration</a></li>
-        </ul>
-
-        <!-- Violation: ID not matching anchor -->
-        <div id="wrong-id">
-            <h3>Crawler mit Filtern</h3>
-            <pre><code>const results = await scanner.scan({
-  url: 'https://example.com',
-  crawler: {
-    maxDepth: 2,
-    maxPages: 50,
-    include: ['/blog'],
-    exclude: ['/admin']
-  }
-});</code></pre>
-        </div>
+        <!-- VIOLATION 1: link-name (empty link) -->
+        <a href="reference.html"></a>
 
         <p><a href="index.html">Zurück zur API-Übersicht</a></p>
     </main>

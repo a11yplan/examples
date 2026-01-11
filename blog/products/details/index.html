@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (2):
+1. empty-heading (moderate, best-practice) - Line 47
+2. link-name (critical, WCAG 2.0 A 4.1.2) - Line 50
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produkt Details - Test Site</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav { background: #34495e; padding: 15px; margin-bottom: 20px; }
         nav a { color: white; margin-right: 15px; text-decoration: none; }
         .card { border: 1px solid #ddd; padding: 20px; margin-bottom: 15px; border-radius: 8px; }
     </style>
@@ -14,14 +19,13 @@
 <body>
     <nav>
         <a href="../../index.html">Home</a>
-        <a href="../index.html">Products</a>
-        <a href="../../docs/index.html">Docs</a>
+        <a href="../index.html">Produkte</a>
         <a href="index.html">Details</a>
     </nav>
 
     <main>
         <h1>Produkt Details</h1>
-        <p>Diese Seite ist auf Tiefe 2 (/products/details/). Sie wird nur gecrawlt wenn Max. Tiefe >= 2.</p>
+        <p>Diese Seite ist auf Tiefe 2 (/products/details/).</p>
 
         <div class="card">
             <h2><a href="specs.html">Spezifikationen</a></h2>
@@ -38,8 +42,11 @@
             <p>Informationen zu unserem Beratungsservice.</p>
         </div>
 
-        <!-- Violation: Blink element (deprecated) -->
-        <p><blink>Neu: Jetzt mit WCAG 2.2 Support!</blink></p>
+        <!-- VIOLATION 1: empty-heading -->
+        <h2></h2>
+
+        <!-- VIOLATION 2: link-name (empty link) -->
+        <a href="specs.html"></a>
     </main>
 
     <footer style="margin-top: 40px; padding: 20px; background: #f5f5f5;">

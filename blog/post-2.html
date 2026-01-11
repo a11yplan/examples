@@ -1,87 +1,74 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (5):
+1. label (serious, WCAG 2.0 A 1.3.1) - Line 52
+2. label (serious, WCAG 2.0 A 1.3.1) - Line 53
+3. button-name (critical, WCAG 2.0 A 4.1.2) - Line 54
+4. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 57
+5. th-has-data-cells (serious, WCAG 2.0 A 1.3.1) - Line 64
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Axe-Core Best Practices - Blog</title>
+    <title>Axe-Core Testing - Blog</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav { background: #34495e; padding: 15px; margin-bottom: 20px; }
         nav a { color: white; margin-right: 15px; text-decoration: none; }
-        article { line-height: 1.6; }
-        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
-        pre { background: #f4f4f4; padding: 15px; overflow-x: auto; }
-        /* WCAG Violation: Insufficient contrast */
-        .note { color: #888; background: #f9f9f9; padding: 10px; }
+        article { line-height: 1.8; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background: #f5f5f5; }
+        .search-box { margin: 20px 0; padding: 15px; background: #f9f9f9; }
     </style>
 </head>
 <body>
     <nav>
-        <a href="index.html">Blog</a>
+        <a href="index.html">Start</a>
+        <a href="post-1.html">Post 1</a>
+        <a href="post-3.html">Post 3</a>
         <a href="category/index.html">Kategorien</a>
-        <a href="post-1.html">WCAG 2.2</a>
-        <a href="post-3.html">Keyboard</a>
     </nav>
 
     <article>
-        <h1>Axe-Core Best Practices</h1>
-
-        <h2>Was ist axe-core?</h2>
-        <p>Axe-core ist eine Open-Source Bibliothek für automatisierte Barrierefreiheitstests.</p>
+        <h1>Axe-Core Testing</h1>
+        <p>Axe-core ist die führende JavaScript-Bibliothek für automatisierte Accessibility-Tests.</p>
 
         <h2>Installation</h2>
-        <pre><code>npm install axe-core</code></pre>
+        <pre>npm install axe-core</pre>
 
-        <h2>Regel-Kategorien</h2>
+        <h2>Grundlegende Verwendung</h2>
+        <p>Nach der Installation können Sie axe-core in Ihren Tests verwenden.</p>
 
-        <h3>WCAG Level A</h3>
-        <p>Die grundlegenden Barrierefreiheitsanforderungen.</p>
+        <h2>Suche in der Dokumentation</h2>
+        <div class="search-box">
+            <!-- VIOLATION 1: label (input without label) -->
+            <input type="text" placeholder="Suchbegriff eingeben...">
+            <!-- VIOLATION 2: label (input without label) -->
+            <input type="email" placeholder="E-Mail für Updates">
+            <!-- VIOLATION 3: button-name (button with only hidden icon) -->
+            <button><span aria-hidden="true">🔍</span></button>
+        </div>
 
-        <h3>WCAG Level AA</h3>
-        <p>Der empfohlene Standard für die meisten Websites.</p>
+        <!-- VIOLATION 4: color-contrast (#aaa on white = 2.32:1) -->
+        <p style="color: #aaaaaa;">Tipp: Die Suche unterstützt auch reguläre Ausdrücke.</p>
 
-        <h3>Best Practices</h3>
-        <p class="note">Best Practices sind keine WCAG-Anforderungen, aber verbessern die Benutzererfahrung.</p>
-
-        <!-- Best Practice Violation: Form without label -->
-        <h2>Suche</h2>
-        <form>
-            <input type="text" placeholder="Suchen...">
-            <!-- Violation: Button without accessible name -->
-            <button type="submit"><span aria-hidden="true">🔍</span></button>
-        </form>
-
-        <h2>Experimental Rules</h2>
-        <p>Experimentelle Regeln sind noch in Entwicklung und können sich ändern.</p>
-
-        <!-- Tabelle ohne Headers - Violation -->
-        <table border="1" style="margin: 20px 0;">
-            <tr>
-                <td>Regel</td>
-                <td>Kategorie</td>
-                <td>Status</td>
-            </tr>
-            <tr>
-                <td>color-contrast</td>
-                <td>WCAG AA</td>
-                <td>Stable</td>
-            </tr>
-            <tr>
-                <td>target-size</td>
-                <td>WCAG 2.2</td>
-                <td>Stable</td>
-            </tr>
+        <h2>Regel-Übersicht</h2>
+        <!-- VIOLATION 5: th-has-data-cells (thead with th but empty tbody) -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Regel-ID</th>
+                    <th>Impact</th>
+                    <th>WCAG Level</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
         </table>
 
-        <h2>Weitere Artikel</h2>
-        <ul>
-            <li><a href="post-1.html">Einführung in WCAG 2.2</a></li>
-            <li><a href="post-3.html">Keyboard Navigation implementieren</a></li>
-        </ul>
+        <p><a href="post-3.html">Weiter zu Keyboard Navigation</a></p>
     </article>
-
-    <footer>
-        <p><a href="index.html">Zurück zum Blog</a></p>
-    </footer>
 </body>
 </html>

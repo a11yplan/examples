@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (2):
+1. empty-heading (moderate, best-practice) - Line 44
+2. link-name (critical, WCAG 2.0 A 4.1.2) - Line 47
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kategorien - Blog</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav { background: #34495e; padding: 15px; margin-bottom: 20px; }
         nav a { color: white; margin-right: 15px; text-decoration: none; }
         .category-card { border: 1px solid #ddd; padding: 20px; margin-bottom: 15px; border-radius: 8px; }
         .category-card h2 { margin-top: 0; }
@@ -14,8 +19,7 @@
 </head>
 <body>
     <nav>
-        <a href="../index.html">Blog</a>
-        <a href="index.html">Kategorien</a>
+        <a href="../index.html">Start</a>
         <a href="tech.html">Technologie</a>
         <a href="news.html">News</a>
         <a href="tutorials.html">Tutorials</a>
@@ -36,12 +40,14 @@
 
         <div class="category-card">
             <h2><a href="tutorials.html">Tutorials</a></h2>
-            <p>Schritt-für-Schritt Anleitungen und How-Tos.</p>
+            <p>Schritt-für-Schritt Anleitungen und Guides.</p>
         </div>
 
-        <!-- Violation: Empty list -->
-        <h2>Beliebte Tags</h2>
-        <ul></ul>
+        <!-- VIOLATION 1: empty-heading -->
+        <h2></h2>
+
+        <!-- VIOLATION 2: link-name (empty link) -->
+        <a href="tech.html"></a>
     </main>
 
     <footer>

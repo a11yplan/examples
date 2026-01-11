@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (3):
+1. link-name (critical, WCAG 2.0 A 4.1.2) - Line 53
+2. button-name (critical, WCAG 2.0 A 4.1.2) - Line 56
+3. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 43
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +15,7 @@
         .sidebar { width: 250px; background: #2c3e50; min-height: 100vh; padding: 20px; }
         .sidebar a { color: white; display: block; padding: 10px; text-decoration: none; margin-bottom: 5px; }
         .main { flex: 1; padding: 20px; }
-        .report-card { border: 1px solid #ddd; padding: 20px; margin-bottom: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .report-card { border: 1px solid #ddd; padding: 20px; margin-bottom: 15px; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -25,39 +31,26 @@
 
     <main class="main">
         <h1>Berichte</h1>
-        <p>Diese Seite ist auf Tiefe 2 (/admin/reports/). Sie sollte nur gecrawlt werden, wenn Max. Tiefe >= 2 ist.</p>
+        <p>Diese Seite ist auf Tiefe 2 (/admin/reports/).</p>
 
         <div class="report-card">
-            <div>
-                <h2 style="margin: 0;">Monatsbericht Januar 2025</h2>
-                <p style="margin: 5px 0; color: #666;">Erstellt am 01.02.2025</p>
-            </div>
+            <h2>Monatsbericht Januar 2025</h2>
+            <!-- VIOLATION 3: color-contrast (#999 on white = 2.85:1) -->
+            <p style="color: #999999;">Erstellt am 01.02.2025</p>
             <a href="monthly.html">Anzeigen</a>
         </div>
 
         <div class="report-card">
-            <div>
-                <h2 style="margin: 0;">Wöchentlicher Scan KW 4</h2>
-                <p style="margin: 5px 0; color: #666;">Erstellt am 28.01.2025</p>
-            </div>
-            <!-- Violation: Link without href -->
-            <a>Anzeigen</a>
+            <h2>Wöchentlicher Scan KW 4</h2>
+            <p>Erstellt am 28.01.2025</p>
+            <a href="monthly.html">Anzeigen</a>
         </div>
 
-        <div class="report-card">
-            <div>
-                <h2 style="margin: 0;">Wöchentlicher Scan KW 3</h2>
-                <p style="margin: 5px 0; color: #666;">Erstellt am 21.01.2025</p>
-            </div>
-            <!-- Violation: JavaScript link -->
-            <a href="javascript:void(0)">Anzeigen</a>
-        </div>
+        <!-- VIOLATION 1: link-name (empty link) -->
+        <a href="monthly.html"></a>
 
-        <!-- Violation: Button that triggers download without warning -->
-        <h2>Export</h2>
-        <button onclick="alert('Download started')">
-            <span aria-hidden="true">📥</span>
-        </button>
+        <!-- VIOLATION 2: button-name (empty button) -->
+        <button></button>
     </main>
 </body>
 </html>

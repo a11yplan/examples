@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (3):
+1. link-name (critical, WCAG 2.0 A 4.1.2) - Line 62
+2. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 56
+3. heading-order (moderate, best-practice) - Line 59
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,9 +22,6 @@
         .breadcrumb a { color: #0066cc; }
         .method { background: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px; }
         .method h3 { margin-top: 0; font-family: monospace; }
-        .badge { display: inline-block; padding: 2px 8px; font-size: 0.8em; border-radius: 3px; }
-        .badge-get { background: #28a745; color: white; }
-        .badge-post { background: #0066cc; color: white; }
     </style>
 </head>
 <body>
@@ -44,45 +47,29 @@
         <p>Diese Seite ist auf Tiefe 2 (/docs/api/). Vollständige REST API Dokumentation.</p>
 
         <h2>Authentifizierung</h2>
-        <p>Alle API-Anfragen erfordern einen API-Key im Header:</p>
-        <pre style="background: #f4f4f4; padding: 15px;"><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+        <p>Alle API-Anfragen erfordern einen API-Key im Header.</p>
 
         <h2>Endpunkte</h2>
 
         <div class="method">
-            <h3><span class="badge badge-post">POST</span> /api/v1/scan</h3>
+            <h3>POST /api/v1/scan</h3>
             <p>Startet einen neuen Accessibility-Scan.</p>
-            <!-- Violation: Parameter table without headers -->
-            <table border="1" style="width: 100%; border-collapse: collapse;">
-                <tr>
-                    <td style="padding: 8px;">url</td>
-                    <td>string</td>
-                    <td>Die zu scannende URL</td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px;">level</td>
-                    <td>string</td>
-                    <td>WCAG Level (A, AA, AAA)</td>
-                </tr>
-            </table>
         </div>
 
-        <div class="method">
-            <h3><span class="badge badge-get">GET</span> /api/v1/results/{id}</h3>
-            <p>Ruft die Ergebnisse eines Scans ab.</p>
-        </div>
+        <!-- VIOLATION 2: color-contrast (#999 on white = 2.85:1) -->
+        <p style="color: #999999;">Weitere Endpunkte finden Sie in der vollständigen Referenz.</p>
 
-        <div class="method">
-            <h3><span class="badge badge-get">GET</span> /api/v1/reports</h3>
-            <p>Listet alle verfügbaren Berichte auf.</p>
-        </div>
+        <!-- VIOLATION 3: heading-order (h4 after h2/h3, skipping levels) -->
+        <h4>Rate Limits</h4>
+        <p>Die API ist auf 100 Anfragen pro Minute beschränkt.</p>
 
-        <!-- Violation: Link opens in new window without warning -->
+        <!-- VIOLATION 1: link-name (empty link) -->
+        <a href="reference.html"></a>
+
         <h2>Weitere Ressourcen</h2>
         <ul>
             <li><a href="reference.html">Vollständige Referenz</a></li>
             <li><a href="examples.html">Code-Beispiele</a></li>
-            <li><a href="#" target="_blank">Postman Collection</a></li>
         </ul>
     </main>
 </body>

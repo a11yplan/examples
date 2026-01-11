@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (3):
+1. label (serious, WCAG 2.0 A 1.3.1) - Line 58
+2. heading-order (moderate, best-practice) - Line 53
+3. tabindex (moderate, best-practice) - Line 61
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +20,6 @@
         .main { flex: 1; padding: 20px; max-width: 800px; }
         .breadcrumb { margin-bottom: 20px; color: #666; }
         .breadcrumb a { color: #0066cc; }
-        .tabs { display: flex; border-bottom: 2px solid #ddd; margin-bottom: 20px; }
-        .tab { padding: 10px 20px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
-        .tab.active { border-bottom-color: #0066cc; color: #0066cc; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
     </style>
 </head>
 <body>
@@ -39,69 +40,27 @@
 
         <h1>Installation</h1>
 
-        <!-- Violation: Tabs without proper ARIA -->
-        <div class="tabs">
-            <div class="tab active" onclick="showTab('npm')">npm</div>
-            <div class="tab" onclick="showTab('yarn')">yarn</div>
-            <div class="tab" onclick="showTab('pnpm')">pnpm</div>
-        </div>
-
-        <div id="npm" class="tab-content active">
-            <h2>Installation mit npm</h2>
-            <pre style="background: #f4f4f4; padding: 15px;"><code>npm install @a11yplan/scanner</code></pre>
-        </div>
-
-        <div id="yarn" class="tab-content">
-            <h2>Installation mit yarn</h2>
-            <pre style="background: #f4f4f4; padding: 15px;"><code>yarn add @a11yplan/scanner</code></pre>
-        </div>
-
-        <div id="pnpm" class="tab-content">
-            <h2>Installation mit pnpm</h2>
-            <pre style="background: #f4f4f4; padding: 15px;"><code>pnpm add @a11yplan/scanner</code></pre>
-        </div>
+        <h2>Installation mit npm</h2>
+        <pre style="background: #f4f4f4; padding: 15px;"><code>npm install @a11yplan/scanner</code></pre>
 
         <h2>Systemanforderungen</h2>
-        <!-- Violation: List items without parent list -->
-        <p>
+        <ul>
             <li>Node.js 18 oder höher</li>
             <li>npm 9+ oder yarn 1.22+</li>
-            <li>Mindestens 512 MB RAM</li>
-        </p>
+        </ul>
 
-        <h2>Globale Installation</h2>
-        <pre style="background: #f4f4f4; padding: 15px;"><code>npm install -g @a11yplan/scanner</code></pre>
+        <!-- VIOLATION 2: heading-order (h4 after h2, skipping h3) -->
+        <h4>Optionale Pakete</h4>
+        <p>Für erweiterte Funktionen können zusätzliche Pakete installiert werden.</p>
 
-        <!-- Violation: Scrollable region without keyboard access -->
-        <h2>Konfigurationsdatei</h2>
-        <div style="height: 150px; overflow: auto; border: 1px solid #ddd; padding: 10px;">
-            <pre><code>{
-  "urls": ["https://example.com"],
-  "wcag": "2.2",
-  "level": "AA",
-  "bestPractices": true,
-  "experimental": false,
-  "output": {
-    "format": "json",
-    "path": "./reports"
-  },
-  "crawler": {
-    "maxDepth": 2,
-    "maxPages": 50
-  }
-}</code></pre>
-        </div>
+        <h2>Konfiguration</h2>
+        <!-- VIOLATION 1: label (input without label) -->
+        <input type="text" placeholder="API Key eingeben">
+
+        <!-- VIOLATION 3: tabindex > 0 -->
+        <button tabindex="5">Speichern</button>
 
         <p><a href="index.html">Zurück zur Übersicht</a></p>
-
-        <script>
-            function showTab(tabId) {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                event.target.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
-            }
-        </script>
     </main>
 </body>
 </html>

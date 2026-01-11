@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (2):
+1. image-alt (critical, WCAG 2.0 A 1.1.1) - Line 51
+2. heading-order (moderate, best-practice) - Line 54
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spezifikationen - Produkt Details</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav { background: #34495e; padding: 15px; margin-bottom: 20px; }
         nav a { color: white; margin-right: 15px; text-decoration: none; }
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { padding: 12px; text-align: left; border: 1px solid #ddd; }
@@ -16,13 +21,13 @@
 <body>
     <nav>
         <a href="../../index.html">Home</a>
-        <a href="../index.html">Products</a>
-        <a href="../../docs/index.html">Docs</a>
+        <a href="../index.html">Produkte</a>
         <a href="index.html">Details</a>
     </nav>
 
     <main>
         <h1>Technische Spezifikationen</h1>
+        <p>Diese Seite ist auf Tiefe 3 (/products/details/specs.html).</p>
 
         <h2>Scanner Pro</h2>
         <table>
@@ -41,32 +46,16 @@
                     <td>WCAG Support</td>
                     <td>2.0, 2.1, 2.2</td>
                 </tr>
-                <tr>
-                    <td>Betriebssysteme</td>
-                    <td>Windows 10+, macOS 12+, Linux</td>
-                </tr>
-                <tr>
-                    <td>Browser</td>
-                    <td>Chrome, Firefox, Safari, Edge</td>
-                </tr>
-                <tr>
-                    <td>API</td>
-                    <td>REST, GraphQL</td>
-                </tr>
             </tbody>
         </table>
 
-        <!-- Violation: Pre with no alternative for whitespace -->
-        <h2>Installation</h2>
-        <pre style="background: #f4f4f4; padding: 15px; overflow-x: auto;">
-npm install @a11yplan/scanner
-# oder
-yarn add @a11yplan/scanner
-        </pre>
-
-        <!-- Violation: Image with title but no alt -->
         <h2>Architektur</h2>
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200'%3E%3Crect fill='%23e0e0e0' width='600' height='200'/%3E%3Ctext x='300' y='100' text-anchor='middle' fill='%23666'%3EArchitektur Diagramm%3C/text%3E%3C/svg%3E" title="System Architektur" width="600" height="200">
+        <!-- VIOLATION 1: image-alt (missing alt attribute) -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='150'%3E%3Crect fill='%23e0e0e0' width='400' height='150'/%3E%3C/svg%3E" width="400" height="150">
+
+        <!-- VIOLATION 2: heading-order (h4 after h2, skipping h3) -->
+        <h4>Komponenten</h4>
+        <p>Die Hauptkomponenten des Systems.</p>
 
         <p><a href="index.html">Zurück zur Übersicht</a></p>
     </main>

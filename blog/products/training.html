@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (3):
+1. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 40
+2. link-name (critical, WCAG 2.0 A 4.1.2) - Line 59
+3. heading-order (moderate, best-practice) - Line 56
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Training & Workshops - Produkte</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav { background: #34495e; padding: 15px; margin-bottom: 20px; }
         nav a { color: white; margin-right: 15px; text-decoration: none; }
         .workshop-card { border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
         .workshop-card h3 { margin-top: 0; }
-        /* Best Practice Violation: Very low contrast */
-        .date { color: #ccc; }
-        .btn { padding: 10px 20px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .btn { padding: 10px 20px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; }
     </style>
 </head>
 <body>
     <nav>
         <a href="../index.html">Home</a>
-        <a href="index.html">Products</a>
-        <a href="../docs/index.html">Docs</a>
-        <a href="../admin/index.html">Admin</a>
+        <a href="index.html">Produkte</a>
+        <a href="details/index.html">Details</a>
     </nav>
 
     <main>
@@ -29,39 +32,27 @@
 
         <div class="workshop-card">
             <h3>WCAG Grundlagen</h3>
-            <p class="date">Nächster Termin: 15. Februar 2025</p>
+            <!-- VIOLATION 1: color-contrast (#999 on white = 2.85:1) -->
+            <p style="color: #999999;">Nächster Termin: 15. Februar 2025</p>
             <p>Einführung in die Web Content Accessibility Guidelines.</p>
             <p><strong>Dauer:</strong> 1 Tag | <strong>Preis:</strong> 300 EUR</p>
-            <!-- Violation: Multiple identical links -->
-            <a href="#" class="btn">Anmelden</a>
+            <a href="#anmeldung" class="btn">Anmelden</a>
         </div>
 
         <div class="workshop-card">
             <h3>Accessibility Testing</h3>
-            <p class="date">Nächster Termin: 22. Februar 2025</p>
+            <p>Nächster Termin: 22. Februar 2025</p>
             <p>Automatisierte und manuelle Tests für Barrierefreiheit.</p>
             <p><strong>Dauer:</strong> 2 Tage | <strong>Preis:</strong> 550 EUR</p>
-            <a href="#" class="btn">Anmelden</a>
+            <a href="#anmeldung" class="btn">Anmelden</a>
         </div>
 
-        <div class="workshop-card">
-            <h3>ARIA für Fortgeschrittene</h3>
-            <p class="date">Nächster Termin: 1. März 2025</p>
-            <p>Komplexe interaktive Komponenten barrierefrei umsetzen.</p>
-            <p><strong>Dauer:</strong> 1 Tag | <strong>Preis:</strong> 350 EUR</p>
-            <a href="#" class="btn">Anmelden</a>
-        </div>
+        <!-- VIOLATION 3: heading-order (h4 after h3, skipping levels) -->
+        <h4>Aktuelle Angebote</h4>
+        <p>20% Rabatt auf alle Workshops im Februar!</p>
 
-        <!-- Violation: Video without captions -->
-        <h2>Einführungsvideo</h2>
-        <video width="100%" controls>
-            <source src="nonexistent.mp4" type="video/mp4">
-            Ihr Browser unterstützt keine Videos.
-        </video>
-
-        <!-- Violation: Marquee element -->
-        <h2>Aktuelle Angebote</h2>
-        <marquee>20% Rabatt auf alle Workshops im Februar!</marquee>
+        <!-- VIOLATION 2: link-name (empty link) -->
+        <a href="index.html"></a>
 
         <p style="margin-top: 20px;"><a href="index.html">Zurück zur Übersicht</a></p>
     </main>

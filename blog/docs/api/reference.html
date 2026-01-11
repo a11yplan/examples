@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (2):
+1. link-name (critical, WCAG 2.0 A 4.1.2) - Line 77
+2. heading-order (moderate, best-practice) - Line 74
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +22,6 @@
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { padding: 10px; text-align: left; border: 1px solid #ddd; }
         th { background: #f4f4f4; }
-        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
     </style>
 </head>
 <body>
@@ -36,6 +40,7 @@
         </div>
 
         <h1>Vollständige API Referenz</h1>
+        <p>Diese Seite ist auf Tiefe 3 (/docs/api/reference.html).</p>
 
         <h2>Scan-Optionen</h2>
         <table>
@@ -43,93 +48,32 @@
                 <tr>
                     <th>Parameter</th>
                     <th>Typ</th>
-                    <th>Standard</th>
                     <th>Beschreibung</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><code>url</code></td>
+                    <td>url</td>
                     <td>string</td>
-                    <td>-</td>
-                    <td>Erforderlich. Die zu scannende URL.</td>
+                    <td>Die zu scannende URL</td>
                 </tr>
                 <tr>
-                    <td><code>wcagVersion</code></td>
+                    <td>level</td>
                     <td>string</td>
-                    <td>"2.2"</td>
-                    <td>WCAG Version (2.0, 2.1, 2.2)</td>
-                </tr>
-                <tr>
-                    <td><code>level</code></td>
-                    <td>string</td>
-                    <td>"AA"</td>
-                    <td>Konformitätsstufe (A, AA, AAA)</td>
-                </tr>
-                <tr>
-                    <td><code>bestPractices</code></td>
-                    <td>boolean</td>
-                    <td>false</td>
-                    <td>Best Practices einbeziehen</td>
-                </tr>
-                <tr>
-                    <td><code>experimental</code></td>
-                    <td>boolean</td>
-                    <td>false</td>
-                    <td>Experimentelle Regeln einbeziehen</td>
+                    <td>WCAG Level (A, AA, AAA)</td>
                 </tr>
             </tbody>
         </table>
 
-        <h2>Crawler-Optionen</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Parameter</th>
-                    <th>Typ</th>
-                    <th>Standard</th>
-                    <th>Beschreibung</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>maxDepth</code></td>
-                    <td>number</td>
-                    <td>1</td>
-                    <td>Maximale Crawl-Tiefe</td>
-                </tr>
-                <tr>
-                    <td><code>maxPages</code></td>
-                    <td>number</td>
-                    <td>10</td>
-                    <td>Maximale Seitenanzahl</td>
-                </tr>
-                <tr>
-                    <td><code>include</code></td>
-                    <td>string[]</td>
-                    <td>[]</td>
-                    <td>URL-Muster zum Einschließen</td>
-                </tr>
-                <tr>
-                    <td><code>exclude</code></td>
-                    <td>string[]</td>
-                    <td>[]</td>
-                    <td>URL-Muster zum Ausschließen</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Violation: Acronym without expansion -->
         <h2>Response-Format</h2>
-        <p>Die API gibt Daten im <abbr>JSON</abbr>-Format zurück.</p>
+        <p>Die API gibt Daten im JSON-Format zurück.</p>
 
-        <pre style="background: #f4f4f4; padding: 15px; overflow-x: auto;"><code>{
-  "id": "scan_123",
-  "status": "completed",
-  "violations": [...],
-  "passes": [...],
-  "incomplete": [...]
-}</code></pre>
+        <!-- VIOLATION 2: heading-order (h4 after h2, skipping h3) -->
+        <h4>Beispiel-Response</h4>
+        <pre style="background: #f4f4f4; padding: 15px;">{"id": "scan_123", "status": "completed"}</pre>
+
+        <!-- VIOLATION 1: link-name (empty link) -->
+        <a href="examples.html"></a>
 
         <p><a href="index.html">Zurück zur API-Übersicht</a></p>
     </main>

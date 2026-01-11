@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (4):
+1. label (serious, WCAG 2.0 A 1.3.1) - Line 45
+2. label (serious, WCAG 2.0 A 1.3.1) - Line 46
+3. button-name (critical, WCAG 2.0 A 4.1.2) - Line 67
+4. duplicate-id (serious, WCAG 2.0 A 4.1.1) - Line 70
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +15,6 @@
         body { font-family: Arial, sans-serif; margin: 0; display: flex; }
         .sidebar { width: 250px; background: #2c3e50; min-height: 100vh; padding: 20px; }
         .sidebar a { color: white; display: block; padding: 10px; text-decoration: none; margin-bottom: 5px; }
-        .sidebar a:hover { background: #34495e; }
         .main { flex: 1; padding: 20px; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
@@ -32,14 +38,14 @@
     <main class="main">
         <h1>Benutzerverwaltung</h1>
 
-        <!-- Violation: Form inputs without labels -->
         <div style="margin-bottom: 20px;">
-            <input type="text" placeholder="Suchen..." style="padding: 8px; width: 200px;">
-            <select style="padding: 8px;">
+            <!-- VIOLATION 1: label (input without label) -->
+            <input type="text" placeholder="Suchen...">
+            <!-- VIOLATION 2: label (select without label) -->
+            <select>
                 <option>Alle Rollen</option>
                 <option>Admin</option>
                 <option>Editor</option>
-                <option>Benutzer</option>
             </select>
             <button class="btn btn-edit">Filtern</button>
         </div>
@@ -59,36 +65,25 @@
                     <td>max@example.com</td>
                     <td>Admin</td>
                     <td>
-                        <!-- Violation: Buttons without accessible names -->
-                        <button class="btn btn-edit"><span aria-hidden="true">✏️</span></button>
-                        <button class="btn btn-delete"><span aria-hidden="true">🗑️</span></button>
+                        <!-- VIOLATION 3: button-name (empty button) -->
+                        <button class="btn btn-edit"></button>
                     </td>
                 </tr>
-                <tr>
+                <!-- VIOLATION 4: duplicate-id -->
+                <tr id="user-row">
                     <td>Anna Schmidt</td>
                     <td>anna@example.com</td>
                     <td>Editor</td>
-                    <td>
-                        <button class="btn btn-edit"><span aria-hidden="true">✏️</span></button>
-                        <button class="btn btn-delete"><span aria-hidden="true">🗑️</span></button>
-                    </td>
+                    <td><button class="btn btn-edit">Bearbeiten</button></td>
                 </tr>
-                <tr>
+                <tr id="user-row">
                     <td>Peter Müller</td>
                     <td>peter@example.com</td>
                     <td>Benutzer</td>
-                    <td>
-                        <button class="btn btn-edit"><span aria-hidden="true">✏️</span></button>
-                        <button class="btn btn-delete"><span aria-hidden="true">🗑️</span></button>
-                    </td>
+                    <td><button class="btn btn-edit">Bearbeiten</button></td>
                 </tr>
             </tbody>
         </table>
-
-        <!-- Violation: Link that looks like button but has no href -->
-        <a style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px;">
-            Neuen Benutzer anlegen
-        </a>
     </main>
 </body>
 </html>

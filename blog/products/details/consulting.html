@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (3):
+1. label (serious, WCAG 2.0 A 1.3.1) - Line 50
+2. label (serious, WCAG 2.0 A 1.3.1) - Line 51
+3. heading-order (moderate, best-practice) - Line 47
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulting - Produkt Details</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav { background: #34495e; padding: 15px; margin-bottom: 20px; }
         nav a { color: white; margin-right: 15px; text-decoration: none; }
         .service-list { list-style: none; padding: 0; }
         .service-list li { padding: 15px; border-bottom: 1px solid #eee; }
@@ -16,14 +22,13 @@
 <body>
     <nav>
         <a href="../../index.html">Home</a>
-        <a href="../index.html">Products</a>
-        <a href="../../docs/index.html">Docs</a>
+        <a href="../index.html">Produkte</a>
         <a href="index.html">Details</a>
     </nav>
 
     <main>
         <h1>Consulting Services</h1>
-        <p>Strategische Beratung für nachhaltige Barrierefreiheit.</p>
+        <p>Diese Seite ist auf Tiefe 3 (/products/details/consulting.html).</p>
 
         <h2>Unsere Services</h2>
         <ul class="service-list">
@@ -35,34 +40,15 @@
                 <strong>Strategieentwicklung</strong>
                 <p>Roadmap für die Umsetzung von Barrierefreiheit.</p>
             </li>
-            <li>
-                <strong>Team-Coaching</strong>
-                <p>Schulung Ihrer Entwickler und Designer.</p>
-            </li>
-            <li>
-                <strong>Code Reviews</strong>
-                <p>Prüfung Ihres Codes auf Accessibility-Best-Practices.</p>
-            </li>
         </ul>
 
-        <!-- Violation: Object without alternative -->
-        <h2>Prozess-Übersicht</h2>
-        <object data="nonexistent.pdf" type="application/pdf" width="600" height="400">
-            <!-- No fallback content -->
-        </object>
-
-        <!-- Violation: Form with server-side map -->
-        <h2>Kontakt</h2>
+        <!-- VIOLATION 3: heading-order (h4 after h2, skipping h3) -->
+        <h4>Kontakt</h4>
         <form>
-            <p>
-                <input type="text" placeholder="Firma" style="width: 100%; padding: 10px; margin-bottom: 10px;">
-            </p>
-            <p>
-                <input type="email" placeholder="E-Mail" style="width: 100%; padding: 10px; margin-bottom: 10px;">
-            </p>
-            <p>
-                <input type="tel" placeholder="Telefon" style="width: 100%; padding: 10px; margin-bottom: 10px;">
-            </p>
+            <!-- VIOLATION 1: label (input without label) -->
+            <input type="text" placeholder="Firma" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            <!-- VIOLATION 2: label (input without label) -->
+            <input type="email" placeholder="E-Mail" style="width: 100%; padding: 10px; margin-bottom: 10px;">
             <button class="btn" type="submit">Anfrage senden</button>
         </form>
 

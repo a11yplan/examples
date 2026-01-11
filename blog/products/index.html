@@ -1,88 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (3):
+1. image-alt (critical, WCAG 2.0 A 1.1.1) - Line 42
+2. link-name (critical, WCAG 2.0 A 4.1.2) - Line 66
+3. empty-heading (moderate, best-practice) - Line 63
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produkte - Test Site</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
-        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        nav { background: #34495e; padding: 15px; margin-bottom: 20px; }
         nav a { color: white; margin-right: 15px; text-decoration: none; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .product-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
-        .product-card img { width: 100%; height: 200px; object-fit: cover; }
-        .product-info { padding: 15px; }
-        .product-info h2 { margin-top: 0; font-size: 1.2em; }
-        .price { color: #0066cc; font-size: 1.3em; font-weight: bold; }
-        .btn { padding: 10px 15px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .product-card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+        .product-card h2 { margin-top: 0; font-size: 1.2em; }
+        .price { color: #27ae60; font-weight: bold; }
     </style>
 </head>
 <body>
     <nav>
-        <a href="../index.html">Home</a>
-        <a href="index.html">Products</a>
-        <a href="../docs/index.html">Docs</a>
-        <a href="../admin/index.html">Admin</a>
+        <a href="../index.html">Start</a>
+        <a href="scanner-pro.html">Scanner Pro</a>
+        <a href="audit-service.html">Audit</a>
+        <a href="training.html">Training</a>
+        <a href="details/index.html">Details</a>
     </nav>
 
     <main>
         <h1>Unsere Produkte</h1>
-        <p>Entdecke unsere Auswahl an Accessibility-Tools und Services.</p>
+        <p>Professionelle Accessibility-Lösungen für Ihr Unternehmen.</p>
 
         <div class="products-grid">
             <div class="product-card">
-                <!-- Violation: Image without meaningful alt -->
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%234a90d9' width='300' height='200'/%3E%3Ctext x='150' y='100' text-anchor='middle' fill='white'%3EScanner Pro%3C/text%3E%3C/svg%3E" alt="image1.jpg">
-                <div class="product-info">
-                    <h2><a href="scanner-pro.html">Scanner Pro</a></h2>
-                    <p>Umfassender Accessibility-Scanner für Unternehmen.</p>
-                    <p class="price">199,00 EUR</p>
-                    <button class="btn">In den Warenkorb</button>
-                </div>
+                <!-- VIOLATION 1: image-alt (missing alt attribute) -->
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect fill='%234a90d9' width='200' height='100'/%3E%3C/svg%3E" width="200" height="100">
+                <h2><a href="scanner-pro.html">Scanner Pro</a></h2>
+                <p>Automatisierte Accessibility-Prüfung.</p>
+                <p class="price">199 EUR</p>
             </div>
 
             <div class="product-card">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%2328a745' width='300' height='200'/%3E%3Ctext x='150' y='100' text-anchor='middle' fill='white'%3EAudit Service%3C/text%3E%3C/svg%3E" alt="">
-                <div class="product-info">
-                    <h2><a href="audit-service.html">Audit Service</a></h2>
-                    <p>Professionelle Barrierefreiheitsprüfung durch Experten.</p>
-                    <p class="price">ab 500,00 EUR</p>
-                    <button class="btn">Anfragen</button>
-                </div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect fill='%2328a745' width='200' height='100'/%3E%3C/svg%3E" alt="Audit Service" width="200" height="100">
+                <h2><a href="audit-service.html">Audit Service</a></h2>
+                <p>Manuelle Prüfung durch Experten.</p>
+                <p class="price">ab 500 EUR</p>
             </div>
 
             <div class="product-card">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%23ffc107' width='300' height='200'/%3E%3Ctext x='150' y='100' text-anchor='middle' fill='%23333'%3ETraining%3C/text%3E%3C/svg%3E" alt="Training Bild">
-                <div class="product-info">
-                    <h2><a href="training.html">Training & Workshops</a></h2>
-                    <p>Schulungen für Entwickler und Designer.</p>
-                    <p class="price">ab 300,00 EUR</p>
-                    <button class="btn">Buchen</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%23dc3545' width='300' height='200'/%3E%3Ctext x='150' y='100' text-anchor='middle' fill='white'%3EConsulting%3C/text%3E%3C/svg%3E" alt="">
-                <div class="product-info">
-                    <h2><a href="details/index.html">Consulting</a></h2>
-                    <p>Strategische Beratung zur Barrierefreiheit.</p>
-                    <p class="price">Auf Anfrage</p>
-                    <!-- Violation: Non-specific link text -->
-                    <a href="details/index.html">Mehr erfahren</a>
-                </div>
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect fill='%23ffc107' width='200' height='100'/%3E%3C/svg%3E" alt="Training" width="200" height="100">
+                <h2><a href="training.html">Training</a></h2>
+                <p>Schulungen und Workshops.</p>
+                <p class="price">ab 300 EUR</p>
             </div>
         </div>
 
-        <h2>Weitere Informationen</h2>
-        <ul>
-            <li><a href="details/index.html">Produkt-Details ansehen</a></li>
-        </ul>
-    </main>
+        <!-- VIOLATION 3: empty-heading -->
+        <h2></h2>
 
-    <footer style="margin-top: 40px; padding: 20px; background: #f5f5f5;">
-        <!-- Violation: Empty paragraph -->
-        <p></p>
-        <p>&copy; 2025 Accessibility Test Site</p>
-    </footer>
+        <!-- VIOLATION 2: link-name (empty link) -->
+        <a href="details/index.html"></a>
+    </main>
 </body>
 </html>

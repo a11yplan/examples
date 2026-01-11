@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (3):
+1. frame-title (serious, WCAG 2.0 A 4.1.2) - Line 56
+2. th-has-data-cells (serious, WCAG 2.0 A 1.3.1) - Line 44
+3. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 38
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +18,6 @@
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
         th { background: #f4f4f4; }
-        .status-pass { color: green; }
-        .status-fail { color: red; }
     </style>
 </head>
 <body>
@@ -31,46 +35,26 @@
         <h1>Monatsbericht Januar 2025</h1>
 
         <h2>Zusammenfassung</h2>
-        <!-- Violation: Color-only status indication -->
-        <ul>
-            <li>Gescannte Seiten: <span class="status-pass">✓ 47</span></li>
-            <li>Fehler gefunden: <span class="status-fail">89</span></li>
-            <li>Warnungen: <span style="color: orange;">23</span></li>
-        </ul>
+        <!-- VIOLATION 3: color-contrast (#999 on white = 2.85:1) -->
+        <p style="color: #999999;">Diese Seite ist auf Tiefe 3 (/admin/reports/monthly.html).</p>
 
         <h2>Fehler nach Kategorie</h2>
-        <!-- Violation: Table without proper headers -->
+        <!-- VIOLATION 2: th-has-data-cells (th without associated data cells - empty tbody) -->
         <table>
-            <tr>
-                <td>Kategorie</td>
-                <td>Anzahl</td>
-                <td>Schweregrad</td>
-            </tr>
-            <tr>
-                <td>Kontrast</td>
-                <td>34</td>
-                <td><span style="color: red;">Kritisch</span></td>
-            </tr>
-            <tr>
-                <td>Alt-Text fehlt</td>
-                <td>28</td>
-                <td><span style="color: red;">Kritisch</span></td>
-            </tr>
-            <tr>
-                <td>Label fehlt</td>
-                <td>15</td>
-                <td><span style="color: orange;">Wichtig</span></td>
-            </tr>
-            <tr>
-                <td>Fokus nicht sichtbar</td>
-                <td>12</td>
-                <td><span style="color: orange;">Wichtig</span></td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Kategorie</th>
+                    <th>Anzahl</th>
+                    <th>Schweregrad</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
         </table>
 
-        <!-- Violation: iframe without title -->
         <h2>Trend-Grafik</h2>
-        <iframe src="about:blank" width="600" height="300" style="border: 1px solid #ddd;"></iframe>
+        <!-- VIOLATION 1: frame-title (iframe without title) -->
+        <iframe src="about:blank" width="600" height="200"></iframe>
 
         <p><a href="index.html">Zurück zur Übersicht</a></p>
     </main>

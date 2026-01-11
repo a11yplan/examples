@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (3):
+1. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 53
+2. heading-order (moderate, best-practice) - Line 56
+3. empty-heading (moderate, best-practice) - Line 59
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +21,6 @@
         .breadcrumb { margin-bottom: 20px; color: #666; }
         .breadcrumb a { color: #0066cc; }
         .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; }
-        /* Violation: Low contrast note text */
-        .note-subtle { background: #f8f9fa; color: #aaa; padding: 10px; }
     </style>
 </head>
 <body>
@@ -45,35 +49,20 @@
         <p>Installieren Sie das Scanner-Paket über npm:</p>
         <pre style="background: #f4f4f4; padding: 15px;"><code>npm install @a11yplan/scanner</code></pre>
 
-        <h2>2. Ersten Scan durchführen</h2>
-        <p>Führen Sie einen einfachen Scan durch:</p>
-        <pre style="background: #f4f4f4; padding: 15px;"><code>npx a11yplan scan https://ihre-website.de</code></pre>
+        <!-- VIOLATION 1: color-contrast (#999 on white = 2.85:1) -->
+        <p style="color: #999999;">Hinweis: Alternativ können Sie yarn oder pnpm verwenden.</p>
 
-        <h2>3. Ergebnisse analysieren</h2>
-        <p>Die Ergebnisse werden in der Konsole angezeigt und als JSON-Datei gespeichert.</p>
+        <!-- VIOLATION 2: heading-order (h4 after h2, skipping h3) -->
+        <h4>Optionale Abhängigkeiten</h4>
+        <p>Für erweiterte Funktionen installieren Sie zusätzliche Pakete.</p>
 
-        <!-- Violation: Table with merged cells but no headers -->
-        <table border="1" style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-            <tr>
-                <td rowspan="2" style="padding: 10px;">Ergebnis</td>
-                <td style="padding: 10px;">Violations</td>
-                <td style="padding: 10px;">Anzahl gefundener Fehler</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px;">Passes</td>
-                <td style="padding: 10px;">Bestandene Tests</td>
-            </tr>
-        </table>
-
-        <div class="note-subtle">
-            Tipp: Verwenden Sie die --verbose Flag für detaillierte Ausgaben.
-        </div>
+        <!-- VIOLATION 3: empty-heading -->
+        <h3></h3>
 
         <h2>Nächste Schritte</h2>
         <ul>
             <li><a href="installation.html">Detaillierte Installation</a></li>
             <li><a href="api/index.html">API Referenz</a></li>
-            <li><a href="api/reference.html">Konfiguration</a></li>
         </ul>
     </main>
 </body>

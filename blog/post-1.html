@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+VIOLATIONS (4):
+1. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 56
+2. heading-order (moderate, best-practice) - Line 53
+3. button-name (critical, WCAG 2.0 A 4.1.2) - Line 59
+4. tabindex (moderate, best-practice) - Line 62
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Einführung in WCAG 2.2 - Blog</title>
+    <title>WCAG 2.2 Einführung - Blog</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav { background: #34495e; padding: 15px; margin-bottom: 20px; }
         nav a { color: white; margin-right: 15px; text-decoration: none; }
-        article { line-height: 1.6; }
-        /* WCAG Violation: Low contrast text */
-        .meta { color: #aaa; font-size: 0.9em; }
-        .highlight { background: yellow; }
+        article { line-height: 1.8; }
+        .btn { padding: 10px 20px; background: #3498db; color: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
     <nav>
-        <a href="index.html">Blog</a>
+        <a href="index.html">Start</a>
+        <a href="post-2.html">Post 2</a>
+        <a href="post-3.html">Post 3</a>
         <a href="category/index.html">Kategorien</a>
-        <a href="post-2.html">Axe-Core</a>
-        <a href="post-3.html">Keyboard</a>
     </nav>
 
     <article>
-        <h1>Einführung in WCAG 2.2</h1>
-        <p class="meta">Veröffentlicht am 15. Januar 2025 von Admin</p>
+        <h1>WCAG 2.2 Einführung</h1>
+        <p>Die Web Content Accessibility Guidelines (WCAG) 2.2 wurden im Oktober 2023 veröffentlicht.</p>
 
-        <!-- Violation: Heading level skipped -->
-        <h4>Was ist neu in WCAG 2.2?</h4>
-        <p>WCAG 2.2 bringt mehrere neue Erfolgskriterien, die sich auf mobile Geräte und kognitive Barrierefreiheit konzentrieren.</p>
-
-        <h2>Die neuen Kriterien</h2>
-
-        <h3>2.4.11 Focus Not Obscured (Minimum)</h3>
-        <p>Der Tastaturfokus darf nicht vollständig durch andere Inhalte verdeckt werden.</p>
-
-        <h3>2.4.12 Focus Not Obscured (Enhanced)</h3>
-        <p>Strengere Version: Der Fokus darf überhaupt nicht verdeckt werden.</p>
-
-        <h3>2.5.7 Dragging Movements</h3>
-        <p>Funktionen, die Ziehen erfordern, müssen auch ohne Ziehbewegungen bedienbar sein.</p>
-
-        <h3>2.5.8 Target Size (Minimum)</h3>
-        <p>Interaktive Elemente müssen mindestens 24x24 CSS-Pixel groß sein.</p>
-
-        <!-- Experimental Violation: Small target size -->
-        <button style="width: 18px; height: 18px; padding: 0;">X</button>
-
-        <h2>Weitere Artikel</h2>
+        <h2>Neue Erfolgskriterien</h2>
+        <p>WCAG 2.2 führt mehrere neue Kriterien ein:</p>
         <ul>
-            <li><a href="post-2.html">Axe-Core Best Practices</a></li>
-            <li><a href="post-3.html">Keyboard Navigation implementieren</a></li>
+            <li>2.4.11 Focus Not Obscured (Minimum) - Level AA</li>
+            <li>2.4.12 Focus Not Obscured (Enhanced) - Level AAA</li>
+            <li>2.4.13 Focus Appearance - Level AAA</li>
+            <li>2.5.7 Dragging Movements - Level AA</li>
+            <li>2.5.8 Target Size (Minimum) - Level AA</li>
+            <li>3.2.6 Consistent Help - Level A</li>
+            <li>3.3.7 Redundant Entry - Level A</li>
+            <li>3.3.8 Accessible Authentication (Minimum) - Level AA</li>
+            <li>3.3.9 Accessible Authentication (Enhanced) - Level AAA</li>
         </ul>
-    </article>
 
-    <footer>
-        <p><a href="index.html">Zurück zum Blog</a></p>
-    </footer>
+        <h2>Implementation</h2>
+        <p>Bei der Umsetzung sollten Sie schrittweise vorgehen.</p>
+
+        <!-- VIOLATION 2: heading-order (h2 -> h4 skipped) -->
+        <h4>Zusammenfassung</h4>
+
+        <!-- VIOLATION 1: color-contrast (#999 on white = 2.85:1) -->
+        <p style="color: #999999;">WCAG 2.2 ist ein wichtiger Schritt für die digitale Barrierefreiheit.</p>
+
+        <!-- VIOLATION 3: button-name (empty button) -->
+        <button class="btn"></button>
+
+        <!-- VIOLATION 4: tabindex > 0 -->
+        <a href="post-2.html" tabindex="5">Weiter zu Axe-Core</a>
+    </article>
 </body>
 </html>

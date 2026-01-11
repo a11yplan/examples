@@ -2,11 +2,11 @@
 <html lang="de">
 <!--
 VIOLATIONS (5):
-1. label (serious, WCAG 2.0 A 1.3.1) - Line 52
-2. label (serious, WCAG 2.0 A 1.3.1) - Line 53
-3. button-name (critical, WCAG 2.0 A 4.1.2) - Line 54
-4. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 57
-5. th-has-data-cells (serious, WCAG 2.0 A 1.3.1) - Line 64
+1. label (critical, WCAG 2.0 A 4.1.2) - Line 53
+2. label (critical, WCAG 2.0 A 4.1.2) - Line 54
+3. button-name (critical, WCAG 2.0 A 4.1.2) - Line 55
+4. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 58
+5. th-has-data-cells (serious, WCAG 2.0 A 1.3.1) - Line 65
 -->
 <head>
     <meta charset="UTF-8">
@@ -31,6 +31,7 @@ VIOLATIONS (5):
         <a href="category/index.html">Kategorien</a>
     </nav>
 
+    <main>
     <article>
         <h1>Axe-Core Testing</h1>
         <p>Axe-core ist die führende JavaScript-Bibliothek für automatisierte Accessibility-Tests.</p>
@@ -70,5 +71,14 @@ VIOLATIONS (5):
 
         <p><a href="post-3.html">Weiter zu Keyboard Navigation</a></p>
     </article>
+
+    <footer style="margin-top: 30px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
+        <strong>Violations auf dieser Seite (5):</strong><br>
+        Critical: 3 (label x2, button-name)<br>
+        Serious: 2 (color-contrast, th-has-data-cells)<br>
+        Moderate: 0<br>
+        <small>WCAG 2.0 A: 4 | WCAG 2.0 AA: 1</small>
+    </footer>
+    </main>
 </body>
 </html>

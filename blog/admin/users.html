@@ -2,10 +2,10 @@
 <html lang="de">
 <!--
 VIOLATIONS (4):
-1. label (serious, WCAG 2.0 A 1.3.1) - Line 45
-2. label (serious, WCAG 2.0 A 1.3.1) - Line 46
-3. button-name (critical, WCAG 2.0 A 4.1.2) - Line 67
-4. duplicate-id (serious, WCAG 2.0 A 4.1.1) - Line 70
+1. label (critical, WCAG 2.0 A 4.1.2) - Line 43
+2. select-name (critical, WCAG 2.0 A 4.1.2) - Line 45
+3. button-name (critical, WCAG 2.0 A 4.1.2) - Line 69
+4. duplicate-id-aria (critical, WCAG 2.0 A 4.1.2) - Line 73
 -->
 <head>
     <meta charset="UTF-8">
@@ -40,9 +40,9 @@ VIOLATIONS (4):
 
         <div style="margin-bottom: 20px;">
             <!-- VIOLATION 1: label (input without label) -->
-            <input type="text" placeholder="Suchen...">
-            <!-- VIOLATION 2: label (select without label) -->
-            <select>
+            <input type="text" placeholder="Suchen..." aria-describedby="user-row">
+            <!-- VIOLATION 2: select-name (select without label) -->
+            <select aria-describedby="user-row">
                 <option>Alle Rollen</option>
                 <option>Admin</option>
                 <option>Editor</option>
@@ -84,6 +84,14 @@ VIOLATIONS (4):
                 </tr>
             </tbody>
         </table>
+
+        <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
+            <strong>Violations auf dieser Seite (4):</strong><br>
+            Critical: 4 (label, select-name, button-name, duplicate-id-aria)<br>
+            Serious: 0<br>
+            Moderate: 0<br>
+            <small>WCAG 2.0 A: 4</small>
+        </div>
     </main>
 </body>
 </html>

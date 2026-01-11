@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
 <!--
-VIOLATIONS (5):
-1. image-alt (critical, WCAG 2.0 A 1.1.1) - Line 85
-2. link-name (critical, WCAG 2.0 A 4.1.2) - Line 91
-3. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 88
-4. empty-heading (moderate, best-practice) - Line 82
-5. heading-order (moderate, best-practice) - Line 79
+VIOLATIONS (4):
+1. image-alt (critical, WCAG 2.0 A 1.1.1) - Line 94
+2. link-name (serious, WCAG 2.0 A 4.1.2) - Line 100
+3. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 97
+4. empty-heading (minor, best-practice) - Line 91
 -->
 <head>
     <meta charset="UTF-8">
@@ -32,7 +31,7 @@ VIOLATIONS (5):
 <body>
     <header>
         <h1>Accessibility Test Blog</h1>
-        <p>Testprojekt mit 27 Seiten und 81 dokumentierten Verstößen</p>
+        <p>Testprojekt mit 27 Seiten und 80 dokumentierten Verstößen</p>
     </header>
 
     <nav>
@@ -56,15 +55,16 @@ VIOLATIONS (5):
                     <th>Critical</th>
                     <th>Serious</th>
                     <th>Moderate</th>
+                    <th>Minor</th>
                     <th>Gesamt</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Max. Tiefe 1</td><td>8</td><td>11</td><td>8</td><td>9</td><td>28</td></tr>
-                <tr><td>Max. Tiefe 2</td><td>21</td><td>22</td><td>24</td><td>19</td><td>65</td></tr>
-                <tr><td>Max. Tiefe 3 (alle)</td><td>27</td><td>25</td><td>32</td><td>24</td><td>81</td></tr>
-                <tr><td>Ohne /admin</td><td>22</td><td>20</td><td>22</td><td>23</td><td>65</td></tr>
-                <tr><td>Nur /category</td><td>4</td><td>5</td><td>3</td><td>2</td><td>10</td></tr>
+                <tr><td>Max. Tiefe 1</td><td>8</td><td>8</td><td>14</td><td>1</td><td>4</td><td>27</td></tr>
+                <tr><td>Max. Tiefe 2</td><td>21</td><td>22</td><td>28</td><td>8</td><td>6</td><td>64</td></tr>
+                <tr><td>Max. Tiefe 3 (alle)</td><td>27</td><td>27</td><td>34</td><td>13</td><td>6</td><td>80</td></tr>
+                <tr><td>Ohne /admin</td><td>22</td><td>19</td><td>27</td><td>12</td><td>6</td><td>64</td></tr>
+                <tr><td>Nur /category</td><td>4</td><td>3</td><td>5</td><td>1</td><td>1</td><td>10</td></tr>
             </tbody>
         </table>
 
@@ -84,9 +84,6 @@ VIOLATIONS (5):
             </div>
         </div>
 
-        <!-- VIOLATION 5: heading-order (h2 -> h4 skipped) -->
-        <h4>Weitere Informationen</h4>
-
         <!-- VIOLATION 4: empty-heading -->
         <h3></h3>
 
@@ -101,7 +98,14 @@ VIOLATIONS (5):
     </main>
 
     <footer>
-        <p>Testprojekt für Crawler-Validierung | 27 Seiten | 81 Verstöße</p>
+        <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+            <strong>Violations auf dieser Seite (4):</strong><br>
+            Critical: 1 (image-alt)<br>
+            Serious: 2 (link-name, color-contrast)<br>
+            Minor: 1 (empty-heading)<br>
+            <small>WCAG 2.0 A: 2 | WCAG 2.0 AA: 1 | Best Practices: 1</small>
+        </div>
+        <p>Testprojekt für Crawler-Validierung | 27 Seiten | 80 Verstöße</p>
         <p><a href="VIOLATIONS.md">Vollständige Dokumentation</a></p>
     </footer>
 </body>

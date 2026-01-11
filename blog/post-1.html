@@ -2,10 +2,10 @@
 <html lang="de">
 <!--
 VIOLATIONS (4):
-1. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 56
-2. heading-order (moderate, best-practice) - Line 53
-3. button-name (critical, WCAG 2.0 A 4.1.2) - Line 59
-4. tabindex (moderate, best-practice) - Line 62
+1. button-name (critical, WCAG 2.0 A 4.1.2) - Line 60
+2. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 57
+3. tabindex (serious, best-practice) - Line 63
+4. heading-order (moderate, best-practice) - Line 54
 -->
 <head>
     <meta charset="UTF-8">
@@ -27,6 +27,7 @@ VIOLATIONS (4):
         <a href="category/index.html">Kategorien</a>
     </nav>
 
+    <main>
     <article>
         <h1>WCAG 2.2 Einführung</h1>
         <p>Die Web Content Accessibility Guidelines (WCAG) 2.2 wurden im Oktober 2023 veröffentlicht.</p>
@@ -57,8 +58,17 @@ VIOLATIONS (4):
         <!-- VIOLATION 3: button-name (empty button) -->
         <button class="btn"></button>
 
-        <!-- VIOLATION 4: tabindex > 0 -->
+        <!-- VIOLATION 3: tabindex > 0 -->
         <a href="post-2.html" tabindex="5">Weiter zu Axe-Core</a>
     </article>
+
+    <footer style="margin-top: 30px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
+        <strong>Violations auf dieser Seite (4):</strong><br>
+        Critical: 1 (button-name)<br>
+        Serious: 2 (color-contrast, tabindex)<br>
+        Moderate: 1 (heading-order)<br>
+        <small>WCAG 2.0 A: 1 | WCAG 2.0 AA: 1 | Best Practices: 2</small>
+    </footer>
+    </main>
 </body>
 </html>

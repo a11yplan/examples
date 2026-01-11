@@ -2,10 +2,10 @@
 <html lang="de">
 <!--
 VIOLATIONS (4):
-1. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 46
-2. tabindex (moderate, best-practice) - Line 50
-3. tabindex (moderate, best-practice) - Line 51
-4. link-name (critical, WCAG 2.0 A 4.1.2) - Line 54
+1. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 48
+2. tabindex (serious, best-practice) - Line 52
+3. tabindex (serious, best-practice) - Line 53
+4. link-name (serious, WCAG 2.0 A 4.1.2) - Line 56
 -->
 <head>
     <meta charset="UTF-8">
@@ -28,6 +28,7 @@ VIOLATIONS (4):
         <a href="category/index.html">Kategorien</a>
     </nav>
 
+    <main>
     <article>
         <h1>Keyboard Navigation</h1>
         <p>Tastaturnavigation ist essentiell für barrierefreie Websites.</p>
@@ -63,5 +64,14 @@ VIOLATIONS (4):
 
         <p><a href="index.html">Zurück zur Startseite</a></p>
     </article>
+
+    <footer style="margin-top: 30px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
+        <strong>Violations auf dieser Seite (4):</strong><br>
+        Critical: 0<br>
+        Serious: 4 (color-contrast, tabindex x2, link-name)<br>
+        Moderate: 0<br>
+        <small>WCAG 2.0 A: 1 | WCAG 2.0 AA: 1 | Best Practices: 2</small>
+    </footer>
+    </main>
 </body>
 </html>

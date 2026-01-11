@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Navigation - Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        article { line-height: 1.6; }
+        .demo-btn { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        /* Violation: Focus outline removed */
+        .no-focus:focus { outline: none; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Blog</a>
+        <a href="category/index.html">Kategorien</a>
+        <a href="post-1.html">WCAG 2.2</a>
+        <a href="post-2.html">Axe-Core</a>
+    </nav>
+
+    <article>
+        <h1>Keyboard Navigation implementieren</h1>
+
+        <h2>Warum ist Keyboard-Navigation wichtig?</h2>
+        <p>Viele Nutzer können keine Maus verwenden und sind auf die Tastatur angewiesen.</p>
+
+        <h2>Grundprinzipien</h2>
+
+        <h3>1. Alle interaktiven Elemente fokussierbar</h3>
+        <p>Buttons, Links und Formularelemente müssen mit Tab erreichbar sein.</p>
+
+        <h3>2. Sichtbarer Fokusindikator</h3>
+        <p>Der aktuelle Fokus muss deutlich sichtbar sein.</p>
+
+        <h3>Demo: Focus-Stile</h3>
+        <!-- Violation: Button without visible focus -->
+        <button class="demo-btn no-focus">Ohne Fokus-Indikator</button>
+        <button class="demo-btn">Mit Fokus-Indikator</button>
+
+        <!-- Violation: Clickable div without keyboard support -->
+        <h3>3. Keine mouse-only Interaktionen</h3>
+        <div onclick="alert('Clicked!')" style="padding: 15px; background: #e0e0e0; cursor: pointer; display: inline-block;">
+            Klickbares Element (nur Maus)
+        </div>
+
+        <h3>4. Tab-Reihenfolge logisch</h3>
+        <!-- Best Practice Violation: Positive tabindex -->
+        <p>
+            <a href="#" tabindex="5">Link 1 (tabindex=5)</a> |
+            <a href="#" tabindex="3">Link 2 (tabindex=3)</a> |
+            <a href="#" tabindex="1">Link 3 (tabindex=1)</a>
+        </p>
+
+        <h2>Tasten und ihre Funktionen</h2>
+        <ul>
+            <li><strong>Tab:</strong> Zum nächsten Element</li>
+            <li><strong>Shift+Tab:</strong> Zum vorherigen Element</li>
+            <li><strong>Enter/Space:</strong> Element aktivieren</li>
+            <li><strong>Escape:</strong> Dialog/Modal schließen</li>
+            <li><strong>Pfeiltasten:</strong> Navigation innerhalb von Widgets</li>
+        </ul>
+
+        <h2>Weitere Artikel</h2>
+        <ul>
+            <li><a href="post-1.html">Einführung in WCAG 2.2</a></li>
+            <li><a href="post-2.html">Axe-Core Best Practices</a></li>
+        </ul>
+    </article>
+
+    <footer>
+        <p><a href="index.html">Zurück zum Blog</a></p>
+    </footer>
+</body>
+</html>

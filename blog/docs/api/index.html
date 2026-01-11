@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Referenz - Dokumentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #f4f4f4; min-height: 100vh; padding: 20px; }
+        .sidebar h2 { margin-top: 0; }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar li { margin-bottom: 10px; }
+        .sidebar a { color: #333; text-decoration: none; }
+        .main { flex: 1; padding: 20px; max-width: 800px; }
+        .breadcrumb { margin-bottom: 20px; color: #666; }
+        .breadcrumb a { color: #0066cc; }
+        .method { background: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .method h3 { margin-top: 0; font-family: monospace; }
+        .badge { display: inline-block; padding: 2px 8px; font-size: 0.8em; border-radius: 3px; }
+        .badge-get { background: #28a745; color: white; }
+        .badge-post { background: #0066cc; color: white; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>API Referenz</h2>
+        <ul>
+            <li><a href="index.html">Übersicht</a></li>
+            <li><a href="reference.html">Vollständige Referenz</a></li>
+            <li><a href="examples.html">Beispiele</a></li>
+        </ul>
+        <h3>Docs</h3>
+        <ul>
+            <li><a href="../index.html">Zurück zu Docs</a></li>
+        </ul>
+    </aside>
+
+    <main class="main">
+        <div class="breadcrumb">
+            <a href="../../index.html">Home</a> / <a href="../index.html">Docs</a> / <span>API</span>
+        </div>
+
+        <h1>API Referenz</h1>
+        <p>Diese Seite ist auf Tiefe 2 (/docs/api/). Vollständige REST API Dokumentation.</p>
+
+        <h2>Authentifizierung</h2>
+        <p>Alle API-Anfragen erfordern einen API-Key im Header:</p>
+        <pre style="background: #f4f4f4; padding: 15px;"><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+
+        <h2>Endpunkte</h2>
+
+        <div class="method">
+            <h3><span class="badge badge-post">POST</span> /api/v1/scan</h3>
+            <p>Startet einen neuen Accessibility-Scan.</p>
+            <!-- Violation: Parameter table without headers -->
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px;">url</td>
+                    <td>string</td>
+                    <td>Die zu scannende URL</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px;">level</td>
+                    <td>string</td>
+                    <td>WCAG Level (A, AA, AAA)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="method">
+            <h3><span class="badge badge-get">GET</span> /api/v1/results/{id}</h3>
+            <p>Ruft die Ergebnisse eines Scans ab.</p>
+        </div>
+
+        <div class="method">
+            <h3><span class="badge badge-get">GET</span> /api/v1/reports</h3>
+            <p>Listet alle verfügbaren Berichte auf.</p>
+        </div>
+
+        <!-- Violation: Link opens in new window without warning -->
+        <h2>Weitere Ressourcen</h2>
+        <ul>
+            <li><a href="reference.html">Vollständige Referenz</a></li>
+            <li><a href="examples.html">Code-Beispiele</a></li>
+            <li><a href="#" target="_blank">Postman Collection</a></li>
+        </ul>
+    </main>
+</body>
+</html>

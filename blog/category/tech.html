@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technologie - Blog Kategorien</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        .post-item { padding: 15px; border-bottom: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">Blog</a>
+        <a href="index.html">Kategorien</a>
+        <a href="news.html">News</a>
+        <a href="tutorials.html">Tutorials</a>
+    </nav>
+
+    <main>
+        <h1>Kategorie: Technologie</h1>
+
+        <div class="post-item">
+            <!-- Violation: Link wraps block element -->
+            <a href="../post-1.html"><h2>Einführung in WCAG 2.2</h2></a>
+            <p>Die neuesten Änderungen in den Web Content Accessibility Guidelines...</p>
+        </div>
+
+        <div class="post-item">
+            <a href="../post-2.html"><h2>Axe-Core Best Practices</h2></a>
+            <p>So nutzen Sie axe-core effektiv für automatisierte Tests...</p>
+        </div>
+
+        <!-- Violation: Image map without alt on areas -->
+        <h2>Beliebte Themen</h2>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='100'%3E%3Crect fill='%23e0e0e0' width='300' height='100'/%3E%3C/svg%3E" usemap="#topics" alt="Themen" width="300" height="100">
+        <map name="topics">
+            <area shape="rect" coords="0,0,100,100" href="../post-1.html">
+            <area shape="rect" coords="100,0,200,100" href="../post-2.html">
+            <area shape="rect" coords="200,0,300,100" href="../post-3.html">
+        </map>
+    </main>
+
+    <footer>
+        <p><a href="index.html">Alle Kategorien</a> | <a href="../index.html">Blog</a></p>
+    </footer>
+</body>
+</html>

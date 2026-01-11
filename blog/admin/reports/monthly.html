@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monatsbericht - Admin</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #2c3e50; min-height: 100vh; padding: 20px; }
+        .sidebar a { color: white; display: block; padding: 10px; text-decoration: none; margin-bottom: 5px; }
+        .main { flex: 1; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f4f4f4; }
+        .status-pass { color: green; }
+        .status-fail { color: red; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2 style="color: white; margin-top: 0;">Admin</h2>
+        <nav>
+            <a href="../index.html">Dashboard</a>
+            <a href="../users.html">Benutzer</a>
+            <a href="../settings.html">Einstellungen</a>
+            <a href="index.html">Berichte</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <h1>Monatsbericht Januar 2025</h1>
+
+        <h2>Zusammenfassung</h2>
+        <!-- Violation: Color-only status indication -->
+        <ul>
+            <li>Gescannte Seiten: <span class="status-pass">✓ 47</span></li>
+            <li>Fehler gefunden: <span class="status-fail">89</span></li>
+            <li>Warnungen: <span style="color: orange;">23</span></li>
+        </ul>
+
+        <h2>Fehler nach Kategorie</h2>
+        <!-- Violation: Table without proper headers -->
+        <table>
+            <tr>
+                <td>Kategorie</td>
+                <td>Anzahl</td>
+                <td>Schweregrad</td>
+            </tr>
+            <tr>
+                <td>Kontrast</td>
+                <td>34</td>
+                <td><span style="color: red;">Kritisch</span></td>
+            </tr>
+            <tr>
+                <td>Alt-Text fehlt</td>
+                <td>28</td>
+                <td><span style="color: red;">Kritisch</span></td>
+            </tr>
+            <tr>
+                <td>Label fehlt</td>
+                <td>15</td>
+                <td><span style="color: orange;">Wichtig</span></td>
+            </tr>
+            <tr>
+                <td>Fokus nicht sichtbar</td>
+                <td>12</td>
+                <td><span style="color: orange;">Wichtig</span></td>
+            </tr>
+        </table>
+
+        <!-- Violation: iframe without title -->
+        <h2>Trend-Grafik</h2>
+        <iframe src="about:blank" width="600" height="300" style="border: 1px solid #ddd;"></iframe>
+
+        <p><a href="index.html">Zurück zur Übersicht</a></p>
+    </main>
+</body>
+</html>

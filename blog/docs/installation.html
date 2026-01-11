@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation - Dokumentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #f4f4f4; min-height: 100vh; padding: 20px; }
+        .sidebar h2 { margin-top: 0; }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar li { margin-bottom: 10px; }
+        .sidebar a { color: #333; text-decoration: none; }
+        .main { flex: 1; padding: 20px; max-width: 800px; }
+        .breadcrumb { margin-bottom: 20px; color: #666; }
+        .breadcrumb a { color: #0066cc; }
+        .tabs { display: flex; border-bottom: 2px solid #ddd; margin-bottom: 20px; }
+        .tab { padding: 10px 20px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+        .tab.active { border-bottom-color: #0066cc; color: #0066cc; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>Dokumentation</h2>
+        <ul>
+            <li><a href="index.html">Übersicht</a></li>
+            <li><a href="getting-started.html">Erste Schritte</a></li>
+            <li><a href="installation.html">Installation</a></li>
+            <li><a href="api/index.html">API Referenz</a></li>
+        </ul>
+    </aside>
+
+    <main class="main">
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a> / <a href="index.html">Docs</a> / <span>Installation</span>
+        </div>
+
+        <h1>Installation</h1>
+
+        <!-- Violation: Tabs without proper ARIA -->
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('npm')">npm</div>
+            <div class="tab" onclick="showTab('yarn')">yarn</div>
+            <div class="tab" onclick="showTab('pnpm')">pnpm</div>
+        </div>
+
+        <div id="npm" class="tab-content active">
+            <h2>Installation mit npm</h2>
+            <pre style="background: #f4f4f4; padding: 15px;"><code>npm install @a11yplan/scanner</code></pre>
+        </div>
+
+        <div id="yarn" class="tab-content">
+            <h2>Installation mit yarn</h2>
+            <pre style="background: #f4f4f4; padding: 15px;"><code>yarn add @a11yplan/scanner</code></pre>
+        </div>
+
+        <div id="pnpm" class="tab-content">
+            <h2>Installation mit pnpm</h2>
+            <pre style="background: #f4f4f4; padding: 15px;"><code>pnpm add @a11yplan/scanner</code></pre>
+        </div>
+
+        <h2>Systemanforderungen</h2>
+        <!-- Violation: List items without parent list -->
+        <p>
+            <li>Node.js 18 oder höher</li>
+            <li>npm 9+ oder yarn 1.22+</li>
+            <li>Mindestens 512 MB RAM</li>
+        </p>
+
+        <h2>Globale Installation</h2>
+        <pre style="background: #f4f4f4; padding: 15px;"><code>npm install -g @a11yplan/scanner</code></pre>
+
+        <!-- Violation: Scrollable region without keyboard access -->
+        <h2>Konfigurationsdatei</h2>
+        <div style="height: 150px; overflow: auto; border: 1px solid #ddd; padding: 10px;">
+            <pre><code>{
+  "urls": ["https://example.com"],
+  "wcag": "2.2",
+  "level": "AA",
+  "bestPractices": true,
+  "experimental": false,
+  "output": {
+    "format": "json",
+    "path": "./reports"
+  },
+  "crawler": {
+    "maxDepth": 2,
+    "maxPages": 50
+  }
+}</code></pre>
+        </div>
+
+        <p><a href="index.html">Zurück zur Übersicht</a></p>
+
+        <script>
+            function showTab(tabId) {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                event.target.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            }
+        </script>
+    </main>
+</body>
+</html>

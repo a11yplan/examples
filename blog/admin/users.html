@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benutzer - Admin</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #2c3e50; min-height: 100vh; padding: 20px; }
+        .sidebar a { color: white; display: block; padding: 10px; text-decoration: none; margin-bottom: 5px; }
+        .sidebar a:hover { background: #34495e; }
+        .main { flex: 1; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f4f4f4; }
+        .btn { padding: 5px 10px; border: none; border-radius: 3px; cursor: pointer; }
+        .btn-edit { background: #0066cc; color: white; }
+        .btn-delete { background: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2 style="color: white; margin-top: 0;">Admin</h2>
+        <nav>
+            <a href="index.html">Dashboard</a>
+            <a href="users.html">Benutzer</a>
+            <a href="settings.html">Einstellungen</a>
+            <a href="reports/index.html">Berichte</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <h1>Benutzerverwaltung</h1>
+
+        <!-- Violation: Form inputs without labels -->
+        <div style="margin-bottom: 20px;">
+            <input type="text" placeholder="Suchen..." style="padding: 8px; width: 200px;">
+            <select style="padding: 8px;">
+                <option>Alle Rollen</option>
+                <option>Admin</option>
+                <option>Editor</option>
+                <option>Benutzer</option>
+            </select>
+            <button class="btn btn-edit">Filtern</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>E-Mail</th>
+                    <th>Rolle</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Max Mustermann</td>
+                    <td>max@example.com</td>
+                    <td>Admin</td>
+                    <td>
+                        <!-- Violation: Buttons without accessible names -->
+                        <button class="btn btn-edit"><span aria-hidden="true">✏️</span></button>
+                        <button class="btn btn-delete"><span aria-hidden="true">🗑️</span></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Anna Schmidt</td>
+                    <td>anna@example.com</td>
+                    <td>Editor</td>
+                    <td>
+                        <button class="btn btn-edit"><span aria-hidden="true">✏️</span></button>
+                        <button class="btn btn-delete"><span aria-hidden="true">🗑️</span></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Peter Müller</td>
+                    <td>peter@example.com</td>
+                    <td>Benutzer</td>
+                    <td>
+                        <button class="btn btn-edit"><span aria-hidden="true">✏️</span></button>
+                        <button class="btn btn-delete"><span aria-hidden="true">🗑️</span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Violation: Link that looks like button but has no href -->
+        <a style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+            Neuen Benutzer anlegen
+        </a>
+    </main>
+</body>
+</html>

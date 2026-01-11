@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code-Beispiele - API Dokumentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #f4f4f4; min-height: 100vh; padding: 20px; }
+        .sidebar h2 { margin-top: 0; }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar li { margin-bottom: 10px; }
+        .sidebar a { color: #333; text-decoration: none; }
+        .main { flex: 1; padding: 20px; max-width: 800px; }
+        .breadcrumb { margin-bottom: 20px; color: #666; }
+        .breadcrumb a { color: #0066cc; }
+        pre { background: #f4f4f4; padding: 15px; overflow-x: auto; border-radius: 5px; }
+        .example { margin: 30px 0; }
+        .example h3 { border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>API Referenz</h2>
+        <ul>
+            <li><a href="index.html">Übersicht</a></li>
+            <li><a href="reference.html">Vollständige Referenz</a></li>
+            <li><a href="examples.html">Beispiele</a></li>
+        </ul>
+    </aside>
+
+    <main class="main">
+        <div class="breadcrumb">
+            <a href="../../index.html">Home</a> / <a href="../index.html">Docs</a> / <a href="index.html">API</a> / <span>Beispiele</span>
+        </div>
+
+        <h1>Code-Beispiele</h1>
+
+        <div class="example">
+            <h3>JavaScript / Node.js</h3>
+            <pre><code>const scanner = require('@a11yplan/scanner');
+
+async function runScan() {
+  const results = await scanner.scan({
+    url: 'https://example.com',
+    wcagVersion: '2.2',
+    level: 'AA',
+    bestPractices: true
+  });
+
+  console.log(`Found ${results.violations.length} violations`);
+}</code></pre>
+        </div>
+
+        <div class="example">
+            <h3>Python</h3>
+            <pre><code>import requests
+
+response = requests.post(
+    'https://api.a11yplan.com/v1/scan',
+    headers={'Authorization': 'Bearer YOUR_API_KEY'},
+    json={
+        'url': 'https://example.com',
+        'level': 'AA'
+    }
+)
+
+results = response.json()
+print(f"Found {len(results['violations'])} violations")</code></pre>
+        </div>
+
+        <div class="example">
+            <h3>cURL</h3>
+            <pre><code>curl -X POST https://api.a11yplan.com/v1/scan \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com", "level": "AA"}'</code></pre>
+        </div>
+
+        <!-- Violation: Link to non-existent anchor -->
+        <h2>Weitere Beispiele</h2>
+        <ul>
+            <li><a href="#crawler-example">Crawler-Konfiguration</a></li>
+            <li><a href="#filter-example">Filter-Beispiele</a></li>
+            <li><a href="#webhook-example">Webhook-Integration</a></li>
+        </ul>
+
+        <!-- Violation: ID not matching anchor -->
+        <div id="wrong-id">
+            <h3>Crawler mit Filtern</h3>
+            <pre><code>const results = await scanner.scan({
+  url: 'https://example.com',
+  crawler: {
+    maxDepth: 2,
+    maxPages: 50,
+    include: ['/blog'],
+    exclude: ['/admin']
+  }
+});</code></pre>
+        </div>
+
+        <p><a href="index.html">Zurück zur API-Übersicht</a></p>
+    </main>
+</body>
+</html>

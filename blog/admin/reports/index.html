@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berichte - Admin</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #2c3e50; min-height: 100vh; padding: 20px; }
+        .sidebar a { color: white; display: block; padding: 10px; text-decoration: none; margin-bottom: 5px; }
+        .main { flex: 1; padding: 20px; }
+        .report-card { border: 1px solid #ddd; padding: 20px; margin-bottom: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2 style="color: white; margin-top: 0;">Admin</h2>
+        <nav>
+            <a href="../index.html">Dashboard</a>
+            <a href="../users.html">Benutzer</a>
+            <a href="../settings.html">Einstellungen</a>
+            <a href="index.html">Berichte</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <h1>Berichte</h1>
+        <p>Diese Seite ist auf Tiefe 2 (/admin/reports/). Sie sollte nur gecrawlt werden, wenn Max. Tiefe >= 2 ist.</p>
+
+        <div class="report-card">
+            <div>
+                <h2 style="margin: 0;">Monatsbericht Januar 2025</h2>
+                <p style="margin: 5px 0; color: #666;">Erstellt am 01.02.2025</p>
+            </div>
+            <a href="monthly.html">Anzeigen</a>
+        </div>
+
+        <div class="report-card">
+            <div>
+                <h2 style="margin: 0;">Wöchentlicher Scan KW 4</h2>
+                <p style="margin: 5px 0; color: #666;">Erstellt am 28.01.2025</p>
+            </div>
+            <!-- Violation: Link without href -->
+            <a>Anzeigen</a>
+        </div>
+
+        <div class="report-card">
+            <div>
+                <h2 style="margin: 0;">Wöchentlicher Scan KW 3</h2>
+                <p style="margin: 5px 0; color: #666;">Erstellt am 21.01.2025</p>
+            </div>
+            <!-- Violation: JavaScript link -->
+            <a href="javascript:void(0)">Anzeigen</a>
+        </div>
+
+        <!-- Violation: Button that triggers download without warning -->
+        <h2>Export</h2>
+        <button onclick="alert('Download started')">
+            <span aria-hidden="true">📥</span>
+        </button>
+    </main>
+</body>
+</html>

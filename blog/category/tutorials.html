@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials - Blog Kategorien</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        .tutorial-card { border: 1px solid #ddd; padding: 20px; margin-bottom: 15px; border-radius: 8px; }
+        .difficulty { display: inline-block; padding: 3px 8px; border-radius: 3px; font-size: 0.8em; }
+        .easy { background: #d4edda; color: #155724; }
+        .medium { background: #fff3cd; color: #856404; }
+        .hard { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">Blog</a>
+        <a href="index.html">Kategorien</a>
+        <a href="tech.html">Technologie</a>
+        <a href="news.html">News</a>
+    </nav>
+
+    <main>
+        <h1>Kategorie: Tutorials</h1>
+
+        <div class="tutorial-card">
+            <span class="difficulty easy">Einfach</span>
+            <h2><a href="../post-3.html">Keyboard Navigation implementieren</a></h2>
+            <p>Lerne die Grundlagen der Tastatur-Navigation für barrierefreie Websites.</p>
+            <!-- Violation: Redundant link -->
+            <a href="../post-3.html">Tutorial starten</a>
+        </div>
+
+        <div class="tutorial-card">
+            <span class="difficulty medium">Mittel</span>
+            <h2><a href="../post-2.html">Axe-Core Integration</a></h2>
+            <p>Integriere axe-core in deinen Entwicklungsprozess.</p>
+            <a href="../post-2.html">Tutorial starten</a>
+        </div>
+
+        <div class="tutorial-card">
+            <span class="difficulty hard">Fortgeschritten</span>
+            <h2><a href="../post-1.html">WCAG 2.2 Audit durchführen</a></h2>
+            <p>Führe ein vollständiges Accessibility Audit nach WCAG 2.2 durch.</p>
+            <a href="../post-1.html">Tutorial starten</a>
+        </div>
+
+        <!-- Violation: Form without action -->
+        <h2>Newsletter</h2>
+        <form>
+            <!-- Violation: Input without label -->
+            <input type="email" placeholder="E-Mail-Adresse">
+            <button type="submit">Abonnieren</button>
+        </form>
+    </main>
+
+    <footer>
+        <p><a href="index.html">Alle Kategorien</a> | <a href="../index.html">Blog</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training & Workshops - Produkte</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        .workshop-card { border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .workshop-card h3 { margin-top: 0; }
+        /* Best Practice Violation: Very low contrast */
+        .date { color: #ccc; }
+        .btn { padding: 10px 20px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="index.html">Products</a>
+        <a href="../docs/index.html">Docs</a>
+        <a href="../admin/index.html">Admin</a>
+    </nav>
+
+    <main>
+        <h1>Training & Workshops</h1>
+        <p>Schulungen für Entwickler, Designer und Content-Ersteller.</p>
+
+        <div class="workshop-card">
+            <h3>WCAG Grundlagen</h3>
+            <p class="date">Nächster Termin: 15. Februar 2025</p>
+            <p>Einführung in die Web Content Accessibility Guidelines.</p>
+            <p><strong>Dauer:</strong> 1 Tag | <strong>Preis:</strong> 300 EUR</p>
+            <!-- Violation: Multiple identical links -->
+            <a href="#" class="btn">Anmelden</a>
+        </div>
+
+        <div class="workshop-card">
+            <h3>Accessibility Testing</h3>
+            <p class="date">Nächster Termin: 22. Februar 2025</p>
+            <p>Automatisierte und manuelle Tests für Barrierefreiheit.</p>
+            <p><strong>Dauer:</strong> 2 Tage | <strong>Preis:</strong> 550 EUR</p>
+            <a href="#" class="btn">Anmelden</a>
+        </div>
+
+        <div class="workshop-card">
+            <h3>ARIA für Fortgeschrittene</h3>
+            <p class="date">Nächster Termin: 1. März 2025</p>
+            <p>Komplexe interaktive Komponenten barrierefrei umsetzen.</p>
+            <p><strong>Dauer:</strong> 1 Tag | <strong>Preis:</strong> 350 EUR</p>
+            <a href="#" class="btn">Anmelden</a>
+        </div>
+
+        <!-- Violation: Video without captions -->
+        <h2>Einführungsvideo</h2>
+        <video width="100%" controls>
+            <source src="nonexistent.mp4" type="video/mp4">
+            Ihr Browser unterstützt keine Videos.
+        </video>
+
+        <!-- Violation: Marquee element -->
+        <h2>Aktuelle Angebote</h2>
+        <marquee>20% Rabatt auf alle Workshops im Februar!</marquee>
+
+        <p style="margin-top: 20px;"><a href="index.html">Zurück zur Übersicht</a></p>
+    </main>
+</body>
+</html>

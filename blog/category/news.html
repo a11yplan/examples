@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuigkeiten - Blog Kategorien</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        .news-item { padding: 15px; border-left: 3px solid #0066cc; margin-bottom: 15px; background: #f9f9f9; }
+        /* Violation: Very low contrast */
+        .date { color: #ccc; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">Blog</a>
+        <a href="index.html">Kategorien</a>
+        <a href="tech.html">Technologie</a>
+        <a href="tutorials.html">Tutorials</a>
+    </nav>
+
+    <main>
+        <h1>Kategorie: Neuigkeiten</h1>
+
+        <div class="news-item">
+            <span class="date">15. Januar 2025</span>
+            <h2>WCAG 2.2 offiziell veröffentlicht</h2>
+            <p>Die W3C hat WCAG 2.2 als offizielle Empfehlung veröffentlicht...</p>
+            <!-- Violation: Link with same text, different destination -->
+            <a href="../post-1.html">Weiterlesen</a>
+        </div>
+
+        <div class="news-item">
+            <span class="date">10. Januar 2025</span>
+            <h2>EU-Barrierefreiheitsstärkungsgesetz tritt in Kraft</h2>
+            <p>Ab Juni 2025 müssen alle öffentlichen Websites barrierefrei sein...</p>
+            <a href="../post-2.html">Weiterlesen</a>
+        </div>
+
+        <div class="news-item">
+            <span class="date">5. Januar 2025</span>
+            <h2>Neue axe-core Version mit WCAG 2.2 Support</h2>
+            <p>Deque hat axe-core 4.8 mit vollständiger WCAG 2.2 Unterstützung veröffentlicht...</p>
+            <a href="../post-3.html">Weiterlesen</a>
+        </div>
+
+        <!-- Violation: Autoplay video -->
+        <h2>Video: Barrierefreiheit 2025</h2>
+        <video autoplay muted width="300">
+            <source src="nonexistent.mp4" type="video/mp4">
+            Ihr Browser unterstützt keine Videos.
+        </video>
+    </main>
+
+    <footer>
+        <p><a href="index.html">Alle Kategorien</a> | <a href="../index.html">Blog</a></p>
+    </footer>
+</body>
+</html>

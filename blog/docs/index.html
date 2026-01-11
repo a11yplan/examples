@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentation - Test Site</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #f4f4f4; min-height: 100vh; padding: 20px; }
+        .sidebar h2 { margin-top: 0; }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar li { margin-bottom: 10px; }
+        .sidebar a { color: #333; text-decoration: none; }
+        .sidebar a:hover { color: #0066cc; }
+        .main { flex: 1; padding: 20px; max-width: 800px; }
+        .breadcrumb { margin-bottom: 20px; color: #666; }
+        .breadcrumb a { color: #0066cc; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>Dokumentation</h2>
+        <ul>
+            <li><a href="index.html">Übersicht</a></li>
+            <li><a href="getting-started.html">Erste Schritte</a></li>
+            <li><a href="installation.html">Installation</a></li>
+            <li><a href="api/index.html">API Referenz</a></li>
+        </ul>
+
+        <h3>Weitere Links</h3>
+        <ul>
+            <li><a href="../index.html">Startseite</a></li>
+            <li><a href="../products/index.html">Produkte</a></li>
+            <li><a href="../admin/index.html">Admin</a></li>
+        </ul>
+    </aside>
+
+    <main class="main">
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a> / <span>Dokumentation</span>
+        </div>
+
+        <h1>Dokumentation</h1>
+        <p>Willkommen zur Dokumentation. Hier finden Sie alle Informationen zur Nutzung unserer Accessibility-Tools.</p>
+
+        <h2>Schnellstart</h2>
+        <!-- Violation: Code without language specification for screen readers -->
+        <pre style="background: #f4f4f4; padding: 15px;"><code>npm install @a11yplan/scanner
+npx a11yplan scan https://example.com</code></pre>
+
+        <h2>Kapitel</h2>
+        <!-- Violation: Definition list without proper structure -->
+        <dl>
+            <dt><a href="getting-started.html">Erste Schritte</a></dt>
+            <dd>Grundlegende Einführung und Setup.</dd>
+
+            <dt><a href="installation.html">Installation</a></dt>
+            <dd>Detaillierte Installationsanleitung.</dd>
+
+            <dt><a href="api/index.html">API Referenz</a></dt>
+            <dd>Vollständige API-Dokumentation.</dd>
+        </dl>
+
+        <!-- Violation: Empty heading -->
+        <h2></h2>
+
+        <p>Bei Fragen wenden Sie sich an unseren <a href="#">Support</a>.</p>
+    </main>
+</body>
+</html>

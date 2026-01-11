@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erste Schritte - Dokumentation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #f4f4f4; min-height: 100vh; padding: 20px; }
+        .sidebar h2 { margin-top: 0; }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar li { margin-bottom: 10px; }
+        .sidebar a { color: #333; text-decoration: none; }
+        .main { flex: 1; padding: 20px; max-width: 800px; }
+        .breadcrumb { margin-bottom: 20px; color: #666; }
+        .breadcrumb a { color: #0066cc; }
+        .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; }
+        /* Violation: Low contrast note text */
+        .note-subtle { background: #f8f9fa; color: #aaa; padding: 10px; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>Dokumentation</h2>
+        <ul>
+            <li><a href="index.html">Übersicht</a></li>
+            <li><a href="getting-started.html">Erste Schritte</a></li>
+            <li><a href="installation.html">Installation</a></li>
+            <li><a href="api/index.html">API Referenz</a></li>
+        </ul>
+    </aside>
+
+    <main class="main">
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a> / <a href="index.html">Docs</a> / <span>Erste Schritte</span>
+        </div>
+
+        <h1>Erste Schritte</h1>
+
+        <div class="note">
+            <strong>Hinweis:</strong> Diese Anleitung setzt Node.js 18+ voraus.
+        </div>
+
+        <h2>1. Installation</h2>
+        <p>Installieren Sie das Scanner-Paket über npm:</p>
+        <pre style="background: #f4f4f4; padding: 15px;"><code>npm install @a11yplan/scanner</code></pre>
+
+        <h2>2. Ersten Scan durchführen</h2>
+        <p>Führen Sie einen einfachen Scan durch:</p>
+        <pre style="background: #f4f4f4; padding: 15px;"><code>npx a11yplan scan https://ihre-website.de</code></pre>
+
+        <h2>3. Ergebnisse analysieren</h2>
+        <p>Die Ergebnisse werden in der Konsole angezeigt und als JSON-Datei gespeichert.</p>
+
+        <!-- Violation: Table with merged cells but no headers -->
+        <table border="1" style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <tr>
+                <td rowspan="2" style="padding: 10px;">Ergebnis</td>
+                <td style="padding: 10px;">Violations</td>
+                <td style="padding: 10px;">Anzahl gefundener Fehler</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;">Passes</td>
+                <td style="padding: 10px;">Bestandene Tests</td>
+            </tr>
+        </table>
+
+        <div class="note-subtle">
+            Tipp: Verwenden Sie die --verbose Flag für detaillierte Ausgaben.
+        </div>
+
+        <h2>Nächste Schritte</h2>
+        <ul>
+            <li><a href="installation.html">Detaillierte Installation</a></li>
+            <li><a href="api/index.html">API Referenz</a></li>
+            <li><a href="api/reference.html">Konfiguration</a></li>
+        </ul>
+    </main>
+</body>
+</html>

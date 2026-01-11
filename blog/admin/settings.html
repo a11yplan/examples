@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einstellungen - Admin</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #2c3e50; min-height: 100vh; padding: 20px; }
+        .sidebar a { color: white; display: block; padding: 10px; text-decoration: none; margin-bottom: 5px; }
+        .main { flex: 1; padding: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; max-width: 400px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .btn { padding: 10px 20px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <h2 style="color: white; margin-top: 0;">Admin</h2>
+        <nav>
+            <a href="index.html">Dashboard</a>
+            <a href="users.html">Benutzer</a>
+            <a href="settings.html">Einstellungen</a>
+            <a href="reports/index.html">Berichte</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <h1>Einstellungen</h1>
+
+        <form>
+            <h2>Allgemein</h2>
+
+            <div class="form-group">
+                <label for="sitename">Website-Name</label>
+                <input type="text" id="sitename" value="Accessibility Test Site">
+            </div>
+
+            <div class="form-group">
+                <label for="siteurl">Website-URL</label>
+                <input type="url" id="siteurl" value="https://a11yplan.github.io/examples/">
+            </div>
+
+            <!-- Violation: Input with wrong autocomplete value -->
+            <div class="form-group">
+                <label for="admin-email">Admin E-Mail</label>
+                <input type="email" id="admin-email" autocomplete="wrong-value">
+            </div>
+
+            <h2>Crawler-Einstellungen</h2>
+
+            <!-- Violation: Fieldset without legend -->
+            <fieldset style="border: 1px solid #ddd; padding: 15px; margin-bottom: 20px;">
+                <div class="form-group">
+                    <label for="max-depth">Maximale Tiefe</label>
+                    <select id="max-depth">
+                        <option value="1">1 Ebene</option>
+                        <option value="2">2 Ebenen</option>
+                        <option value="3">3 Ebenen</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="max-pages">Maximale Seiten</label>
+                    <input type="number" id="max-pages" value="50">
+                </div>
+            </fieldset>
+
+            <h2>Erweiterte Einstellungen</h2>
+
+            <!-- Violation: Radio buttons without group -->
+            <div class="form-group">
+                <p>Scan-Modus:</p>
+                <input type="radio" name="mode" id="mode1"> WCAG 2.1 AA
+                <input type="radio" name="mode" id="mode2"> WCAG 2.2 AA
+                <input type="radio" name="mode" id="mode3"> Best Practices
+            </div>
+
+            <button type="submit" class="btn">Speichern</button>
+        </form>
+
+        <hr style="margin: 30px 0;">
+
+        <h2>Mehr Optionen</h2>
+        <p><a href="reports/index.html">Berichte anzeigen</a></p>
+        <p><a href="reports/monthly.html">Monatsbericht</a></p>
+    </main>
+</body>
+</html>

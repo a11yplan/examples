@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axe-Core Best Practices - Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        article { line-height: 1.6; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f4f4f4; padding: 15px; overflow-x: auto; }
+        /* WCAG Violation: Insufficient contrast */
+        .note { color: #888; background: #f9f9f9; padding: 10px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Blog</a>
+        <a href="category/index.html">Kategorien</a>
+        <a href="post-1.html">WCAG 2.2</a>
+        <a href="post-3.html">Keyboard</a>
+    </nav>
+
+    <article>
+        <h1>Axe-Core Best Practices</h1>
+
+        <h2>Was ist axe-core?</h2>
+        <p>Axe-core ist eine Open-Source Bibliothek für automatisierte Barrierefreiheitstests.</p>
+
+        <h2>Installation</h2>
+        <pre><code>npm install axe-core</code></pre>
+
+        <h2>Regel-Kategorien</h2>
+
+        <h3>WCAG Level A</h3>
+        <p>Die grundlegenden Barrierefreiheitsanforderungen.</p>
+
+        <h3>WCAG Level AA</h3>
+        <p>Der empfohlene Standard für die meisten Websites.</p>
+
+        <h3>Best Practices</h3>
+        <p class="note">Best Practices sind keine WCAG-Anforderungen, aber verbessern die Benutzererfahrung.</p>
+
+        <!-- Best Practice Violation: Form without label -->
+        <h2>Suche</h2>
+        <form>
+            <input type="text" placeholder="Suchen...">
+            <!-- Violation: Button without accessible name -->
+            <button type="submit"><span aria-hidden="true">🔍</span></button>
+        </form>
+
+        <h2>Experimental Rules</h2>
+        <p>Experimentelle Regeln sind noch in Entwicklung und können sich ändern.</p>
+
+        <!-- Tabelle ohne Headers - Violation -->
+        <table border="1" style="margin: 20px 0;">
+            <tr>
+                <td>Regel</td>
+                <td>Kategorie</td>
+                <td>Status</td>
+            </tr>
+            <tr>
+                <td>color-contrast</td>
+                <td>WCAG AA</td>
+                <td>Stable</td>
+            </tr>
+            <tr>
+                <td>target-size</td>
+                <td>WCAG 2.2</td>
+                <td>Stable</td>
+            </tr>
+        </table>
+
+        <h2>Weitere Artikel</h2>
+        <ul>
+            <li><a href="post-1.html">Einführung in WCAG 2.2</a></li>
+            <li><a href="post-3.html">Keyboard Navigation implementieren</a></li>
+        </ul>
+    </article>
+
+    <footer>
+        <p><a href="index.html">Zurück zum Blog</a></p>
+    </footer>
+</body>
+</html>

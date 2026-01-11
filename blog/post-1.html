@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einführung in WCAG 2.2 - Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        article { line-height: 1.6; }
+        /* WCAG Violation: Low contrast text */
+        .meta { color: #aaa; font-size: 0.9em; }
+        .highlight { background: yellow; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Blog</a>
+        <a href="category/index.html">Kategorien</a>
+        <a href="post-2.html">Axe-Core</a>
+        <a href="post-3.html">Keyboard</a>
+    </nav>
+
+    <article>
+        <h1>Einführung in WCAG 2.2</h1>
+        <p class="meta">Veröffentlicht am 15. Januar 2025 von Admin</p>
+
+        <!-- Violation: Heading level skipped -->
+        <h4>Was ist neu in WCAG 2.2?</h4>
+        <p>WCAG 2.2 bringt mehrere neue Erfolgskriterien, die sich auf mobile Geräte und kognitive Barrierefreiheit konzentrieren.</p>
+
+        <h2>Die neuen Kriterien</h2>
+
+        <h3>2.4.11 Focus Not Obscured (Minimum)</h3>
+        <p>Der Tastaturfokus darf nicht vollständig durch andere Inhalte verdeckt werden.</p>
+
+        <h3>2.4.12 Focus Not Obscured (Enhanced)</h3>
+        <p>Strengere Version: Der Fokus darf überhaupt nicht verdeckt werden.</p>
+
+        <h3>2.5.7 Dragging Movements</h3>
+        <p>Funktionen, die Ziehen erfordern, müssen auch ohne Ziehbewegungen bedienbar sein.</p>
+
+        <h3>2.5.8 Target Size (Minimum)</h3>
+        <p>Interaktive Elemente müssen mindestens 24x24 CSS-Pixel groß sein.</p>
+
+        <!-- Experimental Violation: Small target size -->
+        <button style="width: 18px; height: 18px; padding: 0;">X</button>
+
+        <h2>Weitere Artikel</h2>
+        <ul>
+            <li><a href="post-2.html">Axe-Core Best Practices</a></li>
+            <li><a href="post-3.html">Keyboard Navigation implementieren</a></li>
+        </ul>
+    </article>
+
+    <footer>
+        <p><a href="index.html">Zurück zum Blog</a></p>
+    </footer>
+</body>
+</html>

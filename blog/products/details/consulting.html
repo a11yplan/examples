@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulting - Produkt Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        nav { background: #333; padding: 15px; margin-bottom: 20px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        .service-list { list-style: none; padding: 0; }
+        .service-list li { padding: 15px; border-bottom: 1px solid #eee; }
+        .btn { padding: 10px 20px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../../index.html">Home</a>
+        <a href="../index.html">Products</a>
+        <a href="../../docs/index.html">Docs</a>
+        <a href="index.html">Details</a>
+    </nav>
+
+    <main>
+        <h1>Consulting Services</h1>
+        <p>Strategische Beratung für nachhaltige Barrierefreiheit.</p>
+
+        <h2>Unsere Services</h2>
+        <ul class="service-list">
+            <li>
+                <strong>Accessibility Audit</strong>
+                <p>Umfassende Analyse Ihrer Website oder Anwendung.</p>
+            </li>
+            <li>
+                <strong>Strategieentwicklung</strong>
+                <p>Roadmap für die Umsetzung von Barrierefreiheit.</p>
+            </li>
+            <li>
+                <strong>Team-Coaching</strong>
+                <p>Schulung Ihrer Entwickler und Designer.</p>
+            </li>
+            <li>
+                <strong>Code Reviews</strong>
+                <p>Prüfung Ihres Codes auf Accessibility-Best-Practices.</p>
+            </li>
+        </ul>
+
+        <!-- Violation: Object without alternative -->
+        <h2>Prozess-Übersicht</h2>
+        <object data="nonexistent.pdf" type="application/pdf" width="600" height="400">
+            <!-- No fallback content -->
+        </object>
+
+        <!-- Violation: Form with server-side map -->
+        <h2>Kontakt</h2>
+        <form>
+            <p>
+                <input type="text" placeholder="Firma" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            </p>
+            <p>
+                <input type="email" placeholder="E-Mail" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            </p>
+            <p>
+                <input type="tel" placeholder="Telefon" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            </p>
+            <button class="btn" type="submit">Anfrage senden</button>
+        </form>
+
+        <p><a href="index.html">Zurück zur Übersicht</a></p>
+    </main>
+</body>
+</html>

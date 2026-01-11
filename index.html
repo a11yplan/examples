@@ -240,7 +240,7 @@
 
         <div class="stats">
             <div class="stat-item">
-                <strong>33</strong>
+                <strong>63</strong>
                 <span>Test Pages</span>
             </div>
             <div class="stat-item">
@@ -250,6 +250,10 @@
             <div class="stat-item">
                 <strong>320+</strong>
                 <span>Test Cases</span>
+            </div>
+            <div class="stat-item">
+                <strong>30</strong>
+                <span>Crawler Pages</span>
             </div>
         </div>
 
@@ -592,6 +596,107 @@
                 <div class="test-description">Original multi-violation test page (historical reference)</div>
                 <div class="test-meta">Multiple</div>
             </div>
+        </div>
+
+        <h2>Sitemap - Crawler Test Pages</h2>
+        <p style="color: #666; margin: 15px 0;">Testseiten mit verschiedenen URL-Strukturen und Tiefen zum Testen von Crawler-Einstellungen (Einschluss-/Ausschlussmuster, Max. Tiefe, Max. Seiten).</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;">
+            <!-- Blog Section -->
+            <div style="border: 1px solid #28a745; border-radius: 8px; padding: 15px;">
+                <h3 style="margin: 0 0 10px; color: #28a745; font-size: 1rem;">
+                    <span class="badge" style="background: #d4edda; color: #0f5132;">Einschluss</span>
+                    /blog/ (7 Seiten)
+                </h3>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Einschlussmuster: <code>/blog</code></p>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem;">
+                    <li style="padding: 3px 0;"><a href="blog/index.html">blog/index.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="blog/post-1.html">blog/post-1.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="blog/post-2.html">blog/post-2.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="blog/post-3.html">blog/post-3.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="blog/category/index.html">blog/category/index.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                    <li style="padding: 3px 0;"><a href="blog/category/tech.html">blog/category/tech.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                    <li style="padding: 3px 0;"><a href="blog/category/news.html">blog/category/news.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                    <li style="padding: 3px 0;"><a href="blog/category/tutorials.html">blog/category/tutorials.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                </ul>
+            </div>
+
+            <!-- Admin Section -->
+            <div style="border: 1px solid #dc3545; border-radius: 8px; padding: 15px;">
+                <h3 style="margin: 0 0 10px; color: #dc3545; font-size: 1rem;">
+                    <span class="badge" style="background: #f8d7da; color: #842029;">Ausschluss</span>
+                    /admin/ (5 Seiten)
+                </h3>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Ausschlussmuster: <code>/admin</code></p>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem;">
+                    <li style="padding: 3px 0;"><a href="admin/index.html">admin/index.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="admin/users.html">admin/users.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="admin/settings.html">admin/settings.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="admin/reports/index.html">admin/reports/index.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                    <li style="padding: 3px 0;"><a href="admin/reports/monthly.html">admin/reports/monthly.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                </ul>
+            </div>
+
+            <!-- Products Section -->
+            <div style="border: 1px solid #0d6efd; border-radius: 8px; padding: 15px;">
+                <h3 style="margin: 0 0 10px; color: #0d6efd; font-size: 1rem;">
+                    <span class="badge badge-aa">Standard</span>
+                    /products/ (8 Seiten)
+                </h3>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">E-Commerce Testseiten</p>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem;">
+                    <li style="padding: 3px 0;"><a href="products/index.html">products/index.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="products/scanner-pro.html">products/scanner-pro.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="products/audit-service.html">products/audit-service.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="products/training.html">products/training.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="products/details/index.html">products/details/index.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                    <li style="padding: 3px 0;"><a href="products/details/specs.html">products/details/specs.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                    <li style="padding: 3px 0;"><a href="products/details/reviews.html">products/details/reviews.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                    <li style="padding: 3px 0;"><a href="products/details/consulting.html">products/details/consulting.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                </ul>
+            </div>
+
+            <!-- Docs Section -->
+            <div style="border: 1px solid #6f42c1; border-radius: 8px; padding: 15px;">
+                <h3 style="margin: 0 0 10px; color: #6f42c1; font-size: 1rem;">
+                    <span class="badge" style="background: #e7e7ff; color: #3d0066;">Docs</span>
+                    /docs/ (6 Seiten)
+                </h3>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Dokumentationsseiten</p>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem;">
+                    <li style="padding: 3px 0;"><a href="docs/index.html">docs/index.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="docs/getting-started.html">docs/getting-started.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="docs/installation.html">docs/installation.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="docs/api/index.html">docs/api/index.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                    <li style="padding: 3px 0;"><a href="docs/api/reference.html">docs/api/reference.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                    <li style="padding: 3px 0;"><a href="docs/api/examples.html">docs/api/examples.html</a> <span style="color: #999;">(Tiefe 2)</span></li>
+                </ul>
+            </div>
+
+            <!-- Shop Section (existing) -->
+            <div style="border: 1px solid #fd7e14; border-radius: 8px; padding: 15px;">
+                <h3 style="margin: 0 0 10px; color: #fd7e14; font-size: 1rem;">
+                    <span class="badge" style="background: #fff3e0; color: #e65100;">Shop</span>
+                    /shop/ (3 Seiten)
+                </h3>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Bestehende Shop-Seiten</p>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem;">
+                    <li style="padding: 3px 0;"><a href="shop/product.html">shop/product.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="shop/checkout.html">shop/checkout.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                    <li style="padding: 3px 0;"><a href="shop/confirmation.html">shop/confirmation.html</a> <span style="color: #999;">(Tiefe 1)</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <strong>Crawler-Test Szenarien:</strong>
+            <ul style="margin: 10px 0 0 20px; color: #495057;">
+                <li><strong>Einschlussmuster <code>/blog</code>:</strong> Nur 8 Blog-Seiten werden gecrawlt</li>
+                <li><strong>Ausschlussmuster <code>/admin</code>:</strong> Admin-Bereich wird ausgeschlossen</li>
+                <li><strong>Max. Tiefe 1:</strong> Nur direkte Unterseiten (keine /category/, /reports/, /details/, /api/)</li>
+                <li><strong>Max. Tiefe 2:</strong> Auch verschachtelte Unterverzeichnisse</li>
+                <li><strong>Max. Seiten 10:</strong> Begrenzt auf erste 10 gefundene Seiten</li>
+            </ul>
         </div>
 
         <footer>

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
 <!--
-VIOLATIONS (3):
+VIOLATIONS (5):
 1. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 53
 2. heading-order (moderate, best-practice) - Line 56
 3. empty-heading (minor, best-practice) - Line 60
+4. target-size (serious, WCAG 2.2 AA 2.5.8) - Line 64 (insufficient size/spacing)
+5. target-size (serious, WCAG 2.2 AA 2.5.8) - Line 65 (insufficient size/spacing)
 -->
 <head>
     <meta charset="UTF-8">
@@ -60,18 +62,19 @@ VIOLATIONS (3):
         <h3></h3>
 
         <h2>Nächste Schritte</h2>
+        <!-- VIOLATION 4+5: target-size (links too close, insufficient 24x24px target) -->
         <ul>
             <li><a href="installation.html">Detaillierte Installation</a></li>
             <li><a href="api/index.html">API Referenz</a></li>
         </ul>
 
         <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
-            <strong>Violations auf dieser Seite (3):</strong><br>
+            <strong>Violations auf dieser Seite (5):</strong><br>
             Critical: 0<br>
-            Serious: 1 (color-contrast)<br>
+            Serious: 3 (color-contrast, target-size x2)<br>
             Moderate: 1 (heading-order)<br>
             Minor: 1 (empty-heading)<br>
-            <small>WCAG 2.0 AA: 1 | Best Practices: 2</small>
+            <small>WCAG 2.0 AA: 1 | WCAG 2.2 AA: 2 | Best Practices: 2</small>
         </div>
     </main>
 </body>

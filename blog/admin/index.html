@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
 <!--
-VIOLATIONS (3):
+VIOLATIONS (4):
 1. image-alt (critical, WCAG 2.0 A 1.1.1) - Line 58
 2. button-name (critical, WCAG 2.0 A 4.1.2) - Line 61
 3. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 40
+4. heading-order (moderate, best-practice) - Line 43 (h3 after h1, skipping h2)
 -->
 <head>
     <meta charset="UTF-8">
@@ -38,6 +39,7 @@ VIOLATIONS (3):
         <!-- VIOLATION 3: color-contrast (#999 on white = 2.85:1) -->
         <p style="color: #999999;">Diese Seiten testen das Ausschlussmuster /admin.</p>
 
+        <!-- VIOLATION 4: heading-order (h3 after h1, skipping h2) -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>1,234</h3>
@@ -61,11 +63,11 @@ VIOLATIONS (3):
         <button></button>
 
         <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
-            <strong>Violations auf dieser Seite (3):</strong><br>
+            <strong>Violations auf dieser Seite (4):</strong><br>
             Critical: 2 (image-alt, button-name)<br>
             Serious: 1 (color-contrast)<br>
-            Moderate: 0<br>
-            <small>WCAG 2.0 A: 2 | WCAG 2.0 AA: 1</small>
+            Moderate: 1 (heading-order)<br>
+            <small>WCAG 2.0 A: 2 | WCAG 2.0 AA: 1 | Best Practices: 1</small>
         </div>
     </main>
 </body>

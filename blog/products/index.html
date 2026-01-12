@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="de">
 <!--
-VIOLATIONS (3):
+VIOLATIONS (6):
 1. image-alt (critical, WCAG 2.0 A 1.1.1) - Line 39
-2. link-name (serious, WCAG 2.0 A 4.1.2) - Line 64
-3. empty-heading (minor, best-practice) - Line 61
+2. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 42 (#27ae60 on white = 2.87:1)
+3. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 49 (#27ae60 on white = 2.87:1)
+4. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 56 (#27ae60 on white = 2.87:1)
+5. link-name (serious, WCAG 2.0 A 4.1.2) - Line 64
+6. empty-heading (minor, best-practice) - Line 61
 -->
 <head>
     <meta charset="UTF-8">
@@ -39,6 +42,7 @@ VIOLATIONS (3):
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect fill='%234a90d9' width='200' height='100'/%3E%3C/svg%3E" width="200" height="100">
                 <h2><a href="scanner-pro.html">Scanner Pro</a></h2>
                 <p>Automatisierte Accessibility-Prüfung.</p>
+                <!-- VIOLATION 2: color-contrast (#27ae60 on white = 2.87:1) -->
                 <p class="price">199 EUR</p>
             </div>
 
@@ -46,6 +50,7 @@ VIOLATIONS (3):
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect fill='%2328a745' width='200' height='100'/%3E%3C/svg%3E" alt="Audit Service" width="200" height="100">
                 <h2><a href="audit-service.html">Audit Service</a></h2>
                 <p>Manuelle Prüfung durch Experten.</p>
+                <!-- VIOLATION 3: color-contrast (#27ae60 on white = 2.87:1) -->
                 <p class="price">ab 500 EUR</p>
             </div>
 
@@ -53,22 +58,23 @@ VIOLATIONS (3):
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect fill='%23ffc107' width='200' height='100'/%3E%3C/svg%3E" alt="Training" width="200" height="100">
                 <h2><a href="training.html">Training</a></h2>
                 <p>Schulungen und Workshops.</p>
+                <!-- VIOLATION 4: color-contrast (#27ae60 on white = 2.87:1) -->
                 <p class="price">ab 300 EUR</p>
             </div>
         </div>
 
-        <!-- VIOLATION 3: empty-heading -->
+        <!-- VIOLATION 6: empty-heading -->
         <h2></h2>
 
-        <!-- VIOLATION 2: link-name (empty link) -->
+        <!-- VIOLATION 5: link-name (empty link) -->
         <a href="details/index.html"></a>
 
         <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
-            <strong>Violations auf dieser Seite (3):</strong><br>
+            <strong>Violations auf dieser Seite (6):</strong><br>
             Critical: 1 (image-alt)<br>
-            Serious: 1 (link-name)<br>
+            Serious: 4 (color-contrast x3, link-name)<br>
             Minor: 1 (empty-heading)<br>
-            <small>WCAG 2.0 A: 2 | Best Practices: 1</small>
+            <small>WCAG 2.0 A: 2 | WCAG 2.0 AA: 3 | Best Practices: 1</small>
         </div>
     </main>
 </body>

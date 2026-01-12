@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
 <!--
-VIOLATIONS (3):
+VIOLATIONS (4):
 1. image-alt (critical, WCAG 2.0 A 1.1.1) - Line 35
 2. label (critical, WCAG 2.0 A 4.1.2) - Line 49
-3. heading-order (moderate, best-practice) - Line 57
+3. autocomplete-valid (serious, WCAG 2.1 AA 1.3.5) - Line 49
+4. heading-order (moderate, best-practice) - Line 57
 -->
 <head>
     <meta charset="UTF-8">
@@ -31,7 +32,7 @@ VIOLATIONS (3):
     <main>
         <div class="product-header">
             <div class="product-image">
-                <!-- VIOLATION 2: image-alt (missing alt attribute) -->
+                <!-- VIOLATION 1: image-alt (missing alt attribute) -->
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%234a90d9' width='300' height='200'/%3E%3C/svg%3E" width="300" height="200">
             </div>
             <div class="product-details">
@@ -45,26 +46,26 @@ VIOLATIONS (3):
                         <option>Einzelplatz</option>
                         <option>Team (5 Nutzer)</option>
                     </select>
-                    <!-- VIOLATION 1: label (input without label) -->
-                    <input type="number" value="1" min="1" style="width: 60px;">
+                    <!-- VIOLATION 2+3: label (no label) + autocomplete-valid (invalid token "quantity") -->
+                    <input type="number" value="1" min="1" style="width: 60px;" autocomplete="quantity">
                     <button class="btn" type="submit">Kaufen</button>
                 </form>
             </div>
         </div>
 
         <h2>Features</h2>
-        <!-- VIOLATION 3: heading-order (h4 after h2, skipping h3) -->
+        <!-- VIOLATION 4: heading-order (h4 after h2, skipping h3) -->
         <h4>WCAG 2.2 Unterstützung</h4>
         <p>Vollständige Unterstützung aller WCAG 2.2 Kriterien.</p>
 
         <p><a href="index.html">Zurück zur Übersicht</a></p>
 
         <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
-            <strong>Violations auf dieser Seite (3):</strong><br>
+            <strong>Violations auf dieser Seite (4):</strong><br>
             Critical: 2 (image-alt, label)<br>
-            Serious: 0<br>
+            Serious: 1 (autocomplete-valid)<br>
             Moderate: 1 (heading-order)<br>
-            <small>WCAG 2.0 A: 2 | Best Practices: 1</small>
+            <small>WCAG 2.0 A: 2 | WCAG 2.1 AA: 1 | Best Practices: 1</small>
         </div>
     </main>
 </body>

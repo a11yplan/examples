@@ -3,7 +3,7 @@
 <!--
 VIOLATIONS (4):
 1. color-contrast (serious, WCAG 2.0 AA 1.4.3) - Line 37
-2. heading-order (moderate, best-practice) - Line 48
+2. heading-order (moderate, best-practice) - Line 35 (h3 after h1, skipping h2)
 3. label (critical, WCAG 2.0 A 4.1.2) - Line 51
 4. label (critical, WCAG 2.0 A 4.1.2) - Line 54
 -->
@@ -31,6 +31,7 @@ VIOLATIONS (4):
         <h1>Kundenbewertungen</h1>
         <p>Diese Seite ist auf Tiefe 3 (/products/details/reviews.html).</p>
 
+        <!-- VIOLATION 2: heading-order (h3 after h1, skipping h2) -->
         <div class="review">
             <h3>Ausgezeichnetes Tool!</h3>
             <!-- VIOLATION 1: color-contrast (#999 on white = 2.85:1) -->
@@ -44,14 +45,13 @@ VIOLATIONS (4):
             <p>Gute Integration in unseren CI/CD-Workflow.</p>
         </div>
 
-        <!-- VIOLATION 4: heading-order (h4 after h3, skipping levels) -->
         <h4>Bewertung abgeben</h4>
         <form>
-            <!-- VIOLATION 2: label (input without label) -->
-            <input type="text" placeholder="Ihr Name">
+            <!-- VIOLATION 2: label (input without label, no placeholder) -->
+            <input type="text">
 
-            <!-- VIOLATION 3: label (textarea without label) -->
-            <textarea placeholder="Ihr Kommentar..." style="width: 100%; height: 80px;"></textarea>
+            <!-- VIOLATION 3: label (textarea without label, no placeholder) -->
+            <textarea style="width: 100%; height: 80px;"></textarea>
 
             <button class="btn" type="submit">Absenden</button>
         </form>

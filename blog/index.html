@@ -31,7 +31,7 @@ VIOLATIONS (4):
 <body>
     <header>
         <h1>Accessibility Test Blog</h1>
-        <p>Testprojekt mit 27 Seiten und 80 dokumentierten Verstößen</p>
+        <p>Testprojekt mit 27 Seiten und 93 dokumentierten Verstößen</p>
     </header>
 
     <nav>
@@ -46,25 +46,48 @@ VIOLATIONS (4):
     </nav>
 
     <main>
-        <h2>Test-Szenarien</h2>
+        <h2>Test-Szenarien (kumulative WCAG-Conformance)</h2>
         <table>
             <thead>
                 <tr>
                     <th>Szenario</th>
                     <th>Seiten</th>
-                    <th>Critical</th>
-                    <th>Serious</th>
-                    <th>Moderate</th>
-                    <th>Minor</th>
-                    <th>Gesamt</th>
+                    <th>WCAG 2.0 A</th>
+                    <th>WCAG 2.0 AA</th>
+                    <th>WCAG 2.1 AA</th>
+                    <th>WCAG 2.2 AA</th>
+                    <th>Best Practice</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Max. Tiefe 1</td><td>8</td><td>8</td><td>14</td><td>1</td><td>4</td><td>27</td></tr>
-                <tr><td>Max. Tiefe 2</td><td>21</td><td>22</td><td>28</td><td>8</td><td>6</td><td>64</td></tr>
-                <tr><td>Max. Tiefe 3 (alle)</td><td>27</td><td>27</td><td>34</td><td>13</td><td>6</td><td>80</td></tr>
-                <tr><td>Ohne /admin</td><td>22</td><td>19</td><td>27</td><td>12</td><td>6</td><td>64</td></tr>
-                <tr><td>Nur /category</td><td>4</td><td>3</td><td>5</td><td>1</td><td>1</td><td>10</td></tr>
+                <tr><td>Max. Tiefe 1</td><td>8</td><td>14 (8C + 6S)</td><td>22 (8C + 14S)</td><td>23 (8C + 15S)</td><td>23 (8C + 15S)</td><td>9 (3S + 2M + 4m)</td></tr>
+                <tr><td>Max. Tiefe 2</td><td>21</td><td>36 (22C + 14S)</td><td>50 (22C + 28S)</td><td>54 (22C + 32S)</td><td>58 (22C + 36S)</td><td>18 (4S + 8M + 6m)</td></tr>
+                <tr><td>Max. Tiefe 3 (alle)</td><td>27</td><td>46 (27C + 19S)</td><td>61 (27C + 34S)</td><td>65 (27C + 38S)</td><td>69 (27C + 42S)</td><td>24 (4S + 14M + 6m)</td></tr>
+                <tr><td>Ohne /admin</td><td>22</td><td>33 (19C + 14S)</td><td>45 (19C + 26S)</td><td>47 (19C + 28S)</td><td>51 (19C + 32S)</td><td>22 (4S + 12M + 6m)</td></tr>
+                <tr><td>Nur /category</td><td>4</td><td>7 (3C + 4S)</td><td>8 (3C + 5S)</td><td>8 (3C + 5S)</td><td>8 (3C + 5S)</td><td>2 (1M + 1m)</td></tr>
+            </tbody>
+        </table>
+        <p style="font-size: 0.85em; color: #666;">C = Critical, S = Serious, M = Moderate, m = Minor | Jede WCAG-Spalte enthält alle vorherigen Level</p>
+
+        <h3>Regel-Übersicht</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>WCAG</th>
+                    <th>Impact</th>
+                    <th>Regeln</th>
+                    <th>Anzahl</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td rowspan="2">2.0 A</td><td>Critical</td><td>image-alt, button-name, label, select-name, duplicate-id-aria</td><td>27</td></tr>
+                <tr><td>Serious</td><td>link-name, th-has-data-cells, frame-title, label-title-only</td><td>19</td></tr>
+                <tr><td>2.0 AA</td><td>Serious</td><td>color-contrast</td><td>15</td></tr>
+                <tr><td>2.1 AA</td><td>Serious</td><td>autocomplete-valid</td><td>4</td></tr>
+                <tr><td>2.2 AA</td><td>Serious</td><td>target-size</td><td>4</td></tr>
+                <tr><td rowspan="3">Best Practice</td><td>Serious</td><td>tabindex</td><td>4</td></tr>
+                <tr><td>Moderate</td><td>heading-order</td><td>14</td></tr>
+                <tr><td>Minor</td><td>empty-heading</td><td>6</td></tr>
             </tbody>
         </table>
 
@@ -105,7 +128,7 @@ VIOLATIONS (4):
             Minor: 1 (empty-heading)<br>
             <small>WCAG 2.0 A: 2 | WCAG 2.0 AA: 1 | Best Practices: 1</small>
         </div>
-        <p>Testprojekt für Crawler-Validierung | 27 Seiten | 80 Verstöße</p>
+        <p>Testprojekt für Crawler-Validierung | 27 Seiten | 93 Verstöße</p>
         <p><a href="VIOLATIONS.md">Vollständige Dokumentation</a></p>
     </footer>
 </body>

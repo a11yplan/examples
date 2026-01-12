@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="de">
 <!--
-VIOLATIONS (2):
+VIOLATIONS (3):
 1. label (critical, WCAG 2.0 A 4.1.2) - Line 61
 2. label (critical, WCAG 2.0 A 4.1.2) - Line 63
+3. heading-order (moderate, best-practice) - Line 37 (h3 after h1, skipping h2)
 -->
 <head>
     <meta charset="UTF-8">
@@ -32,6 +33,7 @@ VIOLATIONS (2):
         <h1>Audit Service</h1>
         <p>Professionelle Barrierefreiheitsprüfung durch unsere Experten.</p>
 
+        <!-- VIOLATION 3: heading-order (h3 after h1, skipping h2) -->
         <div class="pricing-table">
             <div class="pricing-card">
                 <h3>Basic</h3>
@@ -57,21 +59,21 @@ VIOLATIONS (2):
 
         <h2>Anfrage stellen</h2>
         <form style="max-width: 400px;">
-            <!-- VIOLATION 1: label (input without label) -->
-            <input type="text" placeholder="Name" style="width: 100%; padding: 10px; margin-bottom: 10px;">
-            <!-- VIOLATION 2: label (input without label) -->
-            <input type="email" placeholder="E-Mail" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            <!-- VIOLATION 1: label (input without label, no placeholder) -->
+            <input type="text" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            <!-- VIOLATION 2: label (input without label, no placeholder) -->
+            <input type="email" style="width: 100%; padding: 10px; margin-bottom: 10px;">
             <button class="btn" type="submit">Absenden</button>
         </form>
 
         <p style="margin-top: 20px;"><a href="index.html">Zurück zur Übersicht</a></p>
 
         <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 5px;">
-            <strong>Violations auf dieser Seite (2):</strong><br>
+            <strong>Violations auf dieser Seite (3):</strong><br>
             Critical: 2 (label x2)<br>
             Serious: 0<br>
-            Moderate: 0<br>
-            <small>WCAG 2.0 A: 2</small>
+            Moderate: 1 (heading-order)<br>
+            <small>WCAG 2.0 A: 2 | Best Practices: 1</small>
         </div>
     </main>
 </body>

@@ -31,7 +31,7 @@ VIOLATIONS (4):
 <body>
     <header>
         <h1>Accessibility Test Blog</h1>
-        <p>Testprojekt mit 27 Seiten und 91 dokumentierten Verstößen</p>
+        <p>Testprojekt mit 27 Seiten und 91 dokumentierten Verstößen (+4 Experimental)</p>
     </header>
 
     <nav>
@@ -56,6 +56,7 @@ VIOLATIONS (4):
                     <th colspan="2">WCAG 2.0 AA</th>
                     <th colspan="2">WCAG 2.1 AA</th>
                     <th colspan="2">WCAG 2.2 AA</th>
+                    <th rowspan="2">mit Exp</th>
                 </tr>
                 <tr>
                     <th>ohne BP</th><th>mit BP</th>
@@ -67,17 +68,19 @@ VIOLATIONS (4):
             <tbody>
                 <tr>
                     <td>Max. Tiefe 1</td><td>8</td>
-                    <td>12 (7C+5S)</td><td>21 (7C+8S+2M+4m)</td>
-                    <td>20 (7C+13S)</td><td>29 (7C+16S+2M+4m)</td>
-                    <td>21 (7C+14S)</td><td>30 (7C+17S+2M+4m)</td>
-                    <td>21 (7C+14S)</td><td>30 (7C+17S+2M+4m)</td>
+                    <td>13 (8C+5S)</td><td>22 (8C+8S+2M+4m)</td>
+                    <td>21 (8C+13S)</td><td>30 (8C+16S+2M+4m)</td>
+                    <td>22 (8C+14S)</td><td>31 (8C+17S+2M+4m)</td>
+                    <td>22 (8C+14S)</td><td>31 (8C+17S+2M+4m)</td>
+                    <td>31 (8C+17S+2M+4m)</td>
                 </tr>
                 <tr>
                     <td>Max. Tiefe 2</td><td>21</td>
-                    <td>34 (21C+13S)</td><td>52 (21C+17S+8M+6m)</td>
-                    <td>48 (21C+27S)</td><td>66 (21C+31S+8M+6m)</td>
-                    <td>52 (21C+31S)</td><td>70 (21C+35S+8M+6m)</td>
-                    <td>56 (21C+35S)</td><td>74 (21C+39S+8M+6m)</td>
+                    <td>35 (21C+14S)</td><td>54 (21C+18S+9M+6m)</td>
+                    <td>48 (21C+27S)</td><td>67 (21C+31S+9M+6m)</td>
+                    <td>52 (21C+31S)</td><td>71 (21C+35S+9M+6m)</td>
+                    <td>56 (21C+35S)</td><td>75 (21C+39S+9M+6m)</td>
+                    <td>79 (21C+43S+9M+6m)</td>
                 </tr>
                 <tr>
                     <td>Max. Tiefe 3 (alle)</td><td>27</td>
@@ -85,6 +88,7 @@ VIOLATIONS (4):
                     <td>58 (26C+32S)</td><td>82 (26C+36S+14M+6m)</td>
                     <td>62 (26C+36S)</td><td>86 (26C+40S+14M+6m)</td>
                     <td>67 (26C+41S)</td><td>91 (26C+45S+14M+6m)</td>
+                    <td>95 (26C+49S+14M+6m)</td>
                 </tr>
                 <tr>
                     <td>Ohne /admin</td><td>22</td>
@@ -92,6 +96,7 @@ VIOLATIONS (4):
                     <td>44 (19C+25S)</td><td>66 (19C+29S+12M+6m)</td>
                     <td>46 (19C+27S)</td><td>68 (19C+31S+12M+6m)</td>
                     <td>51 (19C+32S)</td><td>73 (19C+36S+12M+6m)</td>
+                    <td>77 (19C+40S+12M+6m)</td>
                 </tr>
                 <tr>
                     <td>Nur /category</td><td>4</td>
@@ -99,10 +104,11 @@ VIOLATIONS (4):
                     <td>8 (3C+5S)</td><td>10 (3C+5S+1M+1m)</td>
                     <td>8 (3C+5S)</td><td>10 (3C+5S+1M+1m)</td>
                     <td>8 (3C+5S)</td><td>10 (3C+5S+1M+1m)</td>
+                    <td>10 (3C+5S+1M+1m)</td>
                 </tr>
             </tbody>
         </table>
-        <p style="font-size: 0.85em; color: #666;">C = Critical, S = Serious, M = Moderate, m = Minor | BP = Best Practice | Jede WCAG-Spalte enthält alle vorherigen Level</p>
+        <p style="font-size: 0.85em; color: #666;">C = Critical, S = Serious, M = Moderate, m = Minor | BP = Best Practice | Exp = Experimental | Jede WCAG-Spalte enthält alle vorherigen Level</p>
 
         <h3>Regel-Übersicht</h3>
         <table>
@@ -123,6 +129,7 @@ VIOLATIONS (4):
                 <tr><td rowspan="3">Best Practice</td><td>Serious</td><td>tabindex</td><td>4</td></tr>
                 <tr><td>Moderate</td><td>heading-order</td><td>14</td></tr>
                 <tr><td>Minor</td><td>empty-heading</td><td>6</td></tr>
+                <tr><td>Experimental</td><td>Serious</td><td>p-as-heading</td><td>4</td></tr>
             </tbody>
         </table>
 
@@ -163,7 +170,7 @@ VIOLATIONS (4):
             Minor: 1 (empty-heading)<br>
             <small>WCAG 2.0 A: 2 | WCAG 2.0 AA: 1 | Best Practices: 1</small>
         </div>
-        <p>Testprojekt für Crawler-Validierung | 27 Seiten | 91 Verstöße</p>
+        <p>Testprojekt für Crawler-Validierung | 27 Seiten | 91 Verstöße (+4 Exp)</p>
     </footer>
 </body>
 </html>

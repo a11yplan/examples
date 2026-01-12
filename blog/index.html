@@ -13,7 +13,7 @@ VIOLATIONS (4):
     <title>Accessibility Test Blog - Crawler Testprojekt</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        body { font-family: Arial, sans-serif; max-width: 1600px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
         header { background: #2c3e50; color: white; padding: 20px; margin-bottom: 20px; }
         header h1 { margin: 0; }
         nav { background: #34495e; padding: 15px; margin-bottom: 20px; }
@@ -31,7 +31,7 @@ VIOLATIONS (4):
 <body>
     <header>
         <h1>Accessibility Test Blog</h1>
-        <p>Testprojekt mit 27 Seiten und 93 dokumentierten Verstößen</p>
+        <p>Testprojekt mit 27 Seiten und 92 dokumentierten Verstößen</p>
     </header>
 
     <nav>
@@ -50,24 +50,59 @@ VIOLATIONS (4):
         <table>
             <thead>
                 <tr>
-                    <th>Szenario</th>
-                    <th>Seiten</th>
-                    <th>WCAG 2.0 A</th>
-                    <th>WCAG 2.0 AA</th>
-                    <th>WCAG 2.1 AA</th>
-                    <th>WCAG 2.2 AA</th>
-                    <th>Best Practice</th>
+                    <th rowspan="2">Szenario</th>
+                    <th rowspan="2">Seiten</th>
+                    <th colspan="2">WCAG 2.0 A</th>
+                    <th colspan="2">WCAG 2.0 AA</th>
+                    <th colspan="2">WCAG 2.1 AA</th>
+                    <th colspan="2">WCAG 2.2 AA</th>
+                </tr>
+                <tr>
+                    <th>ohne BP</th><th>mit BP</th>
+                    <th>ohne BP</th><th>mit BP</th>
+                    <th>ohne BP</th><th>mit BP</th>
+                    <th>ohne BP</th><th>mit BP</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Max. Tiefe 1</td><td>8</td><td>14 (8C + 6S)</td><td>22 (8C + 14S)</td><td>23 (8C + 15S)</td><td>23 (8C + 15S)</td><td>9 (3S + 2M + 4m)</td></tr>
-                <tr><td>Max. Tiefe 2</td><td>21</td><td>36 (22C + 14S)</td><td>50 (22C + 28S)</td><td>54 (22C + 32S)</td><td>58 (22C + 36S)</td><td>18 (4S + 8M + 6m)</td></tr>
-                <tr><td>Max. Tiefe 3 (alle)</td><td>27</td><td>46 (27C + 19S)</td><td>61 (27C + 34S)</td><td>65 (27C + 38S)</td><td>69 (27C + 42S)</td><td>24 (4S + 14M + 6m)</td></tr>
-                <tr><td>Ohne /admin</td><td>22</td><td>33 (19C + 14S)</td><td>45 (19C + 26S)</td><td>47 (19C + 28S)</td><td>51 (19C + 32S)</td><td>22 (4S + 12M + 6m)</td></tr>
-                <tr><td>Nur /category</td><td>4</td><td>7 (3C + 4S)</td><td>8 (3C + 5S)</td><td>8 (3C + 5S)</td><td>8 (3C + 5S)</td><td>2 (1M + 1m)</td></tr>
+                <tr>
+                    <td>Max. Tiefe 1</td><td>8</td>
+                    <td>13 (8C+5S)</td><td>22 (8C+8S+2M+4m)</td>
+                    <td>21 (8C+13S)</td><td>30 (8C+16S+2M+4m)</td>
+                    <td>22 (8C+14S)</td><td>31 (8C+17S+2M+4m)</td>
+                    <td>22 (8C+14S)</td><td>31 (8C+17S+2M+4m)</td>
+                </tr>
+                <tr>
+                    <td>Max. Tiefe 2</td><td>21</td>
+                    <td>35 (22C+13S)</td><td>53 (22C+17S+8M+6m)</td>
+                    <td>49 (22C+27S)</td><td>67 (22C+31S+8M+6m)</td>
+                    <td>53 (22C+31S)</td><td>71 (22C+35S+8M+6m)</td>
+                    <td>57 (22C+35S)</td><td>75 (22C+39S+8M+6m)</td>
+                </tr>
+                <tr>
+                    <td>Max. Tiefe 3 (alle)</td><td>27</td>
+                    <td>45 (27C+18S)</td><td>69 (27C+22S+14M+6m)</td>
+                    <td>60 (27C+33S)</td><td>84 (27C+37S+14M+6m)</td>
+                    <td>64 (27C+37S)</td><td>88 (27C+41S+14M+6m)</td>
+                    <td>68 (27C+41S)</td><td>92 (27C+45S+14M+6m)</td>
+                </tr>
+                <tr>
+                    <td>Ohne /admin</td><td>22</td>
+                    <td>32 (19C+13S)</td><td>54 (19C+17S+12M+6m)</td>
+                    <td>44 (19C+25S)</td><td>66 (19C+29S+12M+6m)</td>
+                    <td>46 (19C+27S)</td><td>68 (19C+31S+12M+6m)</td>
+                    <td>50 (19C+31S)</td><td>72 (19C+35S+12M+6m)</td>
+                </tr>
+                <tr>
+                    <td>Nur /category</td><td>4</td>
+                    <td>7 (3C+4S)</td><td>9 (3C+4S+1M+1m)</td>
+                    <td>8 (3C+5S)</td><td>10 (3C+5S+1M+1m)</td>
+                    <td>8 (3C+5S)</td><td>10 (3C+5S+1M+1m)</td>
+                    <td>8 (3C+5S)</td><td>10 (3C+5S+1M+1m)</td>
+                </tr>
             </tbody>
         </table>
-        <p style="font-size: 0.85em; color: #666;">C = Critical, S = Serious, M = Moderate, m = Minor | Jede WCAG-Spalte enthält alle vorherigen Level</p>
+        <p style="font-size: 0.85em; color: #666;">C = Critical, S = Serious, M = Moderate, m = Minor | BP = Best Practice | Jede WCAG-Spalte enthält alle vorherigen Level</p>
 
         <h3>Regel-Übersicht</h3>
         <table>
@@ -81,7 +116,7 @@ VIOLATIONS (4):
             </thead>
             <tbody>
                 <tr><td rowspan="2">2.0 A</td><td>Critical</td><td>image-alt, button-name, label, select-name, duplicate-id-aria</td><td>27</td></tr>
-                <tr><td>Serious</td><td>link-name, th-has-data-cells, frame-title, label-title-only</td><td>19</td></tr>
+                <tr><td>Serious</td><td>link-name, th-has-data-cells, frame-title, label-title-only</td><td>18</td></tr>
                 <tr><td>2.0 AA</td><td>Serious</td><td>color-contrast</td><td>15</td></tr>
                 <tr><td>2.1 AA</td><td>Serious</td><td>autocomplete-valid</td><td>4</td></tr>
                 <tr><td>2.2 AA</td><td>Serious</td><td>target-size</td><td>4</td></tr>
@@ -128,7 +163,7 @@ VIOLATIONS (4):
             Minor: 1 (empty-heading)<br>
             <small>WCAG 2.0 A: 2 | WCAG 2.0 AA: 1 | Best Practices: 1</small>
         </div>
-        <p>Testprojekt für Crawler-Validierung | 27 Seiten | 93 Verstöße</p>
+        <p>Testprojekt für Crawler-Validierung | 27 Seiten | 92 Verstöße</p>
         <p><a href="VIOLATIONS.md">Vollständige Dokumentation</a></p>
     </footer>
 </body>

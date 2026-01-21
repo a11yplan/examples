@@ -7,9 +7,9 @@
 
     <!-- Machine-readable metadata -->
     <meta name="test:wcag-criterion" content="2.5.8">
-    <meta name="test:total-cases" content="12">
-    <meta name="test:expected-violations" content="4">
-    <meta name="test:expected-passes" content="4">
+    <meta name="test:total-cases" content="14">
+    <meta name="test:expected-violations" content="3">
+    <meta name="test:expected-passes" content="7">
     <meta name="test:expected-exceptions" content="4">
 
     <style>
@@ -309,6 +309,63 @@
         .map-pin:nth-child(2) { top: 50px; left: 90px; }
         .map-pin:nth-child(3) { top: 35px; left: 140px; }
 
+        /* === Edge Cases === */
+        .badge-edge { background-color: #fd7e14; color: white; }
+
+        .test-card.edge {
+            border-color: #fd7e14;
+            background: #fff8f0;
+        }
+
+        .wide-flat-link {
+            display: inline-block;
+            padding: 2px 40px;
+            /* Ergebnis: ca. 20px hoch, 150px+ breit */
+            font-size: 14px;
+            line-height: 16px;
+            color: #0d6efd;
+            text-decoration: underline;
+            background: #e7f1ff;
+            border-radius: 3px;
+        }
+
+        .link-with-padding {
+            display: inline-block;
+            padding: 5px 12px;
+            /* Line-height 14px + padding 5+5 = 24px */
+            font-size: 12px;
+            line-height: 14px;
+            color: #0d6efd;
+            text-decoration: underline;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .breadcrumb a {
+            color: #0d6efd;
+            text-decoration: none;
+            padding: 2px 4px;
+            /* Flach aber mit Spacing */
+        }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: #6c757d; }
+
+        .tag-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            /* ca. 18px hoch, 50px+ breit */
+            font-size: 11px;
+            line-height: 10px;
+            background: #198754;
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
         .expected-results {
             background: white;
             padding: 25px;
@@ -499,6 +556,47 @@
             </div>
         </div>
 
+        <!-- KATEGORIE 5: Edge Cases -->
+        <div class="section-header" style="background: linear-gradient(135deg, #fd7e14 0%, #e65100 100%);">
+            <h2>5. Edge Cases (Scanner-Herausforderungen)</h2>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card edge" data-test-id="TC5.1" data-expected-result="pass" data-edge-case="wide-flat">
+                <h3>Breiter, flacher Link <span class="badge badge-pass">PASS</span> <span class="badge badge-edge">EDGE</span></h3>
+                <div class="size-info">Höhe: ~20px | Breite: 150px+ | Spacing vorhanden</div>
+                <div class="test-sample">
+                    <a href="#" class="wide-flat-link">Mehr erfahren</a>
+                </div>
+                <p class="description">Höhe unter 24px, aber breite Klickfläche mit ausreichend Abstand. Scanner könnten fälschlich FAIL melden.</p>
+            </div>
+
+            <div class="test-card edge" data-test-id="TC5.2" data-expected-result="pass" data-edge-case="padding-extends">
+                <h3>Kleiner Text, großes Padding <span class="badge badge-pass">PASS</span> <span class="badge badge-edge">EDGE</span></h3>
+                <div class="size-info">Line-height: 14px | Padding: 5px | Gesamt: 24px</div>
+                <div class="test-sample">
+                    <a href="#" class="link-with-padding">Details ansehen</a>
+                </div>
+                <p class="description">Sichtbarer Text ist klein, aber Padding erweitert Klickfläche auf 24px+.</p>
+            </div>
+
+            <div class="test-card edge" data-test-id="TC5.3" data-expected-result="pass" data-edge-case="breadcrumb">
+                <h3>Breadcrumb-Navigation <span class="badge badge-pass">PASS</span> <span class="badge badge-edge">EDGE</span></h3>
+                <div class="size-info">Links flach (~18px) | Horizontaler Abstand durch Separatoren</div>
+                <div class="test-sample">
+                    <nav class="breadcrumb">
+                        <a href="#">Start</a>
+                        <span>/</span>
+                        <a href="#">Produkte</a>
+                        <span>/</span>
+                        <a href="#">Details</a>
+                    </nav>
+                </div>
+                <p class="description">Flache Links, aber Separatoren schaffen ausreichend Spacing.</p>
+            </div>
+
+        </div>
+
         <!-- Erwartete Ergebnisse -->
         <div class="expected-results">
             <h3>Erwartete Ergebnisse</h3>
@@ -515,6 +613,13 @@
                 <li class="exception"><strong>TC4.3:</strong> Browser-Kontrolle - Ausnahme</li>
                 <li class="exception"><strong>TC4.4:</strong> Größe essenziell - Ausnahme</li>
             </ul>
+            <h4 style="margin-top: 20px; color: #fd7e14;">Edge Cases (potenzielle False Positives)</h4>
+            <ul class="result-list">
+                <li style="background: #fff8f0; border-left: 3px solid #fd7e14;"><strong>TC5.1:</strong> Breiter flacher Link - Pass (Spacing)</li>
+                <li style="background: #fff8f0; border-left: 3px solid #fd7e14;"><strong>TC5.2:</strong> Text mit Padding - Pass (24px Klickfläche)</li>
+                <li style="background: #fff8f0; border-left: 3px solid #fd7e14;"><strong>TC5.3:</strong> Breadcrumb - Pass (Separator-Spacing)</li>
+            </ul>
+            <p style="margin-top: 15px; font-size: 14px; color: #6c757d;"><strong>Hinweis:</strong> Edge Cases sind Elemente, die ein Scanner fälschlich als Violation erkennen könnte, obwohl sie durch Spacing oder Padding die Anforderungen erfüllen.</p>
         </div>
     </div>
 
@@ -523,9 +628,9 @@
             wcagCriterion: '2.5.8',
             criterionName: 'Zielgröße (Minimum)',
             level: 'AA',
-            totalCases: 11,
+            totalCases: 14,
             expectedViolations: 3,
-            expectedPasses: 4,
+            expectedPasses: 7,
             expectedExceptions: 4,
             minimumSize: 24,
             testCases: []

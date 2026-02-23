@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language &amp; Proxy Diagnostic — a11yplan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:           #07080d;
+            --surface:      #0e1018;
+            --surface-2:    #141622;
+            --border:       #1c2030;
+            --border-hi:    #2a3050;
+            --text:         #c4cbdf;
+            --text-dim:     #56607a;
+            --text-dimmer:  #2e3450;
+            --green:        #00d97e;
+            --green-dim:    rgba(0,217,126,.10);
+            --green-border: rgba(0,217,126,.25);
+            --red:          #ff4a6b;
+            --red-dim:      rgba(255,74,107,.10);
+            --red-border:   rgba(255,74,107,.25);
+            --blue:         #4a9eff;
+            --blue-dim:     rgba(74,158,255,.08);
+            --blue-border:  rgba(74,158,255,.22);
+            --amber:        #ffb84a;
+            --amber-dim:    rgba(255,184,74,.08);
+            --amber-border: rgba(255,184,74,.22);
+            --cyan:         #00e5cc;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* subtle scanline texture */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,.008) 3px, rgba(255,255,255,.008) 4px);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ── Header ─────────────────────────────── */
+        .header {
+            padding: 18px 32px;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-left { display: flex; align-items: center; gap: 14px; }
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.3px;
+        }
+        .logo em { color: var(--cyan); font-style: normal; }
+        .sep { color: var(--text-dimmer); }
+        .page-title { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+        .pulse {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2.2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(0,217,126,.5); }
+            50%      { opacity:.5; box-shadow: 0 0 0 4px rgba(0,217,126,0); }
+        }
+
+        /* ── Main ───────────────────────────────── */
+        .main { max-width: 1160px; margin: 0 auto; padding: 28px 32px 48px; }
+
+        /* ── Status bar ─────────────────────────── */
+        .statusbar {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-wrap: wrap;
+            animation: fadeUp .35s ease both;
+        }
+        .sb-item {
+            flex: 1;
+            min-width: 120px;
+            padding: 4px 20px 4px 0;
+            border-right: 1px solid var(--border);
+        }
+        .sb-item:last-child { border-right: none; padding-right: 0; padding-left: 20px; }
+        .sb-item:first-child { padding-left: 0; }
+        .sb-label { font-size: 9px; text-transform: uppercase; letter-spacing: .1em; color: var(--text-dimmer); margin-bottom: 3px; }
+        .sb-val   { font-size: 13px; color: var(--text); }
+
+        .verify-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+        .pill-loading { background: var(--amber-dim); border: 1px solid var(--amber-border); color: var(--amber); }
+        .pill-ok      { background: var(--green-dim);  border: 1px solid var(--green-border);  color: var(--green); }
+        .pill-warn    { background: var(--red-dim);    border: 1px solid var(--red-border);    color: var(--red); }
+
+        .spinner {
+            display: inline-block;
+            width: 9px; height: 9px;
+            border: 1.5px solid currentColor;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Grid ───────────────────────────────── */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+        /* ── Card ───────────────────────────────── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeUp .4s ease both;
+        }
+        .card:nth-child(1) { animation-delay: .05s; }
+        .card:nth-child(2) { animation-delay: .10s; }
+        .card:nth-child(3) { animation-delay: .15s; }
+        .card:nth-child(4) { animation-delay: .20s; }
+        .card:nth-child(5) { animation-delay: .25s; }
+
+        @keyframes fadeUp {
+            from { opacity:0; transform: translateY(10px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
+
+        .card-head {
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .card-body { padding: 18px; }
+
+        /* ── Tags ───────────────────────────────── */
+        .tag {
+            display: inline-block;
+            padding: 2px 9px;
+            border-radius: 4px;
+            font-size: 9px;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .tag-blue   { background: var(--blue-dim);  border: 1px solid var(--blue-border);  color: var(--blue); }
+        .tag-green  { background: var(--green-dim); border: 1px solid var(--green-border); color: var(--green); }
+        .tag-amber  { background: var(--amber-dim); border: 1px solid var(--amber-border); color: var(--amber); }
+        .tag-red    { background: var(--red-dim);   border: 1px solid var(--red-border);   color: var(--red); }
+
+        /* ── Data rows ──────────────────────────── */
+        .dr {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .dr:last-child { border-bottom: none; padding-bottom: 0; }
+        .dr:first-child { padding-top: 0; }
+        .dk { color: var(--text-dimmer); font-size: 11px; flex-shrink: 0; padding-top: 1px; }
+        .dv { color: var(--blue); text-align: right; word-break: break-all; }
+        .dv.green  { color: var(--green); }
+        .dv.amber  { color: var(--amber); }
+        .dv.cyan   { color: var(--cyan); }
+        .dv.dim    { color: var(--text-dim); }
+        .dv.small  { font-size: 10px; }
+
+        /* ── IP Hero ────────────────────────────── */
+        .ip-hero {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .ip-flag { font-size: 38px; line-height: 1; flex-shrink: 0; }
+        .ip-addr-big {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: .02em;
+        }
+        .ip-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+        /* ── Locale Hero ────────────────────────── */
+        .locale-hero {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+        }
+        .locale-big {
+            font-family: 'Syne', sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--green);
+            letter-spacing: .04em;
+            line-height: 1;
+        }
+        .locale-name { font-size: 11px; color: var(--text-dim); margin-top: 5px; }
+        .langs-list  { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+
+        /* ── Formats grid ───────────────────────── */
+        .fmt-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .fmt-item {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 11px 13px;
+        }
+        .fmt-label { font-size: 9px; text-transform: uppercase; letter-spacing: .1em; color: var(--text-dimmer); margin-bottom: 5px; }
+        .fmt-val   { font-size: 13px; color: var(--text); }
+
+        /* ── Verification blocks ────────────────── */
+        .vblock {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            padding: 11px 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .vblock:last-of-type { margin-bottom: 0; }
+        .vblock.ok      { background: var(--green-dim); border: 1px solid var(--green-border); }
+        .vblock.fail    { background: var(--red-dim);   border: 1px solid var(--red-border); }
+        .vblock.pending { background: var(--amber-dim); border: 1px solid var(--amber-border); }
+        .vblock-icon { font-size: 18px; flex-shrink: 0; }
+        .vblock-title  { font-size: 13px; font-weight: 600; color: var(--text); }
+        .vblock-detail { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+        /* ── Raw dump ───────────────────────────── */
+        .raw-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-top: 14px;
+            transition: border-color .2s, color .2s;
+        }
+        .raw-btn:hover { border-color: var(--border-hi); color: var(--text); }
+        pre.raw {
+            display: none;
+            margin-top: 10px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 14px;
+            font-size: 10px;
+            color: var(--text-dim);
+            overflow-x: auto;
+            line-height: 1.7;
+        }
+        pre.raw.show { display: block; }
+
+        /* ── Full-width bottom card ─────────────── */
+        .card-full { grid-column: 1 / -1; }
+
+        /* ── Footer ─────────────────────────────── */
+        footer {
+            text-align: center;
+            padding: 20px 32px;
+            border-top: 1px solid var(--border);
+            font-size: 10px;
+            color: var(--text-dimmer);
+            letter-spacing: .05em;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <div class="logo">a11y<em>plan</em></div>
+        <span class="sep">/</span>
+        <span class="page-title">Language &amp; Proxy Diagnostic</span>
+    </div>
+    <div class="live-badge">
+        <div class="pulse"></div>
+        <span id="scan-status">SCANNING</span>
+    </div>
+</header>
+
+<main class="main">
+
+    <!-- Status bar -->
+    <div class="statusbar">
+        <div class="sb-item">
+            <div class="sb-label">IP Address</div>
+            <div class="sb-val" id="sb-ip">—</div>
+        </div>
+        <div class="sb-item">
+            <div class="sb-label">Country (IP)</div>
+            <div class="sb-val" id="sb-country">—</div>
+        </div>
+        <div class="sb-item">
+            <div class="sb-label">Browser Locale</div>
+            <div class="sb-val" id="sb-locale">—</div>
+        </div>
+        <div class="sb-item">
+            <div class="sb-label">Timezone</div>
+            <div class="sb-val" id="sb-tz">—</div>
+        </div>
+        <div class="sb-item">
+            <div class="sb-label">Verification</div>
+            <div id="sb-verify" class="verify-pill pill-loading">
+                <span class="spinner"></span> Loading
+            </div>
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <!-- ① IP / Proxy card -->
+        <div class="card">
+            <div class="card-head">
+                <div class="card-title">🌐 IP &amp; Proxy Detection</div>
+                <span id="ip-tag" class="tag tag-amber">Fetching…</span>
+            </div>
+            <div class="card-body">
+                <div class="ip-hero">
+                    <div class="ip-flag" id="ip-flag">⏳</div>
+                    <div>
+                        <div class="ip-addr-big" id="ip-addr">—.—.—.—</div>
+                        <div class="ip-sub" id="ip-location">Detecting…</div>
+                    </div>
+                </div>
+                <div class="dr"><span class="dk">country_code</span> <span class="dv cyan"  id="ip-cc">—</span></div>
+                <div class="dr"><span class="dk">country_name</span> <span class="dv"       id="ip-cn">—</span></div>
+                <div class="dr"><span class="dk">city</span>         <span class="dv dim"   id="ip-city">—</span></div>
+                <div class="dr"><span class="dk">region</span>       <span class="dv dim"   id="ip-region">—</span></div>
+                <div class="dr"><span class="dk">timezone</span>     <span class="dv amber" id="ip-tz">—</span></div>
+                <div class="dr"><span class="dk">org / isp</span>    <span class="dv dim small" id="ip-org">—</span></div>
+                <div class="dr"><span class="dk">currency</span>     <span class="dv dim"   id="ip-cur">—</span></div>
+            </div>
+        </div>
+
+        <!-- ② Browser Locale card -->
+        <div class="card">
+            <div class="card-head">
+                <div class="card-title">🗣 Browser Locale &amp; Language</div>
+                <span class="tag tag-blue">Browser API</span>
+            </div>
+            <div class="card-body">
+                <div class="locale-hero">
+                    <div class="locale-big" id="locale-big">—</div>
+                    <div class="locale-name" id="locale-name">Loading…</div>
+                    <div class="langs-list" id="langs-list"></div>
+                </div>
+                <div class="dr"><span class="dk">navigator.language</span>  <span class="dv green" id="nav-lang">—</span></div>
+                <div class="dr"><span class="dk">Intl timezone</span>        <span class="dv amber" id="intl-tz">—</span></div>
+                <div class="dr"><span class="dk">document.lang attr</span>   <span class="dv dim"   id="doc-lang">—</span></div>
+                <div class="dr"><span class="dk">userAgent</span>            <span class="dv dim small" id="ua">—</span></div>
+            </div>
+        </div>
+
+        <!-- ③ Locale formatting card -->
+        <div class="card">
+            <div class="card-head">
+                <div class="card-title">🔢 Locale Formatting</div>
+                <span class="tag tag-blue">Intl API</span>
+            </div>
+            <div class="card-body">
+                <div class="fmt-grid">
+                    <div class="fmt-item"><div class="fmt-label">Date — long</div>    <div class="fmt-val" id="f-date-long">—</div></div>
+                    <div class="fmt-item"><div class="fmt-label">Date — short</div>   <div class="fmt-val" id="f-date-short">—</div></div>
+                    <div class="fmt-item"><div class="fmt-label">Time</div>            <div class="fmt-val" id="f-time">—</div></div>
+                    <div class="fmt-item"><div class="fmt-label">12h / 24h</div>       <div class="fmt-val" id="f-cycle">—</div></div>
+                    <div class="fmt-item"><div class="fmt-label">Number</div>          <div class="fmt-val" id="f-num">—</div></div>
+                    <div class="fmt-item"><div class="fmt-label">Currency USD</div>   <div class="fmt-val" id="f-usd">—</div></div>
+                    <div class="fmt-item"><div class="fmt-label">Currency EUR</div>   <div class="fmt-val" id="f-eur">—</div></div>
+                    <div class="fmt-item"><div class="fmt-label">Relative</div>        <div class="fmt-val" id="f-rel">—</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ④ Verification card -->
+        <div class="card">
+            <div class="card-head">
+                <div class="card-title">✔ Proxy + Locale Verification</div>
+                <span id="v-tag" class="tag tag-amber">Pending</span>
+            </div>
+            <div class="card-body">
+                <div id="v-tz" class="vblock pending">
+                    <span class="vblock-icon">⏳</span>
+                    <div>
+                        <div class="vblock-title">Timezone Match</div>
+                        <div class="vblock-detail">Waiting for IP data…</div>
+                    </div>
+                </div>
+                <div id="v-locale" class="vblock pending">
+                    <span class="vblock-icon">⏳</span>
+                    <div>
+                        <div class="vblock-title">Country ↔ Locale</div>
+                        <div class="vblock-detail">Waiting for IP data…</div>
+                    </div>
+                </div>
+
+                <div style="margin-top:14px;">
+                    <div class="dr"><span class="dk">IP timezone</span>      <span class="dv amber" id="v-ip-tz">—</span></div>
+                    <div class="dr"><span class="dk">Browser timezone</span> <span class="dv amber" id="v-br-tz">—</span></div>
+                    <div class="dr"><span class="dk">IP country</span>       <span class="dv cyan"  id="v-ip-cc">—</span></div>
+                    <div class="dr"><span class="dk">Locale region</span>    <span class="dv green" id="v-lc-cc">—</span></div>
+                </div>
+
+                <button class="raw-btn" onclick="toggleRaw()">Show Raw JSON</button>
+                <pre class="raw" id="raw-dump"></pre>
+            </div>
+        </div>
+
+        <!-- ⑤ Browser environment (full-width) -->
+        <div class="card card-full">
+            <div class="card-head">
+                <div class="card-title">📋 Browser Environment</div>
+                <span class="tag tag-blue">Client-side</span>
+            </div>
+            <div class="card-body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+                <div>
+                    <div class="dr"><span class="dk">Accept-Language (approx.)</span> <span class="dv green" id="e-accept-lang">—</span></div>
+                    <div class="dr"><span class="dk">platform</span>                   <span class="dv dim"   id="e-platform">—</span></div>
+                    <div class="dr"><span class="dk">cookieEnabled</span>              <span class="dv dim"   id="e-cookies">—</span></div>
+                </div>
+                <div>
+                    <div class="dr"><span class="dk">screen resolution</span>  <span class="dv dim"   id="e-screen">—</span></div>
+                    <div class="dr"><span class="dk">timezone offset</span>     <span class="dv amber" id="e-tz-off">—</span></div>
+                    <div class="dr"><span class="dk">current UTC time</span>    <span class="dv dim"   id="e-utc">—</span></div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /grid -->
+</main>
+
+<footer>
+    a11yplan · Language &amp; Proxy Diagnostic · <span id="footer-ts">—</span>
+</footer>
+
+<script>
+// ─── Country ↔ locale mapping ──────────────────────────────────────────
+const LOCALE_MAP = {
+    US:['en','en-US'], GB:['en','en-GB'], AU:['en','en-AU'], CA:['en','fr','en-CA','fr-CA'],
+    NZ:['en','en-NZ'], IE:['en','en-IE'],
+    DE:['de','de-DE'], AT:['de','de-AT'], CH:['de','fr','it','de-CH','fr-CH'],
+    FR:['fr','fr-FR'], BE:['fr','nl','fr-BE','nl-BE'],
+    IT:['it','it-IT'], ES:['es','es-ES'], MX:['es','es-MX'], AR:['es','es-AR'],
+    PT:['pt','pt-PT'], BR:['pt','pt-BR'],
+    JP:['ja','ja-JP'], CN:['zh','zh-CN'], TW:['zh','zh-TW'], KR:['ko','ko-KR'],
+    RU:['ru','ru-RU'], UA:['uk','ru','uk-UA'],
+    NL:['nl','nl-NL'], SE:['sv','sv-SE'], NO:['no','nb','nb-NO'],
+    DK:['da','da-DK'], FI:['fi','fi-FI'], PL:['pl','pl-PL'],
+    IN:['hi','en','en-IN'], SG:['en','zh','en-SG'],
+    TR:['tr','tr-TR'], IL:['he','he-IL'],
+    ZA:['en','af','en-ZA'], GR:['el','el-GR'], HU:['hu','hu-HU'],
+    CZ:['cs','cs-CZ'], RO:['ro','ro-RO'],
+};
+
+// Country flag emoji helper
+const flag = cc => cc
+    ? [...cc.toUpperCase()].map(c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65)).join('')
+    : '🌍';
+
+// ─── Sync: Browser data ────────────────────────────────────────────────
+const locale  = navigator.language || 'en-US';
+const now     = new Date();
+const intlTz  = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const langs   = Array.from(navigator.languages || [locale]);
+
+document.getElementById('locale-big').textContent  = locale;
+document.getElementById('nav-lang').textContent    = locale;
+document.getElementById('sb-locale').textContent   = locale;
+document.getElementById('intl-tz').textContent     = intlTz;
+document.getElementById('sb-tz').textContent       = intlTz;
+document.getElementById('v-br-tz').textContent     = intlTz;
+document.getElementById('doc-lang').textContent    = document.documentElement.lang || '(not set)';
+document.getElementById('ua').textContent          = navigator.userAgent;
+
+// Locale display name
+try {
+    const langDisp   = new Intl.DisplayNames([locale], { type: 'language' });
+    const regionDisp = new Intl.DisplayNames([locale], { type: 'region' });
+    const parts      = locale.split('-');
+    let name = langDisp.of(parts[0]);
+    if (parts[1]) name += ' — ' + regionDisp.of(parts[1]);
+    document.getElementById('locale-name').textContent = name;
+} catch { document.getElementById('locale-name').textContent = locale; }
+
+// Locale region tag for verification
+const localeParts  = locale.split('-');
+const localeRegion = localeParts.length > 1 ? localeParts[localeParts.length - 1] : '?';
+document.getElementById('v-lc-cc').textContent = localeRegion;
+
+// navigator.languages chips
+const langsList = document.getElementById('langs-list');
+langs.forEach(l => {
+    const s = document.createElement('span');
+    s.className = 'tag tag-blue';
+    s.textContent = l;
+    langsList.appendChild(s);
+});
+
+// Accept-Language approx
+document.getElementById('e-accept-lang').textContent = langs.join(', ');
+
+// Locale formatting
+const fmt = (opts) => new Intl.DateTimeFormat(locale, opts).format(now);
+document.getElementById('f-date-long').textContent  = fmt({ dateStyle:'long' });
+document.getElementById('f-date-short').textContent = fmt({ dateStyle:'short' });
+document.getElementById('f-time').textContent       = fmt({ timeStyle:'medium' });
+
+const hourSample = new Intl.DateTimeFormat(locale, { hour:'numeric' }).format(now);
+const is12h = /[ap]\.?m\.?/i.test(hourSample);
+document.getElementById('f-cycle').textContent = is12h ? '12-hour (AM/PM)' : '24-hour';
+
+document.getElementById('f-num').textContent = new Intl.NumberFormat(locale).format(1234567.89);
+document.getElementById('f-usd').textContent = new Intl.NumberFormat(locale,{style:'currency',currency:'USD'}).format(1234.56);
+document.getElementById('f-eur').textContent = new Intl.NumberFormat(locale,{style:'currency',currency:'EUR'}).format(1234.56);
+try {
+    document.getElementById('f-rel').textContent = new Intl.RelativeTimeFormat(locale,{numeric:'auto'}).format(-3,'day');
+} catch { document.getElementById('f-rel').textContent = '—'; }
+
+// Browser environment
+document.getElementById('e-platform').textContent = navigator.platform || '—';
+document.getElementById('e-cookies').textContent  = String(navigator.cookieEnabled);
+document.getElementById('e-screen').textContent   = `${screen.width}×${screen.height} @${window.devicePixelRatio}x`;
+const off = now.getTimezoneOffset();
+const sign = off <= 0 ? '+' : '-';
+document.getElementById('e-tz-off').textContent =
+    `UTC${sign}${String(Math.floor(Math.abs(off)/60)).padStart(2,'0')}:${String(Math.abs(off)%60).padStart(2,'0')}`;
+document.getElementById('e-utc').textContent = now.toISOString();
+
+// Live clock
+document.getElementById('footer-ts').textContent = now.toISOString();
+setInterval(() => {
+    const t = new Date().toISOString();
+    document.getElementById('footer-ts').textContent = t;
+    document.getElementById('e-utc').textContent = t;
+}, 1000);
+
+// ─── Async: IP geolocation ─────────────────────────────────────────────
+async function fetchIP() {
+    const apis = [
+        { url: 'https://ipapi.co/json/', parse: d => d.ip ? {
+            ip: d.ip, cc: d.country_code, cn: d.country_name,
+            city: d.city, region: d.region, tz: d.timezone,
+            org: d.org, cur: d.currency
+        } : null },
+        { url: 'https://ip-api.com/json/?fields=status,country,countryCode,regionName,city,timezone,org,isp,query', parse: d => d.query ? {
+            ip: d.query, cc: d.countryCode, cn: d.country,
+            city: d.city, region: d.regionName, tz: d.timezone,
+            org: d.org || d.isp, cur: '—'
+        } : null },
+    ];
+    for (const { url, parse } of apis) {
+        try {
+            const r = await fetch(url);
+            if (!r.ok) continue;
+            const d = parse(await r.json());
+            if (d && d.ip) return d;
+        } catch { /* try next */ }
+    }
+    return null;
+}
+
+function setVerifyBlock(id, state, title, detail) {
+    const el = document.getElementById(id);
+    const icons = { ok:'✅', fail:'⚠️', pending:'⏳' };
+    el.className = `vblock ${state === 'ok' ? 'ok' : state === 'fail' ? 'fail' : 'pending'}`;
+    el.innerHTML = `<span class="vblock-icon">${icons[state]}</span>
+        <div><div class="vblock-title">${title}</div><div class="vblock-detail">${detail}</div></div>`;
+}
+
+fetchIP().then(data => {
+    document.getElementById('scan-status').textContent = 'LIVE';
+
+    if (!data) {
+        document.getElementById('ip-tag').textContent = 'API Error';
+        document.getElementById('ip-tag').className   = 'tag tag-red';
+        document.getElementById('ip-flag').textContent = '❓';
+        document.getElementById('ip-addr').textContent = 'Unavailable';
+        document.getElementById('ip-location').textContent = 'Could not reach geolocation API';
+        document.getElementById('sb-verify').innerHTML = '⚠ API fail';
+        document.getElementById('sb-verify').className = 'verify-pill pill-warn';
+        setVerifyBlock('v-tz',     'pending', 'Timezone Match',   'IP API unavailable');
+        setVerifyBlock('v-locale', 'pending', 'Country ↔ Locale', 'IP API unavailable');
+        return;
+    }
+
+    const { ip, cc, cn, city, region, tz, org, cur } = data;
+    const f = flag(cc);
+
+    // Fill IP card
+    document.getElementById('ip-flag').textContent     = f;
+    document.getElementById('ip-addr').textContent     = ip;
+    document.getElementById('ip-location').textContent = [city, region, cn].filter(Boolean).join(', ');
+    document.getElementById('ip-cc').textContent       = cc;
+    document.getElementById('ip-cn').textContent       = cn || '—';
+    document.getElementById('ip-city').textContent     = city || '—';
+    document.getElementById('ip-region').textContent   = region || '—';
+    document.getElementById('ip-tz').textContent       = tz || '—';
+    document.getElementById('ip-org').textContent      = org || '—';
+    document.getElementById('ip-cur').textContent      = cur || '—';
+    document.getElementById('ip-tag').textContent      = 'OK';
+    document.getElementById('ip-tag').className        = 'tag tag-green';
+
+    // Status bar
+    document.getElementById('sb-ip').textContent      = ip;
+    document.getElementById('sb-country').textContent = `${f} ${cn}`;
+
+    // Verification panel
+    document.getElementById('v-ip-tz').textContent = tz || '—';
+    document.getElementById('v-ip-cc').textContent = cc;
+
+    // TZ check
+    const tzMatch = intlTz === tz;
+    setVerifyBlock('v-tz', tzMatch ? 'ok' : 'fail',
+        'Timezone Match',
+        tzMatch
+            ? `${intlTz} ✓`
+            : `Browser: ${intlTz}  ·  IP: ${tz}`
+    );
+
+    // Locale ↔ country check
+    const expected   = LOCALE_MAP[cc] || [];
+    const langCode   = locale.split('-')[0];
+    const langMatches = expected.length === 0 ||
+        expected.some(e => e === locale || e === langCode || e === localeRegion);
+
+    if (expected.length === 0) {
+        setVerifyBlock('v-locale', 'pending', 'Country ↔ Locale', `No mapping defined for ${cc}`);
+    } else {
+        setVerifyBlock('v-locale', langMatches ? 'ok' : 'fail',
+            'Country ↔ Locale',
+            langMatches
+                ? `${locale} is expected for ${cc} ✓`
+                : `Browser: ${locale}  ·  Expected: ${expected.join(', ')}`
+        );
+    }
+
+    // Summary badge + pill
+    const allGood = tzMatch && (langMatches || expected.length === 0);
+    const vTag    = document.getElementById('v-tag');
+    const sbVerify = document.getElementById('sb-verify');
+
+    if (allGood) {
+        vTag.textContent = 'All Match';
+        vTag.className   = 'tag tag-green';
+        sbVerify.innerHTML  = '✓ Verified';
+        sbVerify.className  = 'verify-pill pill-ok';
+    } else {
+        vTag.textContent = 'Mismatch';
+        vTag.className   = 'tag tag-red';
+        sbVerify.innerHTML  = '⚠ Mismatch';
+        sbVerify.className  = 'verify-pill pill-warn';
+    }
+
+    // Raw JSON
+    document.getElementById('raw-dump').textContent = JSON.stringify({
+        timestamp: now.toISOString(),
+        ip: { ip, cc, cn, city, region, tz, org, cur },
+        browser: {
+            language: locale,
+            languages: langs,
+            timezone: intlTz,
+            timezoneOffsetMin: now.getTimezoneOffset(),
+            platform: navigator.platform,
+        },
+        verification: { tzMatch, langMatches, expectedLocales: expected },
+    }, null, 2);
+
+}).catch(err => {
+    document.getElementById('scan-status').textContent = 'ERROR';
+    console.error(err);
+});
+
+function toggleRaw() {
+    const el  = document.getElementById('raw-dump');
+    const btn = document.querySelector('.raw-btn');
+    const vis = el.classList.toggle('show');
+    btn.textContent = vis ? 'Hide Raw JSON' : 'Show Raw JSON';
+}
+</script>
+
+</body>
+</html>

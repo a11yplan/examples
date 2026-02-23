@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Side view of the same tan bag -->
+  <rect width="500" height="500" fill="#f7f3ee"/>
+  <ellipse cx="250" cy="462" rx="70" ry="12" fill="#00000015"/>
+
+  <!-- Handle (side view = single loop from above) -->
+  <path d="M218 186 Q216 112 250 100 Q284 112 282 186"
+        fill="none" stroke="#6b4a1e" stroke-width="22" stroke-linecap="round"/>
+  <path d="M222 186 Q220 118 250 107 Q280 118 278 186"
+        fill="none" stroke="rgba(255,200,120,0.22)" stroke-width="9" stroke-linecap="round"/>
+
+  <!-- Bag body – narrow (side view) -->
+  <rect x="158" y="180" width="184" height="262" rx="18" fill="#c49a52"/>
+
+  <!-- Zipper strip top -->
+  <rect x="158" y="180" width="184" height="37" rx="10" fill="#a87e38"/>
+  <line x1="174" y1="199" x2="326" y2="199" stroke="#7a5c20" stroke-width="2.5" stroke-dasharray="7,4"/>
+  <!-- Zipper pull -->
+  <rect x="309" y="191" width="9" height="16" rx="3" fill="#aaa"/>
+  <line x1="313" y1="207" x2="313" y2="218" stroke="#999" stroke-width="2"/>
+  <circle cx="313" cy="223" r="4.5" fill="#888"/>
+
+  <!-- Side gusset fold lines -->
+  <line x1="172" y1="217" x2="172" y2="430" stroke="#7a5c20" stroke-width="2" opacity="0.45"/>
+  <line x1="328" y1="217" x2="328" y2="430" stroke="#7a5c20" stroke-width="2" opacity="0.45"/>
+
+  <!-- Canvas texture horizontal lines -->
+  <g stroke="#a87e38" stroke-width="0.8" opacity="0.35">
+    <line x1="172" y1="240" x2="328" y2="240"/>
+    <line x1="172" y1="270" x2="328" y2="270"/>
+    <line x1="172" y1="300" x2="328" y2="300"/>
+    <line x1="172" y1="330" x2="328" y2="330"/>
+    <line x1="172" y1="360" x2="328" y2="360"/>
+    <line x1="172" y1="390" x2="328" y2="390"/>
+  </g>
+
+  <!-- Bottom stitching -->
+  <line x1="174" y1="428" x2="326" y2="428" stroke="#7a5c20" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.55"/>
+
+  <!-- Depth shadow on right edge to suggest 3D -->
+  <rect x="322" y="217" width="8" height="213" rx="0" fill="rgba(0,0,0,0.08)"/>
+
+  <!-- Label -->
+  <rect x="196" y="372" width="108" height="30" rx="4" fill="rgba(100,75,30,0.13)"/>
+  <text x="250" y="392" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6b4a1e" letter-spacing="2.5" font-style="italic">ZIP TOTE</text>
+</svg>

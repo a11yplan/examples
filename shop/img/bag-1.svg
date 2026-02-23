@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <rect width="500" height="500" fill="#f7f3ee"/>
+  <ellipse cx="250" cy="462" rx="138" ry="14" fill="#00000015"/>
+  <!-- Handles -->
+  <path d="M170 185 Q168 108 212 98 Q250 90 250 90 Q250 90 288 98 Q332 108 330 185"
+        fill="none" stroke="#6b4a1e" stroke-width="22" stroke-linecap="round"/>
+  <path d="M174 185 Q172 114 214 104 Q250 96 250 96 Q250 96 286 104 Q328 114 326 185"
+        fill="none" stroke="rgba(255,200,120,0.22)" stroke-width="9" stroke-linecap="round"/>
+  <!-- Bag body -->
+  <rect x="78" y="180" width="344" height="262" rx="18" fill="#c49a52"/>
+  <!-- Zipper strip -->
+  <rect x="78" y="180" width="344" height="37" rx="10" fill="#a87e38"/>
+  <line x1="100" y1="199" x2="386" y2="199" stroke="#7a5c20" stroke-width="2.5" stroke-dasharray="9,5"/>
+  <!-- Zipper pull -->
+  <rect x="371" y="191" width="10" height="17" rx="3" fill="#aaa"/>
+  <line x1="376" y1="208" x2="376" y2="220" stroke="#999" stroke-width="2"/>
+  <circle cx="376" cy="225" r="5" fill="#888"/>
+  <!-- Mesh window -->
+  <rect x="105" y="238" width="290" height="110" rx="8" fill="#b88c42" opacity="0.35"/>
+  <rect x="105" y="238" width="290" height="110" rx="8" fill="none" stroke="#7a5c20" stroke-width="1.5"/>
+  <g stroke="#7a5c20" stroke-width="0.7" opacity="0.45">
+    <line x1="105" y1="257" x2="395" y2="257"/><line x1="105" y1="277" x2="395" y2="277"/>
+    <line x1="105" y1="297" x2="395" y2="297"/><line x1="105" y1="317" x2="395" y2="317"/>
+    <line x1="105" y1="337" x2="395" y2="337"/>
+    <line x1="140" y1="238" x2="140" y2="348"/><line x1="175" y1="238" x2="175" y2="348"/>
+    <line x1="210" y1="238" x2="210" y2="348"/><line x1="245" y1="238" x2="245" y2="348"/>
+    <line x1="280" y1="238" x2="280" y2="348"/><line x1="315" y1="238" x2="315" y2="348"/>
+    <line x1="350" y1="238" x2="350" y2="348"/><line x1="385" y1="238" x2="385" y2="348"/>
+  </g>
+  <!-- Stitching lines -->
+  <line x1="100" y1="427" x2="400" y2="427" stroke="#7a5c20" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.55"/>
+  <line x1="108" y1="217" x2="108" y2="440" stroke="#7a5c20" stroke-width="1" opacity="0.35"/>
+  <line x1="392" y1="217" x2="392" y2="440" stroke="#7a5c20" stroke-width="1" opacity="0.35"/>
+  <!-- Label -->
+  <rect x="195" y="370" width="110" height="32" rx="4" fill="rgba(100,75,30,0.14)"/>
+  <text x="250" y="391" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6b4a1e" letter-spacing="2.5" font-style="italic">ZIP TOTE</text>
+</svg>

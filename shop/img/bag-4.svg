@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Top / open view looking down into the bag -->
+  <rect width="500" height="500" fill="#f7f3ee"/>
+
+  <!-- Outer bag rim (elliptical perspective from above) -->
+  <ellipse cx="250" cy="265" rx="200" ry="155" fill="#a87e38"/>
+
+  <!-- Zipper track around rim -->
+  <ellipse cx="250" cy="265" rx="200" ry="155" fill="none" stroke="#7a5c20" stroke-width="3" stroke-dasharray="10,5"/>
+
+  <!-- Inner bag opening -->
+  <ellipse cx="250" cy="268" rx="185" ry="142" fill="#c49a52"/>
+
+  <!-- Mesh insert visible from top -->
+  <ellipse cx="250" cy="268" rx="140" ry="105" fill="#b88c42" opacity="0.4"/>
+  <ellipse cx="250" cy="268" rx="140" ry="105" fill="none" stroke="#7a5c20" stroke-width="1.5"/>
+
+  <!-- Mesh grid (perspective-adjusted) -->
+  <g stroke="#7a5c20" stroke-width="0.7" opacity="0.45">
+    <!-- Horizontal ellipses through mesh -->
+    <ellipse cx="250" cy="248" rx="132" ry="8" fill="none"/>
+    <ellipse cx="250" cy="260" rx="138" ry="8" fill="none"/>
+    <ellipse cx="250" cy="272" rx="140" ry="8" fill="none"/>
+    <ellipse cx="250" cy="284" rx="138" ry="8" fill="none"/>
+    <ellipse cx="250" cy="296" rx="132" ry="8" fill="none"/>
+    <!-- Vertical lines through mesh -->
+    <line x1="180" y1="168" x2="172" y2="370"/>
+    <line x1="210" y1="163" x2="202" y2="375"/>
+    <line x1="240" y1="163" x2="238" y2="375"/>
+    <line x1="270" y1="163" x2="268" y2="375"/>
+    <line x1="300" y1="163" x2="298" y2="375"/>
+    <line x1="325" y1="168" x2="328" y2="370"/>
+  </g>
+
+  <!-- Handles viewed from top (short, going away) -->
+  <path d="M145 180 Q148 140 175 128 Q200 118 205 125"
+        fill="none" stroke="#6b4a1e" stroke-width="18" stroke-linecap="round"/>
+  <path d="M355 180 Q352 140 325 128 Q300 118 295 125"
+        fill="none" stroke="#6b4a1e" stroke-width="18" stroke-linecap="round"/>
+
+  <!-- Handle highlights -->
+  <path d="M148 178 Q151 142 177 131 Q200 122 204 128"
+        fill="none" stroke="rgba(255,200,120,0.22)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M352 178 Q349 142 323 131 Q300 122 296 128"
+        fill="none" stroke="rgba(255,200,120,0.22)" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Zipper pull tab -->
+  <rect x="385" y="162" width="10" height="16" rx="3" fill="#aaa"/>
+  <circle cx="390" cy="182" r="5" fill="#888"/>
+
+  <!-- Depth shadow inside bag walls -->
+  <ellipse cx="250" cy="268" rx="185" ry="142" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="16"/>
+
+  <!-- Label at bottom of interior -->
+  <text x="250" y="358" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6b4a1e" letter-spacing="2.5" font-style="italic" opacity="0.7">ZIP TOTE</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#e5e0d8"/>
+  <!-- Clutch / small bag silhouette -->
+  <rect x="115" y="100" width="170" height="115" rx="14" fill="#b8926a"/>
+  <rect x="115" y="100" width="170" height="24" rx="10" fill="#9a7450"/>
+  <line x1="130" y1="112" x2="270" y2="112" stroke="#7a5438" stroke-width="2" stroke-dasharray="7,4"/>
+  <!-- Strap -->
+  <path d="M200 100 Q200 68 230 62 Q270 55 280 80 Q286 95 280 100"
+        fill="none" stroke="#9a7450" stroke-width="12" stroke-linecap="round"/>
+  <!-- Clasp -->
+  <rect x="183" y="92" width="34" height="14" rx="5" fill="#c9a84c" stroke="#b89038" stroke-width="1.5"/>
+  <circle cx="200" cy="99" r="4" fill="#a07830"/>
+  <text x="200" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#888" letter-spacing="1">Accessories</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#dde4e0"/>
+  <!-- Tote silhouette with multiple items -->
+  <path d="M136 128 Q134 88 162 80 Q200 72 200 72 Q200 72 238 80 Q266 88 264 128"
+        fill="none" stroke="#607060" stroke-width="16" stroke-linecap="round"/>
+  <rect x="100" y="124" width="200" height="134" rx="12" fill="#8aab8a"/>
+  <rect x="100" y="124" width="200" height="26" rx="8" fill="#6a8a6a"/>
+  <line x1="116" y1="137" x2="284" y2="137" stroke="#4a6a4a" stroke-width="2" stroke-dasharray="7,4"/>
+  <!-- Small bags inside -->
+  <rect x="130" y="168" width="60" height="50" rx="6" fill="#7a9a7a"/>
+  <rect x="210" y="168" width="60" height="50" rx="6" fill="#6a8a6a"/>
+  <text x="200" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#888" letter-spacing="1">Collection</text>
+</svg>

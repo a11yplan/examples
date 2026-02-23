@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#ede6d8"/>
+  <!-- Backpack silhouette -->
+  <rect x="130" y="88" width="140" height="160" rx="20" fill="#c4a060"/>
+  <!-- Top compartment -->
+  <rect x="130" y="88" width="140" height="30" rx="12" fill="#a88040"/>
+  <!-- Straps -->
+  <path d="M155 248 Q150 270 148 280" fill="none" stroke="#a08040" stroke-width="14" stroke-linecap="round"/>
+  <path d="M245 248 Q250 270 252 280" fill="none" stroke="#a08040" stroke-width="14" stroke-linecap="round"/>
+  <!-- Front pocket -->
+  <rect x="148" y="188" width="104" height="50" rx="8" fill="#b89050"/>
+  <line x1="148" y1="203" x2="252" y2="203" stroke="#8a6830" stroke-width="2" stroke-dasharray="6,4"/>
+  <!-- Handle -->
+  <path d="M176 88 Q176 70 200 66 Q224 62 224 88"
+        fill="none" stroke="#a08040" stroke-width="12" stroke-linecap="round"/>
+  <text x="200" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#888" letter-spacing="1">Backpacks</text>
+</svg>

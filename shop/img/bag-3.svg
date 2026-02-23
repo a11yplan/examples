@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Back view of the same tan bag -->
+  <rect width="500" height="500" fill="#f7f3ee"/>
+  <ellipse cx="250" cy="462" rx="138" ry="14" fill="#00000015"/>
+
+  <!-- Handles (same shape as front, mirrored feel) -->
+  <path d="M170 185 Q168 108 212 98 Q250 90 250 90 Q250 90 288 98 Q332 108 330 185"
+        fill="none" stroke="#6b4a1e" stroke-width="22" stroke-linecap="round"/>
+  <path d="M174 185 Q172 114 214 104 Q250 96 250 96 Q250 96 286 104 Q328 114 326 185"
+        fill="none" stroke="rgba(255,200,120,0.22)" stroke-width="9" stroke-linecap="round"/>
+
+  <!-- Bag body back – slightly muted same color -->
+  <rect x="78" y="180" width="344" height="262" rx="18" fill="#bc9048"/>
+
+  <!-- Zipper strip top -->
+  <rect x="78" y="180" width="344" height="37" rx="10" fill="#a07838"/>
+  <line x1="100" y1="199" x2="386" y2="199" stroke="#7a5c20" stroke-width="2.5" stroke-dasharray="9,5"/>
+  <!-- Zipper pull (on left side from back = right when looking from front) -->
+  <rect x="108" y="191" width="9" height="16" rx="3" fill="#aaa"/>
+  <line x1="112" y1="207" x2="112" y2="218" stroke="#999" stroke-width="2"/>
+  <circle cx="112" cy="223" r="4.5" fill="#888"/>
+
+  <!-- Back slip pocket (flat, no zipper) -->
+  <rect x="130" y="250" width="240" height="145" rx="10" fill="#a87838" opacity="0.55"/>
+  <rect x="130" y="250" width="240" height="145" rx="10" fill="none" stroke="#7a5c20" stroke-width="1.5"/>
+
+  <!-- Pocket top stitching -->
+  <line x1="144" y1="263" x2="356" y2="263" stroke="#7a5c20" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>
+
+  <!-- Canvas texture lines (back is plainer) -->
+  <g stroke="#a07838" stroke-width="0.8" opacity="0.3">
+    <line x1="100" y1="230" x2="400" y2="230"/>
+    <line x1="100" y1="420" x2="400" y2="420"/>
+  </g>
+
+  <!-- Side seams -->
+  <line x1="108" y1="217" x2="108" y2="438" stroke="#7a5c20" stroke-width="1" opacity="0.35"/>
+  <line x1="392" y1="217" x2="392" y2="438" stroke="#7a5c20" stroke-width="1" opacity="0.35"/>
+
+  <!-- Bottom stitching -->
+  <line x1="100" y1="428" x2="400" y2="428" stroke="#7a5c20" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5"/>
+
+  <!-- Label -->
+  <rect x="195" y="408" width="110" height="30" rx="4" fill="rgba(100,75,30,0.13)"/>
+  <text x="250" y="428" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#6b4a1e" letter-spacing="2.5" font-style="italic">ZIP TOTE</text>
+</svg>

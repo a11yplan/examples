@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#e8e0d5"/>
+  <!-- Simple bag silhouette -->
+  <path d="M148 130 Q146 90 170 82 Q200 75 200 75 Q200 75 230 82 Q254 90 252 130"
+        fill="none" stroke="#a08060" stroke-width="16" stroke-linecap="round"/>
+  <rect x="110" y="126" width="180" height="130" rx="12" fill="#c49a60"/>
+  <rect x="110" y="126" width="180" height="24" rx="8" fill="#a07840"/>
+  <line x1="124" y1="138" x2="276" y2="138" stroke="#7a5c20" stroke-width="2" stroke-dasharray="7,4"/>
+  <text x="200" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#888" letter-spacing="1">Bags</text>
+</svg>

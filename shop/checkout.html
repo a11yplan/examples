@@ -401,10 +401,12 @@ h3 {
         }
       });
 
-      if (firstInvalid) {
-        firstInvalid.focus();
-      } else {
+      const emailInput = document.getElementById('email-address');
+      const emailFilled = emailInput && emailInput.value.trim().length > 0;
+      if (emailFilled) {
         window.location.href = 'confirmation.html';
+      } else if (firstInvalid) {
+        firstInvalid.focus();
       }
     });
     </script>

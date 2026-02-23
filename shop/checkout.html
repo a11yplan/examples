@@ -106,7 +106,6 @@ h3 {
       <header class="aama aami aanb aaog aaon aaqr aaqw aaqx aaqy aara aarc aard">
         <div class="aami aamo aani aank aana aaol aaqt aaqu aaqz">
           <a href="#">
-            <span class="aaly">Your Company</span>
             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%238b5cf6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='white'%3EL%3C/text%3E%3C/svg%3E" alt="" class="aamv aamy aaqs">
             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%238b5cf6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='white'%3EL%3C/text%3E%3C/svg%3E" alt="" class="aamq aamv aamy aaqq">
           </a>
@@ -182,52 +181,74 @@ h3 {
           </div>
           <h2 id="payment-and-shipping-heading" class="aaot aaox aapa aaol aaqz">Payment and shipping details</h2>
 
-          <form>
+          <form id="checkout-form" novalidate>
             <div class="aami aana aaol aaqv aaqz">
               <div class="aaml">
                 <div id="contact-info-heading" class="aaot aaox aapa">Contact information</div>
-    
+
                 <div class="aaml">
                   <div class="aamk">
-                    <input id="email-address" type="text" name="email-address" tabindex="1" aria-label="Email address" aria-invalid="true" required style="border-color: #dc2626 !important; outline-color: #dc2626 !important;" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
-                    <p style="color: #dc2626; font-size: 14px; margin-top: 4px;">Please correct</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="aamm">
-                <div id="shipping-heading" class="aaot aaox aapa">Shipping address</div>
-
-                <div class="aaml aamp aang aanp aans aaqi">
-                  <div class="aaqg">
-                    <div class="aamn aaov aaox aaoz">Address</div>
+                    <label for="email-address" class="aamn aaov aaox aaoz">Email address</label>
                     <div class="aamk">
-                      <input id="address" type="text" name="address" autocomplete="street-address" tabindex="3" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
-                    </div>
-                  </div>
-
-                  <div>
-                    <div class="aamn aaov aaox aaoz">City</div>
-                    <div class="aamk">
-                      <input id="city" type="text" name="city" autocomplete="address-level2" tabindex="4" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
-                    </div>
-                  </div>
-
-                  <div>
-                    <div class="aamn aaov aaox aaoz">State / Province</div>
-                    <div class="aamk">
-                      <input id="region" type="text" name="region" autocomplete="address-level1" tabindex="5" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
-                    </div>
-                  </div>
-
-                  <div>
-                    <div class="aamn aaov aaox aaoz">Postal code</div>
-                    <div class="aamk">
-                      <input id="postal-code" type="text" name="postal-code" autocomplete="postal-code" tabindex="6" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                      <input id="email-address" type="text" name="email-address" required aria-describedby="email-error" class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                      <p id="email-error" aria-live="polite" style="display:none; color: #dc2626; font-size: 12px; margin-top: 4px;"></p>
                     </div>
                   </div>
                 </div>
               </div>
+
+              <!-- Alternative block shown on email focus (WCAG 3.2.1 violation) -->
+              <div id="express-checkout-block" style="display: none;" class="aamm">
+                <div class="aaot aaox aapa">Express checkout available</div>
+                <div style="margin-top: 12px; padding: 16px; background: #f0fdf4; border: 1px solid #86efac; border-radius: 6px;">
+                  <p style="font-size: 14px; color: #166534; margin: 0 0 8px 0;">We found a saved address for this email. Use express checkout?</p>
+                  <div style="display: flex; gap: 8px; margin-top: 8px;">
+                    <button type="button" id="express-yes" style="font-size: 14px; padding: 6px 14px; background: #16a34a; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Yes, use saved address</button>
+                    <button type="button" id="express-no" style="font-size: 14px; padding: 6px 14px; background: transparent; color: #166534; border: 1px solid #86efac; border-radius: 4px; cursor: pointer;">No, enter manually</button>
+                  </div>
+                </div>
+              </div>
+
+              <div id="shipping-address-block" class="aamm">
+                <fieldset style="border: none; padding: 0; margin: 0;">
+                  <legend class="aaot aaox aapa">Shipping address</legend>
+
+                  <div class="aaml aamp aang aanp aans aaqi">
+                    <div class="aaqg">
+                      <label class="aamn aaov aaox aaoz">Address</label>
+                      <div class="aamk">
+                        <input id="address" type="text" name="address" autocomplete="street-address" required class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                        <p id="address-error" style="display:none; color: #dc2626; font-size: 12px; margin-top: 4px;">Eingabefehler</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="aamn aaov aaox aaoz">City</label>
+                      <div class="aamk">
+                        <input id="city" type="text" name="city" autocomplete="address-level2" required class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                        <p id="city-error" style="display:none; color: #dc2626; font-size: 12px; margin-top: 4px;">Eingabefehler</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="aamn aaov aaox aaoz">State / Province</label>
+                      <div class="aamk">
+                        <input id="region" type="text" name="region" autocomplete="address-level1" required class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                        <p id="region-error" style="display:none; color: #dc2626; font-size: 12px; margin-top: 4px;">Eingabefehler</p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="aamn aaov aaox aaoz">Postal code</label>
+                      <div class="aamk">
+                        <input id="postal-code" type="text" name="postal-code" autocomplete="postal-code" required class="aamn aamz aanx aaoh aaok aaom aaos aapa aapf aapg aaph aapm aapx aapy aapz aaqk">
+                        <p id="postal-error" style="display:none; color: #dc2626; font-size: 12px; margin-top: 4px;">Eingabefehler</p>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              </div><!-- end #shipping-address-block -->
 
               <div class="aamm">
                 <div class="aaot aaox aapa">Billing information</div>
@@ -235,7 +256,7 @@ h3 {
                 <div class="aaml aamo aanm">
                   <div class="aamo aamu aane aani">
                     <div class="aapj aamp aams aang">
-                      <input id="same-as-shipping" type="checkbox" name="same-as-shipping" checked="" tabindex="2" class="aamg aamh aanf aany aanz aaoc aaoh aapn aapo aapp aapq aaqa aaqb aaqc aaqd aaqe aaqf aarf">
+                      <input id="same-as-shipping" type="checkbox" name="same-as-shipping" checked="" class="aamg aamh aanf aany aanz aaoc aaoh aapn aapo aapp aapq aaqa aaqb aaqc aaqd aaqe aaqf aarf">
                       <svg viewBox="0 0 14 14" fill="none" class="aalx aamg aamh aamr aanv aanw aaoi aapl">
                         <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="aapd aapi"></path>
                         <path d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="aapd aapk"></path>
@@ -248,7 +269,7 @@ h3 {
     
               <div class="aamm aamo aaoa aaob aaop" style="display: flex; justify-content: space-between; align-items: center;">
                 <p style="font-size: 14px; color: #6b7280; margin: 0;">With purchase I agree to the <a href="#" style="color: oklch(51.1% .262 276.966); text-decoration: none;">terms and conditions</a></p>
-                <a href="confirmation.html" aria-label="Confirm purchase" class="aanx aanz aaod aaof aaol aaom aaou aaox aapc aape aapr aaps aapt aapu aapv aapw">Go</a>
+                <button type="submit" form="checkout-form" class="aanx aanz aaod aaof aaol aaom aaou aaox aapc aape aapr aaps aapt aapu aapv aapw">Go</button>
               </div>
             </div>
           </form>
@@ -258,23 +279,134 @@ h3 {
     
     <script>
     // 5-minute countdown timer (WCAG 2.2.1 violation - no pause/stop/extend)
-    let timeLeft = 300; // 5 minutes in seconds
+    let timeLeft = 300;
     const timerElement = document.getElementById('countdown-timer');
 
     function updateTimer() {
       const minutes = Math.floor(timeLeft / 60);
       const seconds = timeLeft % 60;
       timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
       if (timeLeft > 0) {
         timeLeft--;
       } else {
         timerElement.textContent = '0:00';
       }
     }
-
     updateTimer();
     setInterval(updateTimer, 1000);
+
+    // Form validation
+    const ERROR_BORDER = 'border-color: #dc2626 !important; outline-color: #dc2626 !important;';
+
+    const fields = [
+      {
+        id: 'email-address',
+        errorId: 'email-error',
+        validate(val) {
+          if (!val) return 'Please enter your email address.';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return 'Please enter a valid email address.';
+          return null;
+        }
+      },
+      {
+        id: 'address',
+        errorId: 'address-error',
+        validate(val) { return val ? null : 'Error'; }
+      },
+      {
+        id: 'city',
+        errorId: 'city-error',
+        hideMessage: true,
+        validate(val) { return val ? null : 'Please enter your city.'; }
+      },
+      {
+        id: 'region',
+        errorId: 'region-error',
+        hideMessage: true,
+        validate(val) { return val ? null : 'Please enter your state or province.'; }
+      },
+      {
+        id: 'postal-code',
+        errorId: 'postal-error',
+        hideMessage: true,
+        validate(val) { return val ? null : 'Please enter your postal code.'; }
+      }
+    ];
+
+    function showError(input, errorEl, message, hideMessage) {
+      input.setAttribute('aria-invalid', 'true');
+      input.style.cssText = ERROR_BORDER;
+      if (!hideMessage) {
+        errorEl.textContent = message;
+        errorEl.style.display = 'block';
+      }
+    }
+
+    function clearError(input, errorEl) {
+      input.removeAttribute('aria-invalid');
+      input.style.cssText = '';
+      errorEl.textContent = '';
+      errorEl.style.display = 'none';
+    }
+
+    // Live validation on blur
+    fields.forEach(({ id, errorId, validate, hideMessage }) => {
+      const input = document.getElementById(id);
+      const errorEl = document.getElementById(errorId);
+      input.addEventListener('blur', () => {
+        const error = validate(input.value.trim());
+        error ? showError(input, errorEl, error, hideMessage) : clearError(input, errorEl);
+      });
+      input.addEventListener('input', () => {
+        if (input.getAttribute('aria-invalid') === 'true') {
+          const error = validate(input.value.trim());
+          error ? showError(input, errorEl, error, hideMessage) : clearError(input, errorEl);
+        }
+      });
+    });
+
+    // WCAG 3.2.1 Verstoß: Fokus auf E-Mail löst Kontextwechsel aus
+    const emailInput = document.getElementById('email-address');
+    const shippingBlock = document.getElementById('shipping-address-block');
+    const expressBlock = document.getElementById('express-checkout-block');
+
+    emailInput.addEventListener('focus', () => {
+      shippingBlock.style.display = 'none';
+      expressBlock.style.display = 'block';
+    });
+
+    document.getElementById('express-no').addEventListener('click', () => {
+      expressBlock.style.display = 'none';
+      shippingBlock.style.display = 'block';
+    });
+
+    document.getElementById('express-yes').addEventListener('click', () => {
+      expressBlock.style.display = 'none';
+      shippingBlock.style.display = 'block';
+    });
+
+    document.getElementById('checkout-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      let firstInvalid = null;
+
+      fields.forEach(({ id, errorId, validate, hideMessage }) => {
+        const input = document.getElementById(id);
+        const errorEl = document.getElementById(errorId);
+        const error = validate(input.value.trim());
+        if (error) {
+          showError(input, errorEl, error, hideMessage);
+          if (!firstInvalid) firstInvalid = input;
+        } else {
+          clearError(input, errorEl);
+        }
+      });
+
+      if (firstInvalid) {
+        firstInvalid.focus();
+      } else {
+        window.location.href = 'confirmation.html';
+      }
+    });
     </script>
     </body></html><!-- test comment -->
 <!-- test 2 -->
